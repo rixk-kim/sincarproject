@@ -29,6 +29,9 @@ public class LoginActivityPre extends Activity implements View.OnClickListener {
 
         login_btn = (Button) findViewById(R.id.login_btn);
         login_btn.setOnClickListener(this);
+
+        memberjoin_btn = (Button) findViewById(R.id.memberjoin_btn);
+        memberjoin_btn.setOnClickListener(this);
     }
 
     /**
@@ -50,6 +53,15 @@ public class LoginActivityPre extends Activity implements View.OnClickListener {
                 startActivity(intent);
                 // 최초 생성 후 이동 시 제거
                 finish();
+                break;
+
+            case R.id.memberjoin_btn:
+                //회원가입 이동
+                Intent intent1 = new Intent(LoginActivityPre.this, com.sincar.customer.MemberShipActivity.class);
+                startActivity(intent1);
+                // 최초 생성 후 이동 시 제거
+                finish();
+                break;
 
         }
     }

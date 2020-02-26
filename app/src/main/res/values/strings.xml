@@ -56,6 +56,8 @@
     <string name="hint_phone_title">휴대폰 번호</string>
     <string name="login_text">모빌리티 수익공유 플랫폼</string>
     <string name="hint_password_title">비밀번호</string>
+    <string name="member_login">로그인</string>
+    <string name="member_join">회원가입</string>
 
     <!-- EditBox hint -->
     <string name="hint_new_password1">새 비밀번호</string>

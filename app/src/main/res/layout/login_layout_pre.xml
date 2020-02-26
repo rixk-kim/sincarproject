@@ -33,7 +33,7 @@
     <LinearLayout
         android:id="@+id/linearlayout02"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:layout_marginTop="30dp"
         android:gravity="center"
         android:orientation="vertical">
@@ -44,48 +44,88 @@
             android:layout_gravity="center"
             android:gravity="center|center_horizontal|center_vertical"
             android:textColor="#3e3e3e"
-            android:textSize="18sp"
+            android:textSize="17sp"
             android:textStyle="bold"
             tools:text="신차로, 처음이세요?" />
-
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearlayout03"
+        android:layout_width="match_parent"
+        android:layout_height="18dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="vertical">
         <TextView
             android:id="@+id/login_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="12dp"
             android:layout_marginEnd="40dp"
             android:gravity="center_horizontal|center_vertical"
-            android:lineSpacingExtra="4sp"
             android:text="@string/login_text"
             android:textColor="#3e3e3e"
-            android:textSize="17sp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
     </LinearLayout>
 
 
-
-
-    <Button
-        android:id="@+id/login_btn"
-        android:layout_width="280dp"
+    <LinearLayout
+        android:id="@+id/linearlayout04"
+        android:layout_width="248dp"
         android:layout_height="52dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="40dp"
+        android:layout_gravity="center|center_horizontal|center_vertical"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_width="248dp"
+            android:layout_height="52dp"
+            android:layout_gravity="center|center_horizontal|center_vertical"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/default_button_7dp"
+            android:gravity="center|center_horizontal|center_vertical"
+            android:shadowColor="#C4C4C4"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="7"
+            android:text="@string/member_login"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearlayout05"
+        android:layout_width="248dp"
+        android:layout_height="52dp"
+        android:layout_gravity="center|center_horizontal|center_vertical"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="40dp"
-        android:background="@drawable/default_button_7dp"
-        android:shadowColor="#C4C4C4"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="7"
-        android:text="@string/btn_confirm"
-        android:textColor="#FFFFFF"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_password2" />
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/memberjoin_btn"
+            android:layout_width="248dp"
+            android:layout_height="52dp"
+            android:layout_gravity="center|center_horizontal|center_vertical"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/white_button_7dp"
+            android:gravity="center|center_horizontal|center_vertical"
+            android:shadowColor="#C4C4C4"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="7"
+            android:text="@string/member_join"
+            android:textColor="#3e3e3e"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
 <!--
     <RelativeLayout
         android:layout_width="241dp"
