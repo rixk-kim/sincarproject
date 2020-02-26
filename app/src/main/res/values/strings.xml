@@ -1,0 +1,97 @@
+<resources>
+    <string name="app_name">steam</string>
+
+    <string name="notice">알림</string>
+    <string name="confirm">확인</string>
+    <string name="cancel">취소</string>
+
+    <string name="not_register_device_msg">등록되지 않은 기기 입니다.\n관리자에게 문의하세요.</string>
+    <string name="fail_to_server_connect_msg">서버와 통신에 실패하였습니다.\n네트워크 (LTE, wifi)를 확인 후 다시 시도하여 주세요.</string>
+    <string name="connect_server_msg">서버와 통신중 입니다.\n잠시만 기다려 주세요.</string>
+    <string name="error_network_connected">네트워크상의 문제로 연결이 되지 않았습니다.</string>
+    <string name="server_accept_failed_connect_msg">서버에 연결할 수 없습니다.\n관리자에게 문의하세요.</string>
+    <string name="server_connect_error">서버와 통신에 실패하였습니다.</string>
+
+    <string name="fail_to_start_msg">어플리케이션 사용 설정에 실패하였습니다.\n관리자에게 문의하세요.</string>
+
+    <string name="read_phone_state_fails_content_msg">어플리케이션 설정으로 이동하여 %s을(를) 허용하시겠습니까?\n허용하지 않으면 로그인할 수 없습니다.</string>
+    <string name="read_phone_state_fails_msg">전화번호 읽기를 허용하지 않아 로그인할 수 없습니다.</string>
+    <string name="access_fine_location_fails_content_msg">어플리케이션 설정으로 이동하여 위치정보 사용을 허용하시겠습니까?\n허용하지 않으면 점포 검색을 사용할 수 없습니다.</string>
+    <string name="access_fine_location_fails_msg">위치정보 사용을 허용하지 않아 점포 검색을 사용할 수 없습니다.</string>
+    <string name="camera_fails_content_msg">어플리케이션 설정으로 이동하여 카메라 사용을 허용하시겠습니까?\n허용하지 않으면 사진을 찍을 수 없습니다.</string>
+    <string name="camera_fails_msg">카메라 사용을 허용하지 않아 사진을 찍을 수 없습니다.</string>
+    <string name="read_write_fails_content_msg">어플리케이션 설정으로 이동하여 카메라 사용을 허용하시겠습니까?\n허용하지 않으면 사진을 찍을 수 없습니다.</string>
+    <string name="read_write_fails_msg">카메라 사용을 허용하지 않아 사진을 찍을 수 없습니다.</string>
+
+    <!-- splash -->
+    <string name="splash_title">STEAM</string>
+    <string name="copy_right_msg">COPYRIGHT 2019, SPIRIT, MOBILE SOLUTION\nALL RIGHT RESERVED.</string>
+
+    <string name="not_correct_your_info_msg">코드, 아이디, 비밀번호가 일치하지 않습니다.</string>
+    <string name="not_register_user_msg">사전에 등록되지 않은 사용자 정보입니다.\n담당자에게 문의 바랍니다.</string>
+    <string name="input_company_code_msg">코드를 입력하세요.</string>
+    <string name="input_id_msg">전화번호를 입력하세요.</string>
+    <string name="input_pwd_msg">비밀번호를 입력하세요.</string>
+
+    <string name="auto_login_save_msg">로그인 유지가 저장 되었습니다.</string>
+    <string name="auto_login_clear_msg">로그인 유지가 해제 되었습니다.</string>
+    <string name="success_login_msg">로그인 되었습니다.</string>
+    <string name="fail_Login_msg">로그인에 실패하였습니다.</string>
+    <string name="title_activity_maps">Map</string>
+
+    <!-- 5. 비밀번호 변경 시작 -->
+    <string name="title_activity_password_change">비밀번호 변경</string>
+
+    <string name="desc_activity_password_change">변경하실 새 비밀번호를 입력해주세요.\n(영문+숫자 조합 8자리 이상)</string>
+    <string name="password_change_success">비밀번호 재설정이 완료되었습니다.\n로그인 해주시기 바랍니다.</string>
+
+    <!-- 공통 -->
+    <string name="actionbar_back_description">이전버튼</string>
+    <string name="btn_confirm">확인</string>
+
+    <!-- 이미지 description -->
+    <string name="lock_description">Lock 아이콘</string>
+
+    <!-- login -->
+    <string name="hint_phone_title">휴대폰 번호</string>
+    <string name="login_text">모빌리티 수익공유 플랫폼</string>
+    <string name="hint_password_title">비밀번호</string>
+
+    <!-- EditBox hint -->
+    <string name="hint_new_password1">새 비밀번호</string>
+    <string name="hint_new_password2">새 비밀번호 확인</string>
+    <!-- 5. 비밀번호 변경 끝 -->
+
+    <!-- 8. 프로필 사진 변경 시작 -->
+    <string name="title_profile_photo_change">프로필 사진 변경</string>
+    <!-- 8. 프로필 사진 변경 종료 -->
+
+    <!-- 19. 활동 지역 설정 시작 -->
+    <string name="title_activity_active_area_settings">내 정보 관리</string>
+    <!-- 21. 활동 지역 설정 종료 -->
+
+    <!-- 19. 활동 지역 추가 시작 -->
+    <string name="title_activity_active_area_add">내 정보 관리</string>
+    <!-- 21. 활동 지역 추가 종료 -->
+
+    <!-- 21. 내 정보 관리 시작 -->
+    <string name="title_activity_my_profile_settings">내 정보 관리</string>
+    <!-- 21. 내 정보 관리 종료 -->
+
+    <!-- 22. 대리점 정보 시작 -->
+    <string name="title_branch_info">대리점 정보</string>
+    <!-- 22. 대리점 정보 종료 -->
+
+    <!-- 23. 운전면허증 정보 시작 -->
+    <string name="title_activity_driver_license_info">운전면허증 정보</string>
+    <!-- 23. 운전면허증 정보 종료 -->
+
+    <!-- 24. 알림 및 버전 정보 시작 -->
+    <string name="title_activity_push_and_version">알림 및 버전 정보</string>
+    <!-- 24. 알림 및 버전 정보 종료 -->
+
+    <!-- template 시작 -->
+    <string name="title_activity_template">템플릿 화면</string>
+    <string name="title_activity_profile_photo_change">ProfilePhotoChangeActivity</string>
+    <!-- template 종료 -->
+</resources>

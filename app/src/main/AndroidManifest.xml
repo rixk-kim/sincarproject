@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.sincar.customer">
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- <uses-permission android:name="android.permission.CAMERA" /> -->
+    <!-- 카메라 기능 사용 (이미지솔루션) -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 디바이스 상태값 읽기 (Hone) -->
+    <uses-permission android:name="android.permission.CALL_PHONE" /> <!-- 전화걸기(bizapp) -->
+    <!-- <uses-permission android:name="android.permission.GET_ACCOUNTS" /> -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 내부저장소 쓰기 (native) -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 내부저장소 읽기 (전체 : 파일을 읽기위해) -->
+    <!-- <uses-permission android:name="android.permission.RECEIVE_SMS"/> -->
+    <!-- SMS 인증번호 자동 삽입을 위해 -->
+    <!-- END -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 인터넷 권한 (전체) -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission
+        android:name="android.permission.ACCESS_WIFI_STATE"
+        tools:node="merge" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.location.gps" />
+
+    <application
+        android:name=".HWApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".SplashActivity"
+            android:clearTaskOnLaunch="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 로그인 -->
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <!-- 14. 메인(대리점 홈 화면) -->
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <!-- 15. 영업시간 설정 메인 -->
+        <activity
+            android:name=".BusinessHourMainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <!-- 16. 예약 접수건 -->
+        <activity android:name=".ReservationListActivity" />
+        <activity android:name=".ReservationDetailActivity" />
+
+        <!-- 5. 비밀번호 변경 -->
+        <activity
+            android:name=".PasswordChangeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <!-- 8. 프로필 사진 변경 -->
+        <activity
+            android:name=".ProfilePhotoChangeActivity"
+            android:label="@string/title_activity_profile_photo_change"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- 17. 세차지 위지 치도 -->
+        <activity
+            android:name=".MapsActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_maps" />
+
+        <!-- 21. 내 정보 관리 -->
+        <activity android:name=".MyProfileSettingsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"  />
+
+        <!-- 19. 활동 지역 설정 -->
+        <activity android:name=".ActiveAreaSettingsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"  />
+
+        <!-- 19. 활동 지역 추가 -->
+        <activity android:name=".ActiveAreaAddActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"  />
+
+        <!-- 22. 대리점 정보 시작 -->
+        <activity android:name=".BranchInfoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"  />
+
+        <!-- 23. 운전면허증 정보 -->
+        <activity android:name=".DriverLicenseInfoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"  />
+
+        <!-- 24. 알림 및 버전 정보 시작 -->
+        <activity android:name=".PushAndVersionActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"  />
+
+        <!-- template activity -->
+        <activity android:name=".TemplateActivity" />
+
+
+        <!-- Provider -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+    </application>
+
+</manifest>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="customColorPrimary">#FFFFFF</color>
+    <color name="customColorPrimary1">#FFFFFF</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="textColorPrimary">#3E3E3E</color>
+
+
+    <color name="light_green300">#AED581</color>
+    <color name="green700">#388E3C</color>
+
+    <!-- Basic Color -->
+    <color name="base_background_color">#FFFFFF</color>
+
+    <!-- Sub Color -->
+    <color name="sub_color_1">#b0bec5</color>
+    <color name="sub_color_2">#455A64</color>
+    <color name="sub_color_3">#263238</color>
+    <color name="sub_color_4">#4F5F6F</color>
+    <color name="sub_color_5">#c1c1c1</color>
+
+    <color name="default_text_color">#000000</color>
+    <color name="sub_text_color">#C1C1C1</color>
+    <color name="title_text_color">#263238</color>
+    <color name="menu_text_color_1">#515c61</color>
+    <color name="gradient_color">#c9d2d7</color>
+
+    <color name="select_input_box_bg">#FAE0D4</color>
+    <color name="color_cyan">#FF00e5ff</color>
+
+    <color name="sub_main_menu12_bg">#546e7a</color>
+
+    <color name="point_color_red">#f50057</color>
+    <color name="point_color_blue">#00e5ff</color>
+
+    <color name="iconText">#e4f9f5</color>
+    <color name="background">#11999E</color>
+
+    <color name="color_table_1">#f0f3f6</color>
+
+</resources>
+
