@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">steam</string>
+    <string name="app_name">신차로</string>
 
     <string name="notice">알림</string>
     <string name="confirm">확인</string>
@@ -24,8 +24,8 @@
     <string name="read_write_fails_msg">카메라 사용을 허용하지 않아 사진을 찍을 수 없습니다.</string>
 
     <!-- splash -->
-    <string name="splash_title">STEAM</string>
-    <string name="copy_right_msg">COPYRIGHT 2019, SPIRIT, MOBILE SOLUTION\nALL RIGHT RESERVED.</string>
+    <string name="splash_title">신차로</string>
+    <string name="copy_right_msg">COPYRIGHT 2020, SINCHARO, MOBILE SOLUTION\nALL RIGHT RESERVED.</string>
 
     <string name="not_correct_your_info_msg">코드, 아이디, 비밀번호가 일치하지 않습니다.</string>
     <string name="not_register_user_msg">사전에 등록되지 않은 사용자 정보입니다.\n담당자에게 문의 바랍니다.</string>
