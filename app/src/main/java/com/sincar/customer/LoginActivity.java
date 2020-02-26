@@ -29,10 +29,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.sincar.customer.common.Constants;
 import com.sincar.customer.network.DataObject;
 import com.sincar.customer.network.JsonParser;
 import com.sincar.customer.network.NetWorkController;
+import com.sincar.customer.network.VolleyNetwork;
 import com.sincar.customer.preference.PreferenceManager;
 import com.sincar.customer.util.DataParser;
 import com.sincar.customer.util.Util;
@@ -45,6 +47,7 @@ import java.net.MalformedURLException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -121,7 +124,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Net
 
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     // 로그인 요청
-                    requestLogin();
+                    //requestLogin();
                 }
 
                 return false;
@@ -223,21 +226,28 @@ public class LoginActivity extends Activity implements View.OnClickListener, Net
      * ip4 : UUID (로컬 생성 및 저장)
      */
     private void requestLogin() {
-        try {
-            NetWorkController mNetworkController = new NetWorkController(Constants.LOGIN_REQUEST, LoginActivity.this);
-            HashMap<String, String> postParams = new HashMap<String, String>();
-            // 사용자 전화번호
-            postParams.put("phoneNumber", idEt.getText().toString().trim());
-            // 사용자 패스워드
-            postParams.put("pw", pwEt.getText().toString().trim());
-            // UUID
-            //postParams.put("ip4", PreferenceManager.getInstance().getDeviceUUID());
-            mNetworkController.setHttpConnectionListner(this);
-            mNetworkController.sendParams(postParams);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+
+        HashMap<String, String> postParams = new HashMap<String, String>();
+        // 사용자 전화번호
+        postParams.put("phoneNumber", idEt.getText().toString().trim());
+        // 사용자 패스워드
+        postParams.put("pw", pwEt.getText().toString().trim());
+
+        //volley
+        VolleyNetwork.getInstance(this).passwordChangeRequest("url", postParams, onResponseListener);
     }
+
+    VolleyNetwork.OnResponseListener onResponseListener = new VolleyNetwork.OnResponseListener() {
+        @Override
+        public void onResponseSuccessListener(String it) {
+            startLogin();
+        }
+
+        @Override
+        public void onResponseFailListener(VolleyError it) {
+
+        }
+    };
 
     /**
      * 로그인 성공 후 메인 이동
