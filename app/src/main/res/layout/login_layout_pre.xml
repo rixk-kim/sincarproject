@@ -40,14 +40,14 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="18dp"
+            android:layout_height="22dp"
             android:layout_gravity="center"
             android:gravity="center|center_horizontal|center_vertical"
             android:textColor="#3e3e3e"
             android:textSize="17sp"
             android:textStyle="bold"
             android:layout_marginTop="36dp"
-            tools:text="신차로, 처음이세요?" />
+            android:text="@string/login_text1" />
 <!--    </LinearLayout>-->
 <!--    <LinearLayout-->
 <!--        android:id="@+id/linearlayout03"-->
@@ -59,10 +59,10 @@
         <TextView
             android:id="@+id/login_text"
             android:layout_width="wrap_content"
-            android:layout_height="17dp"
+            android:layout_height="20dp"
             android:layout_marginTop="16dp"
             android:layout_gravity="center_horizontal"
-            android:text="@string/login_text"
+            android:text="@string/login_text2"
             android:textColor="#3e3e3e"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
