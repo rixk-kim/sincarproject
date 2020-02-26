@@ -150,7 +150,7 @@ public class SplashActivity extends Activity {
     private void startApp() {
 
         // 로그인 이동
-        Intent intent = new Intent(SplashActivity.this, com.sincar.customer.LoginActivity.class);
+        Intent intent = new Intent(SplashActivity.this, com.sincar.customer.LoginActivityPre.class);
         startActivity(intent);
         // 최초 생성 후 이동 시 제거
         finish();
