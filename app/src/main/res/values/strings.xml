@@ -54,7 +54,8 @@
 
     <!-- login -->
     <string name="hint_phone_title">휴대폰 번호</string>
-    <string name="login_text">모빌리티 수익공유 플랫폼</string>
+    <string name="login_text1">신차로, 처음이세요?</string>
+    <string name="login_text2">모빌리티 수익공유 플랫폼</string>
     <string name="hint_password_title">비밀번호</string>
     <string name="member_login">로그인</string>
     <string name="member_join">회원가입</string>
