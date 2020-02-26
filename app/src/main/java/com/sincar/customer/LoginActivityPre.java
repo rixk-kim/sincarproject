@@ -52,7 +52,7 @@ public class LoginActivityPre extends Activity implements View.OnClickListener {
                 Intent intent = new Intent(LoginActivityPre.this, com.sincar.customer.LoginActivity.class);
                 startActivity(intent);
                 // 최초 생성 후 이동 시 제거
-                finish();
+                //finish();
                 break;
 
             case R.id.memberjoin_btn:
@@ -60,7 +60,7 @@ public class LoginActivityPre extends Activity implements View.OnClickListener {
                 Intent intent1 = new Intent(LoginActivityPre.this, com.sincar.customer.MemberShipActivity.class);
                 startActivity(intent1);
                 // 최초 생성 후 이동 시 제거
-                finish();
+                //finish();
                 break;
 
         }
