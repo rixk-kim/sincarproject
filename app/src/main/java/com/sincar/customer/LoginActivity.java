@@ -175,6 +175,15 @@ public class LoginActivity extends Activity implements View.OnClickListener, Net
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+
+            case R.id.btnBack:
+                // 메인 이동
+                Intent intent = new Intent(LoginActivity.this, com.sincar.customer.LoginActivityPre.class);
+                startActivity(intent);
+                // 최초 생성 후 이동 시 제거
+                finish();
+                break;
+
             // 로그인 버튼
             case R.id.login_btn:
                 // 전화번호 입력 검증
@@ -199,8 +208,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, Net
 
 
                 // 메인 이동
-                Intent intent = new Intent(LoginActivity.this, com.sincar.customer.MainActivity.class);
-                startActivity(intent);
+                Intent intent1 = new Intent(LoginActivity.this, com.sincar.customer.MainActivity.class);
+                startActivity(intent1);
                 // 최초 생성 후 이동 시 제거
                 finish();
 
