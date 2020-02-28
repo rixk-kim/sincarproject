@@ -217,18 +217,18 @@ public class MemberShipActivity extends Activity implements View.OnClickListener
 
     private void runCamera(boolean _isCapture)
     {
-        if (!_isCapture)
-        {// 갤러리 띄운다.
-            Intent pickIntent = new Intent(Intent.ACTION_PICK);
-            pickIntent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-            pickIntent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-            String pickTitle = "사진 가져올 방법을 선택하세요.";
-            Intent chooserIntent = Intent.createChooser(pickIntent, pickTitle);
-
-            startActivityForResult(chooserIntent, FILECHOOSER_LOLLIPOP_REQ_CODE);
-            return;
-        }
+//        if (!_isCapture)
+//        {// 갤러리 띄운다.
+//            Intent pickIntent = new Intent(Intent.ACTION_PICK);
+//            pickIntent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+//            pickIntent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//
+//            String pickTitle = "사진 가져올 방법을 선택하세요.";
+//            Intent chooserIntent = Intent.createChooser(pickIntent, pickTitle);
+//
+//            startActivityForResult(chooserIntent, FILECHOOSER_LOLLIPOP_REQ_CODE);
+//            return;
+//        }
 
         Intent intentCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

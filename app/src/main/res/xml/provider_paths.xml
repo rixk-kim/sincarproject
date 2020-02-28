@@ -20,4 +20,5 @@
     <!--<external-path name="cache" path="." />-->
     <external-path name="external_files" path="." />
     <!--<files-path path="." name="cache" />-->
+    <root-path name="root" path="."/>
 </paths>
