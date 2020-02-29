@@ -8,6 +8,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import com.sincar.customer.util.BackPressedUtil;
+
 /**
  * 2020.02.26 spirit
  * 로그인 , 회원가입 선택 액티비티
@@ -19,6 +21,8 @@ public class LoginActivityPre extends Activity implements View.OnClickListener {
     private Button memberjoin_btn;
     //===================== 뷰 =====================
 
+    private BackPressedUtil mBackPressedUtil;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +30,8 @@ public class LoginActivityPre extends Activity implements View.OnClickListener {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.login_layout_pre);
+
+        mBackPressedUtil = new BackPressedUtil(this);
 
         login_btn = (Button) findViewById(R.id.login_btn);
         login_btn.setOnClickListener(this);
@@ -38,9 +44,15 @@ public class LoginActivityPre extends Activity implements View.OnClickListener {
      * 앱 종료
      */
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        this.finish();
+    public void onBackPressed()
+    {
+        try
+        {
+            mBackPressedUtil.onBackPressed();
+        }catch (Exception e1){
+            e1.printStackTrace();
+            super.onBackPressed();
+        }
     }
 
     @Override

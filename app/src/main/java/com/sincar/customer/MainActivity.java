@@ -7,12 +7,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import static com.sincar.customer.HWApplication.voLoginData;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //LoginEntity vo = new LoginEntity();
+        //System.out.println("[spirit] 회원번호 : " + voLoginData.getMemberNo());
+        //System.out.println("[spirit] App Version : " + voLoginData.getAppVersion());
 
         // 화면 초기화
         init();

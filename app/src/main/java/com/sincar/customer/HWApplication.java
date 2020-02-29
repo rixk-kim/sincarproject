@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import androidx.multidex.MultiDexApplication;
 
+import com.sincar.customer.entity.LoginDataEntity;
 import com.sincar.customer.preference.PreferenceManager;
 
 //import com.softforum.xecure.XApplication;
@@ -32,6 +33,8 @@ public class HWApplication extends MultiDexApplication {
 //    // isLogout랑 같이 쓰려 했지만 코드 영향도 위험땜에 그냥 따로 만듬
 //    public static boolean loggedin = false;
 
+    public static LoginDataEntity voLoginData;
+
     AppStatus mAppStatus;
     @Override
     public void onCreate() {
@@ -53,6 +56,8 @@ public class HWApplication extends MultiDexApplication {
 
         // 프리퍼런스 셋팅
         PreferenceManager.getInstance().init(getApplicationContext());
+
+        voLoginData = new LoginDataEntity();
 
         // 기본 폰트 : 나눔 고딕
         // 기본 볼드 폰트 : 나눔 고딕

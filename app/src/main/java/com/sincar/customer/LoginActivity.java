@@ -27,6 +27,7 @@ import com.sincar.customer.network.DataObject;
 import com.sincar.customer.network.JsonParser;
 import com.sincar.customer.network.NetWorkController;
 import com.sincar.customer.network.VolleyNetwork;
+import com.sincar.customer.util.BackPressedUtil;
 import com.sincar.customer.util.DataParser;
 import com.sincar.customer.util.Util;
 
@@ -39,6 +40,9 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.sincar.customer.HWApplication.voLoginData;
+import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
+
 
 /**
  * 2020.02.17 spirit
@@ -46,7 +50,7 @@ import java.util.HashMap;
  * 1. 점주 검증
  * 2. 로그인 서버 통신 확인. 성공여부. (앱 버전 체크 및 업그레이드 진행)
  */
-public class LoginActivity extends Activity implements View.OnClickListener, NetWorkController.NetworkControllerListener {
+public class LoginActivity extends Activity implements View.OnClickListener {
     private static final String TAG = LoginActivity.class.getSimpleName();
     //===================== 뷰 =====================
     private EditText idEt, pwEt;
@@ -74,16 +78,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, Net
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.login_layout);
 
-        // 로그아웃 상태 플래그
-       // isLogout = getIntent().getBooleanExtra("isLogout", false);
-        // 업데이트 상태 플래그
-        //isUpdate = getIntent().getBooleanExtra("isUpdate", false);
-
-        // 파일 다운로드 URL
-//        if (isUpdate) {
-//            updateUrl = getIntent().getStringExtra("url");
-//        }
-
         // 화면 초기화
         init();
     }
@@ -92,35 +86,25 @@ public class LoginActivity extends Activity implements View.OnClickListener, Net
      * 화면 초기화
      */
     private void init() {
-        // 전화번호 입력란 구현....
-        // 로그인 요청
-        //requestLogin();
-
         login_btn = (Button) findViewById(R.id.login_btn);
         login_btn.setOnClickListener(this);
-//
-//
-//
+
         // 전화번호 입력
         idEt = (EditText) findViewById(R.id.user_id_et);
         // 비밀번호 입력
         pwEt = (EditText) findViewById(R.id.user_pwd_et);
 
-
         // 비밀번호 입력 후 확인 버튼 클릭 시
         pwEt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    // 로그인 요청
-                    //requestLogin();
-                }
-
-                return false;
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                // 로그인 요청
+                //requestLogin();
+            }
+            return false;
             }
         });
-
     }
 
     /**
@@ -196,16 +180,17 @@ public class LoginActivity extends Activity implements View.OnClickListener, Net
                     }
                 }
 
+                startLogin("sss");
+
                 // 로그인 요청
 //                requestLogin();
-
-
+/*
                 // 메인 이동
                 Intent intent1 = new Intent(LoginActivity.this, com.sincar.customer.MainActivity.class);
                 startActivity(intent1);
                 // 최초 생성 후 이동 시 제거
                 finish();
-
+*/
          }
     }
 
@@ -223,14 +208,14 @@ public class LoginActivity extends Activity implements View.OnClickListener, Net
         // 사용자 패스워드
         postParams.put("pw", pwEt.getText().toString().trim());
 
-        //volley
-        VolleyNetwork.getInstance(this).passwordChangeRequest("url", postParams, onResponseListener);
+        //로그인 요청
+        VolleyNetwork.getInstance(this).passwordChangeRequest(LOGIN_REQUEST, postParams, onResponseListener);
     }
 
     VolleyNetwork.OnResponseListener onResponseListener = new VolleyNetwork.OnResponseListener() {
         @Override
         public void onResponseSuccessListener(String it) {
-            startLogin();
+            startLogin(it);
         }
 
         @Override
@@ -242,7 +227,95 @@ public class LoginActivity extends Activity implements View.OnClickListener, Net
     /**
      * 로그인 성공 후 메인 이동
      */
-    private void startLogin() {
+    private void startLogin(String it) {
+/*
+it =>  {"login": [{"REGISTER":"1","CAUSE":"비밀번호 오류","MEMBER_NO":"12345","VERSION":"1.0.1","APK_URL":"http://sincar.co.kr/apk/manager_1.0.1.apk",
+"MEMBER_NAME":"신차로","MEMBER_PHONE":"01012345678","MEMBER_RECOM_CODE":"FCF816","PROFILE_DOWN_URL":"http://~~",
+"LICENSE_DOWN_URL":"http://~~","AD_NUM":"3","MY_POINT":"5,430","INVITE_NUM":"7","INVITE_FRI_NUM":"7","ACCUM_POINT":"3,870"}],
+
+"DATA":[{"FRI_NAME":"김민정","USE_SERVICE":"스팀세차","SAVE_DATE":"20.02.26","FRI_POINT":"100"},{"FRI_NAME":"이하영","USE_SERVICE":"스팀세차","SAVE_DATE":"20.02.28","FRI_POINT":"120"}],
+"advertise":[{"AD_IMAGE_URL":"http://~~"},{"AD_IMAGE_URL":"http://~~"},{"AD_IMAGE_URL"""http://~~"}]}
+*/
+        it = "{login: [{\"REGISTER\":\"1\",\"CAUSE\":\"비밀번호 오류\",\"MEMBER_NO\":\"12345\",\"VERSION\":\"1.0.1\",\"APK_URL\":\"http://sincar.co.kr/apk/manager_1.0.1.apk\",\"MEMBER_NAME\":\"신차로\",\"MEMBER_PHONE\":\"01012345678\",\"MEMBER_RECOM_CODE\":\"FCF816\",\"PROFILE_DOWN_URL\":\"http://~~\",\"LICENSE_DOWN_URL\":\"http://~~\",\"AD_NUM\":\"3\",\"MY_POINT\":\"5,430\",\"INVITE_NUM\":\"7\",\"INVITE_FRI_NUM\":\"7\",\"ACCUM_POINT\":\"3,870\"}],\"DATA\":[{\"FRI_NAME\":\"김민정\",\"USE_SERVICE\":\"스팀세차\",\"SAVE_DATE\":\"20.02.26\",\"FRI_POINT\":\"100\"},{\"FRI_NAME\":\"이하영\",\"USE_SERVICE\":\"스팀세차\",\"SAVE_DATE\":\"20.02.28\",\"FRI_POINT\":\"120\"}],\"advertise\":[{\"AD_IMAGE_URL\":\"http://~~\"},{\"AD_IMAGE_URL\":\"http://~~\"},{\"AD_IMAGE_URL\":\"http://~~\"}]}";
+        System.out.println("[spirit] it : "  + it);
+
+        ArrayList<DataObject> data = JsonParser.getData(it);
+
+        // 로그인 정보
+        final DataObject loginItem = DataParser.getFromParamtoItem(data, "login");
+
+        System.out.println("[spirit] 회원번호 : " + loginItem.getValue("MEMBER_NO"));
+        System.out.println("[spirit] App Version : " + loginItem.getValue("VERSION"));
+        System.out.println("[spirit] APK_URL : " + loginItem.getValue("APK_URL"));
+        System.out.println("[spirit] MEMBER_NAME : " + loginItem.getValue("MEMBER_NAME"));
+        System.out.println("[spirit] MEMBER_PHONE : " + loginItem.getValue("MEMBER_PHONE"));
+
+        voLoginData.setMemberNo(loginItem.getValue("MEMBER_NO"));
+        voLoginData.setAppVersion(loginItem.getValue("VERSION"));
+        voLoginData.setApkDownloadUrl(loginItem.getValue("APK_URL"));
+        voLoginData.setMemberName(loginItem.getValue("MEMBER_NAME"));
+        voLoginData.setMemberPhone(loginItem.getValue("MEMBER_PHONE"));
+
+        System.out.println("[spirit] MEMBER_RECOM_CODE : " + loginItem.getValue("MEMBER_RECOM_CODE"));
+        System.out.println("[spirit] PROFILE_DOWN_URL : " + loginItem.getValue("PROFILE_DOWN_URL"));
+        System.out.println("[spirit] LICENSE_DOWN_URL : " + loginItem.getValue("LICENSE_DOWN_URL"));
+        System.out.println("[spirit] AD_NUM : " + loginItem.getValue("AD_NUM"));
+        System.out.println("[spirit] MY_POINT : " + loginItem.getValue("MY_POINT"));
+
+        voLoginData.setMemberRecomCode(loginItem.getValue("MEMBER_RECOM_CODE"));
+        voLoginData.setProfileDownloadUrl(loginItem.getValue("PROFILE_DOWN_URL"));
+        voLoginData.setLicenseDownloadUrl(loginItem.getValue("LICENSE_DOWN_URL"));
+        voLoginData.setAdNum(loginItem.getValue("AD_NUM"));
+        voLoginData.setMyPoint(loginItem.getValue("MY_POINT"));
+
+        System.out.println("[spirit] INVITE_NUM : " + loginItem.getValue("INVITE_NUM"));
+        System.out.println("[spirit] INVITE_FRI_NUM : " + loginItem.getValue("INVITE_FRI_NUM"));
+        System.out.println("[spirit] ACCUM_POINT : " + loginItem.getValue("ACCUM_POINT"));
+
+        voLoginData.setInviteNum(loginItem.getValue("INVITE_NUM"));
+        voLoginData.setInviteFriNumNum(loginItem.getValue("INVITE_FRI_NUM"));
+        voLoginData.setAccumPoint(loginItem.getValue("ACCUM_POINT"));
+
+        ArrayList<DataObject> userItem = DataParser.getFromParamtoArray(data, "DATA");
+        if(userItem.size() > 0)
+        {
+            String[] friend_name = new String[userItem.size()];
+            String[] use_service = new String[userItem.size()];
+            String[] save_date = new String[userItem.size()];
+            String[] fri_point = new String[userItem.size()];
+
+            for (int i = 0; i < userItem.size(); i++) {
+                System.out.println("[spirit] FRI_NAME : " + userItem.get(i).getValue("FRI_NAME"));   // .getDataList().size()); // .toArray().toString()); // .get(0).getValue());
+                System.out.println("[spirit] USE_SERVICE : " + userItem.get(i).getValue("USE_SERVICE"));
+                System.out.println("[spirit] SAVE_DATE : " + userItem.get(i).getValue("SAVE_DATE"));
+                System.out.println("[spirit] FRI_POINT : " + userItem.get(i).getValue("FRI_POINT"));
+
+                friend_name[i] = userItem.get(i).getValue("FRI_NAME");
+                use_service[i] = userItem.get(i).getValue("USE_SERVICE");
+                save_date[i] = userItem.get(i).getValue("SAVE_DATE");
+                fri_point[i] = userItem.get(i).getValue("FRI_POINT");
+
+            }
+            voLoginData.setFriName(friend_name);
+            voLoginData.setUseService(use_service);
+            voLoginData.setSaveDate(save_date);
+            voLoginData.setFriPoint(fri_point);
+        }
+
+        //"advertise":[{"AD_IMAGE_URL":"http://~~"},{"AD_IMAGE_URL":"http://~~"},{"AD_IMAGE_URL"""http://~~"}]
+        // 광고 정보
+        final ArrayList<DataObject> adItem = DataParser.getFromParamtoArray(data, "advertise");
+
+        if(adItem.size() > 0) {
+            String[] ad_image_url = new String[adItem.size()];
+            for (int j = 0; j < adItem.size(); j++) {
+                System.out.println("[spirit] AD_IMAGE_URL : " + adItem.get(j).getValue("AD_IMAGE_URL"));
+
+                ad_image_url[j] = adItem.get(j).getValue("AD_IMAGE_URL");
+            }
+
+            voLoginData.setAdDownloadImageUrl(ad_image_url);
+        }
 
         try {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -250,168 +323,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, Net
             finish();
         } catch (Exception e) {
             e.toString();
-            uploadError(null, 0, e.toString() + " : ");
         }
-    }
-
-    /**
-     * 경고 알럿
-     * @param context
-     */
-//    public static void showAlert(final Context context, String message) {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//        builder.setTitle(context.getString(R.string.notice));
-//        builder.setMessage(message);
-//        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-//
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-//                Uri uri = Uri.fromParts("package", context.getPackageName(), null);
-//                intent.setData(uri);
-//                context.startActivity(intent);
-//            }
-//        });
-//        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-//
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.dismiss();
-//            }
-//        }).show();
-//    }
-
-    /**
-     * 데이터 수신
-     * @param url
-     * @param result
-     */
-    @Override
-    public void responseComplete(String url, String result, int responseCode) {
-
-        if (responseCode != 200) {
-            // 예외처리
-            if (responseCode == 0) { // 인터넷 연결 실패 또는 기타 문제
-                Util.commonAlert(LoginActivity.this, getString(R.string.error_network_connected), false, false);
-            }else{
-                Util.commonAlert(LoginActivity.this, getString(R.string.server_accept_failed_connect_msg), false, false);
-            }
-            return;
-        }
-
-        Log.d(TAG,"result : "  + result);  //result : {"login": [{"login_yn":"y","alt":"\ub85c\uadf8\uc778 \uc131\uacf5."}]}
-
-        try {
-            ArrayList<DataObject> data = JsonParser.getData(result);
-
-            Log.d(TAG,"data.size() : "  + data.size());
-
-            if (url.equals(Constants.LOGIN_REQUEST)) {
-
-                // 로그인 정보
-                final DataObject loginItem = DataParser.getFromParamtoItem(data, "login");
-
-                // 로그인 유무
-                final String login_sucuess = loginItem.getValue("login_yn");
-
-
-                Log.d(TAG,"login_sucuess : " + login_sucuess);  //com.carriage.freight.network.DataObject@2873078
-
-                if ("y".equals(login_sucuess)) {
-                    Toast.makeText(LoginActivity.this, getString(R.string.success_login_msg), Toast.LENGTH_SHORT).show();
-                    //startLogin(storeList, storeTypeList, item.getValue("strWorkSite"), item.getValue("workSite"));
-
-//                    if (isLoginCheck) {
-//                        // 아이디 셋팅
-//                        PreferenceManager.getInstance().setUserId(idEt.getText().toString().trim());
-//                        // 패스워드 셋팅
-//                        PreferenceManager.getInstance().setUserPwd(pwEt.getText().toString().trim());
-//                    } else {
-//                        // 프리퍼런스 아이디 값 해제
-//                        PreferenceManager.getInstance().setUserId("");
-//                        // 프리퍼런스 패스워드 값 해제
-//                        PreferenceManager.getInstance().setUserPwd("");
-//                    }
-
-                    startLogin();
-                } else if("n".equals(login_sucuess)){
-                    //웹뷰 회원가입으로
-                    Toast.makeText(LoginActivity.this, R.string.fail_Login_msg, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            }
-        }catch (Exception e) {
-            e.toString();
-            // 에러 서버 전송
-            uploadError(null, 0, getString(R.string.server_connect_error));
-        }
-    }
-
-    /**
-     * 서버 통신 및 로컬 에러 전송
-     * @param errorInfo    : 서버 오류 시 리턴 받은 오류 정보
-     * @param responseCode : 서버 에러 코드 (404, 500...) || 로컬 에러 시 0
-     * @param errorMsg     : 로컬 오류 시 전송 용 메세지
-     */
-    private void uploadError(DataObject errorInfo, int responseCode, String errorMsg) {
-
-        try {
-            NetWorkController mNetworkController = new NetWorkController(Constants.ERROR_UPLOAD_URL, LoginActivity.this);
-            JSONArray array = new JSONArray();
-            JSONObject obj = new JSONObject();
-            obj.put("key", 0);
-//            obj.put("site", Integer.parseInt(PreferenceManager.getInstance().getStoreCd()));
-//            obj.put("regEmp", Integer.parseInt(PreferenceManager.getInstance().getUserNo()));
-            // 서버 통신 시 에러 전송 값
-            if (errorInfo != null) {
-                int errCode = Integer.parseInt(errorInfo.getValue("ErrCode"));
-                String errInfoMsg = buildErrorMsg() + errorInfo.getValue("ErrMessage");
-                obj.put("code", errCode);
-                if (errInfoMsg != null) {
-                    obj.put("errMsg", errInfoMsg);
-                }
-                // 로컬 에러 전송 값
-            } else {
-                obj.put("code", 0);
-                obj.put("errMsg", errorMsg);
-            }
-
-            obj.put("code64", responseCode);
-            obj.put("className", this.getClass().getName());
-
-            array.put(obj);
-            JSONArray array1 = new JSONArray();
-            JSONObject totalData = new JSONObject();
-            totalData.put("TotalCnt", 1);
-            array1.put(totalData);
-
-            JSONObject finalData = new JSONObject();
-            finalData.put("InData", array);
-            finalData.put("TotalData", array1);
-
-            mNetworkController.setHttpConnectionListner(this);
-            // Json 데이터 , Json 담을 key 값
-            mNetworkController.sendParamAddJson(finalData, "jsonInData");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 에러 전송 용 로컬 정보 생성
-     */
-    private String buildErrorMsg() {
-        StackTraceElement ste = Thread.currentThread().getStackTrace()[4];
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        // 메소드 명
-        sb.append(ste.getMethodName());
-        sb.append(" > #");
-        // 발생한 라인 넘버
-        sb.append(ste.getLineNumber());
-        sb.append("] ");
-        return sb.toString();
     }
 }
