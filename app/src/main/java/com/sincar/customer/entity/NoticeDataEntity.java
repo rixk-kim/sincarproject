@@ -40,6 +40,12 @@ public class NoticeDataEntity {
         this.currentNum = currentNum;
     }
 
+    /**
+     * seq
+     * 제목
+     * 등록날짜
+     * 내용
+     */
     public ArrayList<DataObject> getNoticeObject() {
         return noticeObject;
     }

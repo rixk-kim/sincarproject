@@ -52,6 +52,21 @@ public class UseDataEntity {
         this.currentNum = currentNum;
     }
 
+    /**
+     * seq
+     * 진행상태(0-대기,1-완료,2-취소)
+     * 예약시간
+     * 세차장소
+     * 대리점
+     * 이용요금(결제요금)
+     * 고객명
+     * 고객전화번호
+     * 기본요금
+     * 쿠폰이용요금
+     * 결제정보(은행,계좌이체등…)
+     * 차량정보(차종)
+     * 차량정보(번호)
+     */
     public ArrayList<DataObject> getUseObject() {
         return useObject;
     }

@@ -28,6 +28,11 @@ public class CardDataEntity {
         this.currentNum = currentNum;
     }
 
+    /**
+     * 카드 seq
+     * 카드이름
+     * 카드번호
+     */
     public ArrayList<DataObject> getCardObject() {
         return cardObject;
     }
