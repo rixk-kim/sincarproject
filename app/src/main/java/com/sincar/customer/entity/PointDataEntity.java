@@ -1,5 +1,8 @@
 package com.sincar.customer.entity;
 
+/**
+ * 포인트
+ */
 public class PointDataEntity {
     private String totalPage;           // 전체페이지
     private String currentPage;         // 현재페이지
