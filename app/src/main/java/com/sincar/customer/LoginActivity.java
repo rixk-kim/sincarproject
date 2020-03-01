@@ -260,47 +260,47 @@ it =>  {"login": [{"REGISTER":"1","CAUSE":"비밀번호 오류","MEMBER_NO":"123
         System.out.println("[spirit] PROFILE_DOWN_URL : " + loginItem.getValue("PROFILE_DOWN_URL"));
         System.out.println("[spirit] LICENSE_DOWN_URL : " + loginItem.getValue("LICENSE_DOWN_URL"));
         System.out.println("[spirit] AD_NUM : " + loginItem.getValue("AD_NUM"));
-        System.out.println("[spirit] MY_POINT : " + loginItem.getValue("MY_POINT"));
+//        System.out.println("[spirit] MY_POINT : " + loginItem.getValue("MY_POINT"));
 
         voLoginData.setMemberRecomCode(loginItem.getValue("MEMBER_RECOM_CODE"));
         voLoginData.setProfileDownloadUrl(loginItem.getValue("PROFILE_DOWN_URL"));
         voLoginData.setLicenseDownloadUrl(loginItem.getValue("LICENSE_DOWN_URL"));
         voLoginData.setAdNum(loginItem.getValue("AD_NUM"));
-        voLoginData.setMyPoint(loginItem.getValue("MY_POINT"));
+//        voLoginData.setMyPoint(loginItem.getValue("MY_POINT"));
 
-        System.out.println("[spirit] INVITE_NUM : " + loginItem.getValue("INVITE_NUM"));
-        System.out.println("[spirit] INVITE_FRI_NUM : " + loginItem.getValue("INVITE_FRI_NUM"));
-        System.out.println("[spirit] ACCUM_POINT : " + loginItem.getValue("ACCUM_POINT"));
+//        System.out.println("[spirit] INVITE_NUM : " + loginItem.getValue("INVITE_NUM"));
+//        System.out.println("[spirit] INVITE_FRI_NUM : " + loginItem.getValue("INVITE_FRI_NUM"));
+//        System.out.println("[spirit] ACCUM_POINT : " + loginItem.getValue("ACCUM_POINT"));
+//
+//        voLoginData.setInviteNum(loginItem.getValue("INVITE_NUM"));
+//        voLoginData.setInviteFriNumNum(loginItem.getValue("INVITE_FRI_NUM"));
+//        voLoginData.setAccumPoint(loginItem.getValue("ACCUM_POINT"));
 
-        voLoginData.setInviteNum(loginItem.getValue("INVITE_NUM"));
-        voLoginData.setInviteFriNumNum(loginItem.getValue("INVITE_FRI_NUM"));
-        voLoginData.setAccumPoint(loginItem.getValue("ACCUM_POINT"));
-
-        ArrayList<DataObject> userItem = DataParser.getFromParamtoArray(data, "DATA");
-        if(userItem.size() > 0)
-        {
-            String[] friend_name = new String[userItem.size()];
-            String[] use_service = new String[userItem.size()];
-            String[] save_date = new String[userItem.size()];
-            String[] fri_point = new String[userItem.size()];
-
-            for (int i = 0; i < userItem.size(); i++) {
-                System.out.println("[spirit] FRI_NAME : " + userItem.get(i).getValue("FRI_NAME"));   // .getDataList().size()); // .toArray().toString()); // .get(0).getValue());
-                System.out.println("[spirit] USE_SERVICE : " + userItem.get(i).getValue("USE_SERVICE"));
-                System.out.println("[spirit] SAVE_DATE : " + userItem.get(i).getValue("SAVE_DATE"));
-                System.out.println("[spirit] FRI_POINT : " + userItem.get(i).getValue("FRI_POINT"));
-
-                friend_name[i] = userItem.get(i).getValue("FRI_NAME");
-                use_service[i] = userItem.get(i).getValue("USE_SERVICE");
-                save_date[i] = userItem.get(i).getValue("SAVE_DATE");
-                fri_point[i] = userItem.get(i).getValue("FRI_POINT");
-
-            }
-            voLoginData.setFriName(friend_name);
-            voLoginData.setUseService(use_service);
-            voLoginData.setSaveDate(save_date);
-            voLoginData.setFriPoint(fri_point);
-        }
+//        ArrayList<DataObject> userItem = DataParser.getFromParamtoArray(data, "DATA");
+//        if(userItem.size() > 0)
+//        {
+//            String[] friend_name = new String[userItem.size()];
+//            String[] use_service = new String[userItem.size()];
+//            String[] save_date = new String[userItem.size()];
+//            String[] fri_point = new String[userItem.size()];
+//
+//            for (int i = 0; i < userItem.size(); i++) {
+//                System.out.println("[spirit] FRI_NAME : " + userItem.get(i).getValue("FRI_NAME"));   // .getDataList().size()); // .toArray().toString()); // .get(0).getValue());
+//                System.out.println("[spirit] USE_SERVICE : " + userItem.get(i).getValue("USE_SERVICE"));
+//                System.out.println("[spirit] SAVE_DATE : " + userItem.get(i).getValue("SAVE_DATE"));
+//                System.out.println("[spirit] FRI_POINT : " + userItem.get(i).getValue("FRI_POINT"));
+//
+//                friend_name[i] = userItem.get(i).getValue("FRI_NAME");
+//                use_service[i] = userItem.get(i).getValue("USE_SERVICE");
+//                save_date[i] = userItem.get(i).getValue("SAVE_DATE");
+//                fri_point[i] = userItem.get(i).getValue("FRI_POINT");
+//
+//            }
+//            voLoginData.setFriName(friend_name);
+//            voLoginData.setUseService(use_service);
+//            voLoginData.setSaveDate(save_date);
+//            voLoginData.setFriPoint(fri_point);
+//        }
 
         //"advertise":[{"AD_IMAGE_URL":"http://~~"},{"AD_IMAGE_URL":"http://~~"},{"AD_IMAGE_URL"""http://~~"}]
         // 광고 정보

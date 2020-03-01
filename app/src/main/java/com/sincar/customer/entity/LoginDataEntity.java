@@ -11,18 +11,7 @@ public class LoginDataEntity
     private String memberRecomCode;     // 내 추천코드
     private String profileDownloadUrl;  // 프로필 다운로드 URL
     private String licenseDownloadUrl;  // 면허증 다운로드 URL
-    private String myPoint;             // 내 포인트
-    private String inviteNum;           // 초대한 친구 수
-
-    private String inviteFriNum;        // 친구의 친구 수
-    private String accumPoint;          // 누적 포인트
     private String adNum;               // 광고갯수
-
-    private String[] friName;           //친구명
-    private String[] useService;        //이용서비스
-    private String[] saveDate;          //적립일자
-    private String[] friPoint;          //포인트
-
     private String[] adDownloadImageUrl;    //광고 다운로드 이미지 URL
 
     public String getMemberNo() {
@@ -81,69 +70,11 @@ public class LoginDataEntity
         this.licenseDownloadUrl = licenseDownloadUrl;
     }
 
-    public String getMyPoint() {
-        return myPoint;
-    }
-    public void setMyPoint(String myPoint) {
-        this.myPoint = myPoint;
-    }
-
     public String getAdNum() {
         return adNum;
     }
     public void setAdNum(String adNum) {
         this.adNum = adNum;
-    }
-
-    public String getInviteNum() {
-        return inviteNum;
-    }
-    public void setInviteNum(String inviteNum) {
-        this.inviteNum = inviteNum;
-    }
-
-    public String getInviteFriNumNum() {
-        return inviteFriNum;
-    }
-    public void setInviteFriNumNum(String inviteFriNum) {
-        this.inviteFriNum = inviteFriNum;
-    }
-
-    public String getAccumPoint() {
-        return accumPoint;
-    }
-    public void setAccumPoint(String accumPoint) {
-        this.accumPoint = accumPoint;
-    }
-
-
-
-    public String[] getFriName() {
-        return friName;
-    }
-    public void setFriName(String[] inDate) {
-        this.friName = friName;
-    }
-
-    public String[] getUseService() {
-        return useService;
-    }
-    public void setUseService(String[] inDate) {
-        this.useService = useService;
-    }
-
-    public String[] getSaveDate() {
-        return saveDate;
-    }
-    public void setSaveDate(String[] inDate) {
-        this.saveDate = saveDate;
-    }
-
-    public String[] getFriPoint() {
-        return friPoint;
-    }
-    public void setFriPoint(String[] inDate) {
-        this.friPoint = friPoint;
     }
 
     public String[] getAdDownloadImageUrl() {
