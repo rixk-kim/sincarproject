@@ -27,7 +27,7 @@ public class MyProfileSettingsActivity extends AppCompatActivity implements View
     private void init() {
         hideActionBar();
 
-        findViewById(R.id.btnBack).setOnClickListener(this);
+        findViewById(R.id.btnPrev).setOnClickListener(this);
         findViewById(R.id.menu_1).setOnClickListener(this);
         findViewById(R.id.menu_2).setOnClickListener(this);
         findViewById(R.id.menu_3).setOnClickListener(this);
@@ -41,7 +41,7 @@ public class MyProfileSettingsActivity extends AppCompatActivity implements View
         Intent intent;
 
         switch (v.getId()) {
-            case R.id.btnBack:
+            case R.id.btnPrev:
                 finish();
                 break;
 

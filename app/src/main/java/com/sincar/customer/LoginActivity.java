@@ -7,10 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AppCompatDelegate;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -19,23 +15,12 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.VolleyError;
-import com.sincar.customer.common.Constants;
 import com.sincar.customer.network.DataObject;
 import com.sincar.customer.network.JsonParser;
-import com.sincar.customer.network.NetWorkController;
 import com.sincar.customer.network.VolleyNetwork;
-import com.sincar.customer.util.BackPressedUtil;
 import com.sincar.customer.util.DataParser;
-import com.sincar.customer.util.Util;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.net.MalformedURLException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -153,7 +138,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
 
-            case R.id.btnBack:
+            case R.id.btnPrev:
                 // 메인 이동
                 Intent intent = new Intent(LoginActivity.this, com.sincar.customer.LoginActivityPre.class);
                 startActivity(intent);

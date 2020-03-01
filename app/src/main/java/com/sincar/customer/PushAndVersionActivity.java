@@ -21,14 +21,14 @@ public class PushAndVersionActivity extends AppCompatActivity implements View.On
     private void init() {
         hideActionBar();
 
-        findViewById(R.id.btnBack).setOnClickListener(this);
+        findViewById(R.id.btnPrev).setOnClickListener(this);
     }
 
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnBack:
+            case R.id.btnPrev:
                 finish();
                 break;
         }

@@ -24,8 +24,8 @@
         tools:node="merge" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" />
 
+    <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.location.gps" />
 
     <application
@@ -63,109 +63,94 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!-- 로그인 -->
         <activity
             android:name=".LoginActivityPre"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity" /> <!-- 로그인 -->
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="LockedOrientationActivity" />
-
-        <!-- 회원가입 -->
         <activity
             android:name=".MemberShipActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity" /> <!-- 회원가입 -->
+        <activity
+            android:name=".PointHistoryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" /> <!-- 10. 포인트 내역 -->
+        <activity android:name=".PointInfoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" /> <!-- 11. 포인트 정보 -->
 
-        <!-- 14. 메인(대리점 홈 화면) -->
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden"
-            tools:ignore="LockedOrientationActivity" />
-
-        <!-- 15. 영업시간 설정 메인 -->
+            tools:ignore="LockedOrientationActivity" /> <!-- 14. 메인(대리점 홈 화면) -->
         <activity
             android:name=".BusinessHourMainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"
-            tools:ignore="LockedOrientationActivity" />
-
-        <!-- 16. 예약 접수건 -->
-        <activity android:name=".ReservationListActivity" />
+            tools:ignore="LockedOrientationActivity" /> <!-- 15. 영업시간 설정 메인 -->
+        <activity android:name=".ReservationListActivity" /> <!-- 16. 예약 접수건 -->
         <activity android:name=".ReservationDetailActivity" />
-
-        <!-- 5. 비밀번호 변경 -->
         <activity
             android:name=".PasswordChangeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"
-            tools:ignore="LockedOrientationActivity" />
-
-        <!-- 8. 프로필 사진 변경 -->
+            tools:ignore="LockedOrientationActivity" /> <!-- 5. 비밀번호 변경 -->
         <activity
             android:name=".ProfilePhotoChangeActivity"
             android:label="@string/title_activity_profile_photo_change"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <!-- 17. 세차지 위지 치도 -->
+            android:theme="@style/AppTheme.NoActionBar" /> <!-- 8. 프로필 사진 변경 -->
         <activity
             android:name=".MapsActivity"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_maps"
-            tools:ignore="LockedOrientationActivity" />
-
-        <!-- 21. 내 정보 관리 -->
-        <activity android:name=".MyProfileSettingsActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" /> <!-- 17. 세차지 위지 치도 -->
+        <activity
+            android:name=".MyProfileSettingsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"
-            tools:ignore="LockedOrientationActivity" />
-
-        <!-- 19. 활동 지역 설정 -->
-        <activity android:name=".ActiveAreaSettingsActivity"
+            tools:ignore="LockedOrientationActivity" /> <!-- 21. 내 정보 관리 -->
+        <activity
+            android:name=".ActiveAreaSettingsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"
-            tools:ignore="LockedOrientationActivity" />
-
-        <!-- 19. 활동 지역 추가 -->
-        <activity android:name=".ActiveAreaAddActivity"
+            tools:ignore="LockedOrientationActivity" /> <!-- 19. 활동 지역 설정 -->
+        <activity
+            android:name=".ActiveAreaAddActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"
-            tools:ignore="LockedOrientationActivity" />
-
-        <!-- 22. 대리점 정보 시작 -->
-        <activity android:name=".BranchInfoActivity"
+            tools:ignore="LockedOrientationActivity" /> <!-- 19. 활동 지역 추가 -->
+        <activity
+            android:name=".BranchInfoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"
-            tools:ignore="LockedOrientationActivity" />
-
-        <!-- 23. 운전면허증 정보 -->
-        <activity android:name=".DriverLicenseInfoActivity"
+            tools:ignore="LockedOrientationActivity" /> <!-- 22. 대리점 정보 시작 -->
+        <activity
+            android:name=".DriverLicenseInfoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"
-            tools:ignore="LockedOrientationActivity" />
-
-        <!-- 24. 알림 및 버전 정보 시작 -->
-        <activity android:name=".PushAndVersionActivity"
+            tools:ignore="LockedOrientationActivity" /> <!-- 23. 운전면허증 정보 -->
+        <activity
+            android:name=".PushAndVersionActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"
-            tools:ignore="LockedOrientationActivity" />
-
-        <!-- template activity -->
-        <activity android:name=".TemplateActivity" />
-
-
-        <!-- Provider -->
+            tools:ignore="LockedOrientationActivity" /> <!-- 24. 알림 및 버전 정보 시작 -->
+        <activity android:name=".TemplateActivity" /> <!-- template activity -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -174,7 +159,7 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
-        </provider>
+        </provider> <!-- Provider -->
     </application>
 
 </manifest>

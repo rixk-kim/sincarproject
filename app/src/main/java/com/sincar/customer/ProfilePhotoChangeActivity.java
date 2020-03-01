@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
 import android.view.View;
 
 public class ProfilePhotoChangeActivity extends AppCompatActivity implements View.OnClickListener {
@@ -23,14 +23,14 @@ protected void onCreate(Bundle savedInstanceState) {
 private void init() {
         hideActionBar();
 
-        findViewById(R.id.btnBack).setOnClickListener(this);
+        findViewById(R.id.btnPrev).setOnClickListener(this);
         }
 
 
 @Override
 public void onClick(View v) {
         switch (v.getId()) {
-        case R.id.btnBack:
+        case R.id.btnPrev:
         finish();
         break;
         }

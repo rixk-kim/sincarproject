@@ -11,13 +11,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
-import androidx.annotation.NonNull;
+
 import androidx.annotation.RequiresApi;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.core.content.FileProvider;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
 import android.util.Log;
 import android.view.View;
 import android.webkit.ValueCallback;
@@ -205,7 +203,7 @@ public class MemberShipActivity extends Activity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
 
-            case R.id.btnBack:
+            case R.id.btnPrev:
                 // 메인 이동
                 Intent intent = new Intent(MemberShipActivity.this, com.sincar.customer.LoginActivityPre.class);
                 startActivity(intent);

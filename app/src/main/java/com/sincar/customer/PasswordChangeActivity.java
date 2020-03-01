@@ -27,7 +27,7 @@ public class PasswordChangeActivity extends AppCompatActivity implements View.On
     private void init() {
         hideActionBar();
 
-        findViewById(R.id.btnBack).setOnClickListener(this);
+        findViewById(R.id.btnPrev).setOnClickListener(this);
         findViewById(R.id.btnPassword).setOnClickListener(this);
 
         Map<String, String> params = null;
@@ -38,7 +38,7 @@ public class PasswordChangeActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnBack:
+            case R.id.btnPrev:
                 finish();
                 break;
 

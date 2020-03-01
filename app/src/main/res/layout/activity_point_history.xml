@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/customColorPrimary1"
-    tools:context=".TemplateActivity">
+    tools:context=".PointHistoryActivity">
 
     <!-- ActionBar 영역 -->
     <include layout="@layout/actionbar_info_layout"
