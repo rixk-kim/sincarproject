@@ -1,5 +1,9 @@
 package com.sincar.customer.entity;
 
+import com.sincar.customer.network.DataObject;
+
+import java.util.ArrayList;
+
 /**
  * 포인트
  */
@@ -13,11 +17,11 @@ public class PointDataEntity {
     private String inviteFriNum;        // 친구의 친구 수
     private String accumPoint;          // 누적 포인트
 
-
-    private String[] friName;           //친구명
-    private String[] useService;        //이용서비스
-    private String[] saveDate;          //적립일자
-    private String[] friPoint;          //포인트
+    private ArrayList<DataObject> pointObject;     //포인트 네역
+//    private String[] friName;           //친구명
+//    private String[] useService;        //이용서비스
+//    private String[] saveDate;          //적립일자
+//    private String[] friPoint;          //포인트
 
 
     public String getTotalPage() {
@@ -71,31 +75,31 @@ public class PointDataEntity {
 
 
 
-    public String[] getFriName() {
-        return friName;
+    public ArrayList<DataObject> getPointObject() {
+        return pointObject;
     }
-    public void setFriName(String[] inDate) {
-        this.friName = friName;
-    }
-
-    public String[] getUseService() {
-        return useService;
-    }
-    public void setUseService(String[] inDate) {
-        this.useService = useService;
+    public void setPointObject(ArrayList<DataObject> pointObject) {
+        this.pointObject = pointObject;
     }
 
-    public String[] getSaveDate() {
-        return saveDate;
-    }
-    public void setSaveDate(String[] inDate) {
-        this.saveDate = saveDate;
-    }
-
-    public String[] getFriPoint() {
-        return friPoint;
-    }
-    public void setFriPoint(String[] inDate) {
-        this.friPoint = friPoint;
-    }
+//    public String[] getUseService() {
+//        return useService;
+//    }
+//    public void setUseService(String[] inDate) {
+//        this.useService = useService;
+//    }
+//
+//    public String[] getSaveDate() {
+//        return saveDate;
+//    }
+//    public void setSaveDate(String[] inDate) {
+//        this.saveDate = saveDate;
+//    }
+//
+//    public String[] getFriPoint() {
+//        return friPoint;
+//    }
+//    public void setFriPoint(String[] inDate) {
+//        this.friPoint = friPoint;
+//    }
 }
