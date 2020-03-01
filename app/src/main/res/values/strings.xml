@@ -87,6 +87,15 @@
 
     <!-- 8. 포인트 내역 시작 -->
     <string name="title_point_history">포인트 내역</string>
+    <string name="friend_type_1_str">1촌</string>
+    <string name="friend_type_2_str">2촌</string>
+    <string name="friend_count_str">%d명</string>
+    <string name="total_point_title_str">누적포인트</string>
+
+    <string name="point_history_list_column_1">사용자 명</string>
+    <string name="point_history_list_column_2">이용서비스</string>
+    <string name="point_history_list_column_3">적립일자</string>
+    <string name="point_history_list_column_4">포인트</string>
     <!-- 8. 포인트 내역 종료 -->
 
     <!-- 19. 활동 지역 설정 시작 -->

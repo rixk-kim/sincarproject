@@ -7,9 +7,205 @@
     tools:context=".PointHistoryActivity">
 
     <!-- ActionBar 영역 -->
-    <include layout="@layout/actionbar_info_layout"
+    <include
+        android:id="@+id/include"
+        layout="@layout/actionbar_info_layout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 1촌,2촌 카운트 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/friend_layout_1"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/default_background_type_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/include">
+
+        <TextView
+            android:id="@+id/friend_type_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:textColor="#3e3e3e"
+            android:textSize="15sp"
+            android:text="@string/friend_type_1_str"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/friend_type_1_count"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1촌" />
+
+        <TextView
+            android:id="@+id/friend_type_1_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:textColor="#3e3e3e"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:text="@string/friend_count_str"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/divider"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="몇명" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="1dp"
+            android:layout_height="26dp"
+            android:background="@drawable/default_background_type_4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/friend_type_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:textColor="#3e3e3e"
+            android:textSize="15sp"
+            android:text="@string/friend_type_2_str"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/divider"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="2촌" />
+
+        <TextView
+            android:id="@+id/friend_type_2_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:textColor="#3e3e3e"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:text="@string/friend_count_str"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/friend_type_2"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="몇명" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- 누적 포인트 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/friend_layout_2"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/default_background_type_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/friend_layout_1">
+
+        <TextView
+            android:id="@+id/total_point_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:text="@string/total_point_title_str"
+            android:textColor="#3e3e3e"
+            android:textSize="15sp"
+            android:gravity="end"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/total_point"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/total_point"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text=""
+            android:textColor="#3e3e3e"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/total_point_title"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- 리스트 타이틀 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/list_title"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/default_background_type_5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/friend_layout_2">
+
+        <TextView
+            android:id="@+id/column1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#3e3e3e"
+            android:textSize="14sp"
+            android:text="@string/point_history_list_column_1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/column2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/point_history_list_column_1" />
+        <TextView
+            android:id="@+id/column2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#3e3e3e"
+            android:textSize="14sp"
+            android:text="@string/point_history_list_column_2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/column3"
+            app:layout_constraintStart_toEndOf="@+id/column1"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/point_history_list_column_2" />
+        <TextView
+            android:id="@+id/column3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#3e3e3e"
+            android:textSize="14sp"
+            android:text="@string/point_history_list_column_3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/column4"
+            app:layout_constraintStart_toEndOf="@+id/column2"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/point_history_list_column_3" />
+        <TextView
+            android:id="@+id/column4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#3e3e3e"
+            android:textSize="14sp"
+            android:text="@string/point_history_list_column_4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/column3"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/point_history_list_column_4" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- 리스트 내용 -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/pointHistoryList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="45dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/list_title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
