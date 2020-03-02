@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,217 +9,257 @@
     android:background="@color/base_background_color"
     tools:context=".MainActivity">
 
-    <!-- 나의 포인트 -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/btnCustomerPoint"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="84dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/default_button_type_1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="0dp">
 
-        <ImageView
-            android:id="@+id/myPointIcon"
-            android:layout_width="27dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/red"
-            android:contentDescription="@string/customer_point_desc" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/customerName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="67dp"
-            android:layout_marginTop="16dp"
-            android:lineSpacingExtra="11sp"
-            android:textColor="#ffffff"
-            android:textSize="15sp"
-            android:text="@string/customer_name_str"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/customer_name_str" />
+            <!-- 나의 포인트 -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btnCustomerPoint"
+                android:layout_width="match_parent"
+                android:layout_height="84dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/default_button_type_1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/customerPoint"
-            android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:layout_marginStart="67dp"
-            android:layout_marginBottom="17dp"
-            android:lineSpacingExtra="7sp"
-            android:textColor="#ffffff"
-            android:textSize="19sp"
-            android:text="@string/customer_point_str"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="@string/customer_point_str" />
+                <ImageView
+                    android:id="@+id/myPointIcon"
+                    android:layout_width="27dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="20dp"
+                    android:contentDescription="@string/customer_point_desc"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/red" />
 
-        <ImageView
-            android:id="@+id/myPointArrowIcon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/filled"
-            android:contentDescription="@string/customer_point_arrow_desc" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/customerName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="67dp"
+                    android:layout_marginTop="16dp"
+                    android:lineSpacingExtra="11sp"
+                    android:text="@string/customer_name_str"
+                    android:textColor="#ffffff"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/customer_name_str" />
 
-    <!-- 스팀세차 버튼 -->
-    <Button
-        android:id="@+id/btnMainMenu1"
-        style="@style/main_menu_button_style"
-        android:layout_width="0dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:drawableTop="@drawable/group_13"
-        android:text="@string/main_menu_1"
-        app:layout_constraintEnd_toStartOf="@+id/btnMainMenu2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCustomerPoint" />
+                <TextView
+                    android:id="@+id/customerPoint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="67dp"
+                    android:layout_marginBottom="17dp"
+                    android:lineSpacingExtra="7sp"
+                    android:text="@string/customer_point_str"
+                    android:textColor="#ffffff"
+                    android:textSize="19sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="@string/customer_point_str" />
 
-    <!-- 대리운 버튼 -->
-    <Button
-        android:id="@+id/btnMainMenu2"
-        style="@style/main_menu_button_style"
-        android:layout_width="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:drawableTop="@drawable/wheel"
-        android:text="@string/main_menu_2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnMainMenu1"
-        app:layout_constraintTop_toBottomOf="@+id/btnCustomerPoint" />
+                <ImageView
+                    android:id="@+id/myPointArrowIcon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="20dp"
+                    android:contentDescription="@string/customer_point_arrow_desc"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/filled" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- 카페어링 버튼 -->
-    <Button
-        android:id="@+id/btnMainMenu3"
-        style="@style/main_menu_button_style"
-        android:layout_width="0dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:drawableTop="@drawable/key"
-        android:text="@string/main_menu_3"
-        app:layout_constraintEnd_toStartOf="@+id/btnMainMenu4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnMainMenu1" />
+            <!-- 스팀세차 버튼 -->
+            <Button
+                android:id="@+id/btnMainMenu1"
+                style="@style/main_menu_button_style"
+                android:layout_width="0dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:drawableTop="@drawable/group_13"
+                android:text="@string/main_menu_1"
+                app:layout_constraintEnd_toStartOf="@+id/btnMainMenu2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnCustomerPoint" />
 
-    <!-- 카쉐어링 버튼 -->
-    <Button
-        android:id="@+id/btnMainMenu4"
-        style="@style/main_menu_button_style"
-        android:layout_width="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="24dp"
-        android:drawableTop="@drawable/car"
-        android:text="@string/main_menu_4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnMainMenu3"
-        app:layout_constraintTop_toBottomOf="@+id/btnMainMenu2" />
+            <!-- 대리운 버튼 -->
+            <Button
+                android:id="@+id/btnMainMenu2"
+                style="@style/main_menu_button_style"
+                android:layout_width="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:drawableTop="@drawable/wheel"
+                android:text="@string/main_menu_2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btnMainMenu1"
+                app:layout_constraintTop_toBottomOf="@+id/btnCustomerPoint" />
 
-    <!-- 배너 -->
-    <Button
-        android:id="@+id/mainBanner"
-        android:layout_width="0dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnMainMenu3"
-        app:layout_constraintEnd_toEndOf="parent"
+            <!-- 카페어링 버튼 -->
+            <Button
+                android:id="@+id/btnMainMenu3"
+                style="@style/main_menu_button_style"
+                android:layout_width="0dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="20dp"
+                android:drawableTop="@drawable/key"
+                android:text="@string/main_menu_3"
+                app:layout_constraintEnd_toStartOf="@+id/btnMainMenu4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnMainMenu1" />
+
+            <!-- 카쉐어링 버튼 -->
+            <Button
+                android:id="@+id/btnMainMenu4"
+                style="@style/main_menu_button_style"
+                android:layout_width="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="24dp"
+                android:drawableTop="@drawable/car"
+                android:text="@string/main_menu_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btnMainMenu3"
+                app:layout_constraintTop_toBottomOf="@+id/btnMainMenu2" />
+
+            <!-- 배너 -->
+            <Button
+                android:id="@+id/mainBanner"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnMainMenu3" />
+
+            <!-- 차량 등록 -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_car_register"
+                android:layout_width="0dp"
+                android:layout_height="136dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/layout_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mainBanner">
+
+                <TextView
+                    android:id="@+id/registerTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:lineSpacingExtra="7sp"
+                    android:text="@string/car_register_banner_title"
+                    android:textColor="#3e3e3e"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/car_register_banner_title" />
+
+                <TextView
+                    android:id="@+id/registerDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:lineSpacingExtra="5.5sp"
+                    android:text="@string/car_register_banner_description"
+                    android:textColor="#3e3e3e"
+                    android:textSize="13.5sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/registerTitle"
+                    tools:text="@string/car_register_banner_description" />
+
+                <Button
+                    android:id="@+id/btnCarRegisterClose"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/close"
+                    android:text=""
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:contentDescription="@string/car_register_desc"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:srcCompat="@drawable/group_14" />
+
+                <Button
+                    android:id="@+id/btnCarRegister"
+                    android:layout_width="86dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/white_button_7dp"
+                    android:drawableEnd="@drawable/chevron_left_24_px"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:text="@string/car_register"
+                    android:textColor="#ff4d4d"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:orientation="vertical"
+        android:layout_height="2dp"
+        android:layout_width="match_parent"
+        android:background="#e6e6e6"
+        android:layout_marginBottom="65dp"
+        app:layout_constraintBottom_toBottomOf="@+id/scroll_view"
         />
 
-    <!-- 차량 등록 -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_car_register"
-        android:layout_width="0dp"
-        android:layout_height="136dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/layout_background"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainBanner"
-        app:layout_constraintEnd_toEndOf="parent">
+    <!-- bottom navi -->
 
-        <TextView
-            android:id="@+id/registerTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
-            android:lineSpacingExtra="7sp"
-            android:textColor="#3e3e3e"
-            android:textSize="15sp"
-            android:text="@string/car_register_banner_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/car_register_banner_title" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:gravity="bottom"
+        app:layout_behavior="com.sincar.customer.common.BottomNavigationViewBehavior"
+        app:layout_constraintBottom_toBottomOf="@+id/scroll_view"
+        app:menu="@menu/bottom_navi"
+        tools:ignore="MissingConstraints"
+        app:layout_insetEdge="bottom"
+        app:labelVisibilityMode="labeled"
+        app:itemBackground="@color/base_background_color"
+        app:itemIconTint="@drawable/bottom_section_color"
+        app:itemTextColor="@color/default_text_color"/>
 
-        <TextView
-            android:id="@+id/registerDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
-            android:textSize="13.5sp"
-            android:textColor="#3e3e3e"
-            android:lineSpacingExtra="5.5sp"
-            android:text="@string/car_register_banner_description"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerTitle"
-            tools:text="@string/car_register_banner_description"
-            />
-
-        <Button
-            android:id="@+id/btnCarRegisterClose"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="18dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/close"
-            android:text=""
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/group_14"
-            android:contentDescription="@string/car_register_desc" />
-
-        <Button
-            android:id="@+id/btnCarRegister"
-            android:layout_width="86dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginBottom="15dp"
-            android:textColor="#ff4d4d"
-            android:textSize="13sp"
-            android:text="@string/car_register"
-            android:background="@drawable/white_button_7dp"
-            android:drawableEnd="@drawable/chevron_left_24_px"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

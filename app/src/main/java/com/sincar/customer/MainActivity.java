@@ -6,6 +6,8 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
@@ -32,6 +34,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btnMainMenu4).setOnClickListener(this);
         findViewById(R.id.btnCarRegisterClose).setOnClickListener(this);
         findViewById(R.id.btnCarRegister).setOnClickListener(this);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
+        bottomNavigationView.setOnClickListener(this);
+ //       bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
     }
 
     @Override
@@ -61,6 +67,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnCarRegister:
                 // TODO - 배너 차량등록
+                break;
+
+            case R.id.bottom_home:
+                // TODO - Home
+                break;
+
+            case R.id.bottom_use_history:
+                // TODO - 이용내역
+                break;
+
+            case R.id.bottom_myinfo:
+                // TODO - 내정보
                 break;
         }
     }
