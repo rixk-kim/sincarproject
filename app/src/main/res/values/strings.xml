@@ -98,6 +98,18 @@
     <string name="point_history_list_column_4">포인트</string>
     <!-- 8. 포인트 내역 종료 -->
 
+    <!-- 스팀 세차 예약 - 구글맵 시작 -->
+    <string name="current_address_str">남현동 1092-23</string>
+    <string name="reserve_date_title_str">예약일자</string>
+    <string name="reserve_dummy_date_str">9/15 (화)</string>
+    <string name="map_next_button_str">이 위치로 부름</string>
+
+    <string name="home_btn_desc_str">home button</string>
+    <string name="current_icon_desc_str">current button</string>
+    <string name="address_icon_desc_str">address icon</string>
+    <string name="reserve_date_icon_desc_str">right arrow icon</string>
+    <!-- 스팀 세차 예약 - 구글맵 종료 -->
+
     <!-- 19. 활동 지역 설정 시작 -->
     <string name="title_activity_active_area_settings">내 정보 관리</string>
     <!-- 21. 활동 지역 설정 종료 -->

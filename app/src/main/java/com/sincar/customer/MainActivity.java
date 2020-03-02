@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnMainMenu1:
                 // TODO - 스팀세차
+                intent = new Intent(this, MapsActivity.class);
+                startActivity(intent);
                 break;
             case R.id.btnMainMenu2:
                 // TODO - 대리운전

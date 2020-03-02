@@ -1,9 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MapsActivity" />
+    tools:context=".MapsActivity">
+
+    <!-- google map layout -->
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context=".MapsActivity" />
+
+    <!-- TODO - group_5 이미지 이름이 같은 파일 3개 존재(main group-5, map group-5 두개) -->
+
+    <!-- home button -->
+    <ImageView
+        android:id="@+id/btnMapHome"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/home_circle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- current button -->
+    <ImageView
+        android:id="@+id/btnCurrent"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/group_3_copy"
+        android:contentDescription="@string/current_icon_desc_str"
+        app:layout_constraintBottom_toTopOf="@+id/current_location_layout"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- 현재 주소 layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/current_location_layout"
+        android:layout_width="0dp"
+        android:layout_height="68dp"
+        android:background="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnReserveDate" >
+
+        <ImageView
+            android:id="@+id/current_address_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/group_10"
+            android:contentDescription="@string/address_icon_desc_str"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/current_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="4dp"
+            android:textSize="14sp"
+            android:textColor="#3e3e3e"
+            android:gravity="center_horizontal"
+            android:text="@string/current_address_str"
+            app:layout_constraintStart_toStartOf="@+id/current_address_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- 예약 일자 layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btnReserveDate"
+        android:layout_width="0dp"
+        android:layout_height="68dp"
+        android:background="#ffe7e9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/next_layout" >
+
+        <TextView
+            android:id="@+id/reserve_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:textSize="16sp"
+            android:textColor="#ff4d4d"
+            android:text="@string/reserve_date_title_str"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/reserve_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:textSize="14sp"
+            android:textColor="#3e3e3e"
+            android:text="@string/reserve_dummy_date_str"
+            app:layout_constraintStart_toEndOf="@+id/reserve_title"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="24dp"
+            android:src="@drawable/filled_copy"
+            android:contentDescription="@string/reserve_date_icon_desc_str"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- 이 위치로 부름 layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/next_layout"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:background="#ffffff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:textSize="15sp"
+            android:textColor="#ffffff"
+            android:text="@string/map_next_button_str"
+            android:background="@drawable/default_button_type_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
