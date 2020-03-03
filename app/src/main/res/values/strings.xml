@@ -110,6 +110,13 @@
     <string name="reserve_date_icon_desc_str">right arrow icon</string>
     <!-- 스팀 세차 예약 - 구글맵 종료 -->
 
+    <!-- 주소 검색 시작 -->
+    <string name="address_search_hint">주소를 검색해 주세요</string>
+    <string name="address_search_cancel_icon_desc">주소 검색어 삭제 아이콘</string>
+    <string name="address_search_icon_desc">주소 검색 아이콘</string>
+    <!-- 주소 검색 종료 -->
+
+
     <!-- 19. 활동 지역 설정 시작 -->
     <string name="title_activity_active_area_settings">내 정보 관리</string>
     <!-- 21. 활동 지역 설정 종료 -->

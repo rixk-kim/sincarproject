@@ -40,12 +40,12 @@
         android:layout_marginBottom="20dp"
         android:src="@drawable/group_3_copy"
         android:contentDescription="@string/current_icon_desc_str"
-        app:layout_constraintBottom_toTopOf="@+id/current_location_layout"
+        app:layout_constraintBottom_toTopOf="@+id/btnReserveAddress"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- 현재 주소 layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/current_location_layout"
+        android:id="@+id/btnReserveAddress"
         android:layout_width="0dp"
         android:layout_height="68dp"
         android:background="#ffffff"
@@ -150,6 +150,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

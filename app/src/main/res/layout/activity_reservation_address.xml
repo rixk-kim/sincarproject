@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context=".ReservationAddressActivity">
+
+    <!-- ActionBar 영역 -->
+    <include
+        android:id="@+id/include"
+        layout="@layout/actionbar_back_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 주소 검색 영역 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/search_address_layout"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:background="#ffffff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include">
+
+        <EditText
+            android:id="@+id/searchAddressKeyword"
+            android:layout_width="0dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="10dp"
+            android:background="@null"
+            android:ems="10"
+            android:hint="@string/address_search_hint"
+            android:inputType="textPostalAddress"
+            android:autofillHints="@string/address_search_hint"
+            android:textSize="15sp"
+            android:textColor="#3e3e3e"
+            tools:text="남현동 1092-23"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnSearchCancel"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageView
+            android:id="@+id/btnSearchCancel"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="12dp"
+            android:contentDescription="@string/address_search_cancel_icon_desc"
+            app:srcCompat="@drawable/rounded"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnSearchAddress"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageView
+            android:id="@+id/btnSearchAddress"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="40dp"
+            android:contentDescription="@string/address_search_icon_desc"
+            app:srcCompat="@drawable/search_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/search_address_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ff4d4d"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_address_layout"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <View
+        android:id="@+id/search_address_layout_divider"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="#1a323232"
+        android:layout_marginTop="28dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_address_divider"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- 검색 주소 결과 리스트 -->
+    <ListView
+        android:id="@+id/search_address_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_address_layout_divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

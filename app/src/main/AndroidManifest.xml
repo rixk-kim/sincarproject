@@ -87,12 +87,12 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="LockedOrientationActivity" /> <!-- 10. 포인트 내역 -->
-        <activity android:name=".PointInfoActivity"
+        <activity
+            android:name=".PointInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="LockedOrientationActivity" /> <!-- 11. 포인트 정보 -->
-
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
@@ -120,6 +120,15 @@
             android:label="@string/title_activity_maps"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" /> <!-- 17. 세차지 위지 치도 -->
+        <activity
+            android:name=".ReservationCalendarActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" /> <!-- 예약일 선택 -->
+        <activity android:name=".ReservationAddressActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" /> <!-- 지도 주소 검색 -->
         <activity
             android:name=".MyProfileSettingsActivity"
             android:screenOrientation="portrait"
@@ -159,7 +168,7 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
-        </provider> <!-- Provider -->
+        </provider>
     </application>
 
 </manifest>

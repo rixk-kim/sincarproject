@@ -66,6 +66,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         findViewById(R.id.btnMapHome).setOnClickListener(this);
         findViewById(R.id.btnCurrent).setOnClickListener(this);
+        findViewById(R.id.btnReserveAddress).setOnClickListener(this);
         findViewById(R.id.btnReserveDate).setOnClickListener(this);
         findViewById(R.id.btnNext).setOnClickListener(this);
     }
@@ -83,12 +84,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 // TODO - 지도 current button
                 break;
 
+            case R.id.btnReserveAddress:
+                // TODO - "주소 검색" 설정
+                startActivity(new Intent(this, ReservationAddressActivity.class));
+                break;
+
             case R.id.btnReserveDate:
                 // TODO - "예약일자" 설정
+                startActivity(new Intent(this, ReservationCalendarActivity.class));
                 break;
             case R.id.btnNext:
                 // TODO - "이 위치로 부름" 작업
                 break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + v.getId());
         }
     }
 }
