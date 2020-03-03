@@ -127,6 +127,12 @@
 
     <!-- 21. 내 정보 관리 시작 -->
     <string name="title_activity_my_profile_settings">내 정보 관리</string>
+    <string name="settings_recommender">추천인 관리</string>
+    <string name="settings_notice">공지사항</string>
+    <string name="settings_card">결제카드</string>
+    <string name="settings_coupone">쿠폰</string>
+    <string name="settings_manage">차량관리</string>
+    <string name="settings_set">설정</string>
     <!-- 21. 내 정보 관리 종료 -->
 
     <!-- 22. 대리점 정보 시작 -->

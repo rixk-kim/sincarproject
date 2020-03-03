@@ -5,20 +5,64 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class MyProfileSettingsActivity extends AppCompatActivity implements View.OnClickListener {
+    private MenuItem prevBottomNavigation;
+    private Context mContext;
+    private BottomNavigationView bottomNavigationView;
+
+    public MyProfileSettingsActivity() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile_settings);
-
+        mContext = this;
         init();
+
+        //하단메뉴 고정(2:내정보)
+        bottomNavigationView = findViewById(R.id.bottomNav_set);
+        prevBottomNavigation = bottomNavigationView.getMenu().getItem(2);
+        prevBottomNavigation.setChecked(true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent;
+                switch (item.getItemId()) {
+                    case R.id.bottom_home: {
+                        // TODO - HOME
+                        intent = new Intent(mContext, MainActivity.class);
+                        startActivity(intent);
+
+                        prevBottomNavigation = bottomNavigationView.getMenu().getItem(0);
+                        prevBottomNavigation.setChecked(true);
+
+                        finish();
+                        break;
+                    }
+                    case R.id.bottom_use_history: {
+                        // TODO - 이용내역
+                        break;
+                    }
+                    case R.id.bottom_myinfo: {
+                        // TODO - 내정보
+                        break;
+                    }
+                }
+
+                return true;
+            }
+        });
     }
 
     /**
@@ -42,31 +86,37 @@ public class MyProfileSettingsActivity extends AppCompatActivity implements View
 
         switch (v.getId()) {
             case R.id.btnPrev:
-                finish();
+                // TODO - 내정보 상세
                 break;
 
-            case R.id.menu_1:   // 프로필 사진 변경
+            case R.id.menu_1:
+                // TODO - 추천인 관리
 //                intent = new Intent(this, BusinessHourMainActivity.class);
 //                startActivity(intent);
                 break;
             case R.id.menu_2:   // 비밀번호 변경
-                intent = new Intent(this, PasswordChangeActivity.class);
-                startActivity(intent);
+//                intent = new Intent(this, PasswordChangeActivity.class);
+//                startActivity(intent);
+                // TODO - 공지사항
                 break;
             case R.id.menu_3:   // 대리점 정보
 //                intent = new Intent(this, BusinessHourMainActivity.class);
 //                startActivity(intent);
+                // TODO - 결재카드
                 break;
             case R.id.menu_4:   // 운전면허증 정보
 //                intent = new Intent(this, BusinessHourMainActivity.class);
 //                startActivity(intent);
+                // TODO - 쿠폰
                 break;
             case R.id.menu_5:   // 알림 및 버전 정보
-                intent = new Intent(this, PushAndVersionActivity.class);
-                startActivity(intent);
+//                intent = new Intent(this, PushAndVersionActivity.class);
+//                startActivity(intent);
+                // TODO - 차량관리
                 break;
             case R.id.menu_6:   // 로그아웃
-                showLogoutAlertDialog(this);
+//                showLogoutAlertDialog(this);
+                // TODO - 설정
                 break;
         }
     }
@@ -124,5 +174,17 @@ public class MyProfileSettingsActivity extends AppCompatActivity implements View
 
         // 배경 색상 변경 - 배경 흰색으로 할 경우 아이콘 색상 변경 필요
         // colorPrimary color 변경
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Intent intent = new Intent(mContext, MainActivity.class);
+        startActivity(intent);
+
+        prevBottomNavigation = bottomNavigationView.getMenu().getItem(0);
+        prevBottomNavigation.setChecked(true);
+
+        finish();
     }
 }

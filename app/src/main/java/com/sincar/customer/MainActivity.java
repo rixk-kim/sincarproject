@@ -1,19 +1,26 @@
 package com.sincar.customer;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private Context mContext;
+    private MenuItem prevBottomNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mContext = this;
 
         //LoginEntity vo = new LoginEntity();
         //System.out.println("[spirit] 회원번호 : " + voLoginData.getMemberNo());
@@ -35,9 +42,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btnCarRegisterClose).setOnClickListener(this);
         findViewById(R.id.btnCarRegister).setOnClickListener(this);
 
+        //하단메뉴 고정(0:홈)
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
-        bottomNavigationView.setOnClickListener(this);
- //       bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
+        prevBottomNavigation = bottomNavigationView.getMenu().getItem(0);
+        prevBottomNavigation.setChecked(true);
+
+        // bottomNavigationView의 아이템이 선택될 때 호출될 리스너 등록
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent;
+                switch (item.getItemId()) {
+                    case R.id.bottom_home: {
+                        // TODO - HOME
+                        break;
+                    }
+                    case R.id.bottom_use_history: {
+                        // TODO - 이용내역
+                        break;
+                    }
+                    case R.id.bottom_myinfo: {
+                        intent = new Intent(mContext, MyProfileSettingsActivity.class);
+                        startActivity(intent);
+                        finish();
+                        break;
+                    }
+                }
+
+                return true;
+            }
+        });
     }
 
     @Override
@@ -69,18 +103,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnCarRegister:
                 // TODO - 배너 차량등록
-                break;
-
-            case R.id.bottom_home:
-                // TODO - Home
-                break;
-
-            case R.id.bottom_use_history:
-                // TODO - 이용내역
-                break;
-
-            case R.id.bottom_myinfo:
-                // TODO - 내정보
                 break;
         }
     }
