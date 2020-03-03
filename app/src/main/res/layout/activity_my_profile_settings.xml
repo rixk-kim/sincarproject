@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/customColorPrimary1"
     tools:context=".MyProfileSettingsActivity">
-
+<!--
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -41,58 +41,63 @@
             android:textSize="16sp" />
 
     </androidx.appcompat.widget.Toolbar>
-
+-->
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginTop="56dp"
+        android:layout_height="154dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/user_photo"
-            android:layout_width="180dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="50dp"
-            android:layout_weight="1"
-            tools:srcCompat="@tools:sample/avatars[11]" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginLeft="28dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/user_name"
-                android:layout_width="match_parent"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="김태현"
                 android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/user_mobile"
-                android:layout_width="match_parent"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="8dp"
                 android:text="010.4343.8585"
                 android:textSize="18sp" />
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/btnPrev"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="32dp"
+            android:contentDescription="@string/actionbar_prev_icon_description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/customColorPrimary1"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            app:srcCompat="@drawable/filled_copy" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="208dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="172dp"
+        android:layout_marginEnd="28dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -103,165 +108,191 @@
         <LinearLayout
             android:id="@+id/menu_1"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="64dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textView1"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:layout_weight="1"
-                android:text="프로필 사진 변경"
+                android:text="@string/settings_recommender"
                 android:textSize="18sp" />
 
             <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_weight="1"
-                app:srcCompat="@android:drawable/sym_def_app_icon" />
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_notice"
+                android:layout_marginRight="8dp"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/background_dark" />
+            android:background="@color/textColorPrimary" />
 
         <LinearLayout
             android:id="@+id/menu_2"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="64dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:layout_weight="1"
-                android:text="비밀번호 변경"
+                android:text="@string/settings_notice"
                 android:textSize="18sp" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_weight="1"
-                app:srcCompat="@android:drawable/sym_def_app_icon" />
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_notice"
+                android:layout_marginRight="8dp"/>
         </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/background_dark" />
+            android:background="@color/textColorPrimary" />
 
         <LinearLayout
             android:id="@+id/menu_3"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="64dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:layout_weight="1"
-                android:text="대리점 정보"
+                android:text="@string/settings_card"
                 android:textSize="18sp" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_weight="1"
-                app:srcCompat="@android:drawable/sym_def_app_icon" />
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_notice"
+                android:layout_marginRight="8dp"/>
         </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/background_dark" />
+            android:background="@color/textColorPrimary" />
 
         <LinearLayout
             android:id="@+id/menu_4"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="64dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:layout_weight="1"
-                android:text="운전면허증 정보"
+                android:text="@string/settings_coupone"
                 android:textSize="18sp" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_weight="1"
-                app:srcCompat="@android:drawable/sym_def_app_icon" />
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_notice"
+                android:layout_marginRight="8dp"/>
         </LinearLayout>
 
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/background_dark" />
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/textColorPrimary" />
 
         <LinearLayout
             android:id="@+id/menu_5"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="64dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:layout_weight="1"
-                android:text="알림 및 버전 정보"
+                android:text="@string/settings_manage"
                 android:textSize="18sp" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_weight="1"
-                app:srcCompat="@android:drawable/sym_def_app_icon" />
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_notice"
+                android:layout_marginRight="8dp"/>
         </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/background_dark" />
+            android:background="@color/textColorPrimary" />
 
         <LinearLayout
             android:id="@+id/menu_6"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="64dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:layout_weight="1"
-                android:text="로그아웃"
+                android:text="@string/settings_set"
                 android:textSize="18sp" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_weight="1"
-                app:srcCompat="@android:drawable/sym_def_app_icon" />
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_notice"
+                android:layout_marginRight="8dp"/>
         </LinearLayout>
 
     </LinearLayout>
+
+    <!-- bottom navi -->
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav_set"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="@drawable/default_background_type_3"
+        android:focusableInTouchMode="false"
+        android:gravity="bottom"
+        app:itemBackground="@color/base_background_color"
+        app:itemIconTint="@drawable/bottom_section_color"
+        app:itemTextColor="@color/default_text_color"
+        app:layout_behavior="com.sincar.customer.common.BottomNavigationViewBehavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_insetEdge="bottom"
+        app:menu="@menu/bottom_navi"
+        tools:ignore="MissingConstraints" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
