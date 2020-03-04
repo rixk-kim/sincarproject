@@ -153,6 +153,7 @@
     <string name="myinfo_detail_mobile_title">휴대폰 번호</string>
     <string name="myinfo_detail_password_title">비밀번호</string>
     <string name="myinfo_detail_password_content">영문, 숫자 혼합 6자리 이상</string>
+    <string name="myinfo_recom_title">추천인 관리</string>
 
     <!-- template 시작 -->
     <string name="title_activity_template">템플릿 화면</string>

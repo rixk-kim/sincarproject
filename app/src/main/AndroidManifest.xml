@@ -166,6 +166,12 @@
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" /> <!-- 25. 내 정보 상세 시작 -->
 
+        <activity
+            android:name=".MyProfileSettingsRecomActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" /> <!-- 26. 추천인 관리 시작 -->
+
         <activity android:name=".TemplateActivity" /> <!-- template activity -->
         <provider
             android:name="androidx.core.content.FileProvider"

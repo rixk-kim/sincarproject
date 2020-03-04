@@ -98,8 +98,9 @@ public class MyProfileSettingsActivity extends AppCompatActivity implements View
 
             case R.id.menu_1:
                 // TODO - 추천인 관리
-//                intent = new Intent(this, BusinessHourMainActivity.class);
-//                startActivity(intent);
+                intent = new Intent(this, MyProfileSettingsRecomActivity.class);
+                startActivity(intent);
+                finish();
                 break;
             case R.id.menu_2:   // 비밀번호 변경
 //                intent = new Intent(this, PasswordChangeActivity.class);
