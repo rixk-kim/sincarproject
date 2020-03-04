@@ -104,8 +104,16 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="LockedOrientationActivity" /> <!-- 15. 영업시간 설정 메인 -->
-        <activity android:name=".ReservationListActivity" /> <!-- 16. 예약 접수건 -->
-        <activity android:name=".ReservationDetailActivity" />
+        <activity android:name=".ReservationListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" /> <!-- 16. 예약 접수건 -->
+        <activity android:name=".ReservationDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".PasswordChangeActivity"
             android:screenOrientation="portrait"
@@ -125,6 +133,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" /> <!-- 예약일 선택 -->
+        <activity
+            android:name=".ReservationTimeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" /> <!-- 예약시간 선택 -->
         <activity android:name=".ReservationAddressActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
