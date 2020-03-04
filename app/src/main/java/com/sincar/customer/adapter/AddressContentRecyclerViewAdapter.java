@@ -3,7 +3,6 @@ package com.sincar.customer.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -36,12 +35,12 @@ public class AddressContentRecyclerViewAdapter extends RecyclerView.Adapter<Addr
         holder.mTitle.setText(mValues.get(position).title);
         holder.mDescription.setText(mValues.get(position).description);
 
-//        holder.mIcon.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // TODO - 리스트 선택 시 이벤트 핸들러 추가 필요하면 여기에서 해주기
-//            }
-//        });
+        holder.mIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO - 리스트 선택 시 이벤트 핸들러 추가 필요하면 여기에서 해주기
+            }
+        });
     }
 
     @Override

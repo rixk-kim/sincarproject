@@ -34,18 +34,12 @@ public class ReservationAddressActivity extends AppCompatActivity implements Vie
         // TODO - 서버 연동 후 AddressContent.ITEMS에 리스 항목 추가 작업
         // Set the adapter - 포인트 리스트 설정
         View view = findViewById(R.id.searchAddressList);
-        Log.d("test", "test1");
         if (view instanceof RecyclerView) {
-            Log.d("test", "test2");
             Context context = view.getContext();
-            Log.d("test", "test3");
             RecyclerView recyclerView = (RecyclerView) view;
-            Log.d("test", "test4");
 
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            Log.d("test", "test5");
             recyclerView.setAdapter(new AddressContentRecyclerViewAdapter(AddressContent.ITEMS));
-            Log.d("test", "test6");
         }
     }
 

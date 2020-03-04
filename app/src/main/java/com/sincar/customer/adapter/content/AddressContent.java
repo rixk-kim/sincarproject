@@ -10,7 +10,7 @@ public class AddressContent {
     /**
      * An array of AddressItem items.
      */
-    public static final List<AddressItem> ITEMS = new ArrayList<AddressItem>();
+    public static final List<AddressItem> ITEMS = new ArrayList<>();
 
     /**
      * A map of AddressItem items, by ID.
