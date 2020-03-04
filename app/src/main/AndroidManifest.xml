@@ -159,6 +159,13 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="LockedOrientationActivity" /> <!-- 24. 알림 및 버전 정보 시작 -->
+
+        <activity
+            android:name=".MyProfileSettingsDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" /> <!-- 25. 내 정보 상세 시작 -->
+
         <activity android:name=".TemplateActivity" /> <!-- template activity -->
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -1,5 +1,6 @@
 package com.sincar.customer;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,6 +9,8 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +25,7 @@ public class MyProfileSettingsActivity extends AppCompatActivity implements View
     public MyProfileSettingsActivity() {
     }
 
+    @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +75,7 @@ public class MyProfileSettingsActivity extends AppCompatActivity implements View
     private void init() {
         hideActionBar();
 
-        findViewById(R.id.btnPrev).setOnClickListener(this);
+        findViewById(R.id.btnNext).setOnClickListener(this);
         findViewById(R.id.menu_1).setOnClickListener(this);
         findViewById(R.id.menu_2).setOnClickListener(this);
         findViewById(R.id.menu_3).setOnClickListener(this);
@@ -85,8 +89,11 @@ public class MyProfileSettingsActivity extends AppCompatActivity implements View
         Intent intent;
 
         switch (v.getId()) {
-            case R.id.btnPrev:
+            case R.id.btnNext:
                 // TODO - 내정보 상세
+                intent = new Intent(this, MyProfileSettingsDetailActivity.class);
+                startActivity(intent);
+                finish();
                 break;
 
             case R.id.menu_1:
@@ -176,6 +183,7 @@ public class MyProfileSettingsActivity extends AppCompatActivity implements View
         // colorPrimary color 변경
     }
 
+    @SuppressLint("NewApi")
     @Override
     public void onBackPressed() {
         //super.onBackPressed();

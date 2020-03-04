@@ -6,42 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/customColorPrimary1"
     tools:context=".MyProfileSettingsActivity">
-<!--
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_alignParentTop="true"
-        android:background="@color/customColorPrimary1"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/btnPrev"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:contentDescription="@string/actionbar_prev_icon_description"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/filled" />
-
-        <TextView
-            android:id="@+id/title_activity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="48dp"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="@string/title_activity_my_profile_settings"
-            android:textColor="#3e3e3e"
-            android:textSize="16sp" />
-
-    </androidx.appcompat.widget.Toolbar>
--->
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
@@ -67,7 +32,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="김태현"
-                android:textSize="24sp" />
+                android:textSize="20sp"
+                android:textColor="#3e3e3e"
+                android:letterSpacing="0.05"/>
 
             <TextView
                 android:id="@+id/user_mobile"
@@ -75,11 +42,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="010.4343.8585"
-                android:textSize="18sp" />
+                android:textSize="14sp"
+                android:textColor="#3e3e3e"
+                android:letterSpacing="0.05" />
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/btnPrev"
+            android:id="@+id/btnNext"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginRight="32dp"
@@ -119,7 +88,9 @@
                 android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:text="@string/settings_recommender"
-                android:textSize="18sp" />
+                android:textSize="15sp"
+                android:textColor="#3e3e3e"
+                android:letterSpacing="0.05" />
 
             <ImageView
                 android:layout_width="21dp"
@@ -147,7 +118,9 @@
                 android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:text="@string/settings_notice"
-                android:textSize="18sp" />
+                android:textSize="15sp"
+                android:textColor="#3e3e3e"
+                android:letterSpacing="0.05" />
 
             <ImageView
                 android:layout_width="21dp"
@@ -176,7 +149,9 @@
                 android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:text="@string/settings_card"
-                android:textSize="18sp" />
+                android:textSize="15sp"
+                android:textColor="#3e3e3e"
+                android:letterSpacing="0.05" />
 
             <ImageView
                 android:layout_width="21dp"
@@ -205,7 +180,9 @@
                 android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:text="@string/settings_coupone"
-                android:textSize="18sp" />
+                android:textSize="15sp"
+                android:textColor="#3e3e3e"
+                android:letterSpacing="0.05" />
 
             <ImageView
                 android:layout_width="21dp"
@@ -234,7 +211,9 @@
                 android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:text="@string/settings_manage"
-                android:textSize="18sp" />
+                android:textSize="15sp"
+                android:textColor="#3e3e3e"
+                android:letterSpacing="0.05" />
 
             <ImageView
                 android:layout_width="21dp"
@@ -263,7 +242,9 @@
                 android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:text="@string/settings_set"
-                android:textSize="18sp" />
+                android:textSize="15sp"
+                android:textColor="#3e3e3e"
+                android:letterSpacing="0.05" />
 
             <ImageView
                 android:layout_width="21dp"

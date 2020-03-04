@@ -1,5 +1,6 @@
 package com.sincar.customer;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,10 +23,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mContext = this;
 
-        //LoginEntity vo = new LoginEntity();
-        //System.out.println("[spirit] 회원번호 : " + voLoginData.getMemberNo());
-        //System.out.println("[spirit] App Version : " + voLoginData.getAppVersion());
-
         // 화면 초기화
         init();
     }
@@ -33,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * 화면 초기화
      */
+    @SuppressLint("NewApi")
     private void init() {
         findViewById(R.id.btnCustomerPoint).setOnClickListener(this);
         findViewById(R.id.btnMainMenu1).setOnClickListener(this);
