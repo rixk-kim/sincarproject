@@ -30,6 +30,7 @@ public class PointContentRecyclerViewAdapter extends RecyclerView.Adapter<PointC
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
+
         holder.mUsername.setText(mValues.get(position).username);
         holder.mServiceType.setText(mValues.get(position).service_type);
         holder.mDate.setText(mValues.get(position).date);
