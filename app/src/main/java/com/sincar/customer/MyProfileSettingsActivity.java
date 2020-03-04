@@ -106,6 +106,8 @@ public class MyProfileSettingsActivity extends AppCompatActivity implements View
 //                intent = new Intent(this, PasswordChangeActivity.class);
 //                startActivity(intent);
                 // TODO - 공지사항
+                intent = new Intent(this, NoticeActivity.class);
+                startActivity(intent);
                 break;
             case R.id.menu_3:   // 대리점 정보
 //                intent = new Intent(this, BusinessHourMainActivity.class);
