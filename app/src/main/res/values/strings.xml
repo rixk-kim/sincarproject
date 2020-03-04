@@ -115,6 +115,8 @@
     <string name="address_search_hint">주소를 검색해 주세요</string>
     <string name="address_search_cancel_icon_desc">주소 검색어 삭제 아이콘</string>
     <string name="address_search_icon_desc">주소 검색 아이콘</string>
+    <string name="address_search_dummy1">송파구청</string>
+    <string name="address_search_dummy2">송파구 석촌동 729</string>
     <!-- 주소 검색 종료 -->
 
 

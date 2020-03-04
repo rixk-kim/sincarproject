@@ -90,13 +90,14 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- 검색 주소 결과 리스트 -->
-    <ListView
-        android:id="@+id/search_address_list"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchAddressList"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_address_layout_divider"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_address_layout_divider" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
