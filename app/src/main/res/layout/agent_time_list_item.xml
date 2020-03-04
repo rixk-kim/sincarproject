@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:background="#ffffff"
+    android:orientation="horizontal">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+        <LinearLayout
+            android:id="@+id/agentPhotoLayout"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:gravity="center_vertical|center_horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+             <!-- TODO : 사진 배경 요청 및 여기에 위치 -->
+            <ImageView
+                android:id="@+id/agent_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/current_icon"
+                android:contentDescription="@string/agent_photo_desc" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/agent_name"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_marginTop="17dp"
+            android:layout_marginStart="28dp"
+            android:text="@string/agent_name_dummy"
+            android:textSize="19sp"
+            android:textColor="#3e3e3e"
+            app:layout_constraintStart_toEndOf="@+id/agentPhotoLayout"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="김태현" />
+
+        <TextView
+            android:id="@+id/branch_name"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginStart="28dp"
+            android:text="@string/branch_name_dummy"
+            android:textSize="15sp"
+            android:textColor="#3e3e3e"
+            app:layout_constraintStart_toEndOf="@+id/agent_name"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="관악구 1호점" />
+
+        <TextView
+            android:id="@+id/wash_area_title"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_marginTop="24dp"
+            android:textSize="14sp"
+            android:textColor="#3e3e3e"
+            android:textStyle="bold"
+            android:text="@string/wash_area_title"
+            tools:text="세차 가능 지역"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/agentPhotoLayout" />
+
+        <TextView
+            android:id="@+id/wash_area"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:textSize="14sp"
+            android:textColor="#3e3e3e"
+            android:text="@string/wash_area_dummy"
+            android:letterSpacing="0.05"
+            tools:text="관악구, 서초구, 송파구,강동구"
+            app:layout_constraintStart_toEndOf="@+id/wash_area_title"
+            app:layout_constraintTop_toBottomOf="@+id/agentPhotoLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <!-- TODO : 타임 테이블 작업 이렇게 가능할까??? -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchAddressList"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wash_area_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/agent_time_list_item_divider" />
+
+        <View
+            android:id="@+id/agent_time_list_item_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="28dp"
+            android:background="#1a3e3e3e"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchAddressList"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

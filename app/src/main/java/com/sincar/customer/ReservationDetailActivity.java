@@ -1,16 +1,18 @@
 package com.sincar.customer;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
-public class ReservationDetailActivity extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class ReservationDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation_detail);
 
+        // 화면 초기화
         init();
     }
 
@@ -18,20 +20,16 @@ public class ReservationDetailActivity extends AppCompatActivity {
      * 화면 초기화
      */
     private void init() {
-        // ActionBar 설정
-        // 타이틀 설정
-        ActionBar ab = getSupportActionBar() ;
-        ab.setTitle("현재 접수건") ;
+        findViewById(R.id.btnPrev).setOnClickListener(this);
+    }
 
-        // ActionBar 그림자 제거
-        ab.setBackgroundDrawable(null);
-
-        // up icon 설정(show: true, hide: false)
-        ab.setDisplayHomeAsUpEnabled(true);
-        ab.setHomeAsUpIndicator(R.drawable.filled);
-
-        // 배경 색상 변경 - 배경 흰색으로 할 경우 아이콘 색상 변경 필요
-        // colorPrimary color 변경
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnPrev:
+                finish();
+                break;
+        }
     }
 
 }

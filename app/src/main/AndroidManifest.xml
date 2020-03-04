@@ -105,7 +105,11 @@
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="LockedOrientationActivity" /> <!-- 15. 영업시간 설정 메인 -->
         <activity android:name=".ReservationListActivity" /> <!-- 16. 예약 접수건 -->
-        <activity android:name=".ReservationDetailActivity" />
+        <activity android:name=".ReservationDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity"/> <!-- 예약 상세보기(전체보기) -->
         <activity
             android:name=".PasswordChangeActivity"
             android:screenOrientation="portrait"
@@ -125,7 +129,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" /> <!-- 예약일 선택 -->
-        <activity android:name=".ReservationAddressActivity"
+        <activity android:name=".ReservationTimeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity"/> <!-- 예약 시간 선택 -->
+        <activity
+            android:name=".ReservationAddressActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" /> <!-- 지도 주소 검색 -->
@@ -159,19 +168,16 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="LockedOrientationActivity" /> <!-- 24. 알림 및 버전 정보 시작 -->
-
         <activity
             android:name=".MyProfileSettingsDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" /> <!-- 25. 내 정보 상세 시작 -->
-
         <activity
             android:name=".MyProfileSettingsRecomActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" /> <!-- 26. 추천인 관리 시작 -->
-
         <activity android:name=".TemplateActivity" /> <!-- template activity -->
         <provider
             android:name="androidx.core.content.FileProvider"

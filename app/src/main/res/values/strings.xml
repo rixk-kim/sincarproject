@@ -119,6 +119,13 @@
     <string name="address_search_dummy2">송파구 석촌동 729</string>
     <!-- 주소 검색 종료 -->
 
+    <!-- 대리점 시간 설정 시작 -->
+    <string name="agent_photo_desc">대리점주 사진</string>
+    <string name="agent_name_dummy">김태현</string>
+    <string name="branch_name_dummy">관악구 1호</string>
+    <string name="wash_area_title">세차 가능 지역</string>
+    <string name="wash_area_dummy">관악구</string>
+    <!-- 대리점 시간 설정 종료 -->
 
     <!-- 19. 활동 지역 설정 시작 -->
     <string name="title_activity_active_area_settings">내 정보 관리</string>

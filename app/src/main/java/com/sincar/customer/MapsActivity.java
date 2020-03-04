@@ -94,7 +94,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 startActivity(new Intent(this, ReservationCalendarActivity.class));
                 break;
             case R.id.btnNext:
-                // TODO - "이 위치로 부름" 작업
+                // TODO - "이 위치로 부름" 작업(시나리오 확인)
+                startActivity(new Intent(this, ReservationDetailActivity.class));
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());

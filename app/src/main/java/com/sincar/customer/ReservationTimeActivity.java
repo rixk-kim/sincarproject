@@ -1,7 +1,6 @@
 package com.sincar.customer;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -9,15 +8,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sincar.customer.adapter.AddressContentRecyclerViewAdapter;
-import com.sincar.customer.adapter.content.AddressContent;
+import com.sincar.customer.adapter.AgentTimeRecyclerViewAdapter;
+import com.sincar.customer.adapter.content.AgentTimeContent;
 
-public class ReservationAddressActivity extends AppCompatActivity implements View.OnClickListener {
+public class ReservationTimeActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reservation_address);
+        setContentView(R.layout.activity_reservation_time);
 
         // 화면 초기화
         init();
@@ -28,34 +27,24 @@ public class ReservationAddressActivity extends AppCompatActivity implements Vie
      */
     private void init() {
         findViewById(R.id.btnPrev).setOnClickListener(this);
-        findViewById(R.id.btnSearchCancel).setOnClickListener(this);
-        findViewById(R.id.btnSearchAddress).setOnClickListener(this);
 
-        // TODO - 서버 연동 후 AddressContent.ITEMS에 리스 항목 추가 작업
+        // TODO - 서버 연동 후 AgentTimeContent.ITEMS에 리스 항목 추가 작업
         // Set the adapter - 포인트 리스트 설정
-        View view = findViewById(R.id.searchAddressList);
+        View view = findViewById(R.id.agentTimeList);
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
 
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new AddressContentRecyclerViewAdapter(AddressContent.ITEMS));
+            recyclerView.setAdapter(new AgentTimeRecyclerViewAdapter(AgentTimeContent.ITEMS));
         }
     }
 
     @Override
     public void onClick(View v) {
-        Intent intent;
-
         switch (v.getId()) {
             case R.id.btnPrev:
                 finish();
-                break;
-            case R.id.btnSearchCancel:
-                // TODO - 검색 주소 삭제 및 리스트 Clear
-                break;
-            case R.id.btnSearchAddress:
-                // TODO - 주소 검색 리스트 생성
                 break;
         }
     }
