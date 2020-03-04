@@ -24,7 +24,7 @@ public class MyProfileSettingsRecomActivity extends AppCompatActivity implements
      * 화면 초기화
      */
     private void init() {
-        findViewById(R.id.myinfo_btnPrev).setOnClickListener(this);
+        findViewById(R.id.myinfo_recom_btnPrev).setOnClickListener(this);
  //       findViewById(R.id.myinfo_btnNext).setOnClickListener(this);
 
 
@@ -44,12 +44,12 @@ public class MyProfileSettingsRecomActivity extends AppCompatActivity implements
         Intent intent;
 
         switch (v.getId()) {
-//            case R.id.myinfo_btnPrev:
-//                //  TODO - 내정보
-//                intent = new Intent(this, MyProfileSettingsActivity.class);
-//                startActivity(intent);
-//                finish();
-//                break;
+            case R.id.myinfo_recom_btnPrev:
+                //  TODO - 내정보
+                intent = new Intent(this, MyProfileSettingsActivity.class);
+                startActivity(intent);
+                finish();
+                break;
 //            case R.id.myinfo_btnNext:
 //                //  TODO - 비밀번호변경
 //                intent = new Intent(this, PasswordChangeActivity.class);
