@@ -48,7 +48,7 @@
         android:id="@+id/btnReserveAddress"
         android:layout_width="0dp"
         android:layout_height="68dp"
-        android:background="#ffffff"
+        android:background="@drawable/default_background_type_2_round_top"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/btnReserveDate" >

@@ -28,7 +28,7 @@
                 android:id="@+id/agent_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/current_icon"
+                android:background="@drawable/goto_map_icon"
                 android:contentDescription="@string/agent_photo_desc" />
         </LinearLayout>
 
