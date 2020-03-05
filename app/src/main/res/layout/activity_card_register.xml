@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CardRegisterActivity">
+
+    <!-- ActionBar 영역 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/card_reg_include"
+        tools:ignore="MissingConstraints">
+
+        <!-- ActionBar : Back / Title / Info -->
+        <ImageView
+            android:id="@+id/card_reg_btnPrev"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="32dp"
+            android:contentDescription="@string/actionbar_prev_icon_description"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/arrow_red_24_px" />
+
+        <TextView
+            android:id="@+id/myinfo_title_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center|center_horizontal"
+            android:text="@string/title_card_register"
+            android:textColor="#3e3e3e"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/card_reg_btnPrev"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/card_reg_layout_1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="24dp"
+        android:orientation="vertical"
+        android:background="@drawable/default_background_type_3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_reg_include">
+
+        <!-- 카드 선택 -->
+        <LinearLayout
+            android:id="@+id/card_linearLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginLeft="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints">
+
+            <LinearLayout
+                android:id="@+id/myinfo_menu_1"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/myinfo_user_title"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="개인카드"
+                    android:textSize="15sp"
+                    android:textColor="#3e3e3e"
+                    android:letterSpacing="0.05"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/myinfo_menu_22"
+                android:layout_width="60dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="28dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/myinfo_user_title2"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="법인카드"
+                    android:textSize="15sp"
+                    android:textColor="#3e3e3e"
+                    android:letterSpacing="0.05"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 카드 번호, 유효기간 선택 -->
+        <LinearLayout
+            android:id="@+id/card_linearLayout3"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints">
+
+            <LinearLayout
+                android:id="@+id/myinfo_menu_31"
+                android:layout_width="159dp"
+                android:layout_height="20dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/myinfo_user_title31"
+                    android:layout_width="159dp"
+                    android:layout_height="20dp"
+                    android:gravity="left"
+                    android:ems="10"
+                    android:hint="3969 3848 3029 3332"
+                    android:background="@null"
+                    android:textColor="#3E3E3E"
+                    android:textSize="15sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/myinfo_menu_32"
+                android:layout_width="60dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="44dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/myinfo_user_title3"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:ems="10"
+                    android:hint="04/22"
+                    android:background="@null"
+                    android:textColor="#3E3E3E"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="175dp"
+            android:layout_height="2dp"
+            android:background="@color/textColorPrimary" />
+
+        <LinearLayout
+            android:layout_width="93dp"
+            android:layout_height="2dp"
+            android:layout_marginLeft="28dp"
+            android:background="@color/textColorPrimary" />
+    </LinearLayout>
+
+        <!-- 생년월일, 비밀번호  -->
+        <LinearLayout
+            android:id="@+id/card_linearLayout4"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginLeft="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints">
+
+            <LinearLayout
+                android:id="@+id/myinfo_menu_315"
+                android:layout_width="111dp"
+                android:layout_height="20dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/myinfo_user_title315"
+                    android:layout_width="111dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:ems="10"
+                    android:hint="생년월일6자리"
+                    android:background="@null"
+                    android:textColor="#3E3E3E"
+                    android:textSize="15sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/myinfo_menu_325"
+                android:layout_width="114dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="36dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/myinfo_user_title35"
+                    android:layout_width="114dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:ems="10"
+                    android:hint="비밀번호 앞 2자리"
+                    android:background="@null"
+                    android:textColor="#3E3E3E"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="138dp"
+                android:layout_height="2dp"
+                android:background="@color/textColorPrimary" />
+
+            <LinearLayout
+                android:layout_width="130dp"
+                android:layout_height="2dp"
+                android:layout_marginLeft="28dp"
+                android:background="@color/textColorPrimary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|center_horizontal|center_vertical">
+
+            <Button
+                android:id="@+id/card_reg_btn"
+                android:layout_width="312dp"
+                android:layout_height="52dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="40dp"
+                android:background="@drawable/default_button_7dp"
+                android:shadowColor="#C4C4C4"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="7"
+                android:text="@string/btn_confirm"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

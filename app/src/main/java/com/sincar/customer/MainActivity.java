@@ -104,4 +104,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
+
+    @SuppressLint("NewApi")
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Intent intent = new Intent(this, LoginActivityPre.class);
+        startActivity(intent);
+
+        finish();
+    }
 }
