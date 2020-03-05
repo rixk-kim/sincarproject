@@ -165,6 +165,8 @@
     <string name="myinfo_recom_title">추천인 관리</string>
 
     <string name="title_notice">공지사항</string>
+    <string name="title_card">결재카드</string>
+    <string name="title_card_register">카드등록</string>
 
     <!-- template 시작 -->
     <string name="title_activity_template">템플릿 화면</string>

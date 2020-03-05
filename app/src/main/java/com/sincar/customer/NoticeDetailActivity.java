@@ -75,7 +75,7 @@ public class NoticeDetailActivity extends AppCompatActivity implements View.OnCl
         Intent intent;
 
         switch (v.getId()) {
-            case R.id.notice_btnPrev:
+            case R.id.notice_detail_btnPrev:
                 //  TODO - 내정보
                 intent = new Intent(this, NoticeActivity.class);
                 startActivity(intent);

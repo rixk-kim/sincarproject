@@ -110,9 +110,9 @@ public class MyProfileSettingsActivity extends AppCompatActivity implements View
                 startActivity(intent);
                 break;
             case R.id.menu_3:   // 대리점 정보
-//                intent = new Intent(this, BusinessHourMainActivity.class);
-//                startActivity(intent);
                 // TODO - 결재카드
+                intent = new Intent(this,CardActivity.class);
+                startActivity(intent);
                 break;
             case R.id.menu_4:   // 운전면허증 정보
 //                intent = new Intent(this, BusinessHourMainActivity.class);
