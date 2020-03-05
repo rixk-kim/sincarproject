@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,12 +30,25 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class NoticeActivity extends AppCompatActivity implements View.OnClickListener {
+public class NoticeDetailActivity extends AppCompatActivity implements View.OnClickListener {
+    private String noti_title;
+    private String noti_date;
+    private String noti_contents;
+
+    private TextView nTitle;
+    private TextView nDate;
+    private TextView nContents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notice);
+        setContentView(R.layout.activity_notice_detail);
+
+        Intent intent = getIntent(); /*데이터 수신*/
+        noti_title    = intent.getExtras().getString("title");    /*String형*/
+        noti_date     = intent.getExtras().getString("date");     /*String형*/
+        noti_contents = intent.getExtras().getString("contents"); /*String형*/
+
 
         // 화면 초기화
         init();
@@ -44,34 +58,16 @@ public class NoticeActivity extends AppCompatActivity implements View.OnClickLis
      * 화면 초기화
      */
     private void init() {
-        findViewById(R.id.notice_btnPrev).setOnClickListener(this);
+        findViewById(R.id.notice_detail_btnPrev).setOnClickListener(this);
         //       findViewById(R.id.myinfo_btnNext).setOnClickListener(this);
+        nTitle = (TextView) findViewById(R.id.notice_title);
+        nTitle.setText(noti_title);
 
+        nDate = (TextView) findViewById(R.id.notice_date);
+        nDate.setText(noti_date);
 
-
-        // myinfo_user_name => 이름
-        // user_mobile_number => 휴대폰 번호
-
-        // TODO - 서버 연동하여 이름, 휴대폰 번호 값 가지고 와서 설정해주기
-//        TextView myinfo_user_name = findViewById(R.id.myinfo_user_name);
-//        myinfo_user_name.setText("홍길동");
-//
-//        TextView user_mobile_number = findViewById(R.id.user_mobile_number);
-//        user_mobile_number.setText("010-1234-5678");
-
-
-        // TODO - 서버 연동 후 PointContent.ITEMS에 리스 항목 추가 작업
-        // Set the adapter - 포인트 리스트 설정
-        View view = findViewById(R.id.noticeHistoryList);
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new NoticeContentRecyclerViewAdapter(this, NoticeContent.ITEMS));
-        }
-
-
+        nContents = (TextView) findViewById(R.id.notice_contents);
+        nContents.setText(noti_contents);
     }
 
     @Override
@@ -81,16 +77,10 @@ public class NoticeActivity extends AppCompatActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.notice_btnPrev:
                 //  TODO - 내정보
-                intent = new Intent(this, MyProfileSettingsActivity.class);
+                intent = new Intent(this, NoticeActivity.class);
                 startActivity(intent);
                 finish();
                 break;
-//            case R.id.myinfo_btnNext:
-//                //  TODO - 비밀번호변경
-//                intent = new Intent(this, PasswordChangeActivity.class);
-//                startActivity(intent);
-//                finish();
-//                break;
         }
     }
 
@@ -98,7 +88,7 @@ public class NoticeActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        Intent intent = new Intent(this, MyProfileSettingsActivity.class);
+        Intent intent = new Intent(this, NoticeActivity.class);
         startActivity(intent);
 
         finish();

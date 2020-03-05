@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/notice_column1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#3e3e3e"
+            android:textSize="15sp"
+            android:layout_weight="1"
+            android:gravity="left|center_horizontal|center_vertical"
+            android:layout_marginLeft="32dp"
+            android:text="공지 제목11111111111122222222222223344"/>
+        <TextView
+            android:id="@+id/notice_column2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#3e3e3e"
+            android:textSize="13sp"
+            android:layout_weight="1"
+            android:gravity="left|center_horizontal|center_vertical"
+            android:layout_marginLeft="32dp"
+            android:text="등록날짜"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/notice_list_item_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#333e3e3e" />
+
+</LinearLayout>

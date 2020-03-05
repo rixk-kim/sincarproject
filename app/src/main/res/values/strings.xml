@@ -164,6 +164,8 @@
     <string name="myinfo_detail_password_content">영문, 숫자 혼합 6자리 이상</string>
     <string name="myinfo_recom_title">추천인 관리</string>
 
+    <string name="title_notice">공지사항</string>
+
     <!-- template 시작 -->
     <string name="title_activity_template">템플릿 화면</string>
     <string name="title_activity_profile_photo_change">ProfilePhotoChangeActivity</string>
