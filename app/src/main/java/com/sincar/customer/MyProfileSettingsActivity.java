@@ -119,6 +119,9 @@ public class MyProfileSettingsActivity extends AppCompatActivity implements View
 //                intent = new Intent(this, PushAndVersionActivity.class);
 //                startActivity(intent);
                 // TODO - 차량관리
+                intent = new Intent(this, CarManageActivity.class);
+                startActivity(intent);
+                finish();
                 break;
             case R.id.menu_6:   // 로그아웃
 //                showLogoutAlertDialog(this);

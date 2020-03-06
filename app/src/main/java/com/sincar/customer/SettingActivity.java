@@ -105,6 +105,10 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.setting_clause:
                 // TODO - 약관 및 정책
                 Toast.makeText(this, "약관 및 정책으로 이동", Toast.LENGTH_SHORT);
+
+                intent = new Intent(this, MyProfileSettingsActivity.class);
+                startActivity(intent);
+                finish();
                 break;
 
             case R.id.member_logout:
