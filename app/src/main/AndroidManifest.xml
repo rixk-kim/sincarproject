@@ -209,6 +209,12 @@
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" /> <!-- 29. 결재카드 등록 시작 -->
 
+        <activity
+            android:name=".CouponeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" /> <!-- 쿠폰 시작 -->
+
 
         <activity android:name=".TemplateActivity" /> <!-- template activity -->
         <provider

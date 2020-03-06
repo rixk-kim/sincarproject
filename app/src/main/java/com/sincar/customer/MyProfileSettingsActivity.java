@@ -108,16 +108,21 @@ public class MyProfileSettingsActivity extends AppCompatActivity implements View
                 // TODO - 공지사항
                 intent = new Intent(this, NoticeActivity.class);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.menu_3:   // 대리점 정보
                 // TODO - 결재카드
                 intent = new Intent(this,CardActivity.class);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.menu_4:   // 운전면허증 정보
 //                intent = new Intent(this, BusinessHourMainActivity.class);
 //                startActivity(intent);
                 // TODO - 쿠폰
+                intent = new Intent(this, CouponeActivity.class);
+                startActivity(intent);
+                finish();
                 break;
             case R.id.menu_5:   // 알림 및 버전 정보
 //                intent = new Intent(this, PushAndVersionActivity.class);

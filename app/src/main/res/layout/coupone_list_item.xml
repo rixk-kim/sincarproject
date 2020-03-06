@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="277dp"
+            android:layout_height="72dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/coupone_column1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_weight="1"
+                android:gravity="left|center_horizontal|center_vertical"
+                android:text="2000원 할인 쿠"
+                android:textColor="#3e3e3e"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/coupone_column2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_weight="1"
+                android:gravity="left|center_horizontal|center_vertical"
+                android:text="회원 가입을 축하해요!"
+                android:textColor="#3e3e3e"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/coupone_column3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#3e3e3e"
+                android:textSize="15sp"
+                android:layout_weight="1"
+                android:gravity="right|center_horizontal|center_vertical"
+
+                android:text="~2020.12.30"/>
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:id="@+id/coupone_list_item_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#333e3e3e" />
+
+</LinearLayout>

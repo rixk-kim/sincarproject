@@ -167,6 +167,7 @@
     <string name="title_notice">공지사항</string>
     <string name="title_card">결재카드</string>
     <string name="title_card_register">카드등록</string>
+    <string name="title_coupone">쿠폰</string>
 
     <!-- template 시작 -->
     <string name="title_activity_template">템플릿 화면</string>
