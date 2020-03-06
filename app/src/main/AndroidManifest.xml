@@ -215,6 +215,12 @@
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" /> <!-- 쿠폰 시작 -->
 
+        <activity
+            android:name=".SettingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" /> <!-- 설정 정보 시작 -->
+
 
         <activity android:name=".TemplateActivity" /> <!-- template activity -->
         <provider

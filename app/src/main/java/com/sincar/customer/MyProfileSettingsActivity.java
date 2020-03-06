@@ -89,37 +89,28 @@ public class MyProfileSettingsActivity extends AppCompatActivity implements View
         Intent intent;
 
         switch (v.getId()) {
-            case R.id.btnNext:
-                // TODO - 내정보 상세
+            case R.id.btnNext:   // 내정보 상세 정보
                 intent = new Intent(this, MyProfileSettingsDetailActivity.class);
                 startActivity(intent);
                 finish();
                 break;
 
-            case R.id.menu_1:
-                // TODO - 추천인 관리
+            case R.id.menu_1:  // 추천인 관리 정보
                 intent = new Intent(this, MyProfileSettingsRecomActivity.class);
                 startActivity(intent);
                 finish();
                 break;
-            case R.id.menu_2:   // 비밀번호 변경
-//                intent = new Intent(this, PasswordChangeActivity.class);
-//                startActivity(intent);
-                // TODO - 공지사항
+            case R.id.menu_2:   // 공지사항 정보
                 intent = new Intent(this, NoticeActivity.class);
                 startActivity(intent);
                 finish();
                 break;
-            case R.id.menu_3:   // 대리점 정보
-                // TODO - 결재카드
+            case R.id.menu_3:   // 결재카드 정보
                 intent = new Intent(this,CardActivity.class);
                 startActivity(intent);
                 finish();
                 break;
-            case R.id.menu_4:   // 운전면허증 정보
-//                intent = new Intent(this, BusinessHourMainActivity.class);
-//                startActivity(intent);
-                // TODO - 쿠폰
+            case R.id.menu_4:   // 쿠폰 정보
                 intent = new Intent(this, CouponeActivity.class);
                 startActivity(intent);
                 finish();
@@ -131,7 +122,10 @@ public class MyProfileSettingsActivity extends AppCompatActivity implements View
                 break;
             case R.id.menu_6:   // 로그아웃
 //                showLogoutAlertDialog(this);
-                // TODO - 설정
+                // TODO - 알림 및 버전 정보
+                intent = new Intent(this, SettingActivity.class);
+                startActivity(intent);
+                finish();
                 break;
         }
     }
