@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CarRegisterActivity">
+
+    <!-- ActionBar 영역 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/card_reg_include"
+        tools:ignore="MissingConstraints">
+
+        <!-- ActionBar : Back / Title / Info -->
+        <ImageView
+            android:id="@+id/car_reg_btnPrev"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="32dp"
+            android:contentDescription="@string/actionbar_prev_icon_description"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/arrow_red_24_px" />
+
+        <TextView
+            android:id="@+id/myinfo_title_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center|center_horizontal"
+            android:text="@string/title_car_register"
+            android:textColor="#3e3e3e"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/car_reg_btnPrev"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/card_reg_layout_1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="24dp"
+        android:orientation="vertical"
+        android:background="@drawable/default_background_type_3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_reg_include">
+
+        <LinearLayout
+            android:id="@+id/car_company"
+            android:layout_width="296dp"
+            android:layout_height="52dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/layout_background"
+            android:elevation="10dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/description_activity">
+
+
+
+            <EditText
+                android:id="@+id/car_select_colume1"
+                android:layout_width="296dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|center_horizontal"
+                android:background="@null"
+                android:ems="10"
+                android:hint="제조사를 선택 하세요"
+                android:textColor="#3E3E3E"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/btnNext1"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginRight="32dp"
+                android:contentDescription="@string/actionbar_prev_icon_description"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@color/customColorPrimary1"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                app:srcCompat="@drawable/filled_copy" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/car_name"
+            android:layout_width="296dp"
+            android:layout_height="52dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/layout_background"
+            android:elevation="10dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/description_activity">
+
+
+
+            <EditText
+                android:id="@+id/car_select_colume2"
+                android:layout_width="296dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|center_horizontal"
+                android:background="@null"
+                android:ems="10"
+                android:hint="차종을 선택 하세요"
+                android:textColor="#3E3E3E"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/btnNext2"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginRight="32dp"
+                android:contentDescription="@string/actionbar_prev_icon_description"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@color/customColorPrimary1"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                app:srcCompat="@drawable/filled_copy" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/car_number"
+            android:layout_width="296dp"
+            android:layout_height="108dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/layout_background"
+            android:elevation="10dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/description_activity">
+
+
+
+            <TextView
+                android:id="@+id/user_id_et3"
+                android:layout_width="match_parent"
+                android:layout_height="17dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="left|center_vertical|center_horizontal"
+                android:background="@null"
+                android:ems="10"
+                android:hint="차종 번호"
+                android:textColor="#3E3E3E"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/car_select_colume3"
+                android:layout_width="match_parent"
+                android:layout_height="17dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="left|center_vertical|center_horizontal"
+                android:background="@null"
+                android:ems="10"
+                android:hint="차종 번호를 입력 하세요"
+                android:textColor="#3E3E3E"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:gravity="center|center_horizontal|center_vertical">
+
+            <Button
+                android:id="@+id/car_reg_btn"
+                android:layout_width="296dp"
+                android:layout_height="52dp"
+                android:layout_gravity="bottom|center"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="40dp"
+                android:background="@drawable/default_button_7dp"
+                android:shadowColor="#C4C4C4"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="7"
+                android:text="@string/btn_confirm"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
