@@ -5,17 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AgentTimeContent {
+public class AgentContent {
 
     /**
-     * An array of AgentTimeItem items.
+     * An array of AgentItem items.
      */
-    public static final List<AgentTimeItem> ITEMS = new ArrayList<>();
+    public static final List<AgentItem> ITEMS = new ArrayList<>();
 
     /**
-     * A map of AgentTimeItem items, by ID.
+     * A map of AgentItem items, by ID.
      */
-    public static final Map<Integer, AgentTimeItem> ITEM_MAP = new HashMap();
+    public static final Map<Integer, AgentItem> ITEM_MAP = new HashMap();
 
     private static final int COUNT = 5;
 
@@ -27,13 +27,13 @@ public class AgentTimeContent {
         }
     }
 
-    private static void addItem(AgentTimeItem item) {
+    private static void addItem(AgentItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
 
-    private static AgentTimeItem createDummyItem(int position) {
-        return new AgentTimeItem(position,
+    private static AgentItem createDummyItem(int position) {
+        return new AgentItem(position,
                 "",
                 "김태현",
                 "관악구 1호점",
@@ -41,9 +41,9 @@ public class AgentTimeContent {
     }
 
     /**
-     * A AgentTimeItem item representing a piece of content.
+     * A AgentItem item representing a piece of content.
      */
-    public static class AgentTimeItem {
+    public static class AgentItem {
         public final int id;
 
         public final String agent_photo;
@@ -51,7 +51,7 @@ public class AgentTimeContent {
         public final String branch_area;
         public final String wash_area;
 
-        public AgentTimeItem(int id,
+        public AgentItem(int id,
                               String agent_photo,
                               String agent_name,
                               String branch_area,

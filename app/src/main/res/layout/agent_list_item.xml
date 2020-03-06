@@ -88,12 +88,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             />
 
-        <!-- TODO : 타임 테이블 작업 이렇게 가능할까??? -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/searchAddressList"
+            android:id="@+id/reservationTimeList"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/wash_area_title"
             app:layout_constraintEnd_toEndOf="parent"
@@ -103,10 +102,10 @@
             android:id="@+id/agent_time_list_item_divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="20dp"
             android:background="#1a3e3e3e"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchAddressList"
+            app:layout_constraintTop_toBottomOf="@+id/reservationTimeList"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

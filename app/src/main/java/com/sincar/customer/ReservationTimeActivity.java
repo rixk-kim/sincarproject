@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sincar.customer.adapter.AgentTimeRecyclerViewAdapter;
-import com.sincar.customer.adapter.content.AgentTimeContent;
+import com.sincar.customer.adapter.AgentRecyclerViewAdapter;
+import com.sincar.customer.adapter.content.AgentContent;
 
 public class ReservationTimeActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -30,13 +30,13 @@ public class ReservationTimeActivity extends AppCompatActivity implements View.O
 
         // TODO - 서버 연동 후 AgentTimeContent.ITEMS에 리스 항목 추가 작업
         // Set the adapter - 포인트 리스트 설정
-        View view = findViewById(R.id.agentTimeList);
+        View view = findViewById(R.id.agentList);
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
 
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new AgentTimeRecyclerViewAdapter(AgentTimeContent.ITEMS));
+            recyclerView.setAdapter(new AgentRecyclerViewAdapter(AgentContent.ITEMS));
         }
     }
 

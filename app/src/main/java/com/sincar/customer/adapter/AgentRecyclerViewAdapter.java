@@ -1,31 +1,47 @@
 package com.sincar.customer.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sincar.customer.R;
-import com.sincar.customer.adapter.content.AgentTimeContent;
-import com.sincar.customer.adapter.content.PointContent;
+import com.sincar.customer.adapter.content.AddressContent;
+import com.sincar.customer.adapter.content.AgentContent;
+import com.sincar.customer.adapter.content.TimeContent;
 
 import java.util.List;
 
-public class AgentTimeRecyclerViewAdapter extends RecyclerView.Adapter<AgentTimeRecyclerViewAdapter.ViewHolder> {
+public class AgentRecyclerViewAdapter extends RecyclerView.Adapter<AgentRecyclerViewAdapter.ViewHolder> {
 
-    private final List<AgentTimeContent.AgentTimeItem> mValues;
+    private final int timeSpanCount = 4;
+    private final List<AgentContent.AgentItem> mValues;
 
-    public AgentTimeRecyclerViewAdapter(List<AgentTimeContent.AgentTimeItem> items) {
+    public AgentRecyclerViewAdapter(List<AgentContent.AgentItem> items) {
         mValues = items;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.agent_time_list_item, parent, false);
+                .inflate(R.layout.agent_list_item, parent, false);
+
+        // Time List 만들기
+        View subView = view.findViewById(R.id.reservationTimeList);
+        if (subView instanceof RecyclerView) {
+            Context context = view.getContext();
+            RecyclerView recyclerView = (RecyclerView) subView;
+
+            recyclerView.setLayoutManager(new GridLayoutManager(context, timeSpanCount));
+            recyclerView.setAdapter(new TimeRecyclerViewAdapter(TimeContent.ITEMS));
+        }
+
         return new ViewHolder(view);
     }
 
@@ -53,7 +69,7 @@ public class AgentTimeRecyclerViewAdapter extends RecyclerView.Adapter<AgentTime
         public final TextView mBranchName;
         public final TextView mWashArea;
 
-        public AgentTimeContent.AgentTimeItem mItem;
+        public AgentContent.AgentItem mItem;
 
         public ViewHolder(View view) {
             super(view);
