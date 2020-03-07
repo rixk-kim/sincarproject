@@ -88,7 +88,7 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.car_manage_btnNext:
                 //  TODO - 차량등록
-                intent = new Intent(this, CardRegisterActivity.class);
+                intent = new Intent(this, CarRegisterActivity.class);
                 startActivity(intent);
                 finish();
                 break;

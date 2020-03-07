@@ -52,11 +52,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent;
                 switch (item.getItemId()) {
                     case R.id.bottom_home: {
-                        // TODO - HOME
+                        // HOME
                         break;
                     }
                     case R.id.bottom_use_history: {
-                        // TODO - 이용내역
+                        intent = new Intent(mContext, UseHistoryActivity.class);
+                        startActivity(intent);
+                        finish();
                         break;
                     }
                     case R.id.bottom_myinfo: {

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/use_layout"
+        android:layout_width="match_parent"
+        android:layout_height="182dp"
+        android:layout_gravity="center|center_horizontal|center_vertical"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginRight="24dp"
+        android:background="@drawable/default_background_type_2"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="18dp"
+            android:gravity="left|center_horizontal|center_vertical">
+
+            <TextView
+                android:id="@+id/use_column1"
+                android:layout_width="56dp"
+                android:layout_height="18dp"
+                android:gravity="left|center_horizontal|center_vertical"
+                android:text="예약 건"
+                android:textColor="#ff4d4d"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- 예약 시간 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="left|center_horizontal|center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:gravity="left|center_horizontal|center_vertical">
+
+                <TextView
+                    android:id="@+id/use_column2"
+                    android:layout_width="56dp"
+                    android:layout_height="16dp"
+                    android:gravity="left|center_horizontal|center_vertical"
+                    android:text="예약 시간"
+                    android:textColor="#3e3e3e"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="left|center_horizontal|center_vertical">
+
+                <TextView
+                    android:id="@+id/use_column3"
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:gravity="left|center_horizontal|center_vertical"
+                    android:text="12/22 14:00"
+                    android:textColor="#3e3e3e"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 세차장소 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="left|center_horizontal|center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:gravity="left|center_horizontal|center_vertical">
+
+                <TextView
+                    android:id="@+id/use_column4"
+                    android:layout_width="56dp"
+                    android:layout_height="16dp"
+                    android:gravity="left|center_horizontal|center_vertical"
+                    android:text="세차 장소"
+                    android:textColor="#3e3e3e"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="left|center_horizontal|center_vertical">
+
+                <TextView
+                    android:id="@+id/use_column5"
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:gravity="left|center_horizontal|center_vertical"
+                    android:text="송파구 석촌호수로 274 (실내)"
+                    android:textColor="#3e3e3e"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 대리점 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_marginTop="12dp"
+            android:gravity="left|center_horizontal|center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:gravity="left|center_horizontal|center_vertical">
+
+                <TextView
+                    android:id="@+id/use_column6"
+                    android:layout_width="56dp"
+                    android:layout_height="16dp"
+                    android:gravity="left|center_horizontal|center_vertical"
+                    android:text="대리점"
+                    android:textColor="#3e3e3e"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="left|center_horizontal|center_vertical">
+
+                <TextView
+                    android:id="@+id/use_column7"
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:gravity="left|center_horizontal|center_vertical"
+                    android:text="관악 1호점 (김태현) "
+                    android:textColor="#3e3e3e"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:layout_marginLeft="11dp"
+                android:gravity="right|center_horizontal|center_vertical">
+
+                <TextView
+                    android:id="@+id/use_column8"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|center_horizontal|center_vertical"
+                    android:text="전화걸기"
+                    android:textColor="#007aff"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 이용 요금 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_marginTop="12dp"
+            android:gravity="left|center_horizontal|center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:gravity="left|center_horizontal|center_vertical">
+
+                <TextView
+                    android:id="@+id/use_column9"
+                    android:layout_width="56dp"
+                    android:layout_height="16dp"
+                    android:gravity="left|center_horizontal|center_vertical"
+                    android:text="이용 요금"
+                    android:textColor="#3e3e3e"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="left|center_horizontal|center_vertical">
+
+                <TextView
+                    android:id="@+id/use_column10"
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:gravity="left|center_horizontal|center_vertical"
+                    android:text="43,000원"
+                    android:textColor="#3e3e3e"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/notice_list_item_divider"
+        android:layout_width="match_parent"
+        android:layout_height="9dp" />
+
+</LinearLayout>

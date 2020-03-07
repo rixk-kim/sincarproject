@@ -140,8 +140,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
             case R.id.btnPrev:
                 // 메인 이동
-                Intent intent = new Intent(LoginActivity.this, com.sincar.customer.LoginActivityPre.class);
-                startActivity(intent);
+                //Intent intent = new Intent(LoginActivity.this, com.sincar.customer.LoginActivityPre.class);
+                //startActivity(intent);
                 // 최초 생성 후 이동 시 제거
                 finish();
                 break;
