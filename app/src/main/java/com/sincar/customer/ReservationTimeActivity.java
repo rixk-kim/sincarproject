@@ -2,6 +2,7 @@ package com.sincar.customer;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,8 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sincar.customer.adapter.AgentRecyclerViewAdapter;
 import com.sincar.customer.adapter.content.AgentContent;
+import com.sincar.customer.adapter.content.AgentContent.AgentItem;
 
-public class ReservationTimeActivity extends AppCompatActivity implements View.OnClickListener {
+public class ReservationTimeActivity extends AppCompatActivity
+        implements View.OnClickListener, AgentRecyclerViewAdapter.OnAgentListInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,7 @@ public class ReservationTimeActivity extends AppCompatActivity implements View.O
             RecyclerView recyclerView = (RecyclerView) view;
 
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new AgentRecyclerViewAdapter(AgentContent.ITEMS));
+            recyclerView.setAdapter(new AgentRecyclerViewAdapter(AgentContent.ITEMS, this));
         }
     }
 
@@ -47,5 +50,10 @@ public class ReservationTimeActivity extends AppCompatActivity implements View.O
                 finish();
                 break;
         }
+    }
+
+    @Override
+    public void onAgentListInteraction(AgentItem agentItem) {
+        Log.d("시간예약", "대리점주 id = " + agentItem.id);
     }
 }

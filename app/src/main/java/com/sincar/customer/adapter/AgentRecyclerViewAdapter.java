@@ -1,6 +1,7 @@
 package com.sincar.customer.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,23 +9,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sincar.customer.R;
-import com.sincar.customer.adapter.content.AddressContent;
 import com.sincar.customer.adapter.content.AgentContent;
+import com.sincar.customer.adapter.content.AgentContent.AgentItem;
 import com.sincar.customer.adapter.content.TimeContent;
+import com.sincar.customer.adapter.content.TimeContent.TimeItem;
 
 import java.util.List;
 
-public class AgentRecyclerViewAdapter extends RecyclerView.Adapter<AgentRecyclerViewAdapter.ViewHolder> {
+public class AgentRecyclerViewAdapter extends RecyclerView.Adapter<AgentRecyclerViewAdapter.ViewHolder>
+implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
 
     private final int timeSpanCount = 4;
+    private OnAgentListInteractionListener mListener;
     private final List<AgentContent.AgentItem> mValues;
 
-    public AgentRecyclerViewAdapter(List<AgentContent.AgentItem> items) {
+    public AgentRecyclerViewAdapter(List<AgentContent.AgentItem> items, OnAgentListInteractionListener listener) {
         mValues = items;
+        if (listener != null && listener instanceof OnAgentListInteractionListener) {
+            mListener = listener;
+        }
     }
 
     @Override
@@ -32,15 +38,15 @@ public class AgentRecyclerViewAdapter extends RecyclerView.Adapter<AgentRecycler
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.agent_list_item, parent, false);
 
-        // Time List 만들기
-        View subView = view.findViewById(R.id.reservationTimeList);
-        if (subView instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) subView;
-
-            recyclerView.setLayoutManager(new GridLayoutManager(context, timeSpanCount));
-            recyclerView.setAdapter(new TimeRecyclerViewAdapter(TimeContent.ITEMS));
-        }
+//        // Time List 만들기
+//        View subView = view.findViewById(R.id.reservationTimeList);
+//        if (subView instanceof RecyclerView) {
+//            Context context = view.getContext();
+//            RecyclerView recyclerView = (RecyclerView) subView;
+//
+//            recyclerView.setLayoutManager(new GridLayoutManager(context, timeSpanCount));
+//            recyclerView.setAdapter(new TimeRecyclerViewAdapter(TimeContent.ITEMS, this));
+//        }
 
         return new ViewHolder(view);
     }
@@ -54,11 +60,31 @@ public class AgentRecyclerViewAdapter extends RecyclerView.Adapter<AgentRecycler
         holder.mAgentName.setText(mValues.get(position).agent_name);
         holder.mBranchName.setText(mValues.get(position).branch_area);
         holder.mWashArea.setText(mValues.get(position).wash_area);
+
+        // Time List 만들기
+        View subView = holder.mView.findViewById(R.id.reservationTimeList);
+        if (subView instanceof RecyclerView) {
+            Context context = holder.mView.getContext();
+            RecyclerView recyclerView = (RecyclerView) subView;
+
+            recyclerView.setLayoutManager(new GridLayoutManager(context, timeSpanCount));
+            recyclerView.setAdapter(new TimeRecyclerViewAdapter(position, TimeContent.ITEMS, this));
+        }
     }
 
     @Override
     public int getItemCount() {
         return mValues.size();
+    }
+
+    @Override
+    public void onTimeListInteraction(TimeItem timeItem) {
+        Log.d("대리점주", "position = " + timeItem.position);
+        Log.d("대리점주", "selected = " + timeItem.selected);
+        Log.d("대리점주", "agentPosition = " + timeItem.agentPosition);
+        if (mListener != null) {
+            mListener.onAgentListInteraction(mValues.get(timeItem.agentPosition));
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -80,5 +106,9 @@ public class AgentRecyclerViewAdapter extends RecyclerView.Adapter<AgentRecycler
             mBranchName = view.findViewById(R.id.branch_name);
             mWashArea = view.findViewById(R.id.wash_area);
         }
+    }
+
+    public interface OnAgentListInteractionListener {
+        void onAgentListInteraction(AgentItem agentItem);
     }
 }

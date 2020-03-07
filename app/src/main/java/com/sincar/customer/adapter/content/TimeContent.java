@@ -29,26 +29,28 @@ public class TimeContent {
 
     private static void addItem(TimeItem item) {
         ITEMS.add(item);
-        ITEM_MAP.put(item.id, item);
+        ITEM_MAP.put(item.position, item);
     }
 
     private static TimeItem createDummyItem(int position) {
-        return new TimeItem(position,"08:00", true, false);
+        return new TimeItem(0,position-1,position + ":00", true, false);
     }
 
     /**
      * A TimeItem item representing a piece of content.
      */
     public static class TimeItem {
-        public final int id;
+        public int agentPosition;  // 점주 position
+        public int position;       // Time position
 
-        public final String reservation_time;
-        public final boolean enable;
-        public final boolean selected;
+        public String reservation_time;
+        public boolean enable;
+        public boolean selected;
 
-        public TimeItem(int id,
+        public TimeItem(int agentPosition, int position,
                               String reservation_time, boolean enable, boolean selected) {
-            this.id = id;
+            this.agentPosition = agentPosition;
+            this.position = position;
             this.reservation_time = reservation_time;
             this.enable = enable;
             this.selected = selected;

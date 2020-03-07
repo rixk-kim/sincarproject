@@ -33,7 +33,7 @@ public class AgentContent {
     }
 
     private static AgentItem createDummyItem(int position) {
-        return new AgentItem(position,
+        return new AgentItem(position-1,
                 "",
                 "김태현",
                 "관악구 1호점",
