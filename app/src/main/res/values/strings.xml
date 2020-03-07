@@ -172,6 +172,11 @@
     <string name="title_car_manage">차량정보</string>
     <string name="title_car_register">차량등록</string>
 
+    <string name="title_use_history">이용 내역</string>
+    <string name="title_use_detail">상세 내역</string>
+
+    <string name="btn_reserve_cancel">예약 취소</string>
+
     <!-- template 시작 -->
     <string name="title_activity_template">템플릿 화면</string>
     <string name="title_activity_profile_photo_change">ProfilePhotoChangeActivity</string>

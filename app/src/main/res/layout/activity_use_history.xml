@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CardActivity">
+    tools:context=".UseHistoryActivity">
 
     <!-- ActionBar 영역 -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,54 +13,49 @@
         android:id="@+id/card_include"
         tools:ignore="MissingConstraints">
 
-        <!-- ActionBar : Back / Title / Info -->
-        <ImageView
-            android:id="@+id/card_btnPrev"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="32dp"
-            android:contentDescription="@string/actionbar_prev_icon_description"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/arrow_red_24_px" />
-
+        <!-- ActionBar : Title / Info -->
         <TextView
-            android:id="@+id/card_title_activity"
+            android:id="@+id/use_history_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center|center_horizontal"
-            android:text="@string/title_card"
+            android:text="@string/title_use_history"
             android:textColor="#3e3e3e"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/card_include"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/card_btnNext"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="24dp"
-            android:contentDescription="@string/actionbar_next_icon_description"
-            app:layout_constraintStart_toEndOf="@+id/title_activity"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:srcCompat="@drawable/plus" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <!-- 리스트 내용 -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cardHistoryList"
+        android:id="@+id/useHistoryList"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="45dp"
+        android:layout_marginBottom="64dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/card_include" />
+
+    <!-- bottom navi -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/useBottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:gravity="bottom"
+        app:layout_behavior="com.sincar.customer.common.BottomNavigationViewBehavior"
+        app:menu="@menu/bottom_navi"
+        tools:ignore="MissingConstraints"
+        app:layout_insetEdge="bottom"
+        android:background="@drawable/default_background_type_3"
+        app:itemBackground="@color/base_background_color"
+        app:itemIconTint="@drawable/bottom_section_color"
+        app:itemTextColor="@color/default_text_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
