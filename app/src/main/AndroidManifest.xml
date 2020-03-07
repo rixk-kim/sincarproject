@@ -228,6 +228,14 @@
             tools:ignore="LockedOrientationActivity" /> <!-- 차량관리 시작 -->
 
 
+        <activity
+            android:name=".CarRegisterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" /> <!-- 차량등록 시작 -->
+
+
+
         <activity android:name=".TemplateActivity" /> <!-- template activity -->
         <provider
             android:name="androidx.core.content.FileProvider"
