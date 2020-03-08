@@ -1,6 +1,7 @@
 package com.sincar.customer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -55,5 +56,13 @@ public class ReservationTimeActivity extends AppCompatActivity
     @Override
     public void onAgentListInteraction(AgentItem agentItem) {
         Log.d("시간예약", "대리점주 id = " + agentItem.id);
+
+        // TODO - 예약시간 설정 하고 예약 메인 화면으로 이동에 필요한 데이타 전송필요(Bundle)
+        Intent intent = new Intent(this, ReservationMainActivity.class);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("대리점정보", "대리점정보");
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

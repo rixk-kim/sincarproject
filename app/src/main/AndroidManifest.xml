@@ -105,6 +105,7 @@
             tools:ignore="LockedOrientationActivity" /> <!-- 15. 영업시간 설정 메인 -->
         <activity android:name=".ReservationMainActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="LockedOrientationActivity" />  <!-- 예약 전체 보기 메인 -->
 
