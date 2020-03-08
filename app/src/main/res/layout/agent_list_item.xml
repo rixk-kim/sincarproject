@@ -35,7 +35,7 @@
         <TextView
             android:id="@+id/agent_name"
             android:layout_width="wrap_content"
-            android:layout_height="22dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="17dp"
             android:layout_marginStart="28dp"
             android:text="@string/agent_name_dummy"
@@ -48,7 +48,7 @@
         <TextView
             android:id="@+id/branch_name"
             android:layout_width="wrap_content"
-            android:layout_height="18dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="19dp"
             android:layout_marginStart="28dp"
             android:text="@string/branch_name_dummy"
@@ -61,7 +61,7 @@
         <TextView
             android:id="@+id/wash_area_title"
             android:layout_width="wrap_content"
-            android:layout_height="16dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:textSize="14sp"
             android:textColor="#3e3e3e"
@@ -74,7 +74,7 @@
         <TextView
             android:id="@+id/wash_area"
             android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
