@@ -130,12 +130,26 @@
                 android:textColor="#3e3e3e"
                 android:letterSpacing="0.05"
                 android:lineSpacingExtra="2sp"
+                android:text="@string/register_car_not_exist"
                 tools:text="등록된 차량 없음"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
-            <!-- TODO : 등록하기 버튼 만들기 -->
+            <TextView
+                android:id="@+id/btnCarRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:textSize="14sp"
+                android:textColor="#ff4d4d"
+                android:lineSpacingExtra="3sp"
+                android:text="@string/car_btn_str_register"
+                tools:text="등록하기"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -180,7 +194,20 @@
                 />
 
             <!-- TODO : 변경하기 버튼 만들기 -->
-
+            <TextView
+                android:id="@+id/btnCarModify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:textSize="14sp"
+                android:textColor="#ff4d4d"
+                android:lineSpacingExtra="3sp"
+                android:text="@string/car_btn_str_modify"
+                tools:text="등록하기"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
