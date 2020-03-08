@@ -30,11 +30,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class NoticeActivity extends AppCompatActivity implements View.OnClickListener {
-
+    public static NoticeActivity _noticeActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notice);
+        _noticeActivity = NoticeActivity.this;
 
         // 화면 초기화
         init();

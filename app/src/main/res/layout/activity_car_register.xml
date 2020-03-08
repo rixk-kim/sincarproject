@@ -160,9 +160,8 @@
 
 
             <TextView
-                android:id="@+id/user_id_et3"
                 android:layout_width="match_parent"
-                android:layout_height="17dp"
+                android:layout_height="20dp"
                 android:layout_marginLeft="20dp"
                 android:gravity="left|center_vertical|center_horizontal"
                 android:background="@null"
@@ -174,7 +173,7 @@
             <EditText
                 android:id="@+id/car_select_colume3"
                 android:layout_width="match_parent"
-                android:layout_height="17dp"
+                android:layout_height="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:gravity="left|center_vertical|center_horizontal"

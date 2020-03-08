@@ -44,6 +44,10 @@ public class NoticeDetailActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notice_detail);
 
+        //이전 Activity 종료.
+        NoticeActivity noticeActivity = (NoticeActivity)NoticeActivity._noticeActivity;
+        noticeActivity.finish();
+
         Intent intent = getIntent(); /*데이터 수신*/
         noti_title    = intent.getExtras().getString("title");    /*String형*/
         noti_date     = intent.getExtras().getString("date");     /*String형*/

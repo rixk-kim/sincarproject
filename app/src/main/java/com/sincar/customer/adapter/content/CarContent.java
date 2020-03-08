@@ -33,7 +33,7 @@ public class CarContent {
     }
 
     private static CarItem createDummyItem(int position) {
-        return new CarItem(position, "포드",String.valueOf(position), "익스플로러 스포츠 트랙", "12가 1234");
+        return new CarItem(position, "포드",String.valueOf(position), "익스플로러 스포츠 트랙", "12가 1234",false);
     }
 
     /**
@@ -46,12 +46,15 @@ public class CarContent {
         public final String car_name;
         public final String car_number;
 
-        public CarItem(int id, String title, String seq, String name, String car_number) {
+        public boolean car_selected;
+
+        public CarItem(int id, String title, String seq, String name, String car_number, boolean car_selected) {
             this.id = id;
             this.car_title  = title;
             this.car_seq    = seq;
             this.car_name   = name;
             this.car_number = car_number;
+            this.car_selected = car_selected;
         }
     }
 }

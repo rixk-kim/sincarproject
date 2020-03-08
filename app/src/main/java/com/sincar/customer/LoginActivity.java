@@ -130,22 +130,16 @@ public class LoginActivity extends Activity implements View.OnClickListener {
      */
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        this.finish();
+        //super.onBackPressed();
+        Intent intent = new Intent(this, LoginActivityPre.class);
+        startActivity(intent);
+
+        finish();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
-            case R.id.btnPrev:
-                // 메인 이동
-                //Intent intent = new Intent(LoginActivity.this, com.sincar.customer.LoginActivityPre.class);
-                //startActivity(intent);
-                // 최초 생성 후 이동 시 제거
-                finish();
-                break;
-
             // 로그인 버튼
             case R.id.login_btn:
                 // 전화번호 입력 검증
