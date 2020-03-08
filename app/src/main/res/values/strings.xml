@@ -141,7 +141,7 @@
     <string name="car_number_str">35나 8733</string>
 
     <string name="wash_info_title">세차 장소</string>
-    <string name="wash_indoor">살내</string>
+    <string name="wash_indoor">실내</string>
     <string name="wash_outdoor">실외</string>
 
     <string name="option_service_title">부가 서비스 (선택)</string>
