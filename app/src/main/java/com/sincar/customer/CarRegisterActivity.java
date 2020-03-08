@@ -153,6 +153,11 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
         GridView gv = (GridView)layout.findViewById(R.id.gridView1);
         gv.setAdapter(adapter);  // 커스텀 아답타를 GridView 에 적용
 
+        aDialog.setView(layout); //dialog.xml 파일을 뷰로 셋팅
+
+        //팝업창 생성
+        final AlertDialog ad = aDialog.create();
+
         // GridView 아이템을 클릭하면 상단 텍스트뷰에 position 출력
         gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -163,23 +168,11 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                     car_select_colume1.setText(company_name[position]);
                 }
                 Toast.makeText(cContext, "position : " + adapter.getCount(), Toast.LENGTH_SHORT).show();
-
-
+                ad.dismiss();
             }
         });
 
-        aDialog.setTitle("제조사"); //타이틀바 제목
-        aDialog.setView(layout); //dialog.xml 파일을 뷰로 셋팅
-
-        //그냥 닫기버튼을 위한 부분
-        aDialog.setNegativeButton("닫기", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
-        //팝업창 생성
-        AlertDialog ad = aDialog.create();
         ad.show();//보여줌!
-
     }
 
     class CompanyAdapter extends BaseAdapter {
@@ -256,6 +249,10 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
         GridView gv = (GridView)layout.findViewById(R.id.car_gridView1);
         gv.setAdapter(adapter);  // 커스텀 아답타를 GridView 에 적용
 
+        aDialog.setView(layout); //dialog.xml 파일을 뷰로 셋팅
+        //팝업창 생성
+        final AlertDialog ad = aDialog.create();
+
         // GridView 아이템을 클릭하면 상단 텍스트뷰에 position 출력
         gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -267,20 +264,9 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                 }
                 Toast.makeText(cContext, "position : " + adapter.getCount(), Toast.LENGTH_SHORT).show();
 
-
+                ad.dismiss();;
             }
         });
-
-        aDialog.setTitle("모델명"); //타이틀바 제목
-        aDialog.setView(layout); //dialog.xml 파일을 뷰로 셋팅
-
-        //그냥 닫기버튼을 위한 부분
-        aDialog.setNegativeButton("닫기", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        //팝업창 생성
-        AlertDialog ad = aDialog.create();
         ad.show();//보여줌!
 
     }

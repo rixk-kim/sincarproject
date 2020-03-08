@@ -23,10 +23,13 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
     private MenuItem prevBottomNavigation;
     private Context uContext;
 
+    public static UseHistoryActivity _useHistoryActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_use_history);
+        _useHistoryActivity = UseHistoryActivity.this;
         uContext = this;
 
         // 화면 초기화

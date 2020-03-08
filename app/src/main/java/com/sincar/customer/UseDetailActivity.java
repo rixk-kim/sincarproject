@@ -41,6 +41,10 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_use_detail);
 
+        //이전 Activity 종료.
+        UseHistoryActivity useActivity = (UseHistoryActivity)UseHistoryActivity._useHistoryActivity;
+        useActivity.finish();
+
         Intent intent = getIntent(); /*데이터 수신*/
         common_pay      = intent.getExtras().getString("common_pay");       /*String형*/
         coupone_pay     = intent.getExtras().getString("coupone_pay");      /*String형*/
@@ -135,7 +139,7 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        Intent intent = new Intent(this, NoticeActivity.class);
+        Intent intent = new Intent(this, UseHistoryActivity.class);
         startActivity(intent);
 
         finish();
