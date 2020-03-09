@@ -145,6 +145,7 @@
     <string name="wash_outdoor">실외</string>
 
     <string name="option_service_title">부가 서비스 (선택)</string>
+    <string name="option_info_desc">부가 서비스 설명</string>
     <!-- 예약 메인 화면 종료 -->
 
     <!-- 19. 활동 지역 설정 시작 -->

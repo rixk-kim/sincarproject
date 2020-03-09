@@ -36,7 +36,7 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.agent_list_item, parent, false);
+                .inflate(R.layout.list_item_agent, parent, false);
 
 //        // Time List 만들기
 //        View subView = view.findViewById(R.id.reservationTimeList);

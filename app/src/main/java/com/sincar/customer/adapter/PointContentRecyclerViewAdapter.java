@@ -23,7 +23,7 @@ public class PointContentRecyclerViewAdapter extends RecyclerView.Adapter<PointC
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.point_history_list_item, parent, false);
+                .inflate(R.layout.list_item_point_history, parent, false);
         return new ViewHolder(view);
     }
 

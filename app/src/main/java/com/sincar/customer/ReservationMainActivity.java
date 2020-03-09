@@ -1,11 +1,19 @@
 package com.sincar.customer;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import com.sincar.customer.adapter.OptionServiceRecyclerViewAdapter;
+import com.sincar.customer.adapter.PointContentRecyclerViewAdapter;
+import com.sincar.customer.adapter.content.OptionContent;
+import com.sincar.customer.adapter.content.PointContent;
 
 public class ReservationMainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -13,7 +21,6 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation_main);
-
 
         // 화면 초기화
         init();
@@ -41,6 +48,17 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
             findViewById(R.id.car_modify_layout).setVisibility(View.GONE);
 
             findViewById(R.id.btnCarRegister).setOnClickListener(this);
+        }
+
+        // TODO - 서버 연동 후 PointContent.ITEMS에 리스 항목 추가 작업
+        // Set the adapter - 포인트 리스트 설정
+        View view = findViewById(R.id.optionServiceList);
+        if (view instanceof RecyclerView) {
+            Context context = view.getContext();
+            RecyclerView recyclerView = (RecyclerView) view;
+
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            recyclerView.setAdapter(new OptionServiceRecyclerViewAdapter(OptionContent.ITEMS));
         }
     }
 

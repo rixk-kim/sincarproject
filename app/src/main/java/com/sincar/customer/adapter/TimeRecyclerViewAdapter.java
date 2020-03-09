@@ -36,7 +36,7 @@ public class TimeRecyclerViewAdapter extends RecyclerView.Adapter<TimeRecyclerVi
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.time_list_item, parent, false);
+                .inflate(R.layout.list_item_time, parent, false);
         return new ViewHolder(view);
     }
 

@@ -24,9 +24,7 @@
             android:id="@+id/logo_img"
             android:layout_width="142dp"
             android:layout_height="42dp"
-
-
-            android:src="@drawable/group" />
+            android:src="@drawable/login_image" />
 
     </LinearLayout>
 

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable = "@drawable/checkbox_normal" android:state_checked= "false" />
+    <!-- TODO : checkbox selected 이미지 요청 받아 적용 -->
+    <item android:drawable = "@drawable/checkbox_normal" android:state_checked= "true" />
+</selector>

@@ -128,7 +128,6 @@
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:textColor="#3e3e3e"
-                android:letterSpacing="0.05"
                 android:lineSpacingExtra="2sp"
                 android:text="@string/register_car_not_exist"
                 tools:text="등록된 차량 없음"
@@ -170,7 +169,6 @@
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:textColor="#3e3e3e"
-                android:letterSpacing="0.05"
                 android:lineSpacingExtra="2sp"
                 android:text="@string/car_name_str"
                 tools:text="현대 싼타페 (대형)"
@@ -185,7 +183,6 @@
                 android:layout_marginTop="8dp"
                 android:textSize="15sp"
                 android:textColor="#3e3e3e"
-                android:letterSpacing="0.05"
                 android:lineSpacingExtra="2sp"
                 android:text="@string/car_number_str"
                 tools:text="35나 8743"
@@ -267,7 +264,6 @@
                     android:checked="true"
                     android:textSize="15sp"
                     android:textColor="#3e3e3e"
-                    android:letterSpacing="0.05"
                     android:lineSpacingExtra="2sp"
                     android:button="@drawable/radio_button_selector"
                     android:paddingStart="8dp"
@@ -281,7 +277,6 @@
                     android:layout_marginStart="36dp"
                     android:textSize="15sp"
                     android:textColor="#3e3e3e"
-                    android:letterSpacing="0.05"
                     android:lineSpacingExtra="2sp"
                     android:button="@drawable/radio_button_selector"
                     android:paddingStart="8dp"
@@ -324,7 +319,7 @@
 
         <!-- 부가서비스  리스트 -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/optionList"
+            android:id="@+id/optionServiceList"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="14dp"
