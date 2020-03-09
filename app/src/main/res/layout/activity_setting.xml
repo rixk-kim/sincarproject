@@ -67,22 +67,22 @@
                 <LinearLayout
                     android:id="@+id/myinfo_linearLayout1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginTop="16dp"
                     android:layout_marginLeft="6dp"
                     tools:ignore="MissingConstraints">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="left|center_horizontal|center_vertical"
                         android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/myinfo_user_title"
-                            android:layout_width="72dp"
-                            android:layout_height="16dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="18dp"
                             android:layout_gravity="left|center_horizontal|center_vertical"
                             android:letterSpacing="0.05"
                             android:text="서비스 정보"
@@ -102,14 +102,14 @@
                     tools:ignore="MissingConstraints">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:layout_gravity="left|center_horizontal|center_vertical"
                         android:orientation="vertical">
 
                         <TextView
-                            android:layout_width="62dp"
+                            android:layout_width="match_parent"
                             android:layout_height="19dp"
                             android:layout_gravity="left|center_horizontal|center_vertical"
                             android:letterSpacing="0.05"
@@ -120,7 +120,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginLeft="3dp"
@@ -129,7 +129,7 @@
 
                         <TextView
                             android:id="@+id/setting_version_info"
-                            android:layout_width="62dp"
+                            android:layout_width="match_parent"
                             android:layout_height="19dp"
                             android:layout_gravity="center|center_horizontal|center_vertical"
                             android:letterSpacing="0.05"
@@ -148,26 +148,25 @@
                     android:id="@+id/myinfo_linearLayout3"
                     android:layout_width="match_parent"
                     android:layout_height="72dp"
-                    android:layout_marginTop="14dp"
                     android:layout_marginLeft="6dp"
-                    android:orientation="vertical"
+                    android:layout_marginTop="14dp"
                     android:gravity="center"
+                    android:orientation="vertical"
                     tools:ignore="MissingConstraints">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="left|center_horizontal|center_vertical"
                         android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/setting_clause"
-                            android:layout_width="81dp"
+                            android:layout_width="match_parent"
                             android:layout_height="19dp"
-                            android:layout_gravity="center|center_horizontal|center_vertical"
-                            android:gravity="center"
+                            android:layout_gravity="left|center_horizontal|center_vertical"
+                            android:gravity="left"
                             android:letterSpacing="0.05"
-                            android:lines="2"
                             android:text="약관 및 정책"
                             android:textColor="@color/textColorPrimary"
                             android:textSize="15sp" />
@@ -180,23 +179,24 @@
                     android:background="#333e3e3e" />
 
                 <LinearLayout
-                    android:layout_width="54dp"
-                    android:layout_height="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="41dp"
                     android:layout_marginLeft="6dp"
                     android:orientation="vertical"
                     tools:ignore="MissingConstraints">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="left|center_horizontal|center_vertical"
                         android:orientation="vertical">
 
                         <TextView
-                            android:layout_width="54dp"
+                            android:layout_width="match_parent"
                             android:layout_height="17dp"
                             android:layout_gravity="center|center_horizontal|center_vertical"
+                            android:gravity="left"
                             android:letterSpacing="0.05"
                             android:text="알림설정"
                             android:textColor="#ff4b5b"
@@ -214,16 +214,17 @@
                     tools:ignore="MissingConstraints">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|center_horizontal|center_vertical"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_weight="1">
 
                         <TextView
-                            android:layout_width="77dp"
+                            android:layout_width="match_parent"
                             android:layout_height="19dp"
                             android:layout_gravity="left|center_horizontal|center_vertical"
-                            android:gravity="center"
+                            android:gravity="left"
                             android:layout_marginTop="8dp"
                             android:letterSpacing="0.05"
                             android:text="정보성 알림"
@@ -231,11 +232,11 @@
                             android:textSize="15sp" />
 
                         <TextView
-                            android:layout_width="124dp"
+                            android:layout_width="match_parent"
                             android:layout_height="17dp"
                             android:layout_marginTop="8dp"
                             android:layout_gravity="left|center_horizontal|center_vertical"
-                            android:gravity="center"
+                            android:gravity="left"
                             android:letterSpacing="0.05"
                             android:text="예약완료, 기사매칭 등"
                             android:textColor="@color/textColorPrimary"
@@ -246,7 +247,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|center_horizontal|center_vertical"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_weight="1">
 
                         <Switch
                             android:id="@+id/infoSwitch1"
@@ -275,16 +277,17 @@
                     tools:ignore="MissingConstraints">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|center_horizontal|center_vertical"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_weight="1">
 
                         <TextView
-                            android:layout_width="77dp"
+                            android:layout_width="match_parent"
                             android:layout_height="19dp"
                             android:layout_gravity="left|center_horizontal|center_vertical"
-                            android:gravity="center"
+                            android:gravity="left"
                             android:layout_marginTop="8dp"
                             android:letterSpacing="0.05"
                             android:text="마케팅 알림"
@@ -292,7 +295,7 @@
                             android:textSize="15sp" />
 
                         <TextView
-                            android:layout_width="189dp"
+                            android:layout_width="match_parent"
                             android:layout_height="17dp"
                             android:layout_marginTop="8dp"
                             android:layout_gravity="left|center_horizontal|center_vertical"
@@ -307,7 +310,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|center_horizontal|center_vertical"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_weight="1">
 
                         <Switch
                             android:id="@+id/infoSwitch2"
@@ -336,15 +340,16 @@
                     tools:ignore="MissingConstraints">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="19dp"
                         android:layout_gravity="left|center_horizontal|center_vertical"
                         android:orientation="vertical">
 
                         <TextView
-                            android:layout_width="27dp"
+                            android:layout_width="match_parent"
                             android:layout_height="19dp"
                             android:layout_gravity="center|center_horizontal|center_vertical"
+                            android:gravity="left"
                             android:letterSpacing="0.05"
                             android:text="계정"
                             android:textColor="#ff4b5b"
@@ -363,16 +368,17 @@
                     tools:ignore="MissingConstraints">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="19dp"
                         android:layout_gravity="left|center_horizontal|center_vertical"
                         android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/member_logout"
-                            android:layout_width="58dp"
+                            android:layout_width="match_parent"
                             android:layout_height="19dp"
                             android:layout_gravity="center|center_horizontal|center_vertical"
+                            android:gravity="left"
                             android:letterSpacing="0.05"
                             android:text="로그아웃"
                             android:textColor="@color/textColorPrimary"
@@ -396,16 +402,17 @@
                     tools:ignore="MissingConstraints">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="19dp"
                         android:layout_gravity="left|center_horizontal|center_vertical"
                         android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/member_withdrawal"
-                            android:layout_width="62dp"
+                            android:layout_width="match_parent"
                             android:layout_height="19dp"
                             android:layout_gravity="center|center_horizontal|center_vertical"
+                            android:gravity="left"
                             android:letterSpacing="0.05"
                             android:text="회원탈퇴"
                             android:textColor="@color/textColorPrimary"
