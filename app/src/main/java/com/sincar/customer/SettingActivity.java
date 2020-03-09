@@ -49,7 +49,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
      */
     private void init() {
         findViewById(R.id.setting_btnPrev).setOnClickListener(this);
-        //       findViewById(R.id.myinfo_btnNext).setOnClickListener(this);
 
         //약관 및 정책
         findViewById(R.id.setting_clause).setOnClickListener(this);

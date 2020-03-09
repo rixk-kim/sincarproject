@@ -44,7 +44,7 @@ public class MyProfileSettingsActivity extends AppCompatActivity implements View
                 Intent intent;
                 switch (item.getItemId()) {
                     case R.id.bottom_home: {
-                        // TODO - HOME
+                        // HOME
                         intent = new Intent(mContext, MainActivity.class);
                         startActivity(intent);
 
@@ -55,11 +55,18 @@ public class MyProfileSettingsActivity extends AppCompatActivity implements View
                         break;
                     }
                     case R.id.bottom_use_history: {
-                        // TODO - 이용내역
+                        // 이용내역
+                        intent = new Intent(mContext, UseHistoryActivity.class);
+                        startActivity(intent);
+
+                        prevBottomNavigation = bottomNavigationView.getMenu().getItem(1);
+                        prevBottomNavigation.setChecked(true);
+
+                        finish();
                         break;
                     }
                     case R.id.bottom_myinfo: {
-                        // TODO - 내정보
+                        // 내정보
                         break;
                     }
                 }
@@ -115,17 +122,12 @@ public class MyProfileSettingsActivity extends AppCompatActivity implements View
                 startActivity(intent);
                 finish();
                 break;
-            case R.id.menu_5:   // 알림 및 버전 정보
-//                intent = new Intent(this, PushAndVersionActivity.class);
-//                startActivity(intent);
-                // TODO - 차량관리
+            case R.id.menu_5:   // 차량관리
                 intent = new Intent(this, CarManageActivity.class);
                 startActivity(intent);
                 finish();
                 break;
-            case R.id.menu_6:   // 로그아웃
-//                showLogoutAlertDialog(this);
-                // TODO - 알림 및 버전 정보
+            case R.id.menu_6:   // 알림 및 버전 정보
                 intent = new Intent(this, SettingActivity.class);
                 startActivity(intent);
                 finish();

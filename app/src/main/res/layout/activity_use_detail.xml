@@ -103,7 +103,7 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="16dp"
+                    android:layout_height="18dp"
                     android:layout_gravity="left|center_horizontal|center_vertical"
                     android:letterSpacing="0.05"
                     android:text="기본 세차"
@@ -121,7 +121,7 @@
                 <TextView
                     android:id="@+id/use_common_pay"
                     android:layout_width="match_parent"
-                    android:layout_height="16dp"
+                    android:layout_height="18dp"
                     android:gravity="right"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:letterSpacing="0.05"
@@ -148,7 +148,7 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="16dp"
+                    android:layout_height="18dp"
                     android:layout_gravity="left|center_horizontal|center_vertical"
                     android:letterSpacing="0.05"
                     android:text="쿠폰"
@@ -166,7 +166,7 @@
                 <TextView
                     android:id="@+id/use_coupone_pay"
                     android:layout_width="match_parent"
-                    android:layout_height="16dp"
+                    android:layout_height="18dp"
                     android:gravity="right"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:letterSpacing="0.05"
@@ -200,7 +200,7 @@
                 <TextView
                     android:id="@+id/use_approve_info"
                     android:layout_width="match_parent"
-                    android:layout_height="16dp"
+                    android:layout_height="18dp"
                     android:layout_gravity="left|center_horizontal|center_vertical"
                     android:letterSpacing="0.05"
                     android:text="케이뱅크 ****3840"
@@ -218,7 +218,7 @@
                 <TextView
                     android:id="@+id/use_use_pay"
                     android:layout_width="match_parent"
-                    android:layout_height="16dp"
+                    android:layout_height="18dp"
                     android:gravity="right"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:letterSpacing="0.05"

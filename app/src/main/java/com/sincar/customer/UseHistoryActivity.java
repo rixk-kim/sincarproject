@@ -29,7 +29,8 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_use_history);
-        _useHistoryActivity = UseHistoryActivity.this;
+
+        _useHistoryActivity = UseHistoryActivity.this;  //이전 activity finish를 위한 변수 선언.
         uContext = this;
 
         // 화면 초기화
