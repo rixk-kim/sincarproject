@@ -49,6 +49,7 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
         holder.mUseSeq = Integer.parseInt(mValues.get(position).seq);
         holder.reserve_status = Integer.parseInt(mValues.get(position).reserve_status);
         holder.reserve_time.setText(mValues.get(position).reserve_time);
+        holder.cancel_time = mValues.get(position).cancel_time;
         holder.wash_address.setText(mValues.get(position).wash_address);
         holder.wash_agent.setText(mValues.get(position).wash_agent);
         holder.use_pay.setText(mValues.get(position).use_pay);
@@ -59,6 +60,15 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
         holder.approve_info = mValues.get(position).approve_info;       //결재정보
         holder.car_info = mValues.get(position).car_info;       //차량정보
         holder.car_number = mValues.get(position).car_number;       //차량번호
+
+        //0: 예약중, 1:완료 , 2: 예약취소
+        if(holder.reserve_status == 0) {
+            holder.reserve_view.setText("예약 건");
+        }else if(holder.reserve_status == 1) {
+            holder.reserve_view.setText("완료 건");
+        }else if(holder.reserve_status == 2) {
+            holder.reserve_view.setText("예약취소 건");
+        }
 
         use_pos = String.valueOf(position);
 
@@ -80,11 +90,13 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
                 // TODO - 리스트 선택 시 이벤트 핸들러 추가 필요하면 여기에서 해주기
                 // 상세보기
                 Intent intent = new Intent(mContext, UseDetailActivity.class);
+                intent.putExtra("reserve_status", mValues.get(Integer.parseInt(use_pos)).reserve_status);
                 intent.putExtra("common_pay", mValues.get(Integer.parseInt(use_pos)).common_pay);
                 intent.putExtra("coupone_pay", mValues.get(Integer.parseInt(use_pos)).coupone_pay);
                 intent.putExtra("approve_info", mValues.get(Integer.parseInt(use_pos)).approve_info);
                 intent.putExtra("use_pay", mValues.get(Integer.parseInt(use_pos)).use_pay);
                 intent.putExtra("reserve_time", mValues.get(Integer.parseInt(use_pos)).reserve_time);
+                intent.putExtra("cencel_time", mValues.get(Integer.parseInt(use_pos)).cancel_time);
                 intent.putExtra("wash_address", mValues.get(Integer.parseInt(use_pos)).wash_address);
                 intent.putExtra("wash_agent", mValues.get(Integer.parseInt(use_pos)).wash_agent);
                 intent.putExtra("agent_mobile", mValues.get(Integer.parseInt(use_pos)).agent_mobile);
@@ -116,6 +128,7 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
         public final TextView use_pay;
         public String agent_mobile;
 
+        public String cancel_time;      //예약취소시간
         public String common_pay;       //기본요금
         public String coupone_pay;      //할인요금
         public String approve_info;     //결재정보
@@ -142,6 +155,7 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
             use_pay         = view.findViewById(R.id.use_column10);
             agent_mobile    = "";
 
+            cancel_time     = "";       //예약취소시간
             common_pay      = "";       //기본요금
             coupone_pay     = "";       //할인요금
             approve_info    = "";       //결재정보

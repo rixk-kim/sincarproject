@@ -124,6 +124,7 @@ public class MyProfileSettingsActivity extends AppCompatActivity implements View
                 break;
             case R.id.menu_5:   // 차량관리
                 intent = new Intent(this, CarManageActivity.class);
+                intent.putExtra("path", "carmanage");
                 startActivity(intent);
                 finish();
                 break;
