@@ -12,11 +12,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class UseDetailActivity extends AppCompatActivity implements View.OnClickListener {
+    private String reserve_status;  //예약상태
     private String common_pay;      //일반요금
     private String coupone_pay;     //쿠폰요금
     private String approve_info;    //결재정보
     private String use_pay;         //결재요금
     private String reserve_time;    //예약시간
+    private String cancel_time;     //예약취소시간
     private String wash_address;    //세차장소
     private String wash_agent;      //대리점
     private String agent_mobile;    //대리점 전화번호
@@ -29,12 +31,15 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
     private TextView textView_use_pay;
 
     private TextView textView_reserve_time;
+    private TextView textView_reserve_cancel_time;
     private TextView textView_wash_address;
     private TextView textView_wash_agent;
     private TextView textView_car_info;
     private TextView textView_car_number;
 
     private LinearLayout useLinearLayout;
+    private LinearLayout reserve_cancel_area;
+    private LinearLayout reserve_cancel_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +51,13 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
         useActivity.finish();
 
         Intent intent = getIntent(); /*데이터 수신*/
+        reserve_status  = intent.getExtras().getString("reserve_status");       /*String형*/
         common_pay      = intent.getExtras().getString("common_pay");       /*String형*/
         coupone_pay     = intent.getExtras().getString("coupone_pay");      /*String형*/
         approve_info    = intent.getExtras().getString("approve_info");     /*String형*/
         use_pay         = intent.getExtras().getString("use_pay");          /*String형*/
         reserve_time    = intent.getExtras().getString("reserve_time");     /*String형*/
+        cancel_time     = intent.getExtras().getString("cancel_time");     /*String형*/
         wash_address    = intent.getExtras().getString("wash_address");     /*String형*/
         wash_agent      = intent.getExtras().getString("wash_agent");       /*String형*/
         agent_mobile    = intent.getExtras().getString("agent_mobile");     /*String형*/
@@ -67,6 +74,9 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
     private void init() {
         findViewById(R.id.use_detail_btnPrev).setOnClickListener(this);
         findViewById(R.id.reserve_cancel_btn).setOnClickListener(this);
+
+        reserve_cancel_area = (LinearLayout) findViewById(R.id.reserve_cancel_area);
+
 
         //일반요금
         textView_common_pay = (TextView) findViewById(R.id.use_common_pay);
@@ -88,6 +98,10 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
         textView_reserve_time = (TextView) findViewById(R.id.use_reserve_time);
         textView_reserve_time.setText(reserve_time);
 
+        //예약취소시간
+        textView_reserve_cancel_time = (TextView) findViewById(R.id.reserve_cancel_time);
+        textView_reserve_cancel_time.setText(cancel_time);
+
         //세차장소
         textView_wash_address = (TextView) findViewById(R.id.use_wash_address);
         textView_wash_address.setText(wash_address);
@@ -105,6 +119,22 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
         //차량번호
         textView_car_number = (TextView) findViewById(R.id.use_car_number);
         textView_car_number.setText(car_number);
+
+        reserve_cancel_layout = (LinearLayout)findViewById(R.id.reserve_cancel_layout);
+
+        if("2".equals(reserve_status))  //
+        {
+            reserve_cancel_area.setVisibility(View.VISIBLE);
+//            textView_reserve_cancel_time.setVisibility(View.VISIBLE);
+            reserve_cancel_layout.setVisibility(View.GONE);
+        }else if("0".equals(reserve_status)){
+            reserve_cancel_area.setVisibility(View.GONE);
+//            textView_reserve_cancel_time.setVisibility(View.GONE);
+            reserve_cancel_layout.setVisibility(View.VISIBLE);
+        }else{  //완료
+            reserve_cancel_area.setVisibility(View.GONE);
+            reserve_cancel_layout.setVisibility(View.GONE);
+        }
 
         //전화걸기
         useLinearLayout.setOnClickListener(new View.OnClickListener() {
@@ -131,6 +161,11 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
 
             case R.id.reserve_cancel_btn:
                 // TODO - 예약 취소
+                Toast toast = Toast.makeText(this, "예약을 취소하였습니다.", Toast.LENGTH_LONG);
+
+                intent = new Intent(this, UseHistoryActivity.class);
+                startActivity(intent);
+                finish();
                 break;
         }
     }

@@ -33,7 +33,7 @@ public class UseContent {
     }
 
     private static UseItem createDummyItem(int position) {
-        return new UseItem(position, "1","0", "12/22 14:00", "송파구 석촌호수로 274 (실내)", "관악 1호점 (김태현) ", "43,000원",
+        return new UseItem(position, "1","0", "12/22 14:00", "", "송파구 석촌호수로 274 (실내)", "관악 1호점 (김태현) ", "43,000원",
                 "01012345678", "45,000원", "2000원", "케이뱅크 ****3840",
                 "현대 싼타페", "12가 3238");
     }
@@ -57,6 +57,7 @@ public class UseContent {
         public final String seq;
         public final String reserve_status;
         public final String reserve_time;
+        public final String cancel_time;
         public final String wash_address;
         public final String wash_agent;
         public final String use_pay;
@@ -69,11 +70,12 @@ public class UseContent {
         public final String car_number;
 
 
-        public UseItem(int id, String seq, String reserve_status, String reserve_time, String wash_address, String wash_agent, String use_pay, String agent_mobile, String common_pay, String coupone_pay, String approve_info, String car_info, String car_number ) {
+        public UseItem(int id, String seq, String reserve_status, String reserve_time, String cancel_time, String wash_address, String wash_agent, String use_pay, String agent_mobile, String common_pay, String coupone_pay, String approve_info, String car_info, String car_number ) {
             this.id = id;
             this.seq = seq;
             this.reserve_status = reserve_status;
             this.reserve_time   = reserve_time;
+            this.cancel_time    = cancel_time;
             this.wash_address   = wash_address;
             this.wash_agent     = wash_agent;
             this.use_pay        = use_pay;

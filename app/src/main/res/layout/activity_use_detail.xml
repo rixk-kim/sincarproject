@@ -55,6 +55,39 @@
         tools:layout_editor_absoluteX="0dp">
 
         <LinearLayout
+            android:id="@+id/reserve_cancel_area"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/default_background_type_6"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="7"
+            android:shadowColor="#C4C4C4"
+            android:gravity="center|center_horizontal|center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:layout_gravity="center"
+            android:gravity="center|center_horizontal|center_vertical"
+            android:text="취소가 완료되었습니다."
+            android:textColor="#ef3835"
+            android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/reserve_cancel_time"
+                android:layout_width="match_parent"
+                android:layout_height="14dp"
+                android:layout_marginTop="6dp"
+                android:layout_gravity="center"
+                android:gravity="center|center_horizontal|center_vertical"
+                android:text="2019.12.19(월) 15:21"
+                android:textColor="#ef3835"
+                android:textSize="13sp"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/notice_linearLayout1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -254,7 +287,7 @@
                     android:layout_width="56dp"
                     android:layout_height="18dp"
                     android:gravity="left|center_horizontal|center_vertical"
-                    android:text="예약 건"
+                    android:text="예약 정보"
                     android:textColor="#ff4d4d"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -464,6 +497,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/reserve_cancel_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="108dp"

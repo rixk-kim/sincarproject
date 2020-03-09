@@ -9,12 +9,14 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Context mContext;
     private MenuItem prevBottomNavigation;
+    private ConstraintLayout mConstraintLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btnMainMenu4).setOnClickListener(this);
         findViewById(R.id.btnCarRegisterClose).setOnClickListener(this);
         findViewById(R.id.btnCarRegister).setOnClickListener(this);
+
+        mConstraintLayout = (ConstraintLayout) findViewById(R.id.layout_car_register);
+
 
         //하단메뉴 고정(0:홈)
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
@@ -99,10 +104,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // TODO - 카쉐어
                 break;
             case R.id.btnCarRegisterClose:
-                // TODO - 배너 차량등록 종료
+                // 배너 차량등록 종료
+                mConstraintLayout.setVisibility(View.GONE);
                 break;
             case R.id.btnCarRegister:
-                // TODO - 배너 차량등록
+                // 배너 차량등록
+                intent = new Intent(this, CarManageActivity.class);
+                intent.putExtra("path", "main");
+                startActivity(intent);
+                finish();
                 break;
         }
     }

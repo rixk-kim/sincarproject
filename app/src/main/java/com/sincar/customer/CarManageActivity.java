@@ -33,10 +33,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CarManageActivity extends AppCompatActivity implements View.OnClickListener {
+    private String path;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_manage);
+
+        Intent intent = getIntent(); /*데이터 수신*/
+        path    = intent.getExtras().getString("path");    /*String형*/
 
         // 화면 초기화
         init();
@@ -82,13 +86,21 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
         switch (v.getId()) {
             case R.id.car_manage_btnPrev:
                 //  TODO - 내정보
-                intent = new Intent(this, MyProfileSettingsActivity.class);
-                startActivity(intent);
-                finish();
+                if("main".equals(path))
+                {
+                    intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else {
+                    intent = new Intent(this, MyProfileSettingsActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
                 break;
             case R.id.car_manage_btnNext:
                 //  TODO - 차량등록
                 intent = new Intent(this, CarRegisterActivity.class);
+                intent.putExtra("path", path);
                 startActivity(intent);
                 finish();
                 break;
@@ -99,9 +111,15 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        Intent intent = new Intent(this, MyProfileSettingsActivity.class);
-        startActivity(intent);
-
+        Intent intent;
+        if("main".equals(path))
+        {
+            intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }else {
+            intent = new Intent(this, MyProfileSettingsActivity.class);
+            startActivity(intent);
+        }
         finish();
     }
 

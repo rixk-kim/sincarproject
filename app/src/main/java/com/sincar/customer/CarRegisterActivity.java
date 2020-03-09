@@ -42,12 +42,16 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
     private Context cContext;
     private TextView car_select_colume1;
     private TextView car_select_colume2;
+    private String car_reg_path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_register);
         cContext = this;
+
+        Intent intent = getIntent(); /*데이터 수신*/
+        car_reg_path    = intent.getExtras().getString("path");    /*String형*/
 
         // 화면 초기화
         init();
@@ -85,6 +89,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
             case R.id.car_reg_btnPrev:
                 //  TODO - 내정보
                 intent = new Intent(this, CarManageActivity.class);
+                intent.putExtra("path", car_reg_path);
                 startActivity(intent);
                 finish();
                 break;
@@ -105,6 +110,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
 
                 //  TODO - 차량 등록 후 리스트 이동
                 intent = new Intent(this, CarManageActivity.class);
+                intent.putExtra("path", car_reg_path);
                 startActivity(intent);
                 finish();
                 break;
@@ -117,6 +123,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
     public void onBackPressed() {
         //super.onBackPressed();
         Intent intent = new Intent(this, CarManageActivity.class);
+        intent.putExtra("path", car_reg_path);
         startActivity(intent);
 
         finish();
