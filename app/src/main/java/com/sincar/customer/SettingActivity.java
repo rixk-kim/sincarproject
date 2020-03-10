@@ -66,9 +66,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // 스위치 버튼이 체크되었는지 검사하여 텍스트뷰에 각 경우에 맞게 출력합니다.
                 if (isChecked){
-                    Toast.makeText(mContext, "활성화", Toast.LENGTH_SHORT);
+                    Toast.makeText(mContext, "활성화", Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(mContext, "비활성화", Toast.LENGTH_SHORT);
+                    Toast.makeText(mContext, "비활성화", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -80,9 +80,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // 스위치 버튼이 체크되었는지 검사하여 텍스트뷰에 각 경우에 맞게 출력합니다.
                 if (isChecked){
-                    Toast.makeText(mContext, "활성화", Toast.LENGTH_SHORT);
+                    Toast.makeText(mContext, "활성화", Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(mContext, "비활성화", Toast.LENGTH_SHORT);
+                    Toast.makeText(mContext, "비활성화", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -96,7 +96,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
         switch (v.getId()) {
             case R.id.setting_btnPrev:
-                //  TODO - 내정보
+                //  내정보
                 intent = new Intent(this, MyProfileSettingsActivity.class);
                 startActivity(intent);
                 finish();
@@ -104,7 +104,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
             case R.id.setting_clause:
                 // TODO - 약관 및 정책
-                Toast.makeText(this, "약관 및 정책으로 이동", Toast.LENGTH_SHORT);
+                Toast.makeText(this, "약관 및 정책으로 이동", Toast.LENGTH_SHORT).show();
 
                 intent = new Intent(this, MyProfileSettingsActivity.class);
                 startActivity(intent);
@@ -112,14 +112,14 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case R.id.member_logout:
-                // TODO - 로그아웃
+                // 로그아웃
                 showLogoutAlertDialog(this);
-                //Toast.makeText(this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT);
+                //Toast.makeText(this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.member_withdrawal:
                 // TODO - 회원탈퇴
-                Toast.makeText(this, "회원 탈퇴 되었습니다.", Toast.LENGTH_SHORT);
+                Toast.makeText(this, "회원 탈퇴 되었습니다.", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

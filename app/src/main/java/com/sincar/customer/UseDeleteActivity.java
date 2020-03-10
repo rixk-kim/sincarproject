@@ -67,36 +67,37 @@ public class UseDeleteActivity extends AppCompatActivity implements View.OnClick
     private void init() {
         findViewById(R.id.use_delete_btnPrev).setOnClickListener(this);
         delete_checkbox = (CheckBox)findViewById(R.id.delete_checkbox);
-        Button b = (Button)findViewById(R.id.reserve_delete_btn);
-
-        b.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                String result = "";  // 결과를 출력할 문자열  ,  항상 스트링은 빈문자열로 초기화 하는 습관을 가지자
-                if(delete_checkbox.isChecked() == true){
-                    // TODO - 예약취소로 이동
-                    Intent intent = new Intent(dContext, UseDeleteSettleActivity.class);
-                    intent.putExtra("reserve_status", reserve_status);
-                    intent.putExtra("common_pay", common_pay);
-                    intent.putExtra("coupone_pay", coupone_pay);
-                    intent.putExtra("approve_info", approve_info);
-                    intent.putExtra("use_pay", use_pay);
-                    intent.putExtra("reserve_time", reserve_time);
-                    intent.putExtra("cencel_time", cancel_time);
-                    intent.putExtra("wash_address", wash_address);
-                    intent.putExtra("wash_agent", wash_agent);
-                    intent.putExtra("agent_mobile", agent_mobile);
-                    intent.putExtra("car_info", car_info);
-                    intent.putExtra("car_number", car_number);
-                    startActivity(intent);
-                    finish();
-                }else {
-                    Toast.makeText(dContext, "동의를 체크해 주세요.", Toast.LENGTH_SHORT);
-                }
-
-            } // end onClick
-        }); // end setOnClickListener
+        findViewById(R.id.reserve_delete_btn).setOnClickListener(this);
+//        Button b = (Button)findViewById(R.id.reserve_delete_btn);
+//
+//        b.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                String result = "";  // 결과를 출력할 문자열  ,  항상 스트링은 빈문자열로 초기화 하는 습관을 가지자
+//                if(delete_checkbox.isChecked() == true){
+//                    // TODO - 예약취소로 이동
+//                    Intent intent = new Intent(dContext, UseDeleteSettleActivity.class);
+//                    intent.putExtra("reserve_status", reserve_status);
+//                    intent.putExtra("common_pay", common_pay);
+//                    intent.putExtra("coupone_pay", coupone_pay);
+//                    intent.putExtra("approve_info", approve_info);
+//                    intent.putExtra("use_pay", use_pay);
+//                    intent.putExtra("reserve_time", reserve_time);
+//                    intent.putExtra("cencel_time", cancel_time);
+//                    intent.putExtra("wash_address", wash_address);
+//                    intent.putExtra("wash_agent", wash_agent);
+//                    intent.putExtra("agent_mobile", agent_mobile);
+//                    intent.putExtra("car_info", car_info);
+//                    intent.putExtra("car_number", car_number);
+//                    startActivity(intent);
+//                    finish();
+//                }else {
+//                    Toast.makeText(dContext, "동의를 체크해 주세요.", Toast.LENGTH_SHORT);
+//                }
+//
+//            } // end onClick
+//        }); // end setOnClickListener
 
     }
 
@@ -124,6 +125,28 @@ public class UseDeleteActivity extends AppCompatActivity implements View.OnClick
                 finish();
                 break;
 
+            case R.id.reserve_delete_btn:
+                if(delete_checkbox.isChecked() == true){
+                    // TODO - 예약취소로 이동
+                    intent = new Intent(this, UseDeleteSettleActivity.class);
+                    intent.putExtra("reserve_status", reserve_status);
+                    intent.putExtra("common_pay", common_pay);
+                    intent.putExtra("coupone_pay", coupone_pay);
+                    intent.putExtra("approve_info", approve_info);
+                    intent.putExtra("use_pay", use_pay);
+                    intent.putExtra("reserve_time", reserve_time);
+                    intent.putExtra("cencel_time", cancel_time);
+                    intent.putExtra("wash_address", wash_address);
+                    intent.putExtra("wash_agent", wash_agent);
+                    intent.putExtra("agent_mobile", agent_mobile);
+                    intent.putExtra("car_info", car_info);
+                    intent.putExtra("car_number", car_number);
+                    startActivity(intent);
+                    finish();
+                }else {
+                    Toast.makeText(UseDeleteActivity.this, "동의를 체크해 주세요.", Toast.LENGTH_LONG).show();
+                }
+                break;
         }
     }
 
