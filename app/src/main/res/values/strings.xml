@@ -197,6 +197,14 @@
     <string name="title_use_detail">상세 내역</string>
 
     <string name="btn_reserve_cancel">예약 취소</string>
+    <string name="btn_reserve_cancel_text1">1. 기본 취소수수료 정책</string>
+    <string name="btn_reserve_cancel_text2">- 예약 당일취소: 50% 수수료 부과</string>
+    <string name="btn_reserve_cancel_text3">- 1~3일전 취소: 30% 수수료 부과</string>
+    <string name="btn_reserve_cancel_text4">- 4일전 취소: 100% 환불</string>
+    <string name="btn_reserve_cancel_text5">2. 예약당일 1시간전까지 고객이 연락이 안되는 경우 서비스불가 및 50%취소 수수료 부과</string>
+    <string name="btn_reserve_cancel_text6">3. 일정변경은 해당 지점과 조율이 가능한 경우 1회에 한하며, 예약일 기준 하루전 오후 6시까지만 가능. 단, 해당지점과 일정조율 불가시 예약취소 가능하나, 모든취소는 최초예약일 기준 취소수수료 부과</string>
+    <string name="btn_reserve_cancel_text7">4. 예약장소가 시공불가인 장소로 인한 일정변경 및 취소 가능</string>
+    <string name="btn_reserve_cancel_text8">5. 날씨로 인한 일정변경은 가능하나, 예약취소는 예약당일 실제날씨가 확인될 경우만 가능</string>
 
     <!-- template 시작 -->
     <string name="title_activity_template">템플릿 화면</string>

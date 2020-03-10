@@ -20,8 +20,6 @@ public class Constants {
 
     public static final String BASE_URL = "http://droad.iptime.org:8080";
 
-    // 김국진 팀장 로컬
-    public static final String TEST_LOCAL_SERVER = "http://10.0.1.8:8005";
 
     // 연결 서버 변경
     public static final String REAL_SERVER = BASE_URL;

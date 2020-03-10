@@ -194,7 +194,7 @@
 
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="17dp"
+                            android:layout_height="18dp"
                             android:layout_gravity="center|center_horizontal|center_vertical"
                             android:gravity="left"
                             android:letterSpacing="0.05"

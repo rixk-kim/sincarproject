@@ -163,7 +163,19 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
                 // TODO - 예약 취소
                 Toast toast = Toast.makeText(this, "예약을 취소하였습니다.", Toast.LENGTH_LONG);
 
-                intent = new Intent(this, UseHistoryActivity.class);
+                intent = new Intent(this, UseDeleteActivity.class);
+                intent.putExtra("reserve_status", reserve_status);
+                intent.putExtra("common_pay", common_pay);
+                intent.putExtra("coupone_pay", coupone_pay);
+                intent.putExtra("approve_info", approve_info);
+                intent.putExtra("use_pay", use_pay);
+                intent.putExtra("reserve_time", reserve_time);
+                intent.putExtra("cencel_time", cancel_time);
+                intent.putExtra("wash_address", wash_address);
+                intent.putExtra("wash_agent", wash_agent);
+                intent.putExtra("agent_mobile", agent_mobile);
+                intent.putExtra("car_info", car_info);
+                intent.putExtra("car_number", car_number);
                 startActivity(intent);
                 finish();
                 break;
