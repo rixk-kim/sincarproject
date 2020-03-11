@@ -9,13 +9,13 @@
     <!-- ActionBar : Back -->
     <ImageView
         android:id="@+id/btnPrev"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:layout_marginStart="24dp"
         android:contentDescription="@string/actionbar_prev_icon_description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/arrow_red_24_px" />
+        android:src="@drawable/prev_image_selector" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

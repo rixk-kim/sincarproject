@@ -118,8 +118,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case R.id.member_withdrawal:
-                // TODO - 회원탈퇴
-                Toast.makeText(this, "회원 탈퇴 되었습니다.", Toast.LENGTH_SHORT).show();
+                // 회원탈퇴
+                showWithdrawAlertDialog(this);
+                //Toast.makeText(this, "회원 탈퇴 되었습니다.", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -149,6 +150,31 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 startActivity(intent);
 
                 finish();
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).show();
+    }
+
+    /**
+     * 회원탈퇴 알럿 다이얼로그
+     * @param context
+     */
+    private void showWithdrawAlertDialog(final Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//        builder.setTitle(context.getString(R.string.notice));
+        builder.setMessage("한번 탈퇴한 계정은 다시 \n" +
+                "복구가 불가능합니다.\n" +
+                "그래도 탈퇴하시겠습니까?");
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // TODO - 회원탈퇴 (서버 연동)
+                Toast.makeText(context, "회원 탈퇴 되었습니다.", Toast.LENGTH_SHORT).show();
             }
         });
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
