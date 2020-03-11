@@ -251,7 +251,14 @@
             android:name=".UseDeleteSettleActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            tools:ignore="LockedOrientationActivity" /> <!-- 이용내역 예약취소 시작 -->
+            tools:ignore="LockedOrientationActivity" /> <!-- 이용내역 예약취소 상세 시작 -->
+
+        <activity
+            android:name=".UseTermsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" /> <!-- 내정보 이용및약관 시작 -->
+
 
         <activity android:name=".TemplateActivity" /> <!-- template activity -->
         <provider

@@ -86,7 +86,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 // TODO - 약관 및 정책
                 Toast.makeText(this, "약관 및 정책으로 이동", Toast.LENGTH_SHORT).show();
 
-                intent = new Intent(this, MyProfileSettingsActivity.class);
+                intent = new Intent(this, UseTermsActivity.class);
                 startActivity(intent);
                 finish();
                 break;

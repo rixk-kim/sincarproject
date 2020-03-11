@@ -192,6 +192,7 @@
     <string name="title_setting">설정</string>
     <string name="title_car_manage">차량정보</string>
     <string name="title_car_register">차량등록</string>
+    <string name="title_use_terms">약관 및 정책</string>
 
     <string name="title_use_history">이용 내역</string>
     <string name="title_use_detail">상세 내역</string>
@@ -205,6 +206,12 @@
     <string name="btn_reserve_cancel_text6">3. 일정변경은 해당 지점과 조율이 가능한 경우 1회에 한하며, 예약일 기준 하루전 오후 6시까지만 가능. 단, 해당지점과 일정조율 불가시 예약취소 가능하나, 모든취소는 최초예약일 기준 취소수수료 부과</string>
     <string name="btn_reserve_cancel_text7">4. 예약장소가 시공불가인 장소로 인한 일정변경 및 취소 가능</string>
     <string name="btn_reserve_cancel_text8">5. 날씨로 인한 일정변경은 가능하나, 예약취소는 예약당일 실제날씨가 확인될 경우만 가능</string>
+
+    <!-- 이용 및 약관 -->
+    <string name="use_terms_text1">서비스 이용약관</string>
+    <string name="use_terms_text2">개인정보 처리방침</string>
+    <string name="use_terms_text3">위치기반서비스 이용약관</string>
+    <string name="use_terms_text4">마케팅 정보 수신동의</string>
 
     <!-- template 시작 -->
     <string name="title_activity_template">템플릿 화면</string>
