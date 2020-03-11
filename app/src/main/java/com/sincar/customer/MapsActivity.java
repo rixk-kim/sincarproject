@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.sincar.customer.util.GPSInfo;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
@@ -37,6 +39,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String cAddress;    //현재 주소
 
     private Context gContext;
+    private Geocoder gCoder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +103,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (gps.isGetLocation()) {
             //Geocoder
-            Geocoder gCoder = new Geocoder(this, Locale.getDefault());
+            gCoder = new Geocoder(this, Locale.getDefault());
             List<Address> addr = null;
             try{
                 addr = gCoder.getFromLocation(latitude, longitude,10);   //위도, 경도, 얻어올 값의 개수
@@ -173,10 +176,50 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     gps.showSettingsAlert();
                 }
 
-                Toast.makeText(this, cAddress + "로 부르셨습니다. 정보 갱신중..", Toast.LENGTH_LONG).show();
+                ConvertGPS("서울 송파구 석촌호수로 274");
+                //Toast.makeText(this, cAddress + "로 부르셨습니다. 정보 갱신중..", Toast.LENGTH_LONG).show();
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());
         }
+    }
+
+    /**
+     * 주소 -> 위경도로 변환
+     */
+    private void ConvertGPS(String cAddress)
+    {
+        List<Address> list = null;
+
+//        String str = et3.getText().toString();
+        try {
+            list = gCoder.getFromLocationName
+                    (cAddress, // 지역 이름
+                            10); // 읽을 개수
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("test","입출력 오류 - 서버에서 주소변환시 에러발생");
+        }
+
+        if (list != null) {
+            if (list.size() == 0) {
+                Log.e("test","해당되는 주소 정보는 없습니다");
+            } else {
+                // 해당되는 주소로 인텐트 날리기
+                Address addr = list.get(0);
+                double lat = addr.getLatitude();
+                double lon = addr.getLongitude();
+
+                Toast.makeText(this, "위도 : " + lat + ", 경도 : "+lon , Toast.LENGTH_LONG).show();
+
+                String sss = String.format("geo:%f,%f", lat, lon);
+
+                Intent intent = new Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(sss));
+                startActivity(intent);
+            }
+        }
+
     }
 }
