@@ -37,6 +37,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -103,12 +104,17 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="LockedOrientationActivity" /> <!-- 15. 영업시간 설정 메인 -->
-        <activity android:name=".ReservationMainActivity"
+        <activity
+            android:name=".ReservationMainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden"
-            tools:ignore="LockedOrientationActivity" />  <!-- 예약 전체 보기 메인 -->
-
+            tools:ignore="LockedOrientationActivity" /> <!-- 예약 전체 보기 메인 -->
+        <activity android:name=".PaymentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" /> <!-- 결제 화면 -->
         <activity
             android:name=".ReservationListActivity"
             android:screenOrientation="portrait"
@@ -240,26 +246,21 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" /> <!-- 이용내역 상세 시작 -->
-
         <activity
             android:name=".UseDeleteActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" /> <!-- 이용내역 예약취소 시작 -->
-
         <activity
             android:name=".UseDeleteSettleActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" /> <!-- 이용내역 예약취소 상세 시작 -->
-
         <activity
             android:name=".UseTermsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" /> <!-- 내정보 이용및약관 시작 -->
-
-
         <activity android:name=".TemplateActivity" /> <!-- template activity -->
         <provider
             android:name="androidx.core.content.FileProvider"

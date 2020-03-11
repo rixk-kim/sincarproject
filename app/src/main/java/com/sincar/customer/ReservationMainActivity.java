@@ -90,7 +90,8 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
 
             case R.id.reserve_btn:
                 //결재 종류 선택 팝업
-                reserveSelect();
+//                reserveSelect();
+                startActivity(new Intent(this, PaymentActivity.class));
                 break;
         }
     }

@@ -267,6 +267,7 @@
                     android:textColor="#3e3e3e"
                     android:lineSpacingExtra="2sp"
                     android:button="@drawable/radio_button_selector"
+                    android:paddingStart="10dp"
                     android:text="@string/wash_indoor" />
 
                 <RadioButton
@@ -278,6 +279,7 @@
                     android:textColor="#3e3e3e"
                     android:lineSpacingExtra="2sp"
                     android:button="@drawable/radio_button_selector"
+                    android:paddingStart="10dp"
                     android:text="@string/wash_outdoor" />
             </RadioGroup>
 
