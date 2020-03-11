@@ -1,5 +1,6 @@
 package com.sincar.customer.adapter;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,9 @@ public class AddressContentRecyclerViewAdapter extends RecyclerView.Adapter<Addr
             @Override
             public void onClick(View v) {
                 // TODO - 리스트 선택 시 이벤트 핸들러 추가 필요하면 여기에서 해주기
+                // 임시로 주소 검색 화면 finish()처리함.
+                // event handler로 해서 지도 앱으로 주서 전달 필요.
+                ((Activity)holder.mView.getContext()).finish();
             }
         });
     }
