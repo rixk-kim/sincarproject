@@ -6,7 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sincar.customer.R;
@@ -43,6 +45,7 @@ public class AddressContentRecyclerViewAdapter extends RecyclerView.Adapter<Addr
                 // 임시로 주소 검색 화면 finish()처리함.
                 // event handler로 해서 지도 앱으로 주서 전달 필요.
                 ((Activity)holder.mView.getContext()).finish();
+
             }
         });
     }
@@ -55,7 +58,9 @@ public class AddressContentRecyclerViewAdapter extends RecyclerView.Adapter<Addr
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
 
-        public final LinearLayout mIcon;
+        //public final LinearLayout mIcon;
+        public final ConstraintLayout mIcon;
+
         public final TextView mTitle;
         public final TextView mDescription;
 
@@ -65,7 +70,9 @@ public class AddressContentRecyclerViewAdapter extends RecyclerView.Adapter<Addr
             super(view);
             mView = view;
 
-            mIcon = view.findViewById(R.id.btnAddressIcon);
+            //mIcon = view.findViewById(R.id.btnAddressIcon);
+            mIcon = view.findViewById(R.id.btnAddressLayout);
+
             mTitle = view.findViewById(R.id.address_title);
             mDescription = view.findViewById(R.id.address_desc);
         }

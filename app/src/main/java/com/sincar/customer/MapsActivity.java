@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -95,7 +96,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 break;
             case R.id.btnNext:
                 // TODO - "이 위치로 부름" 작업(시나리오 확인)
-                startActivity(new Intent(this, ReservationDetailActivity.class));
+                //startActivity(new Intent(this, ReservationDetailActivity.class));
+                Toast.makeText(this, "현재 위치로 부르셨습니다. 정보 갱신중..", Toast.LENGTH_LONG).show();
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());

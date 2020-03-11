@@ -34,6 +34,8 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
     private void init() {
         findViewById(R.id.car_manage_btnPrev).setOnClickListener(this);
         findViewById(R.id.car_manage_btnNext).setOnClickListener(this);
+        findViewById(R.id.car_manage_reg_btn).setOnClickListener(this); //확인
+
 
 
 
@@ -66,12 +68,18 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
 
         switch (v.getId()) {
             case R.id.car_manage_btnPrev:
+            case R.id.car_manage_reg_btn:
                 //  TODO - 내정보
-                if("main".equals(path))
-                {
+                if("main".equals(path)) {
                     intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                     finish();
+                }else if("reserve".equals(path)){
+                    intent = new Intent(this, ReservationMainActivity.class);
+                    intent.putExtra("result", "some value");
+                    setResult(RESULT_OK, intent);
+                    finish();
+
                 }else {
                     intent = new Intent(this, MyProfileSettingsActivity.class);
                     startActivity(intent);
@@ -97,6 +105,11 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
         {
             intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+        }else if("reserve".equals(path)){
+            intent = new Intent(this, ReservationMainActivity.class);
+            intent.putExtra("result", "some value");
+            setResult(RESULT_OK, intent);
+            finish();
         }else {
             intent = new Intent(this, MyProfileSettingsActivity.class);
             startActivity(intent);
