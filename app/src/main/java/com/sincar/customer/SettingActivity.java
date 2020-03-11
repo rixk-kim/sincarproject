@@ -6,32 +6,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.ListView;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.gson.Gson;
-import com.sincar.customer.adapter.CouponeContentRecyclerViewAdapter;
-import com.sincar.customer.adapter.content.CouponeContent;
-import com.sincar.customer.network.DataObject;
-import com.sincar.customer.network.JsonParser;
-import com.sincar.customer.util.DataParser;
-
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
     private Context mContext;

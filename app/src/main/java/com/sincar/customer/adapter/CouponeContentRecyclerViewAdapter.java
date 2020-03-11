@@ -1,21 +1,14 @@
 package com.sincar.customer.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.sincar.customer.NoticeActivity;
-import com.sincar.customer.NoticeDetailActivity;
 import com.sincar.customer.R;
 import com.sincar.customer.adapter.content.CouponeContent;
-import com.sincar.customer.adapter.content.NoticeContent;
-import com.sincar.customer.adapter.content.PointContent;
-
 import java.util.List;
 
 public class CouponeContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sincar.customer.adapter.CouponeContentRecyclerViewAdapter.ViewHolder> {

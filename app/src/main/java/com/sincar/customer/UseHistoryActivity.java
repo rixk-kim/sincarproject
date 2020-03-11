@@ -14,9 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.sincar.customer.adapter.CardContentRecyclerViewAdapter;
 import com.sincar.customer.adapter.UseContentRecyclerViewAdapter;
-import com.sincar.customer.adapter.content.CardContent;
 import com.sincar.customer.adapter.content.UseContent;
 
 public class UseHistoryActivity extends AppCompatActivity implements View.OnClickListener {

@@ -10,12 +10,6 @@ import androidx.multidex.MultiDexApplication;
 import com.sincar.customer.entity.LoginDataEntity;
 import com.sincar.customer.preference.PreferenceManager;
 
-//import com.softforum.xecure.XApplication;
-//import com.tsengvn.typekit.Typekit;
-
-//import honemobile.client.deviceapis.DAPSecureStorage;
-//import kr.or.kftc.fido.common.util.ErrorFactory;
-
 /**
  * Created by spirit on 2019-10-26 <p/>
  */

@@ -8,13 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.sincar.customer.NoticeActivity;
 import com.sincar.customer.NoticeDetailActivity;
 import com.sincar.customer.R;
 import com.sincar.customer.adapter.content.NoticeContent;
-import com.sincar.customer.adapter.content.PointContent;
-
 import java.util.List;
 
 public class NoticeContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sincar.customer.adapter.NoticeContentRecyclerViewAdapter.ViewHolder> {

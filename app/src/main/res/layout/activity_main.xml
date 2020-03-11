@@ -253,24 +253,24 @@
         app:layout_constraintBottom_toBottomOf="@+id/scroll_view"
         />
     </FrameLayout>
-    <!-- bottom navi -->
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNav"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:gravity="bottom"
-        app:layout_behavior="com.sincar.customer.common.BottomNavigationViewBehavior"
-        app:menu="@menu/bottom_navi"
-        tools:ignore="MissingConstraints"
-        app:layout_insetEdge="bottom"
-        android:background="@drawable/default_background_type_3"
-        app:itemBackground="@color/base_background_color"
-        app:itemIconTint="@drawable/bottom_section_color"
-        app:itemTextColor="@color/default_text_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+    <!-- bottom navi -->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNav"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:gravity="bottom"
+            app:layout_behavior="com.sincar.customer.common.BottomNavigationViewBehavior"
+            app:menu="@menu/bottom_navi"
+            tools:ignore="MissingConstraints"
+            app:layout_insetEdge="bottom"
+            android:background="@drawable/default_background_type_3"
+            app:itemBackground="@color/base_background_color"
+            app:itemIconTint="@drawable/bottom_section_color"
+            app:itemTextColor="@color/default_text_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,8 +2,6 @@ package com.sincar.customer.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.sincar.customer.NoticeActivity;
-import com.sincar.customer.NoticeDetailActivity;
 import com.sincar.customer.R;
-import com.sincar.customer.SplashActivity;
 import com.sincar.customer.adapter.content.CardContent;
-import com.sincar.customer.adapter.content.NoticeContent;
-import com.sincar.customer.adapter.content.PointContent;
-
 import java.util.List;
 
 public class CardContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sincar.customer.adapter.CardContentRecyclerViewAdapter.ViewHolder> {

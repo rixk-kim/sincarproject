@@ -1,25 +1,12 @@
 package com.sincar.customer;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.sincar.customer.adapter.PointContentRecyclerViewAdapter;
-import com.sincar.customer.adapter.content.PointContent;
 
 public class MyProfileSettingsDetailActivity extends AppCompatActivity implements View.OnClickListener {
     @Override

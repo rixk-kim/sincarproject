@@ -2,6 +2,8 @@ package com.sincar.customer;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -39,6 +41,8 @@ public class PasswordChangeActivity extends AppCompatActivity implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnPrev:
+                Intent intent = new Intent(this, MyProfileSettingsDetailActivity.class);
+                startActivity(intent);
                 finish();
                 break;
 
