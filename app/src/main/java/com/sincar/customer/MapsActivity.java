@@ -176,8 +176,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     gps.showSettingsAlert();
                 }
 
-                ConvertGPS("서울 송파구 석촌호수로 274");
-                //Toast.makeText(this, cAddress + "로 부르셨습니다. 정보 갱신중..", Toast.LENGTH_LONG).show();
+                //ConvertGPS("서울 송파구 석촌호수로 274");
+                Toast.makeText(this, cAddress + "로 부르셨습니다. 정보 갱신중..", Toast.LENGTH_LONG).show();
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());
@@ -214,10 +214,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 String sss = String.format("geo:%f,%f", lat, lon);
 
-                Intent intent = new Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(sss));
-                startActivity(intent);
+//                Intent intent = new Intent(
+//                        Intent.ACTION_VIEW,
+//                        Uri.parse(sss));
+//                startActivity(intent);
             }
         }
 
