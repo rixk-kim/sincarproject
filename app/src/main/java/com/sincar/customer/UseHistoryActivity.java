@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sincar.customer.adapter.UseContentRecyclerViewAdapter;
@@ -58,13 +59,19 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
 
         // TODO - 서버 연동 후 CardContent.ITEMS에 리스 항목 추가 작업
         // Set the adapter - 이용내역 리스트 설정
-        View view = findViewById(R.id.useHistoryList);
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+         if(UseContent.ITEMS.size() > 0) {
+            View view = findViewById(R.id.useHistoryList);
+            view.setVisibility(View.VISIBLE);
+            if (view instanceof RecyclerView) {
+                Context context = view.getContext();
+                RecyclerView recyclerView = (RecyclerView) view;
 
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new UseContentRecyclerViewAdapter(this, UseContent.ITEMS));
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                recyclerView.setAdapter(new UseContentRecyclerViewAdapter(this, UseContent.ITEMS));
+            }
+        }else{
+             LinearLayout view = findViewById(R.id.use_history_empty);
+             view.setVisibility(View.VISIBLE);
         }
 
         //하단메뉴 고정(0:홈)

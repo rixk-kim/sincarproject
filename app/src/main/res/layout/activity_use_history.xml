@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:id="@+id/card_include"
+        android:id="@+id/use_history_include"
         tools:ignore="MissingConstraints">
 
         <!-- ActionBar : Title / Info -->
@@ -24,9 +24,16 @@
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/card_include"
+            app:layout_constraintStart_toStartOf="@+id/use_history_include"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/use_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#333e3e3e"
+        app:layout_constraintTop_toBottomOf="@+id/use_history_include" />
 
 
     <!-- 리스트 내용 -->
@@ -38,7 +45,48 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card_include" />
+        app:layout_constraintTop_toBottomOf="@+id/use_divider"
+        android:visibility="gone"/>
+
+    <!-- 리스트가 없을때 -->
+    <LinearLayout
+        android:id="@+id/use_history_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="140dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/use_divider"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_vertical|center_horizontal"
+            android:src="@drawable/empty_use"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="43dp"
+            android:gravity="center|center_horizontal|center_vertical"
+            android:text="이용 내역이 없습니다."
+            android:textSize="16sp"
+            android:textColor="#3e3e3e"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center|center_horizontal|center_vertical"
+            android:text="지금 바로 스팀세차를 이용하고 포인트를 모아보세요 !"
+            android:textSize="14sp"
+            android:textColor="#3e3e3e"
+            />
+    </LinearLayout>
 
     <!-- bottom navi -->
     <com.google.android.material.bottomnavigation.BottomNavigationView

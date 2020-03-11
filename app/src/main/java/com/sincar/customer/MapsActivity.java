@@ -2,8 +2,12 @@ package com.sincar.customer;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,15 +18,32 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.sincar.customer.util.GPSInfo;
+
+import java.util.List;
+import java.util.Locale;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener {
 
     private GoogleMap mMap;
+    private LatLng seoul;
+
+    /*
+     * GPS, 일출,일몰, 위도, 경도, 현재 주소
+     */
+    private GPSInfo gps;        // GPS class
+    private double latitude;    //위도
+    private double longitude;   //경도
+    private String cAddress;    //현재 주소
+
+    private Context gContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        gContext = this;
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -49,12 +70,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // TODO - 현재위치로 이동
         // TODO - 마커 이동 후 위치 값 가져오기
         // Add a marker in Sydney and move the camera
-        LatLng seoul = new LatLng(37.56, 126.97);
+        seoul = new LatLng(37.56, 126.97);
 
         mMap.addMarker(new MarkerOptions().position(seoul)
                 .title("Marker in Sydney")
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.current_icon))
         );
+
         mMap.moveCamera(CameraUpdateFactory.newLatLng(seoul));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
     }
@@ -65,11 +87,46 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void init() {
         // TODO - 지도의 파란동그라미 작업(layout에 추가, 이벤트 작업)
 
+        // GPS 정보
+        gps         = new GPSInfo(gContext);
+        latitude    = gps.getLatitude();
+        longitude   = gps.getLongitude();
+
         findViewById(R.id.btnMapHome).setOnClickListener(this);
         findViewById(R.id.btnCurrent).setOnClickListener(this);
         findViewById(R.id.btnReserveAddress).setOnClickListener(this);
         findViewById(R.id.btnReserveDate).setOnClickListener(this);
         findViewById(R.id.btnNext).setOnClickListener(this);
+
+        if (gps.isGetLocation()) {
+            //Geocoder
+            Geocoder gCoder = new Geocoder(this, Locale.getDefault());
+            List<Address> addr = null;
+            try{
+                addr = gCoder.getFromLocation(latitude, longitude,10);   //위도, 경도, 얻어올 값의 개수
+                Address a = addr.get(0);
+
+                String address = a.getAddressLine(0).substring(a.getAddressLine(0).indexOf("\"") + 1, a.getAddressLine(0).length()); // 주소
+
+                Log.d("MapActivity","address ==>" + address);
+
+                if (address != null && address.length() > 0) {
+                    String[] splitStr = address.split(" ");
+                    cAddress = address;
+
+                    //해당 지역을 넣어준다.
+                    //return_address = "위치 : " + splitStr[1] + " " + splitStr[2];
+
+                } else {
+                    //주소를 가져오지 못했을 때 처리 추가.
+                    //Toast.makeText(this,"주소 정보가 없습니다.", Toast.LENGTH_LONG).show();
+                }
+
+            } catch (Exception e){
+                e.printStackTrace();
+                Toast.makeText(this,"주소 정보가 없습니다.", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     @Override
@@ -78,7 +135,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         switch (v.getId()) {
             case R.id.btnMapHome:
-                // TODO - 지도 home button
+                // 지도 home button -> 메인이동
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                finish();
                 break;
 
             case R.id.btnCurrent:
@@ -96,8 +156,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 break;
             case R.id.btnNext:
                 // TODO - "이 위치로 부름" 작업(시나리오 확인)
-                //startActivity(new Intent(this, ReservationDetailActivity.class));
-                Toast.makeText(this, "현재 위치로 부르셨습니다. 정보 갱신중..", Toast.LENGTH_LONG).show();
+                mMap.clear();
+
+                if (gps.isGetLocation()) {
+                    seoul = new LatLng(latitude, longitude);
+
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    markerOptions.position(seoul);
+                    markerOptions.title("내 위치");
+                    mMap.addMarker(markerOptions);
+
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(seoul));
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
+                }else {
+                    // GPS 를 사용할수 없으므로
+                    gps.showSettingsAlert();
+                }
+
+                Toast.makeText(this, cAddress + "로 부르셨습니다. 정보 갱신중..", Toast.LENGTH_LONG).show();
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());
