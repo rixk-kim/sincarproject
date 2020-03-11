@@ -26,7 +26,7 @@
             android:src="@drawable/prev_image_selector" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center|center_horizontal"
             android:text="@string/title_use_detail"
@@ -65,7 +65,7 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="16dp"
+                android:layout_height="18dp"
                 android:layout_gravity="center"
                 android:gravity="center|center_horizontal|center_vertical"
                 android:text="취소가 완료되었습니다."
@@ -75,8 +75,7 @@
             <TextView
                 android:id="@+id/settle_reserve_cancel_time"
                 android:layout_width="match_parent"
-                android:layout_height="14dp"
-                android:layout_marginTop="6dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center|center_horizontal|center_vertical"
                 android:text="2019.12.19(월) 15:21"
@@ -88,6 +87,7 @@
             android:id="@+id/notice_linearLayout1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="32dp"
             android:orientation="vertical"
             tools:ignore="MissingConstraints">
 

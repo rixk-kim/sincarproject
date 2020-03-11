@@ -507,7 +507,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:layout_gravity="center"
-                android:background="@drawable/default_button_7dp"
+                android:background="@drawable/button_color_selector"
                 android:gravity="center|center_horizontal|center_vertical"
                 android:shadowColor="#C4C4C4"
                 android:shadowDx="0"
