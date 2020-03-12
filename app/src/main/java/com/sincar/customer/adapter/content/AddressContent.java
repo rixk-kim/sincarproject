@@ -33,7 +33,7 @@ public class AddressContent {
     }
 
     private static AddressItem createDummyItem(int position) {
-        return new AddressItem(position, "송파구청","송파구 석촌동 729");
+        return new AddressItem(position, "송파구청","송파구 송파동 32");
     }
 
     /**

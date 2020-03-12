@@ -29,7 +29,9 @@ import java.util.Locale;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener, GoogleMap.OnMarkerDragListener {
 
     private GoogleMap mMap;
+    private LatLng myPos;
     private LatLng seoul;
+    private MarkerOptions markerOptions;
 
     /*
      * GPS, 일출,일몰, 위도, 경도, 현재 주소
@@ -42,6 +44,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Context gContext;
     private Geocoder gCoder;
 
+    private double my_latitude;    //내위치 위도
+    private double my_longitude;   //내위치 경도
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +57,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         gps         = new GPSInfo(gContext);
         latitude    = gps.getLatitude();
         longitude   = gps.getLongitude();
+
+        my_latitude     = latitude;
+        my_longitude    = longitude;
+
+        markerOptions = new MarkerOptions();
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -79,21 +89,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // TODO - 현재위치로 이동
         // TODO - 마커 이동 후 위치 값 가져오기
         // Add a marker in Sydney and move the camera
-        seoul = new LatLng(latitude, longitude);
+        myPos = new LatLng(my_latitude, my_longitude);
 
-        mMap.addMarker(new MarkerOptions().position(seoul)
-                .title("Marker in Sydney")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.group_7))
-                .draggable(true)
-        );
+        markerOptions.position(myPos);
+        markerOptions.title("내 위치");
+        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.group_7));
+        markerOptions.draggable(false);
+        mMap.addMarker(markerOptions);
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(seoul));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(seoul), 14f);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPos,16f));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
+
 
         mMap.setOnMarkerDragListener((GoogleMap.OnMarkerDragListener) gContext);
-
-
-//        mMap.setOnMarkerClickListener(markerClickListener);
     }
 
     /**
@@ -173,17 +182,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.clear();
 
                 if (gps.isGetLocation()) {
+
+                    myPos = new LatLng(my_latitude, my_longitude);
+
+                    markerOptions.position(myPos);
+                    markerOptions.title("내 위치");
+                    markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.group_7));
+                    markerOptions.draggable(false);
+                    mMap.addMarker(markerOptions);
+
                     seoul = new LatLng(latitude, longitude);
 
-                    MarkerOptions markerOptions = new MarkerOptions();
                     markerOptions.position(seoul);
-                    markerOptions.title("내 위치");
+                    markerOptions.title("위치 변경");
+                    markerOptions.snippet("검색 위치");
                     markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.current_icon));
                     markerOptions.draggable(true);
                     mMap.addMarker(markerOptions);
 
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(seoul));
                     mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
+
                 }else {
                     // GPS 를 사용할수 없으므로
                     gps.showSettingsAlert();
