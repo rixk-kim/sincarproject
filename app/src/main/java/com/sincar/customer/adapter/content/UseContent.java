@@ -27,14 +27,14 @@ public class UseContent {
         }
     }
 
-    private static void addItem(UseItem item) {
+    public static void addItem(UseItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
 
     private static UseItem createDummyItem(int position) {
         return new UseItem(position, "1","0", "12/22 14:00", "", "송파구 석촌호수로 274 (실내)", "관악 1호점 (김태현) ", "43,000원",
-                "01012345678", "45,000원", "2000원", "케이뱅크 ****3840",
+                "01012345678", "신차로", "45,000원", "2000원", "케이뱅크 ****3840",
                 "현대 싼타페", "12가 3238");
     }
 
@@ -63,6 +63,7 @@ public class UseContent {
         public final String use_pay;
         public final String agent_mobile;
 
+        public final String reserve_name;
         public final String common_pay;
         public final String coupone_pay;
         public final String approve_info;
@@ -70,7 +71,7 @@ public class UseContent {
         public final String car_number;
 
 
-        public UseItem(int id, String seq, String reserve_status, String reserve_time, String cancel_time, String wash_address, String wash_agent, String use_pay, String agent_mobile, String common_pay, String coupone_pay, String approve_info, String car_info, String car_number ) {
+        public UseItem(int id, String seq, String reserve_status, String reserve_time, String cancel_time, String wash_address, String wash_agent, String use_pay, String agent_mobile, String reserve_name, String common_pay, String coupone_pay, String approve_info, String car_info, String car_number ) {
             this.id = id;
             this.seq = seq;
             this.reserve_status = reserve_status;
@@ -81,6 +82,7 @@ public class UseContent {
             this.use_pay        = use_pay;
             this.agent_mobile   = agent_mobile;
 
+            this.reserve_name   = reserve_name;     //예약자명
             this.common_pay     = common_pay ;      //기본요금
             this.coupone_pay    = coupone_pay;      //할인요금
             this.approve_info   = approve_info;     //결재정보
