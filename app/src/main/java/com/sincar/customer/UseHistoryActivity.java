@@ -28,6 +28,7 @@ import com.sincar.customer.util.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static com.sincar.customer.HWApplication.voLoginData;
 import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
@@ -61,22 +62,26 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
      */
     @SuppressLint("ResourceAsColor")
     private void init() {
-//        // TODO - 서버 연동 후 CardContent.ITEMS에 리스 항목 추가 작업
-//        // Set the adapter - 이용내역 리스트 설정
-//         if(UseContent.ITEMS.size() > 0) {
-//            View view = findViewById(R.id.useHistoryList);
-//            view.setVisibility(View.VISIBLE);
-//            if (view instanceof RecyclerView) {
-//                Context context = view.getContext();
-//                RecyclerView recyclerView = (RecyclerView) view;
-//
-//                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-//                recyclerView.setAdapter(new UseContentRecyclerViewAdapter(this, UseContent.ITEMS));
-//            }
-//        }else{
-//             LinearLayout view = findViewById(R.id.use_history_empty);
-//             view.setVisibility(View.VISIBLE);
-//        }
+        // TODO - 서버 연동 후 CardContent.ITEMS에 리스 항목 추가 작업
+        // Set the adapter - 이용내역 리스트 설정
+        // 실서버 연동시
+        // requestUseHistory();
+
+         if(UseContent.ITEMS.size() > 0) {
+            View view = findViewById(R.id.useHistoryList);
+            view.setVisibility(View.VISIBLE);
+            if (view instanceof RecyclerView) {
+                Context context = view.getContext();
+                RecyclerView recyclerView = (RecyclerView) view;
+
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                recyclerView.setAdapter(new UseContentRecyclerViewAdapter(this, UseContent.ITEMS));
+            }
+        }else{
+             LinearLayout view = findViewById(R.id.use_history_empty);
+             view.setVisibility(View.VISIBLE);
+        }
+        //////////////////////////////////////////////////////////////////////////////
 
         //하단메뉴 고정(0:홈)
         BottomNavigationView bottomNavigationView = findViewById(R.id.useBottomNav);
@@ -148,17 +153,33 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
             ArrayList<DataObject> data = JsonParser.getData(serverData);
 
             // 로그인 정보
-            final DataObject useListItem = DataParser.getFromParamtoItem(data, "use_list");
+            DataObject useListItem = DataParser.getFromParamtoItem(data, "use_list");
             voUseData.setTotalPage(useListItem.getValue("TOTAL"));      //총페이지
             voUseData.setCurrentPage(useListItem.getValue("TOTAL"));    //현재페이지
             voUseData.setCurrentNum(useListItem.getValue("TOTAL"));     //현재갯수
 
             ArrayList<DataObject> use_data_item = DataParser.getFromParamtoArray(data, "data");
-//            use_data_item.get(0).getValue("");
-//            UseContent.ITEMS.set(0,use_data_item.get(0));
-//            //List<UseItem> ITEMS = new ArrayList<UseItem>()
-//            UseContent.ITEMS.add(use_data_item.get(0));
 
+            List<UseContent.UseItem> ITEMS = new ArrayList<UseContent.UseItem>();
+            for(int i = 0; i < use_data_item.size(); i++) {
+                UseContent.addItem(new UseContent.UseItem(
+                        i,
+                        use_data_item.get(i).getValue("SEQ"),
+                        use_data_item.get(i).getValue("RESERVE_STATUS"),
+                        use_data_item.get(i).getValue("RESERVE_TIME"),
+                        use_data_item.get(i).getValue("CANCEL_TIME"),
+                        use_data_item.get(i).getValue("WASH_ADDRESS"),
+                        use_data_item.get(i).getValue("AGENT"),
+                        use_data_item.get(i).getValue("USE_PAY"),
+                        use_data_item.get(i).getValue("RESERVE_PHONE"),
+                        use_data_item.get(i).getValue("RESERVE_NAME"),
+                        use_data_item.get(i).getValue("COMMON_PAY"),
+                        use_data_item.get(i).getValue("COMMON_PAY"),
+                        use_data_item.get(i).getValue("CHARGE_INFO"),
+                        use_data_item.get(i).getValue("CAR_MODEL"),
+                        use_data_item.get(i).getValue("CAR_NUMBER")
+                ));
+            }
             //프로그래스바 종료
             Util.dismiss();
             // TODO - 서버 연동 후 UseContent.ITEMS에 리스 항목 추가 작업 확인
