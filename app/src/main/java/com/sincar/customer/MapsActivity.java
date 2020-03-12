@@ -137,7 +137,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Address a = addr.get(0);
 
                 String address = a.getAddressLine(0).substring(a.getAddressLine(0).indexOf("\"") + 1, a.getAddressLine(0).length()); // 주소
-
+                address = address.replace("대한민국 ","");
                 currentTextView.setText(address);
                 Log.d("MapActivity","address ==>" + address);
 

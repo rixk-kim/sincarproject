@@ -14,13 +14,31 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.android.volley.VolleyError;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sincar.customer.adapter.UseContentRecyclerViewAdapter;
 import com.sincar.customer.adapter.content.UseContent;
+import com.sincar.customer.entity.LoginDataEntity;
+import com.sincar.customer.entity.UseDataEntity;
+import com.sincar.customer.network.DataObject;
+import com.sincar.customer.network.JsonParser;
+import com.sincar.customer.network.VolleyNetwork;
+import com.sincar.customer.util.DataParser;
+import com.sincar.customer.util.Util;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import static com.sincar.customer.HWApplication.voLoginData;
+import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
+
+/**
+ * 이용내역
+ */
 public class UseHistoryActivity extends AppCompatActivity implements View.OnClickListener {
     private MenuItem prevBottomNavigation;
     private Context uContext;
+    public static UseDataEntity voUseData;
 
     public static UseHistoryActivity _useHistoryActivity;
 
@@ -32,6 +50,8 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
         _useHistoryActivity = UseHistoryActivity.this;  //이전 activity finish를 위한 변수 선언.
         uContext = this;
 
+        voUseData = new UseDataEntity();
+
         // 화면 초기화
         init();
     }
@@ -41,38 +61,22 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
      */
     @SuppressLint("ResourceAsColor")
     private void init() {
-//        findViewById(R.id.card_btnPrev).setOnClickListener(this);
-//        findViewById(R.id.card_btnNext).setOnClickListener(this);
-
-
-
-        // myinfo_user_name => 이름
-        // user_mobile_number => 휴대폰 번호
-
-        // TODO - 서버 연동하여 이름, 휴대폰 번호 값 가지고 와서 설정해주기
-//        TextView myinfo_user_name = findViewById(R.id.myinfo_user_name);
-//        myinfo_user_name.setText("홍길동");
+//        // TODO - 서버 연동 후 CardContent.ITEMS에 리스 항목 추가 작업
+//        // Set the adapter - 이용내역 리스트 설정
+//         if(UseContent.ITEMS.size() > 0) {
+//            View view = findViewById(R.id.useHistoryList);
+//            view.setVisibility(View.VISIBLE);
+//            if (view instanceof RecyclerView) {
+//                Context context = view.getContext();
+//                RecyclerView recyclerView = (RecyclerView) view;
 //
-//        TextView user_mobile_number = findViewById(R.id.user_mobile_number);
-//        user_mobile_number.setText("010-1234-5678");
-
-
-        // TODO - 서버 연동 후 CardContent.ITEMS에 리스 항목 추가 작업
-        // Set the adapter - 이용내역 리스트 설정
-         if(UseContent.ITEMS.size() > 0) {
-            View view = findViewById(R.id.useHistoryList);
-            view.setVisibility(View.VISIBLE);
-            if (view instanceof RecyclerView) {
-                Context context = view.getContext();
-                RecyclerView recyclerView = (RecyclerView) view;
-
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-                recyclerView.setAdapter(new UseContentRecyclerViewAdapter(this, UseContent.ITEMS));
-            }
-        }else{
-             LinearLayout view = findViewById(R.id.use_history_empty);
-             view.setVisibility(View.VISIBLE);
-        }
+//                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+//                recyclerView.setAdapter(new UseContentRecyclerViewAdapter(this, UseContent.ITEMS));
+//            }
+//        }else{
+//             LinearLayout view = findViewById(R.id.use_history_empty);
+//             view.setVisibility(View.VISIBLE);
+//        }
 
         //하단메뉴 고정(0:홈)
         BottomNavigationView bottomNavigationView = findViewById(R.id.useBottomNav);
@@ -109,6 +113,78 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
         });
     }
 
+    /**
+     * 사용내역 요청
+     * MEMBER_NO : 회원번호
+     * REQUESTT_PAGE : 요청페이지
+     * REQUEST_NUM : 요청갯수
+     */
+    private void requestUseHistory() {
+        HashMap<String, String> postParams = new HashMap<String, String>();
+        // 회원번호
+        postParams.put("MEMBER_NO", voLoginData.getMemberNo());
+        // 요청페이지
+        postParams.put("REQUESTT_PAGE", "1");
+        // 요청갯수
+        postParams.put("REQUEST_NUM", "20");
+
+        //프로그래스바 시작
+        Util.showDialog();
+        //사용내역 요청
+        VolleyNetwork.getInstance(this).passwordChangeRequest(LOGIN_REQUEST, postParams, onResponseListener);
+    }
+
+    VolleyNetwork.OnResponseListener onResponseListener = new VolleyNetwork.OnResponseListener() {
+        @Override
+        public void onResponseSuccessListener(String serverData) {
+            /*
+             {"data":
+             [{"SEQ":"1","RESERVE_STATUS":"0","RESERVE_TIME":"2020-12-22 14:00",...},
+             {"SEQ":"1","RESERVE_STATUS":"0","RESERVE_TIME":"2020-12-22 14:00",...}..]}
+             */
+            serverData = "{login: [{\"REGISTER\":\"1\",\"CAUSE\":\"비밀번호 오류\",\"MEMBER_NO\":\"12345\",\"VERSION\":\"1.0.1\",\"APK_URL\":\"http://sincar.co.kr/apk/manager_1.0.1.apk\",\"MEMBER_NAME\":\"신차로\",\"MEMBER_PHONE\":\"01012345678\",\"MEMBER_RECOM_CODE\":\"FCF816\",\"PROFILE_DOWN_URL\":\"http://~~\",\"LICENSE_DOWN_URL\":\"http://~~\",\"AD_NUM\":\"3\",\"MY_POINT\":\"5,430\",\"INVITE_NUM\":\"7\",\"INVITE_FRI_NUM\":\"7\",\"ACCUM_POINT\":\"3,870\"}],\"DATA\":[{\"FRI_NAME\":\"김민정\",\"USE_SERVICE\":\"스팀세차\",\"SAVE_DATE\":\"20.02.26\",\"FRI_POINT\":\"100\"},{\"FRI_NAME\":\"이하영\",\"USE_SERVICE\":\"스팀세차\",\"SAVE_DATE\":\"20.02.28\",\"FRI_POINT\":\"120\"}],\"advertise\":[{\"AD_IMAGE_URL\":\"http://~~\"},{\"AD_IMAGE_URL\":\"http://~~\"},{\"AD_IMAGE_URL\":\"http://~~\"}]}";
+            System.out.println("[spirit] it : "  + serverData);
+
+            ArrayList<DataObject> data = JsonParser.getData(serverData);
+
+            // 로그인 정보
+            final DataObject useListItem = DataParser.getFromParamtoItem(data, "use_list");
+            voUseData.setTotalPage(useListItem.getValue("TOTAL"));      //총페이지
+            voUseData.setCurrentPage(useListItem.getValue("TOTAL"));    //현재페이지
+            voUseData.setCurrentNum(useListItem.getValue("TOTAL"));     //현재갯수
+
+            ArrayList<DataObject> use_data_item = DataParser.getFromParamtoArray(data, "data");
+//            use_data_item.get(0).getValue("");
+//            UseContent.ITEMS.set(0,use_data_item.get(0));
+//            //List<UseItem> ITEMS = new ArrayList<UseItem>()
+//            UseContent.ITEMS.add(use_data_item.get(0));
+
+            //프로그래스바 종료
+            Util.dismiss();
+            // TODO - 서버 연동 후 UseContent.ITEMS에 리스 항목 추가 작업 확인
+            // Set the adapter - 이용내역 리스트 설정
+            if(UseContent.ITEMS.size() > 0) {
+                View view = findViewById(R.id.useHistoryList);
+                view.setVisibility(View.VISIBLE);
+                if (view instanceof RecyclerView) {
+                    Context context = view.getContext();
+                    RecyclerView recyclerView = (RecyclerView) view;
+
+                    recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                    recyclerView.setAdapter(new UseContentRecyclerViewAdapter(uContext, UseContent.ITEMS));
+                }
+            }else{
+                LinearLayout view = findViewById(R.id.use_history_empty);
+                view.setVisibility(View.VISIBLE);
+            }
+        }
+
+        @Override
+        public void onResponseFailListener(VolleyError it) {
+
+        }
+    };
+
     @Override
     public void onClick(View v) {
         Intent intent;
@@ -138,8 +214,4 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
 
         finish();
     }
-
-
 }
-
-

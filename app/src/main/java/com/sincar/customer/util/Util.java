@@ -2,6 +2,7 @@ package com.sincar.customer.util;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
@@ -39,7 +40,7 @@ import java.util.Locale;
  */
 public class Util {
 
-    private Context mContext;
+    private static Context mUtilContext;
     private static final int PROGRESS_DIALOG = 1001;
     private static final int PROGRESS_NFC_DIALOG = 1002;
     private static final int PROGRESS_STOP = 600;
@@ -62,6 +63,9 @@ public class Util {
     private static String request_year = null;
     private static String request_month = null;
     private static String request_day = null;
+
+    // 프로그래스 바
+    public static ProgressDialog mProgressDialog;
 
 
     /**
@@ -403,4 +407,36 @@ public class Util {
     /**
      * font 크기 조절
      */
+
+    /**
+     * 프로그래스 다이얼로그 보여주기
+     */
+    public static void showDialog() {
+        try {
+            if (mProgressDialog != null) {
+                mProgressDialog.dismiss();
+                mProgressDialog = null;
+            }
+            mProgressDialog = new ProgressDialog(mUtilContext);
+            mProgressDialog.setMessage(mUtilContext.getString(R.string.connect_server_msg));
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 프로그래스 다이얼로그 해제
+     */
+    public static void dismiss() throws NullPointerException {
+        try {
+            if (mProgressDialog == null) {
+                return;
+            }
+            mProgressDialog.dismiss();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

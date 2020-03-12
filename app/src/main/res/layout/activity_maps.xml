@@ -85,7 +85,7 @@
         android:id="@+id/btnReserveDate"
         android:layout_width="0dp"
         android:layout_height="68dp"
-        android:background="#ffe7e9"
+        android:background="@drawable/button_color_selector"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/next_layout" >
