@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -129,13 +130,17 @@ public class SplashActivity extends Activity {
      * 로그인 화면 이동
      */
     private void startApp() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // 로그인 이동
+                Intent intent = new Intent(SplashActivity.this, com.sincar.customer.LoginActivityPre.class);
+                startActivity(intent);
+                // 최초 생성 후 이동 시 제거
+                finish();
+            }
 
-        // 로그인 이동
-        Intent intent = new Intent(SplashActivity.this, com.sincar.customer.LoginActivityPre.class);
-        startActivity(intent);
-        // 최초 생성 후 이동 시 제거
-        finish();
-
+        }, 500);  // 2 초 후에 실행
     }
 
 
