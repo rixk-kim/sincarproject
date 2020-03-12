@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -17,6 +18,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+import com.sincar.customer.item.LoginResult;
 import com.sincar.customer.network.DataObject;
 import com.sincar.customer.network.JsonParser;
 import com.sincar.customer.network.VolleyNetwork;
@@ -217,6 +220,38 @@ it =>  {"login": [{"REGISTER":"1","CAUSE":"비밀번호 오류","MEMBER_NO":"123
 */
         it = "{login: [{\"REGISTER\":\"1\",\"CAUSE\":\"비밀번호 오류\",\"MEMBER_NO\":\"12345\",\"VERSION\":\"1.0.1\",\"APK_URL\":\"http://sincar.co.kr/apk/manager_1.0.1.apk\",\"MEMBER_NAME\":\"신차로\",\"MEMBER_PHONE\":\"01012345678\",\"MEMBER_RECOM_CODE\":\"FCF816\",\"PROFILE_DOWN_URL\":\"http://~~\",\"LICENSE_DOWN_URL\":\"http://~~\",\"AD_NUM\":\"3\",\"MY_POINT\":\"5,430\",\"INVITE_NUM\":\"7\",\"INVITE_FRI_NUM\":\"7\",\"ACCUM_POINT\":\"3,870\"}],\"DATA\":[{\"FRI_NAME\":\"김민정\",\"USE_SERVICE\":\"스팀세차\",\"SAVE_DATE\":\"20.02.26\",\"FRI_POINT\":\"100\"},{\"FRI_NAME\":\"이하영\",\"USE_SERVICE\":\"스팀세차\",\"SAVE_DATE\":\"20.02.28\",\"FRI_POINT\":\"120\"}],\"advertise\":[{\"AD_IMAGE_URL\":\"http://~~\"},{\"AD_IMAGE_URL\":\"http://~~\"},{\"AD_IMAGE_URL\":\"http://~~\"}]}";
         System.out.println("[spirit] it : "  + it);
+        // {login: [
+        //      {"REGISTER":"1",
+        //      "CAUSE":"비밀번호 오류",
+        //      "MEMBER_NO":"12345",
+        //      "VERSION":"1.0.1",
+        //      "APK_URL":"http://sincar.co.kr/apk/manager_1.0.1.apk",
+        //      "MEMBER_NAME":"신차로",
+        //      "MEMBER_PHONE":"01012345678",
+        //      "MEMBER_RECOM_CODE":"FCF816",
+        //      "PROFILE_DOWN_URL":"http://~~",
+        //      "LICENSE_DOWN_URL":"http://~~",
+        //      "AD_NUM":"3",
+        //      "MY_POINT":"5,430",
+        //      "INVITE_NUM":"7",
+        //      "INVITE_FRI_NUM":"7",
+        //      "ACCUM_POINT":"3,870"}
+        //  ],
+        // "DATA":[
+        //      {"FRI_NAME":"김민정","USE_SERVICE":"스팀세차","SAVE_DATE":"20.02.26","FRI_POINT":"100"},
+        //      {"FRI_NAME":"이하영","USE_SERVICE":"스팀세차","SAVE_DATE":"20.02.28","FRI_POINT":"120"}],
+        // "advertise":[
+        //      {"AD_IMAGE_URL":"http://~~"},
+        //      {"AD_IMAGE_URL":"http://~~"},
+        //      {"AD_IMAGE_URL":"http://~~"}
+        // ]}
+
+        Gson gSon = new Gson();
+        LoginResult loginResult = gSon.fromJson(it, LoginResult.class);
+        Log.d("서버전송", "loginResult = " + loginResult.toString());
+        Log.d("서버전송", "loginResult = " + loginResult.login.size());
+        Log.d("서버전송", "loginResult = " + loginResult.DATA.size());
+        Log.d("서버전송", "loginResult = " + loginResult.advertise.size());
 
         ArrayList<DataObject> data = JsonParser.getData(it);
 
