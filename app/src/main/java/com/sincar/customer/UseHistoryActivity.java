@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static com.sincar.customer.HWApplication.voLoginData;
+import static com.sincar.customer.HWApplication.voLoginItem;
 import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
 
 /**
@@ -120,18 +121,15 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
 
     /**
      * 사용내역 요청
-     * MEMBER_NO : 회원번호
-     * REQUESTT_PAGE : 요청페이지
-     * REQUEST_NUM : 요청갯수
+     * MEMBER_NO        : 회원번호
+     * REQUESTT_PAGE    : 요청페이지
+     * REQUEST_NUM      : 요청갯수
      */
     private void requestUseHistory() {
         HashMap<String, String> postParams = new HashMap<String, String>();
-        // 회원번호
-        postParams.put("MEMBER_NO", voLoginData.getMemberNo());
-        // 요청페이지
-        postParams.put("REQUESTT_PAGE", "1");
-        // 요청갯수
-        postParams.put("REQUEST_NUM", "20");
+        postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);     // 회원번호
+        postParams.put("REQUESTT_PAGE", "1");                   // 요청페이지
+        postParams.put("REQUEST_NUM", "20");                    // 요청갯수
 
         //프로그래스바 시작
         Util.showDialog();

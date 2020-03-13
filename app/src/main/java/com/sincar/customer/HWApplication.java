@@ -8,10 +8,16 @@ import android.os.Bundle;
 import androidx.multidex.MultiDexApplication;
 
 import com.sincar.customer.entity.LoginDataEntity;
+import com.sincar.customer.item.CouponeDataItem;
+import com.sincar.customer.item.CouponeItem;
+import com.sincar.customer.item.CouponeResult;
 import com.sincar.customer.item.LoginAdvertiseItem;
 import com.sincar.customer.item.LoginDataItem;
 import com.sincar.customer.item.LoginItem;
 import com.sincar.customer.item.LoginResult;
+import com.sincar.customer.item.NoticeDataItem;
+import com.sincar.customer.item.NoticeItem;
+import com.sincar.customer.item.NoticeResult;
 import com.sincar.customer.preference.PreferenceManager;
 
 import java.util.ArrayList;
@@ -35,11 +41,19 @@ public class HWApplication extends MultiDexApplication {
 
     public static LoginDataEntity voLoginData;
     public static LoginResult loginResult;
-    public static LoginItem voLoginItem;                    //로그인 정보
-    //public static LoginDataItem voLoginDataItem;            //친구 정보
-    public static LoginAdvertiseItem voLoginAdvertiseItem;  //광고 정보
+    public static LoginItem voLoginItem;                        //로그인 정보
+    //public static LoginDataItem voLoginDataItem;              //친구 정보
+    public static LoginAdvertiseItem voLoginAdvertiseItem;      //광고 정보
 
-    public static ArrayList<LoginDataItem> voLoginDataItem;
+    public static NoticeResult noticeResult;
+    public static NoticeItem voNoticeItem;
+
+    public static ArrayList<LoginDataItem> voLoginDataItem;         //포인트 리스트
+    public static ArrayList<NoticeDataItem> voNoticeDataItem;       //공지 리스트
+    public static ArrayList<CouponeDataItem> voCouponeDataItem;     //쿠폰 리스트
+
+    public static CouponeResult couponeResult;
+    public static CouponeItem voCouponeItem;
 
     AppStatus mAppStatus;
     @Override
@@ -67,6 +81,8 @@ public class HWApplication extends MultiDexApplication {
 //        voLoginDataItem = new LoginDataItem();
         voLoginAdvertiseItem = new LoginAdvertiseItem();
 
+        voNoticeItem = new NoticeItem();
+        voCouponeItem = new CouponeItem();
     }
 
     public static HWApplication getInstance() {

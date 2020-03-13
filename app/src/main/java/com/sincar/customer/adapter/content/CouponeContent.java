@@ -27,13 +27,13 @@ public class CouponeContent {
         }
     }
 
-    private static void addItem(CouponeItem item) {
+    public static void addItem(CouponeItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
 
     private static CouponeItem createDummyItem(int position) {
-        return new CouponeItem(position, "200원 할인쿠폰","1", "~2020.12.31", "회원 가입을 축하해요!");
+        return new CouponeItem(position, "200원 할인쿠폰","1", "~2020.12.31", "회원 가입을 축하해요!", "N");
     }
 
 //    private static PointItem makeDetails(int position) {
@@ -55,14 +55,16 @@ public class CouponeContent {
         public final String seq;
         public final String date;
         public final String contents;
+        public final String coupone_yn;
 
 
-        public CouponeItem(int id, String title, String seq, String date, String contents) {
-            this.id = id;
-            this.title = title;
-            this.seq = seq;
-            this.date = date;
-            this.contents = contents;
+        public CouponeItem(int id, String seq, String title, String date, String contents, String coupone_yn) {
+            this.id         = id;
+            this.seq        = seq;
+            this.title      = title;
+            this.date       = date;
+            this.contents   = contents;
+            this.coupone_yn = coupone_yn;
         }
     }
 }
