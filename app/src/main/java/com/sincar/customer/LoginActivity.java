@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
+import com.sincar.customer.item.LoginDataItem;
 import com.sincar.customer.item.LoginResult;
 import com.sincar.customer.network.DataObject;
 import com.sincar.customer.network.JsonParser;
@@ -28,9 +29,13 @@ import com.sincar.customer.util.DataParser;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static com.sincar.customer.HWApplication.voLoginData;
+import static com.sincar.customer.HWApplication.voLoginItem;
+import static com.sincar.customer.HWApplication.voLoginDataItem;
+import static com.sincar.customer.HWApplication.voLoginAdvertiseItem;
 import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
+import static com.sincar.customer.HWApplication.loginResult;
 
+//import static com.sincar.customer.item.LoginDataItem;
 
 /**
  * 2020.02.17 spirit
@@ -218,7 +223,7 @@ it =>  {"login": [{"REGISTER":"1","CAUSE":"비밀번호 오류","MEMBER_NO":"123
 "DATA":[{"FRI_NAME":"김민정","USE_SERVICE":"스팀세차","SAVE_DATE":"20.02.26","FRI_POINT":"100"},{"FRI_NAME":"이하영","USE_SERVICE":"스팀세차","SAVE_DATE":"20.02.28","FRI_POINT":"120"}],
 "advertise":[{"AD_IMAGE_URL":"http://~~"},{"AD_IMAGE_URL":"http://~~"},{"AD_IMAGE_URL"""http://~~"}]}
 */
-        it = "{login: [{\"REGISTER\":\"1\",\"CAUSE\":\"비밀번호 오류\",\"MEMBER_NO\":\"12345\",\"VERSION\":\"1.0.1\",\"APK_URL\":\"http://sincar.co.kr/apk/manager_1.0.1.apk\",\"MEMBER_NAME\":\"신차로\",\"MEMBER_PHONE\":\"01012345678\",\"MEMBER_RECOM_CODE\":\"FCF816\",\"PROFILE_DOWN_URL\":\"http://~~\",\"LICENSE_DOWN_URL\":\"http://~~\",\"AD_NUM\":\"3\",\"MY_POINT\":\"5,430\",\"INVITE_NUM\":\"7\",\"INVITE_FRI_NUM\":\"7\",\"ACCUM_POINT\":\"3,870\"}],\"DATA\":[{\"FRI_NAME\":\"김민정\",\"USE_SERVICE\":\"스팀세차\",\"SAVE_DATE\":\"20.02.26\",\"FRI_POINT\":\"100\"},{\"FRI_NAME\":\"이하영\",\"USE_SERVICE\":\"스팀세차\",\"SAVE_DATE\":\"20.02.28\",\"FRI_POINT\":\"120\"}],\"advertise\":[{\"AD_IMAGE_URL\":\"http://~~\"},{\"AD_IMAGE_URL\":\"http://~~\"},{\"AD_IMAGE_URL\":\"http://~~\"}]}";
+        it = "{login: [{\"REGISTER\":\"1\",\"CAUSE\":\"비밀번호 오류\",\"MEMBER_NO\":\"12345\",\"VERSION\":\"1.0.1\",\"APK_URL\":\"http://sincar.co.kr/apk/manager_1.0.1.apk\",\"MEMBER_NAME\":\"신차로\",\"MEMBER_PHONE\":\"01012345678\",\"MEMBER_RECOM_CODE\":\"FCF816\",\"PROFILE_DOWN_URL\":\"http://~~\",\"LICENSE_DOWN_URL\":\"http://~~\",\"AD_NUM\":\"3\",\"MY_POINT\":\"5,430\",\"INVITE_NUM\":\"7\",\"INVITE_FRI_NUM\":\"7\",\"ACCUM_POINT\":\"3,870\"}],\"DATA\":[{\"FRI_NAME\":\"김민정\",\"USE_SERVICE\":\"스팀세차\",\"SAVE_DATE\":\"20.02.26\",\"FRI_POINT\":\"100\"},{\"FRI_NAME\":\"이하영\",\"USE_SERVICE\":\"스팀세차\",\"SAVE_DATE\":\"20.02.28\",\"FRI_POINT\":\"120\"}],\"advertise\":[{\"AD_IMAGE_URL\":\"http://12~~\"},{\"AD_IMAGE_URL\":\"http://34~~\"},{\"AD_IMAGE_URL\":\"http://56~~\"}]}";
         System.out.println("[spirit] it : "  + it);
         // {login: [
         //      {"REGISTER":"1",
@@ -247,48 +252,98 @@ it =>  {"login": [{"REGISTER":"1","CAUSE":"비밀번호 오류","MEMBER_NO":"123
         // ]}
 
         Gson gSon = new Gson();
-        LoginResult loginResult = gSon.fromJson(it, LoginResult.class);
+        //LoginResult loginResult = gSon.fromJson(it, LoginResult.class);
+        loginResult = gSon.fromJson(it, LoginResult.class);
+
         Log.d("서버전송", "loginResult = " + loginResult.toString());
         Log.d("서버전송", "loginResult = " + loginResult.login.size());
         Log.d("서버전송", "loginResult = " + loginResult.DATA.size());
         Log.d("서버전송", "loginResult = " + loginResult.advertise.size());
 
-        ArrayList<DataObject> data = JsonParser.getData(it);
+        Log.d("서버전송", "회원번호 = " + loginResult.login.get(0).MEMBER_NO );
+        Log.d("서버전송", "App Version = " + loginResult.login.get(0).VERSION );
+        Log.d("서버전송", "APK_URL = " + loginResult.login.get(0).APK_URL );
+        Log.d("서버전송", "App MEMBER_NAME = " + loginResult.login.get(0).MEMBER_NAME );
+        Log.d("서버전송", "App MEMBER_PHONE = " + loginResult.login.get(0).MEMBER_PHONE );
 
-        // 로그인 정보
-        final DataObject loginItem = DataParser.getFromParamtoItem(data, "login");
+        voLoginItem.MEMBER_NO       = loginResult.login.get(0).MEMBER_NO;
+        voLoginItem.VERSION         = loginResult.login.get(0).VERSION;
+        voLoginItem.APK_URL         = loginResult.login.get(0).APK_URL;
+        voLoginItem.MEMBER_NAME     = loginResult.login.get(0).MEMBER_NAME;
+        voLoginItem.MEMBER_PHONE    = loginResult.login.get(0).MEMBER_PHONE;
 
-        System.out.println("[spirit] 회원번호 : " + loginItem.getValue("MEMBER_NO"));
-        System.out.println("[spirit] App Version : " + loginItem.getValue("VERSION"));
-        System.out.println("[spirit] APK_URL : " + loginItem.getValue("APK_URL"));
-        System.out.println("[spirit] MEMBER_NAME : " + loginItem.getValue("MEMBER_NAME"));
-        System.out.println("[spirit] MEMBER_PHONE : " + loginItem.getValue("MEMBER_PHONE"));
+//        ArrayList<DataObject> data = JsonParser.getData(it);
+//
+//        // 로그인 정보
+//        final DataObject loginItem = DataParser.getFromParamtoItem(data, "login");
+//
+//        System.out.println("[spirit] 회원번호 : " + loginItem.getValue("MEMBER_NO"));
+//        System.out.println("[spirit] App Version : " + loginItem.getValue("VERSION"));
+//        System.out.println("[spirit] APK_URL : " + loginItem.getValue("APK_URL"));
+//        System.out.println("[spirit] MEMBER_NAME : " + loginItem.getValue("MEMBER_NAME"));
+//        System.out.println("[spirit] MEMBER_PHONE : " + loginItem.getValue("MEMBER_PHONE"));
 
-        voLoginData.setMemberNo(loginItem.getValue("MEMBER_NO"));
-        voLoginData.setAppVersion(loginItem.getValue("VERSION"));
-        voLoginData.setApkDownloadUrl(loginItem.getValue("APK_URL"));
-        voLoginData.setMemberName(loginItem.getValue("MEMBER_NAME"));
-        voLoginData.setMemberPhone(loginItem.getValue("MEMBER_PHONE"));
+//        voLoginData.setMemberNo(loginItem.getValue("MEMBER_NO"));
+//        voLoginData.setAppVersion(loginItem.getValue("VERSION"));
+//        voLoginData.setApkDownloadUrl(loginItem.getValue("APK_URL"));
+//        voLoginData.setMemberName(loginItem.getValue("MEMBER_NAME"));
+//        voLoginData.setMemberPhone(loginItem.getValue("MEMBER_PHONE"));
 
-        System.out.println("[spirit] MEMBER_RECOM_CODE : " + loginItem.getValue("MEMBER_RECOM_CODE"));
-        System.out.println("[spirit] PROFILE_DOWN_URL : " + loginItem.getValue("PROFILE_DOWN_URL"));
-        System.out.println("[spirit] LICENSE_DOWN_URL : " + loginItem.getValue("LICENSE_DOWN_URL"));
-        System.out.println("[spirit] AD_NUM : " + loginItem.getValue("AD_NUM"));
+        Log.d("서버전송", "MEMBER_RECOM_CODE = " + loginResult.login.get(0).MEMBER_RECOM_CODE );
+        Log.d("서버전송", "PROFILE_DOWN_URL = " + loginResult.login.get(0).PROFILE_DOWN_URL );
+        Log.d("서버전송", "LICENSE_DOWN_URL = " + loginResult.login.get(0).LICENSE_DOWN_URL );
+        Log.d("서버전송", "App AD_NUM = " + loginResult.login.get(0).AD_NUM );
+        Log.d("서버전송", "App MY_POINT = " + loginResult.login.get(0).MY_POINT );
+
+        voLoginItem.MEMBER_RECOM_CODE   = loginResult.login.get(0).MEMBER_RECOM_CODE;
+        voLoginItem.PROFILE_DOWN_URL    = loginResult.login.get(0).PROFILE_DOWN_URL;
+        voLoginItem.LICENSE_DOWN_URL    = loginResult.login.get(0).LICENSE_DOWN_URL;
+        voLoginItem.AD_NUM              = loginResult.login.get(0).AD_NUM;
+        voLoginItem.MY_POINT            = loginResult.login.get(0).MY_POINT;
+
+
+
+//        System.out.println("[spirit] MEMBER_RECOM_CODE : " + loginItem.getValue("MEMBER_RECOM_CODE"));
+//        System.out.println("[spirit] PROFILE_DOWN_URL : " + loginItem.getValue("PROFILE_DOWN_URL"));
+//        System.out.println("[spirit] LICENSE_DOWN_URL : " + loginItem.getValue("LICENSE_DOWN_URL"));
+//        System.out.println("[spirit] AD_NUM : " + loginItem.getValue("AD_NUM"));
 //        System.out.println("[spirit] MY_POINT : " + loginItem.getValue("MY_POINT"));
 
-        voLoginData.setMemberRecomCode(loginItem.getValue("MEMBER_RECOM_CODE"));
-        voLoginData.setProfileDownloadUrl(loginItem.getValue("PROFILE_DOWN_URL"));
-        voLoginData.setLicenseDownloadUrl(loginItem.getValue("LICENSE_DOWN_URL"));
-        voLoginData.setAdNum(loginItem.getValue("AD_NUM"));
+//        voLoginData.setMemberRecomCode(loginItem.getValue("MEMBER_RECOM_CODE"));
+//        voLoginData.setProfileDownloadUrl(loginItem.getValue("PROFILE_DOWN_URL"));
+//        voLoginData.setLicenseDownloadUrl(loginItem.getValue("LICENSE_DOWN_URL"));
+//        voLoginData.setAdNum(loginItem.getValue("AD_NUM"));
 //        voLoginData.setMyPoint(loginItem.getValue("MY_POINT"));
 
 //        System.out.println("[spirit] INVITE_NUM : " + loginItem.getValue("INVITE_NUM"));
 //        System.out.println("[spirit] INVITE_FRI_NUM : " + loginItem.getValue("INVITE_FRI_NUM"));
 //        System.out.println("[spirit] ACCUM_POINT : " + loginItem.getValue("ACCUM_POINT"));
+
+        Log.d("서버전송", "INVITE_NUM = " + loginResult.login.get(0).INVITE_NUM );
+        Log.d("서버전송", "INVITE_FRI_NUM = " + loginResult.login.get(0).INVITE_FRI_NUM );
+        Log.d("서버전송", "ACCUM_POINT = " + loginResult.login.get(0).ACCUM_POINT );
+
+        voLoginItem.INVITE_NUM      = loginResult.login.get(0).INVITE_NUM;
+        voLoginItem.INVITE_FRI_NUM  = loginResult.login.get(0).INVITE_FRI_NUM;
+        voLoginItem.ACCUM_POINT     = loginResult.login.get(0).ACCUM_POINT;
 //
 //        voLoginData.setInviteNum(loginItem.getValue("INVITE_NUM"));
 //        voLoginData.setInviteFriNumNum(loginItem.getValue("INVITE_FRI_NUM"));
 //        voLoginData.setAccumPoint(loginItem.getValue("ACCUM_POINT"));
+
+//        for(int i = 0; i < loginResult.DATA.size(); i++)
+//        {
+//            Log.d("서버전송", "FRI_NAME = " + loginResult.DATA.get(i).FRI_NAME );
+//            Log.d("서버전송", "USE_SERVICE = " + loginResult.DATA.get(i).USE_SERVICE );
+//            Log.d("서버전송", "SAVE_DATE = " + loginResult.DATA.get(i).SAVE_DATE );
+//            Log.d("서버전송", "FRI_POINT = " + loginResult.DATA.get(i).FRI_POINT );
+//
+//            // TODO : 여기서 LoginDataItem 에 넣어주고 싶어요
+//            //voLoginDataItem.     = loginResult.DATA.get(i).FRI_NAME;
+//        }
+
+        // LoginDataItem 에 넣어주고.
+        voLoginDataItem = loginResult.DATA;
 
 //        ArrayList<DataObject> userItem = DataParser.getFromParamtoArray(data, "DATA");
 //        if(userItem.size() > 0)
@@ -318,18 +373,22 @@ it =>  {"login": [{"REGISTER":"1","CAUSE":"비밀번호 오류","MEMBER_NO":"123
 
         //"advertise":[{"AD_IMAGE_URL":"http://~~"},{"AD_IMAGE_URL":"http://~~"},{"AD_IMAGE_URL"""http://~~"}]
         // 광고 정보
-        final ArrayList<DataObject> adItem = DataParser.getFromParamtoArray(data, "advertise");
-
-        if(adItem.size() > 0) {
-            String[] ad_image_url = new String[adItem.size()];
-            for (int j = 0; j < adItem.size(); j++) {
-                System.out.println("[spirit] AD_IMAGE_URL : " + adItem.get(j).getValue("AD_IMAGE_URL"));
-
-                ad_image_url[j] = adItem.get(j).getValue("AD_IMAGE_URL");
-            }
-
-            voLoginData.setAdDownloadImageUrl(ad_image_url);
+        for(int j = 0; j < loginResult.advertise.size(); j++)
+        {
+            Log.d("서버전송", "AD_IMAGE_URL = " + loginResult.advertise.get(j).AD_IMAGE_URL );
         }
+//        final ArrayList<DataObject> adItem = DataParser.getFromParamtoArray(data, "advertise");
+//
+//        if(adItem.size() > 0) {
+//            String[] ad_image_url = new String[adItem.size()];
+//            for (int j = 0; j < adItem.size(); j++) {
+//                System.out.println("[spirit] AD_IMAGE_URL : " + adItem.get(j).getValue("AD_IMAGE_URL"));
+//
+//                ad_image_url[j] = adItem.get(j).getValue("AD_IMAGE_URL");
+//            }
+//
+////            voLoginData.setAdDownloadImageUrl(ad_image_url);
+//        }
 
         try {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);

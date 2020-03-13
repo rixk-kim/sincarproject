@@ -1,6 +1,6 @@
 package com.sincar.customer.item;
 
-public class AdvertiseItem {
+public class LoginAdvertiseItem {
     public String AD_IMAGE_URL;
 
     @Override

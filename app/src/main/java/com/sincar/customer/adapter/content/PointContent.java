@@ -21,13 +21,13 @@ public class PointContent {
 
     static {
         // Add some sample items.
-        // TODO - 서버 연동 작업 후 Dummy 아이템 추가 코드 삭제 필요
-        for (int i = 1; i <= COUNT; i++) {
-            addItem(createDummyItem(i));
-        }
+        // 서버 연동 작업 후 Dummy 아이템 추가 코드 삭제 필요
+//        for (int i = 1; i <= COUNT; i++) {
+//            addItem(createDummyItem(i));
+//        }
     }
 
-    private static void addItem(PointItem item) {
+    public static void addItem(PointItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }

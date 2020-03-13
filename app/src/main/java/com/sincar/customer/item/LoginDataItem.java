@@ -1,6 +1,6 @@
 package com.sincar.customer.item;
 
-public class DataItem {
+public class LoginDataItem {
     public String FRI_NAME;
     public String USE_SERVICE;
     public String SAVE_DATE;
@@ -13,7 +13,7 @@ public class DataItem {
                 ", USE_SERVICE='" + USE_SERVICE + '\'' +
                 ", SAVE_DATE='" + SAVE_DATE + '\'' +
                 ", FRI_POINT='" + FRI_POINT + '\'' +
-                '}';
+                "}";
     }
 }
 

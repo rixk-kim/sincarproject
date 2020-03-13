@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class LoginResult {
     public ArrayList<LoginItem> login = new ArrayList();
-    public ArrayList<DataItem> DATA = new ArrayList();
-    public ArrayList<AdvertiseItem> advertise = new ArrayList();
+    public ArrayList<LoginDataItem> DATA = new ArrayList();
+    public ArrayList<LoginAdvertiseItem> advertise = new ArrayList();
 
     @Override
     public String toString() {

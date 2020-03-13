@@ -8,7 +8,13 @@ import android.os.Bundle;
 import androidx.multidex.MultiDexApplication;
 
 import com.sincar.customer.entity.LoginDataEntity;
+import com.sincar.customer.item.LoginAdvertiseItem;
+import com.sincar.customer.item.LoginDataItem;
+import com.sincar.customer.item.LoginItem;
+import com.sincar.customer.item.LoginResult;
 import com.sincar.customer.preference.PreferenceManager;
+
+import java.util.ArrayList;
 
 /**
  * Created by spirit on 2019-10-26 <p/>
@@ -28,6 +34,12 @@ public class HWApplication extends MultiDexApplication {
 //    public static boolean loggedin = false;
 
     public static LoginDataEntity voLoginData;
+    public static LoginResult loginResult;
+    public static LoginItem voLoginItem;                    //로그인 정보
+    //public static LoginDataItem voLoginDataItem;            //친구 정보
+    public static LoginAdvertiseItem voLoginAdvertiseItem;  //광고 정보
+
+    public static ArrayList<LoginDataItem> voLoginDataItem;
 
     AppStatus mAppStatus;
     @Override
@@ -51,12 +63,10 @@ public class HWApplication extends MultiDexApplication {
         // 프리퍼런스 셋팅
         PreferenceManager.getInstance().init(getApplicationContext());
 
-        voLoginData = new LoginDataEntity();
+        voLoginItem = new LoginItem();
+//        voLoginDataItem = new LoginDataItem();
+        voLoginAdvertiseItem = new LoginAdvertiseItem();
 
-        // 기본 폰트 : 나눔 고딕
-        // 기본 볼드 폰트 : 나눔 고딕
-//        Typekit.getInstance().addNormal(Typekit.createFromAsset(this, "NanumBarunGothic.otf"))
-//                .addBold(Typekit.createFromAsset(this, "NanumBarunGothicBold.otf"));
     }
 
     public static HWApplication getInstance() {
