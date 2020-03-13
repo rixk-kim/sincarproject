@@ -27,13 +27,13 @@ public class CardContent {
         }
     }
 
-    private static void addItem(CardItem item) {
+    public static void addItem(CardItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
 
     private static CardItem createDummyItem(int position) {
-        return new CardItem(position, "BC카드","1", "****-****-****-1234");
+        return new CardItem(position, "1","BC카드", "****-****-****-1234", false);
     }
 
 //    private static PointItem makeDetails(int position) {
@@ -54,13 +54,15 @@ public class CardContent {
         public final String title;
         public final String seq;
         public final String info;
+        public boolean card_selected;
 
 
-        public CardItem(int id, String title, String seq, String info) {
-            this.id = id;
-            this.title = title;
-            this.seq = seq;
-            this.info = info;
+        public CardItem(int id, String seq, String title, String info, boolean card_selected) {
+            this.id         = id;
+            this.seq        = seq;
+            this.title      = title;
+            this.info       = info;
+            this.card_selected = card_selected;
         }
     }
 }

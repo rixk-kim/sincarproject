@@ -67,7 +67,7 @@ public class CouponeActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     /**
-     * 쿠 리스트 요청
+     * 쿠폰 리스트 요청
      * PHONE_NEMBER     : 폰번호
      * MEMBER_NO        : 회원번호
      * REQUESTT_PAGE    : 요청페이지
@@ -121,7 +121,7 @@ public class CouponeActivity extends AppCompatActivity implements View.OnClickLi
 
             // 서버 연동 후 UseContent.ITEMS에 리스 항목 추가 작업 확인
             // Set the adapter - 이용내역 리스트 설정
-            if(NoticeContent.ITEMS.size() > 0) {
+            if(CouponeContent.ITEMS.size() > 0) {
                 View view = findViewById(R.id.couponeHistoryList);
                 if (view instanceof RecyclerView) {
                     Context context = view.getContext();

@@ -27,13 +27,13 @@ public class CarContent {
         }
     }
 
-    private static void addItem(CarItem item) {
+    public static void addItem(CarItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
 
     private static CarItem createDummyItem(int position) {
-        return new CarItem(position, "포드",String.valueOf(position), "익스플로러 스포츠 트랙", "12가 1234",false);
+        return new CarItem(position, "1","포드", "익스플로러 스포츠 트랙", "12가 1234",false);
     }
 
     /**
@@ -48,10 +48,11 @@ public class CarContent {
 
         public boolean car_selected;
 
-        public CarItem(int id, String title, String seq, String name, String car_number, boolean car_selected) {
+        public CarItem(int id, String seq, String title,  String name, String car_number, boolean car_selected) {
             this.id = id;
-            this.car_title  = title;
+
             this.car_seq    = seq;
+            this.car_title  = title;
             this.car_name   = name;
             this.car_number = car_number;
             this.car_selected = car_selected;

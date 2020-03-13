@@ -40,10 +40,7 @@ public class CarContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
     @Override
     public void onBindViewHolder(final com.sincar.customer.adapter.CarContentRecyclerViewAdapter.ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mItem = mValues.get(position);
-
         holder.mView.setTag(holder.mItem);
-
         holder.mView.setOnClickListener(this);
 
         setViewLayout(holder, position);

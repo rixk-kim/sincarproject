@@ -33,7 +33,7 @@ public class CouponeContent {
     }
 
     private static CouponeItem createDummyItem(int position) {
-        return new CouponeItem(position, "200원 할인쿠폰","1", "~2020.12.31", "회원 가입을 축하해요!", "N");
+        return new CouponeItem(position, "1","200원 할인쿠폰", "~2020.12.31", "회원 가입을 축하해요!", "N");
     }
 
 //    private static PointItem makeDetails(int position) {

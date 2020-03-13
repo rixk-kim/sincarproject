@@ -8,6 +8,12 @@ import android.os.Bundle;
 import androidx.multidex.MultiDexApplication;
 
 import com.sincar.customer.entity.LoginDataEntity;
+import com.sincar.customer.item.CarDataItem;
+import com.sincar.customer.item.CarItem;
+import com.sincar.customer.item.CarResult;
+import com.sincar.customer.item.CardDataItem;
+import com.sincar.customer.item.CardItem;
+import com.sincar.customer.item.CardResult;
 import com.sincar.customer.item.CouponeDataItem;
 import com.sincar.customer.item.CouponeItem;
 import com.sincar.customer.item.CouponeResult;
@@ -45,15 +51,27 @@ public class HWApplication extends MultiDexApplication {
     //public static LoginDataItem voLoginDataItem;              //친구 정보
     public static LoginAdvertiseItem voLoginAdvertiseItem;      //광고 정보
 
-    public static NoticeResult noticeResult;
-    public static NoticeItem voNoticeItem;
-
     public static ArrayList<LoginDataItem> voLoginDataItem;         //포인트 리스트
     public static ArrayList<NoticeDataItem> voNoticeDataItem;       //공지 리스트
     public static ArrayList<CouponeDataItem> voCouponeDataItem;     //쿠폰 리스트
+    public static ArrayList<CarDataItem> voCarDataItem;             //등록차량 리스트
+    public static ArrayList<CardDataItem> voCardDataItem;           //등록카드 리스트
 
+    //공지사항
+    public static NoticeResult noticeResult;
+    public static NoticeItem voNoticeItem;
+
+    //등록쿠폰
     public static CouponeResult couponeResult;
     public static CouponeItem voCouponeItem;
+
+    //등록차량
+    public static CarResult carResult;
+    public static CarItem voCarItem;
+
+    //등록카드
+    public static CardResult cardResult;
+    public static CardItem voCardItem;
 
     AppStatus mAppStatus;
     @Override
@@ -81,8 +99,10 @@ public class HWApplication extends MultiDexApplication {
 //        voLoginDataItem = new LoginDataItem();
         voLoginAdvertiseItem = new LoginAdvertiseItem();
 
-        voNoticeItem = new NoticeItem();
-        voCouponeItem = new CouponeItem();
+        voNoticeItem    = new NoticeItem();
+        voCouponeItem   = new CouponeItem();
+        voCarItem       = new CarItem();
+        voCardItem      = new CardItem();
     }
 
     public static HWApplication getInstance() {
