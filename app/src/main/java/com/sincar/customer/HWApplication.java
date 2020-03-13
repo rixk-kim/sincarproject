@@ -8,6 +8,12 @@ import android.os.Bundle;
 import androidx.multidex.MultiDexApplication;
 
 import com.sincar.customer.entity.LoginDataEntity;
+import com.sincar.customer.item.AddressDataItem;
+import com.sincar.customer.item.AddressItem;
+import com.sincar.customer.item.AddressResult;
+import com.sincar.customer.item.AgentDataItem;
+import com.sincar.customer.item.AgentItem;
+import com.sincar.customer.item.AgentResult;
 import com.sincar.customer.item.CarDataItem;
 import com.sincar.customer.item.CarItem;
 import com.sincar.customer.item.CarResult;
@@ -56,6 +62,8 @@ public class HWApplication extends MultiDexApplication {
     public static ArrayList<CouponeDataItem> voCouponeDataItem;     //쿠폰 리스트
     public static ArrayList<CarDataItem> voCarDataItem;             //등록차량 리스트
     public static ArrayList<CardDataItem> voCardDataItem;           //등록카드 리스트
+    public static ArrayList<AddressDataItem> voAddressDataItem;     //주소검색 리스트
+    public static ArrayList<AgentDataItem> voAgentDataItem;         //대리점 리스트
 
     //공지사항
     public static NoticeResult noticeResult;
@@ -72,6 +80,14 @@ public class HWApplication extends MultiDexApplication {
     //등록카드
     public static CardResult cardResult;
     public static CardItem voCardItem;
+
+    //주소 검색
+    public static AddressResult addressResult;
+    public static AddressItem voAddressItem;
+
+    //대리점 검색
+    public static AgentResult agentResult;
+    public static AgentItem voAgentItem;
 
     AppStatus mAppStatus;
     @Override
@@ -103,6 +119,8 @@ public class HWApplication extends MultiDexApplication {
         voCouponeItem   = new CouponeItem();
         voCarItem       = new CarItem();
         voCardItem      = new CardItem();
+        voAddressItem   = new AddressItem();
+        voAgentItem     = new AgentItem();
     }
 
     public static HWApplication getInstance() {

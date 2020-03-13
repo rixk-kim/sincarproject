@@ -27,7 +27,7 @@ public class AddressContent {
         }
     }
 
-    private static void addItem(AddressItem item) {
+    public static void addItem(AddressItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }

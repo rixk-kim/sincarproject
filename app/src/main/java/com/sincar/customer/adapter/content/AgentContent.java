@@ -27,7 +27,7 @@ public class AgentContent {
         }
     }
 
-    private static void addItem(AgentItem item) {
+    public static void addItem(AgentItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
@@ -37,7 +37,8 @@ public class AgentContent {
                 "",
                 "김태현",
                 "관악구 1호점",
-                "관악구,서초구,송파구,강동구");
+                "관악구,서초구,송파구,강동구",
+                "7/8/9/10/11/12/1/2/3/4/5/6/7");
     }
 
     /**
@@ -50,17 +51,20 @@ public class AgentContent {
         public final String agent_name;
         public final String branch_area;
         public final String wash_area;
+        public final String reserve_time;
 
         public AgentItem(int id,
                               String agent_photo,
                               String agent_name,
                               String branch_area,
-                              String wash_area) {
+                              String wash_area,
+                              String reserve_time) {
             this.id = id;
             this.agent_photo = agent_photo;
             this.agent_name = agent_name;
             this.branch_area = branch_area;
             this.wash_area = wash_area;
+            this.reserve_time = reserve_time;
         }
     }
 }

@@ -65,6 +65,26 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * 등록카드 리스트 요청
+     * PHONE_NEMBER     : 폰번호
+     * MEMBER_NO        : 회원번호
+     * REQUESTT_PAGE    : 요청페이지
+     * REQUEST_NUM      : 요청갯수
+     */
+    private void requestNoticeList() {
+        HashMap<String, String> postParams = new HashMap<String, String>();
+        postParams.put("PHONE_NEMBER", voLoginItem.MEMBER_PHONE);   // 폰번호
+        postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);         // 회원번호
+        postParams.put("REQUESTT_PAGE", "1");                       // 요청페이지
+        postParams.put("REQUEST_NUM", "20");                        // 요청갯수
+
+        //프로그래스바 시작
+        Util.showDialog();
+        //사용내역 요청
+        VolleyNetwork.getInstance(this).passwordChangeRequest(LOGIN_REQUEST, postParams, onResponseListener);
+    }
+
     VolleyNetwork.OnResponseListener onResponseListener = new VolleyNetwork.OnResponseListener() {
         @Override
         public void onResponseSuccessListener(String serverData) {
@@ -120,26 +140,6 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
 
         }
     };
-
-    /**
-     * 등록카드 리스트 요청
-     * PHONE_NEMBER     : 폰번호
-     * MEMBER_NO        : 회원번호
-     * REQUESTT_PAGE    : 요청페이지
-     * REQUEST_NUM      : 요청갯수
-     */
-    private void requestNoticeList() {
-        HashMap<String, String> postParams = new HashMap<String, String>();
-        postParams.put("PHONE_NEMBER", voLoginItem.MEMBER_PHONE);   // 폰번호
-        postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);         // 회원번호
-        postParams.put("REQUESTT_PAGE", "1");                       // 요청페이지
-        postParams.put("REQUEST_NUM", "20");                        // 요청갯수
-
-        //프로그래스바 시작
-        Util.showDialog();
-        //사용내역 요청
-        VolleyNetwork.getInstance(this).passwordChangeRequest(LOGIN_REQUEST, postParams, onResponseListener);
-    }
 
     @Override
     public void onClick(View v) {
