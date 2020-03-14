@@ -7,12 +7,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.sincar.customer.adapter.MainBannerSliderAdapter;
+import com.sincar.customer.service.PicassoImageLoadingService;
+
+import ss.com.bannerslider.Slider;
+import ss.com.bannerslider.event.OnSlideClickListener;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -46,6 +52,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mConstraintLayout = (ConstraintLayout) findViewById(R.id.layout_car_register);
 
+        // image slider setting
+        PicassoImageLoadingService picassoService = new PicassoImageLoadingService();
+        Slider.init(picassoService);
+        Slider slider = findViewById(R.id.banner_slider);
+        slider.setAdapter(new MainBannerSliderAdapter());
+        slider.setOnSlideClickListener(new OnSlideClickListener() {
+            @Override
+            public void onSlideClick(int position) {
+                // TODO - Banner 선택 시 필요한 동작 추가
+                Toast.makeText(getApplicationContext(), "Banner selected is " + position, Toast.LENGTH_LONG).show();
+            }
+        });
 
         //하단메뉴 고정(0:홈)
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
