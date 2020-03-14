@@ -13,12 +13,8 @@ import android.view.View;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.sincar.customer.adapter.CarContentRecyclerViewAdapter;
-import com.sincar.customer.adapter.CouponeContentRecyclerViewAdapter;
 import com.sincar.customer.adapter.content.CarContent;
-import com.sincar.customer.adapter.content.CouponeContent;
-import com.sincar.customer.adapter.content.NoticeContent;
 import com.sincar.customer.item.CarResult;
-import com.sincar.customer.item.CouponeResult;
 import com.sincar.customer.network.VolleyNetwork;
 import com.sincar.customer.util.Util;
 
@@ -35,6 +31,7 @@ import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
 public class CarManageActivity extends AppCompatActivity implements View.OnClickListener {
     private String path;
     private Context carContext;
+    private CarContentRecyclerViewAdapter mCarContentRecyclerViewAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +62,8 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
             RecyclerView recyclerView = (RecyclerView) view;
 
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new CarContentRecyclerViewAdapter(this, CarContent.ITEMS));
+            mCarContentRecyclerViewAdapter = new CarContentRecyclerViewAdapter(this, CarContent.ITEMS);
+            recyclerView.setAdapter(mCarContentRecyclerViewAdapter);
         }
     }
 
@@ -131,7 +129,9 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
                     RecyclerView recyclerView = (RecyclerView) view;
 
                     recyclerView.setLayoutManager(new LinearLayoutManager(context));
-                    recyclerView.setAdapter(new CarContentRecyclerViewAdapter(carContext, CarContent.ITEMS));
+                    //recyclerView.setAdapter(new CarContentRecyclerViewAdapter(carContext, CarContent.ITEMS));
+                    mCarContentRecyclerViewAdapter = new CarContentRecyclerViewAdapter(carContext, CarContent.ITEMS);
+                    recyclerView.setAdapter(mCarContentRecyclerViewAdapter);
                 }
             }else{
                 // TODO - 등록차량 없을 때 화면 UI 추가
@@ -160,7 +160,8 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
                     finish();
                 }else if("reserve".equals(path)){
                     intent = new Intent(this, ReservationMainActivity.class);
-                    intent.putExtra("result", "some value");
+                    intent.putExtra("reserve_carname", mCarContentRecyclerViewAdapter.getItemcarName());
+                    intent.putExtra("reserve_carnumber", mCarContentRecyclerViewAdapter.getItemcarNumber());
                     setResult(RESULT_OK, intent);
                     finish();
 
@@ -191,7 +192,8 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
             startActivity(intent);
         }else if("reserve".equals(path)){
             intent = new Intent(this, ReservationMainActivity.class);
-            intent.putExtra("result", "some value");
+            intent.putExtra("reserve_carname", mCarContentRecyclerViewAdapter.getItemcarName());
+            intent.putExtra("reserve_carnumber", mCarContentRecyclerViewAdapter.getItemcarNumber());
             setResult(RESULT_OK, intent);
             finish();
         }else {

@@ -35,11 +35,22 @@ import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
 public class ReservationTimeActivity extends AppCompatActivity
         implements View.OnClickListener, AgentRecyclerViewAdapter.OnAgentListInteractionListener {
     private Context reContext;
+    private String reserve_address; //예약주소
+    private String reserve_year;    //예약년도
+    private String reserve_month;   //예약월
+    private String reserve_day;     //예약일
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation_time);
         reContext = this;
+
+        Intent intent = getIntent(); /*데이터 수신*/
+        reserve_address     = intent.getExtras().getString("reserve_address");    /*String형*/
+        reserve_year        = intent.getExtras().getString("reserve_year");    /*String형*/
+        reserve_month       = intent.getExtras().getString("reserve_month");    /*String형*/
+        reserve_day         = intent.getExtras().getString("reserve_day");    /*String형*/
 
         // 화면 초기화
         init();

@@ -27,13 +27,13 @@ public class OptionContent {
         }
     }
 
-    private static void addItem(OptionItem item) {
+    public static void addItem(OptionItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
 
     private static OptionItem createDummyItem(int position) {
-        return new OptionItem(position, "가니쉬 코팅", "부가 서비스 정보", false);
+        return new OptionItem(position, "1", "가니쉬 코팅", "부가 서비스 정보", "6000", false);
     }
 
 //    private static PointItem makeDetails(int position) {
@@ -51,14 +51,18 @@ public class OptionContent {
      */
     public static class OptionItem {
         public final int id;
+        public String option_seq;
         public String option_name;
         public String option_info;
+        public String option_pay;
         public boolean checked;
 
-        public OptionItem(int id, String option_name, String option_info, Boolean checked) {
+        public OptionItem(int id, String option_seq, String option_name, String option_info, String option_pay, Boolean checked) {
             this.id = id;
+            this.option_seq  = option_seq;
             this.option_name = option_name;
             this.option_info = option_info;
+            this.option_pay  = option_pay;
             this.checked = checked;
         }
     }

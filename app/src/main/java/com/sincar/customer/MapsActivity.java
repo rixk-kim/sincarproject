@@ -185,7 +185,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             case R.id.btnReserveDate:
                 // "예약일자" 설정
-                startActivity(new Intent(this, ReservationCalendarActivity.class));
+                intent = new Intent(this, ReservationCalendarActivity.class);
+                intent.putExtra("reserve_address", cAddress);
+                startActivity(intent);
+
+                //startActivity(new Intent(this, ReservationCalendarActivity.class));
                 break;
             case R.id.btnNext:
                 // "이 위치로 부름" 작업(시나리오 확인) => 현 위치로 이동

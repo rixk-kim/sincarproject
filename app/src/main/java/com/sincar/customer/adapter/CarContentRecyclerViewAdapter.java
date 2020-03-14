@@ -2,6 +2,7 @@ package com.sincar.customer.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +14,18 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 import com.sincar.customer.R;
 import com.sincar.customer.adapter.content.CarContent;
+import com.sincar.customer.adapter.content.TimeContent;
 
 import java.util.List;
 
-public class CarContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sincar.customer.adapter.CarContentRecyclerViewAdapter.ViewHolder>  implements View.OnClickListener {
+public class CarContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sincar.customer.adapter.CarContentRecyclerViewAdapter.ViewHolder>
+        implements View.OnClickListener {
 
     private final List<CarContent.CarItem> mValues;
     private Context mContext;
     private LinearLayout mLayout;
+    private String carName;
+    private String carNumber;
 
     public CarContentRecyclerViewAdapter(Context context, List<CarContent.CarItem> items) {
         mContext = context;
@@ -112,13 +117,26 @@ public class CarContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
 //        }
 //        prePosition = item.id;
 
-        mValues.get(Integer.parseInt(item.car_seq)-1).car_selected = true;
+        mValues.get(item.id-1).car_selected = true;
+
+        carName     = mValues.get(item.id-1).car_name;
+        carNumber   = mValues.get(item.id-1).car_number;
 //        mValues.get(Integer.parseInt(item.car_seq)).agentPosition = agentPosition;
         notifyDataSetChanged();
 
 //        if (mListener != null) {
 //            mListener.OnCarListInteractionListener(item);
 //        }
+    }
+
+    public String getItemcarName()
+    {
+        return carName;
+    }
+
+    public String getItemcarNumber()
+    {
+        return carNumber;
     }
 
     @Override
@@ -151,9 +169,9 @@ public class CarContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
     }
 
 
-//    public interface OnCarListInteractionListener {
-//        void onTimeListInteraction(CarContent.CarItem timeItem);
-//    }
+    public interface OnCarListInteractionListener {
+        void onCarListInteraction(CarContent.CarItem carItem);
+    }
 }
 
 

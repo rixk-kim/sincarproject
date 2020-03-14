@@ -16,10 +16,12 @@ import android.widget.LinearLayout;
 
 import com.android.volley.VolleyError;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
 import com.sincar.customer.adapter.UseContentRecyclerViewAdapter;
 import com.sincar.customer.adapter.content.UseContent;
 import com.sincar.customer.entity.LoginDataEntity;
 import com.sincar.customer.entity.UseDataEntity;
+import com.sincar.customer.item.UseResult;
 import com.sincar.customer.network.DataObject;
 import com.sincar.customer.network.JsonParser;
 import com.sincar.customer.network.VolleyNetwork;
@@ -30,6 +32,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.sincar.customer.HWApplication.useResult;
+import static com.sincar.customer.HWApplication.voUseDataItem;
+import static com.sincar.customer.HWApplication.voUseItem;
 import static com.sincar.customer.HWApplication.voLoginData;
 import static com.sincar.customer.HWApplication.voLoginItem;
 import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
@@ -145,39 +150,72 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
              [{"SEQ":"1","RESERVE_STATUS":"0","RESERVE_TIME":"2020-12-22 14:00",...},
              {"SEQ":"1","RESERVE_STATUS":"0","RESERVE_TIME":"2020-12-22 14:00",...}..]}
              */
-            serverData = "{login: [{\"REGISTER\":\"1\",\"CAUSE\":\"비밀번호 오류\",\"MEMBER_NO\":\"12345\",\"VERSION\":\"1.0.1\",\"APK_URL\":\"http://sincar.co.kr/apk/manager_1.0.1.apk\",\"MEMBER_NAME\":\"신차로\",\"MEMBER_PHONE\":\"01012345678\",\"MEMBER_RECOM_CODE\":\"FCF816\",\"PROFILE_DOWN_URL\":\"http://~~\",\"LICENSE_DOWN_URL\":\"http://~~\",\"AD_NUM\":\"3\",\"MY_POINT\":\"5,430\",\"INVITE_NUM\":\"7\",\"INVITE_FRI_NUM\":\"7\",\"ACCUM_POINT\":\"3,870\"}],\"DATA\":[{\"FRI_NAME\":\"김민정\",\"USE_SERVICE\":\"스팀세차\",\"SAVE_DATE\":\"20.02.26\",\"FRI_POINT\":\"100\"},{\"FRI_NAME\":\"이하영\",\"USE_SERVICE\":\"스팀세차\",\"SAVE_DATE\":\"20.02.28\",\"FRI_POINT\":\"120\"}],\"advertise\":[{\"AD_IMAGE_URL\":\"http://~~\"},{\"AD_IMAGE_URL\":\"http://~~\"},{\"AD_IMAGE_URL\":\"http://~~\"}]}";
-            System.out.println("[spirit] it : "  + serverData);
+            //serverData = "{login: [{\"REGISTER\":\"1\",\"CAUSE\":\"비밀번호 오류\",\"MEMBER_NO\":\"12345\",\"VERSION\":\"1.0.1\",\"APK_URL\":\"http://sincar.co.kr/apk/manager_1.0.1.apk\",\"MEMBER_NAME\":\"신차로\",\"MEMBER_PHONE\":\"01012345678\",\"MEMBER_RECOM_CODE\":\"FCF816\",\"PROFILE_DOWN_URL\":\"http://~~\",\"LICENSE_DOWN_URL\":\"http://~~\",\"AD_NUM\":\"3\",\"MY_POINT\":\"5,430\",\"INVITE_NUM\":\"7\",\"INVITE_FRI_NUM\":\"7\",\"ACCUM_POINT\":\"3,870\"}],\"DATA\":[{\"FRI_NAME\":\"김민정\",\"USE_SERVICE\":\"스팀세차\",\"SAVE_DATE\":\"20.02.26\",\"FRI_POINT\":\"100\"},{\"FRI_NAME\":\"이하영\",\"USE_SERVICE\":\"스팀세차\",\"SAVE_DATE\":\"20.02.28\",\"FRI_POINT\":\"120\"}],\"advertise\":[{\"AD_IMAGE_URL\":\"http://~~\"},{\"AD_IMAGE_URL\":\"http://~~\"},{\"AD_IMAGE_URL\":\"http://~~\"}]}";
+            //System.out.println("[spirit] it : "  + serverData);
 
-            ArrayList<DataObject> data = JsonParser.getData(serverData);
+            Gson gSon = new Gson();
+            useResult = gSon.fromJson(serverData, UseResult.class);
 
-            // 로그인 정보
-            DataObject useListItem = DataParser.getFromParamtoItem(data, "use_list");
-            voUseData.setTotalPage(useListItem.getValue("TOTAL"));      //총페이지
-            voUseData.setCurrentPage(useListItem.getValue("TOTAL"));    //현재페이지
-            voUseData.setCurrentNum(useListItem.getValue("TOTAL"));     //현재갯수
+            voUseItem.TOTAL              = useResult.use_list.get(0).TOTAL;
+            voUseItem.CURRENT_PAGE       = useResult.use_list.get(0).CURRENT_PAGE;
+            voUseItem.CURRENT_NUM        = useResult.use_list.get(0).CURRENT_NUM;
 
-            ArrayList<DataObject> use_data_item = DataParser.getFromParamtoArray(data, "data");
+            voUseDataItem     = useResult.DATA;
 
             List<UseContent.UseItem> ITEMS = new ArrayList<UseContent.UseItem>();
-            for(int i = 0; i < use_data_item.size(); i++) {
+
+            for(int i = 0; i < voUseDataItem.size(); i++) {
                 UseContent.addItem(new UseContent.UseItem(
                         i,
-                        use_data_item.get(i).getValue("SEQ"),
-                        use_data_item.get(i).getValue("RESERVE_STATUS"),
-                        use_data_item.get(i).getValue("RESERVE_TIME"),
-                        use_data_item.get(i).getValue("CANCEL_TIME"),
-                        use_data_item.get(i).getValue("WASH_ADDRESS"),
-                        use_data_item.get(i).getValue("AGENT"),
-                        use_data_item.get(i).getValue("USE_PAY"),
-                        use_data_item.get(i).getValue("RESERVE_PHONE"),
-                        use_data_item.get(i).getValue("RESERVE_NAME"),
-                        use_data_item.get(i).getValue("COMMON_PAY"),
-                        use_data_item.get(i).getValue("COMMON_PAY"),
-                        use_data_item.get(i).getValue("CHARGE_INFO"),
-                        use_data_item.get(i).getValue("CAR_MODEL"),
-                        use_data_item.get(i).getValue("CAR_NUMBER")
+                        voUseDataItem.get(i).SEQ,
+                        voUseDataItem.get(i).RESERVE_TIME,
+                        voUseDataItem.get(i).RESERVE_TIME,
+                        voUseDataItem.get(i).CANCEL_TIME,
+                        voUseDataItem.get(i).WASH_ADDRESS,
+                        voUseDataItem.get(i).AGENT,
+                        voUseDataItem.get(i).USE_PAY,
+                        voUseDataItem.get(i).RESERVE_PHONE,
+
+                        voUseDataItem.get(i).RESERVE_NAME,
+                        voUseDataItem.get(i).COMMON_PAY,
+                        voUseDataItem.get(i).COUPONE,
+                        voUseDataItem.get(i).CHARGE_INFO,
+                        voUseDataItem.get(i).CAR_MODEL,
+                        voUseDataItem.get(i).CAR_NUMBER
                 ));
             }
+
+
+//            ArrayList<DataObject> data = JsonParser.getData(serverData);
+//
+//            // 로그인 정보
+//            DataObject useListItem = DataParser.getFromParamtoItem(data, "use_list");
+//            voUseData.setTotalPage(useListItem.getValue("TOTAL"));      //총페이지
+//            voUseData.setCurrentPage(useListItem.getValue("TOTAL"));    //현재페이지
+//            voUseData.setCurrentNum(useListItem.getValue("TOTAL"));     //현재갯수
+//
+//            ArrayList<DataObject> use_data_item = DataParser.getFromParamtoArray(data, "data");
+//
+//            List<UseContent.UseItem> ITEMS = new ArrayList<UseContent.UseItem>();
+//            for(int i = 0; i < use_data_item.size(); i++) {
+//                UseContent.addItem(new UseContent.UseItem(
+//                        i,
+//                        use_data_item.get(i).getValue("SEQ"),
+//                        use_data_item.get(i).getValue("RESERVE_STATUS"),
+//                        use_data_item.get(i).getValue("RESERVE_TIME"),
+//                        use_data_item.get(i).getValue("CANCEL_TIME"),
+//                        use_data_item.get(i).getValue("WASH_ADDRESS"),
+//                        use_data_item.get(i).getValue("AGENT"),
+//                        use_data_item.get(i).getValue("USE_PAY"),
+//                        use_data_item.get(i).getValue("RESERVE_PHONE"),
+//                        use_data_item.get(i).getValue("RESERVE_NAME"),
+//                        use_data_item.get(i).getValue("COMMON_PAY"),
+//                        use_data_item.get(i).getValue("COMMON_PAY"),
+//                        use_data_item.get(i).getValue("CHARGE_INFO"),
+//                        use_data_item.get(i).getValue("CAR_MODEL"),
+//                        use_data_item.get(i).getValue("CAR_NUMBER")
+//                ));
+//            }
             //프로그래스바 종료
             Util.dismiss();
             // TODO - 서버 연동 후 UseContent.ITEMS에 리스 항목 추가 작업 확인

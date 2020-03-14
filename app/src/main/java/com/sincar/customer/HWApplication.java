@@ -30,6 +30,12 @@ import com.sincar.customer.item.LoginResult;
 import com.sincar.customer.item.NoticeDataItem;
 import com.sincar.customer.item.NoticeItem;
 import com.sincar.customer.item.NoticeResult;
+import com.sincar.customer.item.OptionDataItem;
+import com.sincar.customer.item.OptionItem;
+import com.sincar.customer.item.OptionResult;
+import com.sincar.customer.item.UseDataItem;
+import com.sincar.customer.item.UseItem;
+import com.sincar.customer.item.UseResult;
 import com.sincar.customer.preference.PreferenceManager;
 
 import java.util.ArrayList;
@@ -64,6 +70,8 @@ public class HWApplication extends MultiDexApplication {
     public static ArrayList<CardDataItem> voCardDataItem;           //등록카드 리스트
     public static ArrayList<AddressDataItem> voAddressDataItem;     //주소검색 리스트
     public static ArrayList<AgentDataItem> voAgentDataItem;         //대리점 리스트
+    public static ArrayList<UseDataItem> voUseDataItem;             //이용내역
+    public static ArrayList<OptionDataItem> voOptionDataItem;       //부가서비스 리스트
 
     //공지사항
     public static NoticeResult noticeResult;
@@ -88,6 +96,14 @@ public class HWApplication extends MultiDexApplication {
     //대리점 검색
     public static AgentResult agentResult;
     public static AgentItem voAgentItem;
+
+    //이용내역
+    public static UseResult useResult;
+    public static UseItem voUseItem;
+
+    //부가서비스 리스트
+    public static OptionResult optionResult;
+    public static OptionItem voOptionItem;
 
     AppStatus mAppStatus;
     @Override
@@ -121,6 +137,7 @@ public class HWApplication extends MultiDexApplication {
         voCardItem      = new CardItem();
         voAddressItem   = new AddressItem();
         voAgentItem     = new AgentItem();
+        voOptionItem     = new OptionItem();
     }
 
     public static HWApplication getInstance() {

@@ -34,11 +34,17 @@ import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
 
 public class CouponeActivity extends AppCompatActivity implements View.OnClickListener {
     private Context cContext;
+    private String path;
+    private CouponeContentRecyclerViewAdapter mCouponeContentRecyclerViewAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coupone);
         cContext = this;
+
+        Intent intent = getIntent(); /*데이터 수신*/
+        path    = intent.getExtras().getString("path");    /*String형*/
 
         // 화면 초기화
         init();
@@ -60,10 +66,9 @@ public class CouponeActivity extends AppCompatActivity implements View.OnClickLi
             RecyclerView recyclerView = (RecyclerView) view;
 
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new CouponeContentRecyclerViewAdapter(this, CouponeContent.ITEMS));
+            mCouponeContentRecyclerViewAdapter = new CouponeContentRecyclerViewAdapter(this, CouponeContent.ITEMS);
+            recyclerView.setAdapter(mCouponeContentRecyclerViewAdapter);
         }
-
-
     }
 
     /**
@@ -112,7 +117,8 @@ public class CouponeActivity extends AppCompatActivity implements View.OnClickLi
                         voCouponeDataItem.get(i).COUPONE_TITLE,
                         voCouponeDataItem.get(i).COUPONE_DATE,
                         voCouponeDataItem.get(i).COUPONE_CONTENT,
-                        voCouponeDataItem.get(i).COUPONE_YN
+                        voCouponeDataItem.get(i).COUPONE_YN,
+                        false
                 ));
             }
 
@@ -128,7 +134,9 @@ public class CouponeActivity extends AppCompatActivity implements View.OnClickLi
                     RecyclerView recyclerView = (RecyclerView) view;
 
                     recyclerView.setLayoutManager(new LinearLayoutManager(context));
-                    recyclerView.setAdapter(new CouponeContentRecyclerViewAdapter(cContext, CouponeContent.ITEMS));
+                    mCouponeContentRecyclerViewAdapter = new CouponeContentRecyclerViewAdapter(cContext, CouponeContent.ITEMS);
+                    recyclerView.setAdapter(mCouponeContentRecyclerViewAdapter);
+                    //recyclerView.setAdapter(new CouponeContentRecyclerViewAdapter(cContext, CouponeContent.ITEMS));
                 }
             }else{
                 // TODO - 쿠폰 없을 때 화면 UI 추가
@@ -149,10 +157,18 @@ public class CouponeActivity extends AppCompatActivity implements View.OnClickLi
 
         switch (v.getId()) {
             case R.id.coupone_btnPrev:
-                //  TODO - 내정보
-                intent = new Intent(this, MyProfileSettingsActivity.class);
-                startActivity(intent);
-                finish();
+                if("payment".equals(path)){
+                    intent = new Intent(this, PaymentActivity.class);
+                    intent.putExtra("coupone_seq", mCouponeContentRecyclerViewAdapter.getCouponeSeq());
+                    setResult(RESULT_OK, intent);
+                    finish();
+
+                }else {
+                    //  내정보
+                    intent = new Intent(this, MyProfileSettingsActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
                 break;
         }
     }

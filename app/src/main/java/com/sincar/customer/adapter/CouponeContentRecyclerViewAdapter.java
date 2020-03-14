@@ -4,18 +4,24 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 import com.sincar.customer.R;
 import com.sincar.customer.adapter.content.CouponeContent;
+import com.sincar.customer.adapter.content.OptionContent;
+
 import java.util.List;
 
-public class CouponeContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sincar.customer.adapter.CouponeContentRecyclerViewAdapter.ViewHolder> {
+public class CouponeContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sincar.customer.adapter.CouponeContentRecyclerViewAdapter.ViewHolder>
+        implements View.OnClickListener{
 
     private final List<CouponeContent.CouponeItem> mValues;
     private Context mContext;
-    private String notice_pos;
+    private String coupone_pos;
+    private LinearLayout mLayout;
+    private String coupone_seq;
 
     public CouponeContentRecyclerViewAdapter(Context context, List<CouponeContent.CouponeItem> items) {
         mContext = context;
@@ -32,26 +38,70 @@ public class CouponeContentRecyclerViewAdapter extends RecyclerView.Adapter<com.
     @Override
     public void onBindViewHolder(final com.sincar.customer.adapter.CouponeContentRecyclerViewAdapter.ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
+        holder.mView.setTag(holder.mItem);
+        holder.mView.setOnClickListener(this);
 
+        setViewLayout(holder, position);
+
+
+//        holder.mItem = mValues.get(position);
+//
+//        holder.mCouponeSeq = Integer.parseInt(mValues.get(position).seq);
+//        holder.mCouponeTitle.setText(mValues.get(position).title);
+//        holder.mCouponeDate.setText(mValues.get(position).date);
+//        holder.mCouponeContent.setText(mValues.get(position).contents);
+//        holder.mCouponeUseYn  = mValues.get(position).coupone_yn;
+//
+//        coupone_pos = String.valueOf(position);
+//
+//        holder.mView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // 리스트 선택 없음. 이벤트 핸들러 추가 필요하면 여기에서 해주기
+//            }
+//        });
+    }
+
+    private void setViewLayout(final ViewHolder holder, final int position) {
         holder.mCouponeSeq = Integer.parseInt(mValues.get(position).seq);
         holder.mCouponeTitle.setText(mValues.get(position).title);
         holder.mCouponeDate.setText(mValues.get(position).date);
         holder.mCouponeContent.setText(mValues.get(position).contents);
         holder.mCouponeUseYn  = mValues.get(position).coupone_yn;
 
-        notice_pos = String.valueOf(position);
+        mLayout = holder.mView.findViewById(R.id.coupone_layout);
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 리스트 선택 없음. 이벤트 핸들러 추가 필요하면 여기에서 해주기
-            }
-        });
+        if (holder.mItem.coupone_selected == true) {
+            mLayout.setBackgroundResource(R.color.card_background_color);
+        } else {
+            mLayout.setBackgroundResource(R.color.base_background_color);
+        }
+
     }
 
     @Override
     public int getItemCount() {
         return mValues.size();
+    }
+
+    @Override
+    public void onClick(View v) {
+        CouponeContent.CouponeItem item = (CouponeContent.CouponeItem)v.getTag();
+
+        for (CouponeContent.CouponeItem couponeItem : mValues) {
+            couponeItem.coupone_selected = false;
+        }
+
+        mValues.get(item.id-1).coupone_selected = true;
+
+        coupone_seq     = mValues.get(item.id-1).seq;
+
+        notifyDataSetChanged();
+    }
+
+    public String getCouponeSeq()
+    {
+        return coupone_seq;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
