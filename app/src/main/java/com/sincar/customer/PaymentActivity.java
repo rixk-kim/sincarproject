@@ -58,7 +58,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                 finish();
                 break;
             case R.id.btnCouponRegister:
-                intent = new Intent(this, ReservationCalendarActivity.class);
+                intent = new Intent(this, CouponeActivity.class);
                 intent.putExtra("path", "payment");
                 startActivityForResult(intent, PAYMENT_REQ_CODE);
                 break;
