@@ -2,12 +2,15 @@ package com.sincar.customer.item;
 
 public class LoginAdvertiseItem {
     public String AD_IMAGE_URL;
+    public String AD_LINK_URL;
 
     @Override
     public String toString() {
         return "AdvertiseItem{" +
                 "AD_IMAGE_URL='" + AD_IMAGE_URL + '\'' +
+                "AD_LINK_URL='" + AD_LINK_URL + '\'' +
                 '}';
+
     }
 }
 

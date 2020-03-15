@@ -108,7 +108,7 @@ public class TimeRecyclerViewAdapter extends RecyclerView.Adapter<TimeRecyclerVi
     }
 
     private void setViewLayout(final ViewHolder holder, final int position) {
-        if (holder.mItem.enable) {
+        if ("Y".equals(holder.mItem.reservation_status)) {
             holder.mTimeEnableLayout.setVisibility(View.VISIBLE);
             holder.mTimeDisableLayout.setVisibility(View.GONE);
 

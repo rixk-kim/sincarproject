@@ -17,6 +17,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sincar.customer.adapter.MainBannerSliderAdapter;
 import com.sincar.customer.service.PicassoImageLoadingService;
 
+import java.util.ArrayList;
+
+import static com.sincar.customer.HWApplication.voAdvertiseItem;
+
 import ss.com.bannerslider.Slider;
 import ss.com.bannerslider.event.OnSlideClickListener;
 
@@ -56,12 +60,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         PicassoImageLoadingService picassoService = new PicassoImageLoadingService();
         Slider.init(picassoService);
         Slider slider = findViewById(R.id.banner_slider);
-        slider.setAdapter(new MainBannerSliderAdapter());
+
+        ArrayList<String> voImageUrls = new ArrayList<String>();
+        for(int i = 0; i < voAdvertiseItem.size(); i++)
+        {
+            voImageUrls.add(i, voAdvertiseItem.get(i).AD_IMAGE_URL);
+        }
+
+        slider.setAdapter(new MainBannerSliderAdapter(voImageUrls));
         slider.setOnSlideClickListener(new OnSlideClickListener() {
             @Override
             public void onSlideClick(int position) {
                 // TODO - Banner 선택 시 필요한 동작 추가
-                Toast.makeText(getApplicationContext(), "Banner selected is " + position, Toast.LENGTH_LONG).show();
+                // voAdvertiseItem.get(i).AD_LINK_URL ==> 웹뷰 띄워주자.
+                Toast.makeText(getApplicationContext(), "Banner selected is " + voAdvertiseItem.get(position).AD_LINK_URL, Toast.LENGTH_LONG).show();
             }
         });
 

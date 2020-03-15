@@ -17,7 +17,10 @@ import com.sincar.customer.adapter.content.AgentContent.AgentItem;
 import com.sincar.customer.adapter.content.TimeContent;
 import com.sincar.customer.adapter.content.TimeContent.TimeItem;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.sincar.customer.HWApplication.voAgentDataItem;
 
 public class AgentRecyclerViewAdapter extends RecyclerView.Adapter<AgentRecyclerViewAdapter.ViewHolder>
 implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
@@ -61,6 +64,20 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
         holder.mBranchName.setText(mValues.get(position).branch_area);
         holder.mWashArea.setText(mValues.get(position).wash_area);
 
+        List<TimeContent.TimeItem> ITEMS = new ArrayList<TimeItem>();
+
+//        for(int i = 0; i < holder.mItem.reserve_info.size(); i++) {
+        int i=0;
+        for(com.sincar.customer.item.TimeItem item: holder.mItem.reserve_info) {
+            ITEMS.add(new TimeContent.TimeItem(
+                    position,
+                    i++,
+                    item.RESERVE_TIME,
+                    item.RESERVE_STATUS,
+                    false
+            ));
+        }
+
         // Time List 만들기
         View subView = holder.mView.findViewById(R.id.reservationTimeList);
         if (subView instanceof RecyclerView) {
@@ -68,7 +85,7 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
             RecyclerView recyclerView = (RecyclerView) subView;
 
             recyclerView.setLayoutManager(new GridLayoutManager(context, timeSpanCount));
-            recyclerView.setAdapter(new TimeRecyclerViewAdapter(position, TimeContent.ITEMS, this));
+            recyclerView.setAdapter(new TimeRecyclerViewAdapter(position, ITEMS, this));
         }
     }
 

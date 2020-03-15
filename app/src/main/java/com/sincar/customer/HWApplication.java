@@ -33,6 +33,7 @@ import com.sincar.customer.item.NoticeResult;
 import com.sincar.customer.item.OptionDataItem;
 import com.sincar.customer.item.OptionItem;
 import com.sincar.customer.item.OptionResult;
+import com.sincar.customer.item.TimeItem;
 import com.sincar.customer.item.UseDataItem;
 import com.sincar.customer.item.UseItem;
 import com.sincar.customer.item.UseResult;
@@ -64,12 +65,13 @@ public class HWApplication extends MultiDexApplication {
     public static LoginAdvertiseItem voLoginAdvertiseItem;      //광고 정보
 
     public static ArrayList<LoginDataItem> voLoginDataItem;         //포인트 리스트
+    public static ArrayList<LoginAdvertiseItem> voAdvertiseItem;    //광고 리스트
     public static ArrayList<NoticeDataItem> voNoticeDataItem;       //공지 리스트
     public static ArrayList<CouponeDataItem> voCouponeDataItem;     //쿠폰 리스트
     public static ArrayList<CarDataItem> voCarDataItem;             //등록차량 리스트
     public static ArrayList<CardDataItem> voCardDataItem;           //등록카드 리스트
     public static ArrayList<AddressDataItem> voAddressDataItem;     //주소검색 리스트
-    public static ArrayList<AgentDataItem> voAgentDataItem;         //대리점 리스트
+    public static AgentDataItem voAgentDataItem;         //대리점 리스트
     public static ArrayList<UseDataItem> voUseDataItem;             //이용내역
     public static ArrayList<OptionDataItem> voOptionDataItem;       //부가서비스 리스트
 
@@ -96,6 +98,7 @@ public class HWApplication extends MultiDexApplication {
     //대리점 검색
     public static AgentResult agentResult;
     public static AgentItem voAgentItem;
+    public static TimeItem voTimeItem;
 
     //이용내역
     public static UseResult useResult;
@@ -137,7 +140,9 @@ public class HWApplication extends MultiDexApplication {
         voCardItem      = new CardItem();
         voAddressItem   = new AddressItem();
         voAgentItem     = new AgentItem();
+        voTimeItem     = new TimeItem();
         voOptionItem     = new OptionItem();
+
     }
 
     public static HWApplication getInstance() {

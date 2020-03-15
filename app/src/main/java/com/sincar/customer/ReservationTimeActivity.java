@@ -6,19 +6,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.sincar.customer.adapter.AgentRecyclerViewAdapter;
-import com.sincar.customer.adapter.CardContentRecyclerViewAdapter;
 import com.sincar.customer.adapter.content.AgentContent;
 import com.sincar.customer.adapter.content.AgentContent.AgentItem;
-import com.sincar.customer.adapter.content.CardContent;
+import com.sincar.customer.item.AgentDataItem;
 import com.sincar.customer.item.AgentResult;
-import com.sincar.customer.item.CardResult;
 import com.sincar.customer.network.VolleyNetwork;
 import com.sincar.customer.util.Util;
 
@@ -26,9 +20,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import static com.sincar.customer.HWApplication.agentResult;
 import static com.sincar.customer.HWApplication.voAgentDataItem;
-import static com.sincar.customer.HWApplication.voAgentItem;
 import static com.sincar.customer.HWApplication.voLoginItem;
 import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
 
@@ -62,6 +59,65 @@ public class ReservationTimeActivity extends AppCompatActivity
     private void init() {
         findViewById(R.id.btnPrev).setOnClickListener(this);
 
+        String iiserverData = "{\"agent_list\": \n" +
+                "\t{\"DATA\":[\n" +
+                "\t{\"SEQ\":\"1\",\"NAME\":\"김태현1\",\"AGENT_NAME\":\"관악 1호점\",\"WASH_AREA\":\"관악구, 금천구,영등포구\",\n" +
+                "\t\"TIME_INFO\":[{\"RESERVE_TIME\":\"07:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                "\t{\"RESERVE_TIME\":\"08:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                "\t{\"RESERVE_TIME\":\"09:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                "\t{\"RESERVE_TIME\":\"10:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                "\t{\"RESERVE_TIME\":\"11:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                "\t{\"RESERVE_TIME\":\"12:00\", \"RESERVE_STATUS\":\"n\"},\n" +
+                "\t{\"RESERVE_TIME\":\"13:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                "\t{\"RESERVE_TIME\":\"14:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                "\t{\"RESERVE_TIME\":\"15:00\", \"RESERVE_STATUS\":\"Y\"}\n" +
+                "\t]},\n" +
+                "\t{\"SEQ\":\"2\",\"NAME\":\"김태현2\",\"AGENT_NAME\":\"관악 2호점\",\"WASH_AREA\":\"관악구, 금천구,영등포구\",\n" +
+                "\t\"TIME_INFO\":[{\"RESERVE_TIME\":\"07:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                "\t{\"RESERVE_TIME\":\"08:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                "\t{\"RESERVE_TIME\":\"09:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                "\t{\"RESERVE_TIME\":\"10:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                "\t{\"RESERVE_TIME\":\"11:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                "\t{\"RESERVE_TIME\":\"12:00\", \"RESERVE_STATUS\":\"n\"},\n" +
+                "\t{\"RESERVE_TIME\":\"13:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                "\t{\"RESERVE_TIME\":\"14:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                "\t{\"RESERVE_TIME\":\"15:00\", \"RESERVE_STATUS\":\"Y\"}\n" +
+                "\t]},\n" +
+                "\t{\"SEQ\":\"3\",\"NAME\":\"김태현3\",\"AGENT_NAME\":\"관악 3호점\",\"WASH_AREA\":\"관악구, 금천구,영등포구\",\n" +
+                "\t\"TIME_INFO\":[{\"RESERVE_TIME\":\"07:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                "\t{\"RESERVE_TIME\":\"08:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                "\t{\"RESERVE_TIME\":\"09:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                "\t{\"RESERVE_TIME\":\"10:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                "\t{\"RESERVE_TIME\":\"11:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                "\t{\"RESERVE_TIME\":\"12:00\", \"RESERVE_STATUS\":\"n\"},\n" +
+                "\t{\"RESERVE_TIME\":\"13:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                "\t{\"RESERVE_TIME\":\"14:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                "\t{\"RESERVE_TIME\":\"15:00\", \"RESERVE_STATUS\":\"Y\"}\n" +
+                "\t]}\n" +
+                "\t]}\n" +
+                "}";
+
+
+        Gson gSon = new Gson();
+        agentResult = gSon.fromJson(iiserverData, AgentResult.class);
+
+//        voAgentDataItem.add(0,agentResult.agent_list );
+//        voAgentDataItem.add(Integer.parseInt(agentResult.agent_list.TOTAL), agentResult.agent_list.DATA);//     = agentResult.agent_list. .agent_list.get(0).TOTAL;
+//
+            voAgentDataItem     = agentResult.agent_list;
+//
+            List<AgentContent.AgentItem> ITEMS = new ArrayList<AgentContent.AgentItem>();
+//
+            for(int i = 0; i < voAgentDataItem.DATA.size(); i++) {
+                AgentContent.addItem(new AgentContent.AgentItem(
+                        i,
+                        voAgentDataItem.DATA.get(i).SEQ,
+                        voAgentDataItem.DATA.get(i).NAME,
+                        voAgentDataItem.DATA.get(i).AGENT_NAME,
+                        voAgentDataItem.DATA.get(i).WASH_AREA,
+                        voAgentDataItem.DATA.get(i).TIME_INFO
+                ));
+            }
         // TODO - 서버 연동 후 AgentTimeContent.ITEMS에 리스 항목 추가 작업
         // Set the adapter - 포인트 리스트 설정
         View view = findViewById(R.id.agentList);
@@ -83,6 +139,7 @@ public class ReservationTimeActivity extends AppCompatActivity
         HashMap<String, String> postParams = new HashMap<String, String>();
         postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);         // 회원번호
         postParams.put("ADDRESS", "송파구 석촌대로");                   // 검색 주소
+        postParams.put("REQUEST_DATE", "20200320");                   //날짜
 
         //프로그래스바 시작
         Util.showDialog();
@@ -93,30 +150,60 @@ public class ReservationTimeActivity extends AppCompatActivity
     VolleyNetwork.OnResponseListener onResponseListener = new VolleyNetwork.OnResponseListener() {
         @Override
         public void onResponseSuccessListener(String serverData) {
-            /*
-                {"agent_list": [{"TOTAL":"3"}],
-                "DATA":[{"SEQ":"1","NAME":"김태현","AGENT_NAME":"관악 1호점","WASH_AREA":"관악구, 금천구,영등포구","RESERVE_TIME":"7/8/9/10/13/14/15/17/18/19/20"},{"SEQ":"2","ADDRESS":"송파구 석촌 호수로"},{"SEQ":"1","NAME":"김태현","AGENT_NAME":"관악 1호점","WASH_AREA":"관악구, 금천구,영등포구","RESERVE_TIME":"7/8/9/10/13/14/15/17/18/19/20"},{"SEQ":"2","ADDRESS":"송파구 석촌 호수로"}]}
-             */
+            serverData = "{\"agent_list\": [{\"TOTAL\":\"3\"}],\"DATA\":[{\"SEQ\":\"1\",\"NAME\":\"김태현1\",\"AGENT_NAME\":\"관악 1호점\",\"WASH_AREA\":\"관악구, 금천구,영등포구\",\n" +
+                    "\"TIME_INFO\":[\n" +
+                    "{\"RESERVE_TIME\":\"07:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                    "{\"RESERVE_TIME\":\"08:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                    "{\"RESERVE_TIME\":\"09:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                    "{\"RESERVE_TIME\":\"10:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                    "{\"RESERVE_TIME\":\"11:00\", \"RESERVE_STATUS\":\"N\"},\n" +
+                    "{\"RESERVE_TIME\":\"12:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                    "{\"RESERVE_TIME\":\"13:00\", \"RESERVE_STATUS\":\"N\"},\n" +
+                    "{\"RESERVE_TIME\":\"14:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                    "{\"RESERVE_TIME\":\"15:00\", \"RESERVE_STATUS\":\"Y\"}\n" +
+                    "]},\n" +
+                    "{\"SEQ\":\"2\",\"NAME\":\"김태현2\",\"AGENT_NAME\":\"관악 2호점\",\"WASH_AREA\":\"관악구, 금천구,영등포구\",\n" +
+                    "\"TIME_INFO\":[{\"RESERVE_TIME\":\"07:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                    "{\"RESERVE_TIME\":\"08:00\", \"RESERVE_STATUS\":\"N\"},\n" +
+                    "{\"RESERVE_TIME\":\"09:00\", \"RESERVE_STATUS\":\"N\"},\n" +
+                    "{\"RESERVE_TIME\":\"10:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                    "{\"RESERVE_TIME\":\"11:00\", \"RESERVE_STATUS\":\"N\"},\n" +
+                    "{\"RESERVE_TIME\":\"12:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                    "{\"RESERVE_TIME\":\"13:00\", \"RESERVE_STATUS\":\"N\"},\n" +
+                    "{\"RESERVE_TIME\":\"14:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                    "{\"RESERVE_TIME\":\"15:00\", \"RESERVE_STATUS\":\"Y\"}]},\n" +
+                    "{\"SEQ\":\"3\",\"NAME\":\"김태현3\",\"AGENT_NAME\":\"관악 3호점\",\"WASH_AREA\":\"관악구, 금천구,영등포구\",\n" +
+                    "\"TIME_INFO\":[{\"RESERVE_TIME\":\"07:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                    "{\"RESERVE_TIME\":\"08:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                    "{\"RESERVE_TIME\":\"09:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                    "{\"RESERVE_TIME\":\"10:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                    "{\"RESERVE_TIME\":\"11:00\", \"RESERVE_STATUS\":\"N\"},\n" +
+                    "{\"RESERVE_TIME\":\"12:00\", \"RESERVE_STATUS\":\"Y\"},\n" +
+                    "{\"RESERVE_TIME\":\"13:00\", \"RESERVE_STATUS\":\"N\"},\n" +
+                    "{\"RESERVE_TIME\":\"14:00\", \"RESERVE_STATUS\":\"N\"},\n" +
+                    "{\"RESERVE_TIME\":\"15:00\", \"RESERVE_STATUS\":\"N\"}]}\n" +
+                    "  }";
+
 
             Gson gSon = new Gson();
             agentResult = gSon.fromJson(serverData, AgentResult.class);
 
-            voAgentItem.TOTAL    = agentResult.agent_list.get(0).TOTAL;
-
-            voAgentDataItem     = agentResult.DATA;
-
-            List<AgentContent.AgentItem> ITEMS = new ArrayList<AgentContent.AgentItem>();
-
-            for(int i = 0; i < voAgentDataItem.size(); i++) {
-                AgentContent.addItem(new AgentContent.AgentItem(
-                        i,
-                        voAgentDataItem.get(i).SEQ,
-                        voAgentDataItem.get(i).NAME,
-                        voAgentDataItem.get(i).AGENT_NAME,
-                        voAgentDataItem.get(i).WASH_AREA,
-                        voAgentDataItem.get(i).RESERVE_TIME
-                ));
-            }
+//            voAgentDataItem. .TOTAL     = agentResult.agent_list. .agent_list.get(0).TOTAL;
+//
+//            voAgentDataItem     = agentResult.DATA;
+//
+//            List<AgentContent.AgentItem> ITEMS = new ArrayList<AgentContent.AgentItem>();
+//
+//            for(int i = 0; i < voAgentDataItem.size(); i++) {
+//                AgentContent.addItem(new AgentContent.AgentItem(
+//                        i,
+//                        voAgentDataItem.get(i).SEQ,
+//                        voAgentDataItem.get(i).NAME,
+//                        voAgentDataItem.get(i).AGENT_NAME,
+//                        voAgentDataItem.get(i).WASH_AREA,
+//                        voAgentDataItem.get(i).RESERVE_TIME
+//                ));
+//            }
 
             //프로그래스바 종료
             Util.dismiss();
@@ -131,7 +218,7 @@ public class ReservationTimeActivity extends AppCompatActivity
     };
 
     private void callAgentRecyclerViewAdapter(){
-        // 서버 연동 후 UseContent.ITEMS에 리스 항목 추가 작업 확인
+        // 서버 연동 후 AgentContent.ITEMS에 리스 항목 추가 작업 확인
         // Set the adapter - 이용내역 리스트 설정
         if(AgentContent.ITEMS.size() > 0) {
             View view = findViewById(R.id.agentList);

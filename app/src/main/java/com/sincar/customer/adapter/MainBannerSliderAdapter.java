@@ -21,7 +21,7 @@ public class MainBannerSliderAdapter extends SliderAdapter {
         int size = 0;
 
         if (this.imageUrls.size() == 0) {
-            size = 3;
+            size = imageUrls.size();    //max value 3;
         } else {
             size = this.imageUrls.size();
         }

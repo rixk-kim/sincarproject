@@ -36,6 +36,7 @@ public class OptionServiceRecyclerViewAdapter extends RecyclerView.Adapter<Optio
 
         holder.mChecked.setChecked(mValues.get(position).checked);
         holder.mOptionName.setText(mValues.get(position).option_name);
+        holder.mOptionPay.setText(mValues.get(position).option_pay);
 
         holder.mChecked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -62,6 +63,7 @@ public class OptionServiceRecyclerViewAdapter extends RecyclerView.Adapter<Optio
         public final CheckBox mChecked;
         public final TextView mOptionName;
         public final ImageView mInfo;
+        public final TextView mOptionPay;
 
         public OptionItem mItem;
 
@@ -72,6 +74,7 @@ public class OptionServiceRecyclerViewAdapter extends RecyclerView.Adapter<Optio
             mChecked = view.findViewById(R.id.checkBoxOption);
             mOptionName = view.findViewById(R.id.option_name);
             mInfo = view.findViewById(R.id.btnOptionInfo);
+            mOptionPay = view.findViewById(R.id.option_pay);
         }
     }
 }
