@@ -12,7 +12,9 @@ import android.widget.CalendarView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class ReservationCalendarActivity extends AppCompatActivity implements View.OnClickListener {
     private Context calContext;
@@ -57,7 +59,33 @@ public class ReservationCalendarActivity extends AppCompatActivity implements Vi
         findViewById(R.id.btnNext).setOnClickListener(this);
 
         // Calendar layout 및 이벤트 처리
-        CalendarView calendar = (CalendarView) findViewById(R.id.calendarView);
+//        CalendarView calendar = (CalendarView) findViewById(R.id.calendarView);
+//        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+//            public void onSelectedDayChange(CalendarView view, int year,
+//                                            int month, int dayOfMonth) {
+//                reserve_year    = String.valueOf(year);
+//                reserve_month   = String.valueOf(month);
+//                reserve_day     = String.valueOf(dayOfMonth);
+//
+//                Toast.makeText(calContext, "" + year + "/" +
+//                        (month + 1) + "/" + dayOfMonth, Toast.LENGTH_LONG).show();
+//            }
+//        });
+
+
+        // TODO - Calendar layout 및 이벤트 처리
+        final int GET_CALENDAR_AFTER_MONTH_VALUE = 3;
+
+        CalendarView calendar = findViewById(R.id.calendarView);
+        Calendar todayCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Seoul"));
+        calendar.setMinDate(todayCalendar.getTimeInMillis());
+
+        Calendar maxCalendar = todayCalendar;
+        maxCalendar.set(maxCalendar.get(Calendar.YEAR),
+                maxCalendar.get(Calendar.MONTH) + GET_CALENDAR_AFTER_MONTH_VALUE,
+                maxCalendar.get(Calendar.DAY_OF_MONTH));
+        calendar.setMaxDate(maxCalendar.getTimeInMillis());
+
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             public void onSelectedDayChange(CalendarView view, int year,
                                             int month, int dayOfMonth) {

@@ -101,9 +101,6 @@ public class ReservationTimeActivity extends AppCompatActivity
         Gson gSon = new Gson();
         agentResult = gSon.fromJson(iiserverData, AgentResult.class);
 
-//        voAgentDataItem.add(0,agentResult.agent_list );
-//        voAgentDataItem.add(Integer.parseInt(agentResult.agent_list.TOTAL), agentResult.agent_list.DATA);//     = agentResult.agent_list. .agent_list.get(0).TOTAL;
-//
             voAgentDataItem     = agentResult.agent_list;
 //
             List<AgentContent.AgentItem> ITEMS = new ArrayList<AgentContent.AgentItem>();
