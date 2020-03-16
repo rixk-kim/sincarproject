@@ -112,7 +112,7 @@ public class TimeRecyclerViewAdapter extends RecyclerView.Adapter<TimeRecyclerVi
             holder.mTimeEnableLayout.setVisibility(View.VISIBLE);
             holder.mTimeDisableLayout.setVisibility(View.GONE);
 
-            if (holder.mItem.selected == true) {
+            if (holder.mItem.selected == true && this.agentPosition == holder.mItem.agentPosition) {
                 holder.mTimeEnableText.setBackgroundResource(R.drawable.time_button_background_selected);
             } else {
                 holder.mTimeEnableText.setBackgroundResource(R.drawable.time_button_background_normal);

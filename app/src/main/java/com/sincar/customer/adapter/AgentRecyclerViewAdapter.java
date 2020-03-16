@@ -99,6 +99,7 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
         Log.d("대리점주", "position = " + timeItem.position);
         Log.d("대리점주", "selected = " + timeItem.selected);
         Log.d("대리점주", "agentPosition = " + timeItem.agentPosition);
+//        notifyDataSetChanged();
         if (mListener != null) {
             mListener.onAgentListInteraction(mValues.get(timeItem.agentPosition));
         }
