@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.sincar.customer.HWApplication.voAgentDataItem;
+import static com.sincar.customer.adapter.content.AgentContent.ITEMS;
 
 public class AgentRecyclerViewAdapter extends RecyclerView.Adapter<AgentRecyclerViewAdapter.ViewHolder>
 implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
@@ -28,6 +29,7 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
     private final int timeSpanCount = 4;
     private OnAgentListInteractionListener mListener;
     private final List<AgentContent.AgentItem> mValues;
+    //private List<TimeContent.TimeItem> TIMEITEMS;
 
     public AgentRecyclerViewAdapter(List<AgentContent.AgentItem> items, OnAgentListInteractionListener listener) {
         mValues = items;
@@ -65,6 +67,7 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
         holder.mWashArea.setText(mValues.get(position).wash_area);
 
         List<TimeContent.TimeItem> ITEMS = new ArrayList<TimeItem>();
+        //TIMEITEMS = new ArrayList<TimeItem>();
 
 //        for(int i = 0; i < holder.mItem.reserve_info.size(); i++) {
         int i=0;
@@ -99,6 +102,9 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
         Log.d("대리점주", "position = " + timeItem.position);
         Log.d("대리점주", "selected = " + timeItem.selected);
         Log.d("대리점주", "agentPosition = " + timeItem.agentPosition);
+        Log.d("대리점주", "num = " + mValues.get(timeItem.agentPosition).reserve_info.get(0));
+//        mValues.set(timeItem.agentPosition, TimeContent.TimeItem("","","","",false);    // get(timeItem.selected);
+
 //        notifyDataSetChanged();
         if (mListener != null) {
             mListener.onAgentListInteraction(mValues.get(timeItem.agentPosition));

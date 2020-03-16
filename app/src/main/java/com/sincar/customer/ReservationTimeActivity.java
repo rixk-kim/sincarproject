@@ -114,7 +114,7 @@ public class ReservationTimeActivity extends AppCompatActivity
         voAgentDataItem     = agentResult.agent_list;
 
         List<AgentContent.AgentItem> ITEMS = new ArrayList<AgentContent.AgentItem>();
-
+        AgentContent.clearItem(); //초기화
         for(int i = 0; i < voAgentDataItem.DATA.size(); i++) {
             AgentContent.addItem(new AgentContent.AgentItem(
                     i,
@@ -213,7 +213,7 @@ public class ReservationTimeActivity extends AppCompatActivity
             voAgentDataItem     = agentResult.agent_list;
 
             List<AgentContent.AgentItem> ITEMS = new ArrayList<AgentContent.AgentItem>();
-
+            AgentContent.clearItem(); //초기화
             for(int i = 0; i < voAgentDataItem.DATA.size(); i++) {
                 AgentContent.addItem(new AgentContent.AgentItem(
                         i,
@@ -276,5 +276,6 @@ public class ReservationTimeActivity extends AppCompatActivity
         bundle.putString("대리점정보", "대리점정보");
         intent.putExtras(bundle);
         startActivity(intent);
+        //finish();
     }
 }

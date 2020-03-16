@@ -34,6 +34,11 @@ public class AgentContent {
         ITEM_MAP.put(item.id, item);
     }
 
+    public static void clearItem() {
+        ITEMS.clear();// .add(item);
+        ITEM_MAP.clear();   // .put(item.id, item);
+    }
+
 //    private static AgentItem createDummyItem(int position) {
 //        return new AgentItem(position-1,
 //                "",
