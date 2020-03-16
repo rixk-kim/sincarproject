@@ -3,6 +3,7 @@ package com.sincar.customer;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -71,8 +72,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         slider.setOnSlideClickListener(new OnSlideClickListener() {
             @Override
             public void onSlideClick(int position) {
-                // TODO - Banner 선택 시 필요한 동작 추가
+                // Banner 선택 시 필요한 동작 추가
                 // voAdvertiseItem.get(i).AD_LINK_URL ==> 웹뷰 띄워주자.
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                Uri u = Uri.parse(voAdvertiseItem.get(position).AD_LINK_URL);
+                i.setData(u);
+                startActivity(i);
+
                 Toast.makeText(getApplicationContext(), "Banner selected is " + voAdvertiseItem.get(position).AD_LINK_URL, Toast.LENGTH_LONG).show();
             }
         });
