@@ -1,9 +1,15 @@
 package com.sincar.customer;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class UseDetailActivity extends AppCompatActivity implements View.OnClickListener {
+    private Context detailContext;
+    private Activity detailActivity;
+
     private String reserve_status;  //예약상태
     private String common_pay;      //일반요금
     private String coupone_pay;     //쿠폰요금
@@ -45,6 +54,8 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_use_detail);
+        detailContext   = this;
+        detailActivity  = this;
 
         //이전 Activity 종료.
         UseHistoryActivity useActivity = (UseHistoryActivity)UseHistoryActivity._useHistoryActivity;
@@ -142,7 +153,19 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
             public void onClick(View v) {
                 String call_number = "tel:" + agent_mobile;
                 Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse(call_number));
-                startActivity(callIntent);
+//                startActivity(callIntent);
+                //====권한체크부분====//
+                if (ContextCompat.checkSelfPermission(detailContext, Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(detailActivity, new String[]{Manifest.permission.CALL_PHONE}, 101);
+                    //권한을 허용하지 않는 경우
+                } else {
+                    //권한을 허용한 경우
+                    try {
+                        detailContext.startActivity(callIntent);
+                    } catch(SecurityException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
     }

@@ -48,6 +48,7 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
     public static UseDataEntity voUseData;
 
     public static UseHistoryActivity _useHistoryActivity;
+//    private MainActivity mMainActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +82,7 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
                 RecyclerView recyclerView = (RecyclerView) view;
 
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
-                recyclerView.setAdapter(new UseContentRecyclerViewAdapter(this, UseContent.ITEMS));
+                recyclerView.setAdapter(new UseContentRecyclerViewAdapter(this, UseContent.ITEMS, _useHistoryActivity));
             }
         }else{
              LinearLayout view = findViewById(R.id.use_history_empty);
@@ -228,7 +229,7 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
                     RecyclerView recyclerView = (RecyclerView) view;
 
                     recyclerView.setLayoutManager(new LinearLayoutManager(context));
-                    recyclerView.setAdapter(new UseContentRecyclerViewAdapter(uContext, UseContent.ITEMS));
+                    recyclerView.setAdapter(new UseContentRecyclerViewAdapter(uContext, UseContent.ITEMS, _useHistoryActivity));
                 }
             }else{
                 LinearLayout view = findViewById(R.id.use_history_empty);

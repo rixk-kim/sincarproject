@@ -1,8 +1,11 @@
 package com.sincar.customer.adapter;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +14,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.sincar.customer.R;
 import com.sincar.customer.UseDetailActivity;
 import com.sincar.customer.adapter.content.UseContent;
 
 import java.util.List;
+
+import static java.security.AccessController.getContext;
 
 public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sincar.customer.adapter.UseContentRecyclerViewAdapter.ViewHolder> {
 
@@ -25,11 +32,13 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
     private String use_pos;
     private LinearLayout mLayout;
     private int itemCount = 0;
+    private Activity useActivity;
 
-    public UseContentRecyclerViewAdapter(Context context, List<UseContent.UseItem> items) {
-        mContext = context;
-        mValues = items;
-        itemCount = items.size();
+    public UseContentRecyclerViewAdapter(Context context, List<UseContent.UseItem> items, Activity uActivity) {
+        mContext    = context;
+        mValues     = items;
+        itemCount   = items.size();
+        useActivity = uActivity;
     }
 
     @SuppressLint("ResourceAsColor")
@@ -78,7 +87,20 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
             public void onClick(View v) {
                 String call_number = "tel:" + holder.agent_mobile;
                 Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse(call_number));
-                mContext.startActivity(callIntent);
+//                mContext.startActivity(callIntent);
+
+                //====권한체크부분====//
+                if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(useActivity, new String[]{Manifest.permission.CALL_PHONE}, 101);
+                    //권한을 허용하지 않는 경우
+                } else {
+                    //권한을 허용한 경우
+                    try {
+                        mContext.startActivity(callIntent);
+                    } catch(SecurityException e) {
+                        e.printStackTrace();
+                    }
+                }
 
                 Toast.makeText(mContext, "전화걸기 요청", Toast.LENGTH_SHORT).show();
             }

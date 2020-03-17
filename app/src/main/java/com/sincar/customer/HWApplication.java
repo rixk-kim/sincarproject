@@ -71,7 +71,7 @@ public class HWApplication extends MultiDexApplication {
     public static ArrayList<CarDataItem> voCarDataItem;             //등록차량 리스트
     public static ArrayList<CardDataItem> voCardDataItem;           //등록카드 리스트
     public static ArrayList<AddressDataItem> voAddressDataItem;     //주소검색 리스트
-    public static AgentDataItem voAgentDataItem;         //대리점 리스트
+    public static AgentDataItem voAgentDataItem;                    //대리점 리스트
     public static ArrayList<UseDataItem> voUseDataItem;             //이용내역
     public static ArrayList<OptionDataItem> voOptionDataItem;       //부가서비스 리스트
 

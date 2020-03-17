@@ -9,8 +9,8 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- <uses-permission android:name="android.permission.CAMERA" /> -->
     <!-- 카메라 기능 사용 (이미지솔루션) -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 디바이스 상태값 읽기 (Hone) -->
-    <uses-permission android:name="android.permission.CALL_PHONE" /> <!-- 전화걸기(bizapp) -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 디바이스 상태값 읽기 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" /> <!-- 전화걸기 -->
     <!-- <uses-permission android:name="android.permission.GET_ACCOUNTS" /> -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 내부저장소 쓰기 (native) -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 내부저장소 읽기 (전체 : 파일을 읽기위해) -->
