@@ -22,6 +22,7 @@ public class CouponeContentRecyclerViewAdapter extends RecyclerView.Adapter<com.
     private String coupone_pos;
     private LinearLayout mLayout;
     private String coupone_seq;
+    private String coupone_pay;
 
     public CouponeContentRecyclerViewAdapter(Context context, List<CouponeContent.CouponeItem> items) {
         mContext = context;
@@ -64,6 +65,7 @@ public class CouponeContentRecyclerViewAdapter extends RecyclerView.Adapter<com.
 
     private void setViewLayout(final ViewHolder holder, final int position) {
         holder.mCouponeSeq = Integer.parseInt(mValues.get(position).seq);
+        holder.mCouponePay.setText(mValues.get(position).pay);
         holder.mCouponeTitle.setText(mValues.get(position).title);
         holder.mCouponeDate.setText(mValues.get(position).date);
         holder.mCouponeContent.setText(mValues.get(position).contents);
@@ -95,6 +97,7 @@ public class CouponeContentRecyclerViewAdapter extends RecyclerView.Adapter<com.
         mValues.get(item.id-1).coupone_selected = true;
 
         coupone_seq     = mValues.get(item.id-1).seq;
+        coupone_pay     = mValues.get(item.id-1).pay;
 
         notifyDataSetChanged();
     }
@@ -104,10 +107,16 @@ public class CouponeContentRecyclerViewAdapter extends RecyclerView.Adapter<com.
         return coupone_seq;
     }
 
+    public String getCouponePay()
+    {
+        return coupone_pay;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
 
         public int mCouponeSeq;
+        public final TextView mCouponePay;
         public final TextView mCouponeTitle;
         public final TextView mCouponeDate;
         public final TextView mCouponeContent;
@@ -121,9 +130,10 @@ public class CouponeContentRecyclerViewAdapter extends RecyclerView.Adapter<com.
             mView = view;
 
             mCouponeSeq = 0;
-            mCouponeTitle      = view.findViewById(R.id.coupone_column1);
+            mCouponePay        = view.findViewById(R.id.coupone_column1);
+            mCouponeTitle      = view.findViewById(R.id.coupone_column2);
             mCouponeDate       = view.findViewById(R.id.coupone_column3);
-            mCouponeContent    = view.findViewById(R.id.coupone_column2);
+            mCouponeContent    = view.findViewById(R.id.coupone_column4);
 //            mPoint          = view.findViewById(R.id.notice_column4);
             mCouponeUseYn = "";
         }

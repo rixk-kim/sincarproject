@@ -22,19 +22,24 @@ public class ChargeContent {
     static {
         // Add some sample items.
         // TODO - 서버 연동 작업 후 Dummy 아이템 추가 코드 삭제 필요
-        for (int i = 1; i <= COUNT; i++) {
-            addItem(createDummyItem(i));
-        }
+//        for (int i = 1; i <= COUNT; i++) {
+//            addItem(createDummyItem(i));
+//        }
     }
 
-    private static void addItem(ChargeItem item) {
+    public static void addItem(ChargeItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.position, item);
     }
 
-    private static ChargeItem createDummyItem(int position) {
-        return new ChargeItem(position,"스팀세차 내부/외부 (소형)", "50,000원");
+    public static void clearItem() {
+        ITEMS.clear();
+        ITEM_MAP.clear();
     }
+
+//    private static ChargeItem createDummyItem(int position) {
+//        return new ChargeItem(position,"스팀세차 내부/외부 (소형)", "50,000원");
+//    }
 
     /**
      * A ChargeItem item representing a piece of content.

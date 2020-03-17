@@ -195,6 +195,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 // "이 위치로 부름" 작업(시나리오 확인) => 현 위치로 이동
                 mMap.clear();
 
+                // GPS 정보
+                gps         = new GPSInfo(gContext);
+                latitude    = gps.getLatitude();
+                longitude   = gps.getLongitude();
+
+                my_latitude     = latitude;
+                my_longitude    = longitude;
+
                 if (gps.isGetLocation()) {
 
                     myPos = new LatLng(my_latitude, my_longitude);

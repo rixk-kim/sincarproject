@@ -4,11 +4,14 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
@@ -35,6 +38,7 @@ import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
 public class CouponeActivity extends AppCompatActivity implements View.OnClickListener {
     private Context cContext;
     private String path;
+    private LinearLayout couponeLayout;
     private CouponeContentRecyclerViewAdapter mCouponeContentRecyclerViewAdapter;
 
     @Override
@@ -55,8 +59,20 @@ public class CouponeActivity extends AppCompatActivity implements View.OnClickLi
      */
     private void init() {
         findViewById(R.id.coupone_btnPrev).setOnClickListener(this);
-        //       findViewById(R.id.myinfo_btnNext).setOnClickListener(this);
+        findViewById(R.id.coupone_confirm_btn).setOnClickListener(this);
+        couponeLayout = (LinearLayout)findViewById(R.id.coupone_confirm_layout);
 
+        //진입경로에 따라 하단 버튼 활성화
+        if("payment".equals(path)){
+            couponeLayout.setVisibility(View.VISIBLE);
+        }else{
+            couponeLayout.setVisibility(View.GONE);
+            RecyclerView rV = (RecyclerView)findViewById(R.id.couponeHistoryList);
+
+            ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams)rV.getLayoutParams();
+            layoutParams.bottomMargin = 0;
+            rV.setLayoutParams(layoutParams);
+        }
 
         // TODO - 서버 연동 후 PointContent.ITEMS에 리스 항목 추가 작업
         // Set the adapter - 포인트 리스트 설정
@@ -64,7 +80,6 @@ public class CouponeActivity extends AppCompatActivity implements View.OnClickLi
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             mCouponeContentRecyclerViewAdapter = new CouponeContentRecyclerViewAdapter(this, CouponeContent.ITEMS);
             recyclerView.setAdapter(mCouponeContentRecyclerViewAdapter);
@@ -110,10 +125,13 @@ public class CouponeActivity extends AppCompatActivity implements View.OnClickLi
 
             List<CouponeContent.CouponeItem> ITEMS = new ArrayList<CouponeContent.CouponeItem>();
 
+            CouponeContent.clearItem(); //초기화
+
             for(int i = 0; i < voCouponeDataItem.size(); i++) {
                 CouponeContent.addItem(new CouponeContent.CouponeItem(
                         i,
                         voCouponeDataItem.get(i).COUPONE_SEQ,
+                        voCouponeDataItem.get(i).COUPONE_PAY,
                         voCouponeDataItem.get(i).COUPONE_TITLE,
                         voCouponeDataItem.get(i).COUPONE_DATE,
                         voCouponeDataItem.get(i).COUPONE_CONTENT,
@@ -157,9 +175,11 @@ public class CouponeActivity extends AppCompatActivity implements View.OnClickLi
 
         switch (v.getId()) {
             case R.id.coupone_btnPrev:
+            case R.id.coupone_confirm_btn:
                 if("payment".equals(path)){
                     intent = new Intent(this, PaymentActivity.class);
                     intent.putExtra("coupone_seq", mCouponeContentRecyclerViewAdapter.getCouponeSeq());
+                    intent.putExtra("coupone_pay", mCouponeContentRecyclerViewAdapter.getCouponePay());
                     setResult(RESULT_OK, intent);
                     finish();
 
@@ -177,13 +197,19 @@ public class CouponeActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        Intent intent = new Intent(this, MyProfileSettingsActivity.class);
-        startActivity(intent);
+        Intent intent;
+        if("payment".equals(path)){
+            intent = new Intent(this, PaymentActivity.class);
+            intent.putExtra("coupone_seq", mCouponeContentRecyclerViewAdapter.getCouponeSeq());
+            setResult(RESULT_OK, intent);
+            finish();
+        }else{
+            intent = new Intent(this, MyProfileSettingsActivity.class);
+            startActivity(intent);
 
-        finish();
+            finish();
+        }
     }
-
-
 }
 
 

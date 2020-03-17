@@ -2,6 +2,7 @@ package com.sincar.customer.item;
 
 public class CouponeDataItem {
     public String COUPONE_SEQ;
+    public String COUPONE_PAY;
     public String COUPONE_TITLE;
     public String COUPONE_CONTENT;
     public String COUPONE_DATE;
@@ -12,6 +13,7 @@ public class CouponeDataItem {
     public String toString() {
         return "DataItem{" +
                 "COUPONE_SEQ='" + COUPONE_SEQ + '\'' +
+                ", COUPONE_PAY='" + COUPONE_PAY + '\'' +
                 ", COUPONE_TITLE='" + COUPONE_TITLE + '\'' +
                 ", COUPONE_CONTENT='" + COUPONE_CONTENT + '\'' +
                 ", COUPONE_DATE='" + COUPONE_DATE + '\'' +

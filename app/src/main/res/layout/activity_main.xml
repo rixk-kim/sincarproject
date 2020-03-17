@@ -226,6 +226,7 @@
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/close"
                     android:text=""
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -246,7 +247,7 @@
                     android:layout_height="24dp"
                     android:layout_marginStart="4dp"
                     android:layout_marginBottom="15dp"
-                    android:background="@drawable/white_button_7dp"
+                    android:background="@drawable/button_color_selector1"
                     android:drawableEnd="@drawable/chevron_left_24_px"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"

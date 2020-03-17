@@ -46,10 +46,33 @@
         android:id="@+id/couponeHistoryList"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="45dp"
+        android:layout_marginBottom="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/coupone_include" />
 
+    <LinearLayout
+        android:id="@+id/coupone_confirm_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center|center_horizontal|center_vertical">
+
+        <Button
+            android:id="@+id/coupone_confirm_btn"
+            android:layout_width="312dp"
+            android:layout_height="52dp"
+            android:layout_gravity="bottom|center"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/default_button_type_1"
+            android:shadowColor="#C4C4C4"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="7"
+            android:text="@string/btn_confirm"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

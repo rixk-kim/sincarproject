@@ -118,6 +118,7 @@ public class MyProfileSettingsActivity extends AppCompatActivity implements View
                 break;
             case R.id.menu_4:   // 쿠폰 정보
                 intent = new Intent(this, CouponeActivity.class);
+                intent.putExtra("path", "profile");
                 startActivity(intent);
                 finish();
                 break;

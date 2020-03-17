@@ -33,6 +33,7 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
     private LinearLayout mLayout;
     private int itemCount = 0;
     private Activity useActivity;
+    private LinearLayout useLinearLayout;
 
     public UseContentRecyclerViewAdapter(Context context, List<UseContent.UseItem> items, Activity uActivity) {
         mContext    = context;
@@ -106,7 +107,7 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
             }
         });
 
-        holder.reserve_view.setOnClickListener(new View.OnClickListener() {
+        holder.useLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO - 리스트 선택 시 이벤트 핸들러 추가 필요하면 여기에서 해주기
@@ -142,7 +143,7 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
 
         public int mUseSeq;
         public int reserve_status;
-
+        private LinearLayout useLinearLayout;
 
         public final TextView reserve_time;
         public final TextView wash_address;
@@ -183,7 +184,7 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
             approve_info    = "";       //결재정보
             car_info        = "";       //차량정보
             car_number      = "";       //차량번호
-
+            useLinearLayout = view.findViewById(R.id.use_layout);
         }
     }
 }
