@@ -31,6 +31,9 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
     private final List<AgentContent.AgentItem> mValues;
     //private List<TimeContent.TimeItem> TIMEITEMS;
 
+    private int prevAgentPosition = -1;
+    private int prevTimePosition = -1;
+
     public AgentRecyclerViewAdapter(List<AgentContent.AgentItem> items, OnAgentListInteractionListener listener) {
         mValues = items;
         if (listener != null && listener instanceof OnAgentListInteractionListener) {
@@ -70,16 +73,16 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
         //TIMEITEMS = new ArrayList<TimeItem>();
 
 //        for(int i = 0; i < holder.mItem.reserve_info.size(); i++) {
-        int i=0;
-        for(com.sincar.customer.item.TimeItem item: holder.mItem.reserve_info) {
-            ITEMS.add(new TimeContent.TimeItem(
-                    position,
-                    i++,
-                    item.RESERVE_TIME,
-                    item.RESERVE_STATUS,
-                    false
-            ));
-        }
+//        int i=0;
+//        for(com.sincar.customer.item.TimeItem item: holder.mItem.reserve_info) {
+//            ITEMS.add(new TimeContent.TimeItem(
+//                    position,
+//                    i++,
+//                    item.RESERVE_TIME,
+//                    item.RESERVE_STATUS,
+//                    false
+//            ));
+//        }
 
         // Time List 만들기
         View subView = holder.mView.findViewById(R.id.reservationTimeList);
@@ -88,7 +91,8 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
             RecyclerView recyclerView = (RecyclerView) subView;
 
             recyclerView.setLayoutManager(new GridLayoutManager(context, timeSpanCount));
-            recyclerView.setAdapter(new TimeRecyclerViewAdapter(position, ITEMS, this));
+//            recyclerView.setAdapter(new TimeRecyclerViewAdapter(position, ITEMS, this));
+            recyclerView.setAdapter(new TimeRecyclerViewAdapter(position, holder.mItem.reserve_info, this));
         }
     }
 
@@ -105,7 +109,21 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
         Log.d("대리점주", "num = " + mValues.get(timeItem.agentPosition).reserve_info.get(0));
 //        mValues.set(timeItem.agentPosition, TimeContent.TimeItem("","","","",false);    // get(timeItem.selected);
 
-//        notifyDataSetChanged();
+        if (prevAgentPosition != -1
+                && (prevAgentPosition != timeItem.agentPosition)
+                && prevTimePosition != -1
+        ){
+            ITEMS.get(prevAgentPosition).reserve_info.get(prevTimePosition).selected = false;
+        }
+
+        prevAgentPosition = timeItem.agentPosition;
+        prevTimePosition = timeItem.position;
+
+        Log.d("포지션", "prevAgentPosition = " + prevAgentPosition);
+        Log.d("포지션", "prevTimePosition = " + prevTimePosition);
+
+        notifyDataSetChanged();
+
         if (mListener != null) {
             mListener.onAgentListInteraction(mValues.get(timeItem.agentPosition));
         }

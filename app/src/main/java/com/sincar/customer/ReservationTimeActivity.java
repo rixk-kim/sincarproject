@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import com.sincar.customer.adapter.AgentRecyclerViewAdapter;
 import com.sincar.customer.adapter.content.AgentContent;
 import com.sincar.customer.adapter.content.AgentContent.AgentItem;
+import com.sincar.customer.adapter.content.TimeContent;
 import com.sincar.customer.item.AgentDataItem;
 import com.sincar.customer.item.AgentResult;
 import com.sincar.customer.network.VolleyNetwork;
@@ -115,14 +116,30 @@ public class ReservationTimeActivity extends AppCompatActivity
 
         List<AgentContent.AgentItem> ITEMS = new ArrayList<AgentContent.AgentItem>();
         AgentContent.clearItem(); //초기화
-        for(int i = 0; i < voAgentDataItem.DATA.size(); i++) {
+//        for(int i = 0; i < voAgentDataItem.DATA.size(); i++) {
+        int i=0;
+        for(com.sincar.customer.item.AgentItem agentItem : voAgentDataItem.DATA) {
+
+            int j=0;
+            ArrayList<TimeContent.TimeItem> reserve_info = new ArrayList<>();
+            for(com.sincar.customer.item.TimeItem item: agentItem.TIME_INFO) {
+                reserve_info.add(new TimeContent.TimeItem(
+                        i,
+                        j++,
+                        item.RESERVE_TIME,
+                        item.RESERVE_STATUS,
+                        false
+                ));
+            }
+
             AgentContent.addItem(new AgentContent.AgentItem(
-                    i,
-                    voAgentDataItem.DATA.get(i).SEQ,
-                    voAgentDataItem.DATA.get(i).NAME,
-                    voAgentDataItem.DATA.get(i).AGENT_NAME,
-                    voAgentDataItem.DATA.get(i).WASH_AREA,
-                    voAgentDataItem.DATA.get(i).TIME_INFO
+                    i++,
+                    agentItem.SEQ,
+                    agentItem.NAME,
+                    agentItem.AGENT_NAME,
+                    agentItem.WASH_AREA,
+                    //agentItem.TIME_INFO
+                    reserve_info
             ));
         }
 
@@ -214,16 +231,16 @@ public class ReservationTimeActivity extends AppCompatActivity
 
             List<AgentContent.AgentItem> ITEMS = new ArrayList<AgentContent.AgentItem>();
             AgentContent.clearItem(); //초기화
-            for(int i = 0; i < voAgentDataItem.DATA.size(); i++) {
-                AgentContent.addItem(new AgentContent.AgentItem(
-                        i,
-                        voAgentDataItem.DATA.get(i).SEQ,
-                        voAgentDataItem.DATA.get(i).NAME,
-                        voAgentDataItem.DATA.get(i).AGENT_NAME,
-                        voAgentDataItem.DATA.get(i).WASH_AREA,
-                        voAgentDataItem.DATA.get(i).TIME_INFO
-                ));
-            }
+//            for(int i = 0; i < voAgentDataItem.DATA.size(); i++) {
+//                AgentContent.addItem(new AgentContent.AgentItem(
+//                        i,
+//                        voAgentDataItem.DATA.get(i).SEQ,
+//                        voAgentDataItem.DATA.get(i).NAME,
+//                        voAgentDataItem.DATA.get(i).AGENT_NAME,
+//                        voAgentDataItem.DATA.get(i).WASH_AREA,
+//                        voAgentDataItem.DATA.get(i).TIME_INFO
+//                ));
+//            }
 
             //프로그래스바 종료
             Util.dismiss();
