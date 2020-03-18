@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import static com.sincar.customer.HWApplication.voLoginItem;
+
 
 public class MyProfileSettingsDetailActivity extends AppCompatActivity implements View.OnClickListener {
     @Override
@@ -31,10 +33,10 @@ public class MyProfileSettingsDetailActivity extends AppCompatActivity implement
 
         // TODO - 서버 연동하여 이름, 휴대폰 번호 값 가지고 와서 설정해주기
         TextView myinfo_user_name = findViewById(R.id.myinfo_user_name);
-        myinfo_user_name.setText("홍길동");
+        myinfo_user_name.setText(voLoginItem.MEMBER_NAME);
 
         TextView user_mobile_number = findViewById(R.id.user_mobile_number);
-        user_mobile_number.setText("010-1234-5678");
+        user_mobile_number.setText(voLoginItem.MEMBER_PHONE);
     }
 
     @Override

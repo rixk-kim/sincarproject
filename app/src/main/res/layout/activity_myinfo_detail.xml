@@ -191,13 +191,13 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="324dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="72dp"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="150dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:letterSpacing="0.05"
@@ -206,7 +206,7 @@
                         android:textSize="15sp" />
 
                     <TextView
-                        android:layout_width="250dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:layout_marginTop="8dp"
@@ -216,17 +216,22 @@
                         android:textSize="13sp" />
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/myinfo_btnNext"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginRight="32dp"
-                    android:contentDescription="@string/actionbar_prev_icon_description"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:background="@color/base_background_color1"
-                    android:theme="@style/ThemeOverlay.AppCompat.Dark"
-                    app:srcCompat="@drawable/filled_copy" />
+                <LinearLayout
+                    android:layout_width="167dp"
+                    android:layout_height="72dp"
+                    android:layout_gravity="right"
+                    android:gravity="right|center_vertical|center_horizontal">
+
+                    <TextView
+                        android:id="@+id/myinfo_btnNext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="24dp"
+                        android:layout_marginRight="0dp"
+                        android:gravity="right|clip_horizontal|center_vertical"
+                        android:text="변경"
+                        android:textColor="#ff4d4d"
+                        android:textSize="14sp" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 

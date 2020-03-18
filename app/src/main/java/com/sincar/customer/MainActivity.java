@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,10 +18,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sincar.customer.adapter.MainBannerSliderAdapter;
 import com.sincar.customer.service.PicassoImageLoadingService;
+import com.sincar.customer.util.Util;
 
 import java.util.ArrayList;
 
 import static com.sincar.customer.HWApplication.voAdvertiseItem;
+import static com.sincar.customer.HWApplication.voLoginItem;
 
 import ss.com.bannerslider.Slider;
 import ss.com.bannerslider.event.OnSlideClickListener;
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Context mContext;
     private MenuItem prevBottomNavigation;
     private ConstraintLayout mConstraintLayout;
+    private TextView mCustomerName, mCustomerPoint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btnMainMenu4).setOnClickListener(this);
         findViewById(R.id.btnCarRegisterClose).setOnClickListener(this);
         findViewById(R.id.btnCarRegister).setOnClickListener(this);
+
+        mCustomerName = (TextView) findViewById(R.id.customerName);
+        mCustomerName.setText(voLoginItem.MEMBER_NAME + "님의 포인트");
+
+        mCustomerPoint = (TextView) findViewById(R.id.customerPoint);
+        mCustomerPoint.setText(Util.setAddMoneyDot(voLoginItem.MY_POINT));
 
         mConstraintLayout = (ConstraintLayout) findViewById(R.id.layout_car_register);
 

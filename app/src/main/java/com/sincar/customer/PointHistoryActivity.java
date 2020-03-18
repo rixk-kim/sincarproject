@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.sincar.customer.adapter.PointContentRecyclerViewAdapter;
 import com.sincar.customer.adapter.content.PointContent;
 import com.sincar.customer.item.LoginDataItem;
+import com.sincar.customer.util.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,6 +50,7 @@ public class PointHistoryActivity extends AppCompatActivity implements View.OnCl
             count1.setText(String.format(getString(R.string.friend_count_str), Integer.parseInt(voLoginItem.INVITE_NUM)));
         }
 
+        //2촌
         TextView count2 = findViewById(R.id.friend_type_2_count);
         if(TextUtils.isEmpty(voLoginItem.INVITE_NUM))
         {
@@ -57,8 +59,13 @@ public class PointHistoryActivity extends AppCompatActivity implements View.OnCl
             count2.setText(String.format(getString(R.string.friend_count_str), Integer.parseInt(voLoginItem.INVITE_FRI_NUM)));
         }
 
+        //누적 포인트
         TextView point = findViewById(R.id.total_point);
-        point.setText("32,870");
+        if(TextUtils.isEmpty(voLoginItem.ACCUM_POINT)) {
+            point.setText("0");
+        }else{
+            point.setText(Util.setAddMoneyDot(voLoginItem.ACCUM_POINT));
+        }
 
         // 서버 연동 후 PointContent.ITEMS에 리스 항목 추가 작업
         // Set the adapter - 포인트 리스트 설정

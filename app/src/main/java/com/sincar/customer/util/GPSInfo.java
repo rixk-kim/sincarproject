@@ -3,6 +3,7 @@ package com.sincar.customer.util;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 
@@ -43,12 +44,14 @@ public class GPSInfo extends Service implements LocationListener{
     double lon; // 경도
 
     // 최소 GPS 정보 업데이트 거리 10미터
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 0; //10;
 
     // 최소 GPS 정보 업데이트 시간 밀리세컨(1분)
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1;
+    private static final long MIN_TIME_BW_UPDATES = 0; //1000 * 60 * 1;
 
     protected LocationManager locationManager;
+
+    private Criteria mCriteria;
 
     public GPSInfo(Context context) {
         this.mContext = context;
@@ -68,12 +71,19 @@ public class GPSInfo extends Service implements LocationListener{
         }
 
         try {
-            locationManager = (LocationManager) mContext
-                    .getSystemService(LOCATION_SERVICE);
+            locationManager = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);
 
             // GPS 정보 가져오기
-            isGPSEnabled = locationManager
-                    .isProviderEnabled(LocationManager.GPS_PROVIDER);
+            isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+//            mCriteria = new Criteria();
+//            mCriteria.setAccuracy(Criteria.NO_REQUIREMENT);         // 정확도
+//            mCriteria.setPowerRequirement(Criteria.NO_REQUIREMENT); // 전원 소비량
+//            mCriteria.setAltitudeRequired(false);                   // 고도, 높이 값을 얻어 올지를 결정
+//            mCriteria.setBearingRequired(false);                    // provider 기본 정보(방위, 방향)
+//            mCriteria.setSpeedRequired(false);                      // 속도
+//            mCriteria.setCostAllowed(true);                        // 위치 정보를 얻어 오는데 들어가는 금전적 비용
+//            String provider = locationManager.getBestProvider(mCriteria,true);
 
             // 현재 네트워크 상태 값 알아오기
             isNetworkEnabled = locationManager

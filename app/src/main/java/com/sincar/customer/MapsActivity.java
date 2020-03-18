@@ -195,6 +195,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 // "이 위치로 부름" 작업(시나리오 확인) => 현 위치로 이동
                 mMap.clear();
 
+
                 // GPS 정보
                 gps         = new GPSInfo(gContext);
                 latitude    = gps.getLatitude();
@@ -225,6 +226,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(seoul));
                     mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
 
+                    //주소 갱신
+                    getAddress();
                     currentTextView.setText(cAddress);
 
                 }else {
@@ -284,6 +287,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 double lon = addr.getLongitude();
 
                 //myPos = new LatLng(my_latitude, my_longitude);
+                mMap.clear();
 
                 markerOptions.position(myPos);
                 markerOptions.title("내 위치");

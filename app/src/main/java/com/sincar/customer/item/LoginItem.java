@@ -9,13 +9,14 @@ public class LoginItem {
     public String MEMBER_NAME;
     public String MEMBER_PHONE;
     public String MEMBER_RECOM_CODE;
+    public String REGISTER_RECOM_CODE;
     public String PROFILE_DOWN_URL;
     public String LICENSE_DOWN_URL;
     public String AD_NUM;
     public String MY_POINT;
-    public String INVITE_NUM;
-    public String INVITE_FRI_NUM;
-    public String ACCUM_POINT;
+    public String INVITE_NUM;       //초대한 친구 명수
+    public String INVITE_FRI_NUM;   //친구의 친구 명수
+    public String ACCUM_POINT;      //누적포인트
 
     @Override
     public String toString() {
@@ -28,6 +29,7 @@ public class LoginItem {
                 ", MEMBER_NAME='" + MEMBER_NAME + '\'' +
                 ", MEMBER_PHONE='" + MEMBER_PHONE + '\'' +
                 ", MEMBER_RECOM_CODE='" + MEMBER_RECOM_CODE + '\'' +
+                ", REGISTER_RECOM_CODE='" + REGISTER_RECOM_CODE + '\'' +
                 ", PROFILE_DOWN_URL='" + PROFILE_DOWN_URL + '\'' +
                 ", LICENSE_DOWN_URL='" + LICENSE_DOWN_URL + '\'' +
                 ", AD_NUM='" + AD_NUM + '\'' +

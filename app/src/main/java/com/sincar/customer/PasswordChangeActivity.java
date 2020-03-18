@@ -29,7 +29,7 @@ public class PasswordChangeActivity extends AppCompatActivity implements View.On
     private void init() {
         hideActionBar();
 
-        findViewById(R.id.btnPrev).setOnClickListener(this);
+        findViewById(R.id.change_btnPrev).setOnClickListener(this);
         findViewById(R.id.btnPassword).setOnClickListener(this);
 
         Map<String, String> params = null;
@@ -40,7 +40,7 @@ public class PasswordChangeActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnPrev:
+            case R.id.change_btnPrev:
                 Intent intent = new Intent(this, MyProfileSettingsDetailActivity.class);
                 startActivity(intent);
                 finish();

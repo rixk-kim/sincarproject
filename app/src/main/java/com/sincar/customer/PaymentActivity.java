@@ -22,11 +22,13 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     private TextView amount_TextView;
     private String coupone_seq;
     private CheckBox clause_agree;
+    private Context pContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+        pContext = this;
 
         // 화면 초기화
         init();
@@ -80,7 +82,9 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.reserve_confirm_btn:
                 if(clause_agree.isChecked() == true){
                     // 예약으로 이동
-                    reserveSelect();
+                    //reserveSelect();
+                    intent = new Intent(pContext, PayApproveActivity.class);
+                    startActivity(intent);
                 }else {
                     Toast.makeText(PaymentActivity.this, "약관 동의를 체크해 주세요.", Toast.LENGTH_LONG).show();
                 }
@@ -105,6 +109,10 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                 // TODO - 결재 모듈로 이동합니다.
 
                 dialog.dismiss(); // 누르면 바로 닫히는 형태
+
+                Intent intent = new Intent(pContext, PayApproveActivity.class);
+                startActivity(intent);
+
             }
         }).show();
     }

@@ -46,7 +46,6 @@
         android:id="@+id/recom_layout_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/default_background_type_2"
         android:orientation="vertical"
         android:layout_marginStart="31dp"
         android:layout_marginEnd="28dp"
