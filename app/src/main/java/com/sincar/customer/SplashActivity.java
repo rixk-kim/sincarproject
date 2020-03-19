@@ -13,9 +13,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.telephony.TelephonyManager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.sincar.customer.preference.PreferenceManager;
@@ -38,10 +43,14 @@ public class SplashActivity extends Activity {
     public static final int REQUEST_CAMERA = 5002;
     //==================== 마시멜로 퍼미션 ====================
 
+    private Button splash_btn;
+    private Activity mActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_layout);
+        mActivity = this;
 
         // 마시멜로 체크 및 알림
         checkPermission();
@@ -186,19 +195,12 @@ public class SplashActivity extends Activity {
                 permission.add(Manifest.permission.ACCESS_FINE_LOCATION);
             }
 
-//            if (!bluetooth) {
-//                permission.add(Manifest.permission.BLUETOOTH);
-//            }
-//
-//            if (!bluetoothAdmin) {
-//                permission.add(Manifest.permission.BLUETOOTH_ADMIN);
-//            }
-
             if (!internet) {
                 permission.add(Manifest.permission.INTERNET);
             }
 
             if (!(phoneInt && cameraInt && writeInt && readInt && locationInt)) {
+                //권한 팝업 시작
                 showPopup(SplashActivity.this, permission.toArray(new String[permission.size()]), REQUEST_READ_PHONE_STATE);
             } else {
                 startSplash();
@@ -301,12 +303,26 @@ public class SplashActivity extends Activity {
      * @param permission
      * @param callBackCode
      */
-    private void showPopup(Activity activity, String[] permission, int callBackCode) {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission[0])) {
-            ActivityCompat.requestPermissions(activity, permission, callBackCode);
-        } else {
-            ActivityCompat.requestPermissions(activity, permission, callBackCode);
-        }
+    private void showPopup(final Activity activity, final String[] permission, final int callBackCode) {
+        //ConstraintLayout linearLayout = (ConstraintLayout) View.inflate( this, R.layout.splash, null );
+        final String[] rPermission =  permission;
+        LayoutInflater inflater = (LayoutInflater) getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+        ConstraintLayout linearLayout = (ConstraintLayout) inflater.inflate( R.layout.splash, null );
+        setContentView( linearLayout );
+
+        splash_btn = (Button) findViewById(R.id.splash_btn);
+        splash_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(mActivity, rPermission[0])) {
+                    ActivityCompat.requestPermissions(mActivity, rPermission, callBackCode);
+                } else {
+                    ActivityCompat.requestPermissions(mActivity, rPermission, callBackCode);
+                }
+            }
+        });
+
+
     }
 
     /**

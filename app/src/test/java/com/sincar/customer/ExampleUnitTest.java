@@ -1,4 +1,4 @@
-package com.sincar.steam;
+package com.sincar.customer;
 
 import org.junit.Test;
 

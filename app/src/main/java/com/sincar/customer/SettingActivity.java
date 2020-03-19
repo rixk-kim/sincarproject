@@ -13,6 +13,14 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+import com.sincar.customer.network.VolleyNetwork;
+
+import java.util.HashMap;
+
+import static com.sincar.customer.HWApplication.voLoginItem;
+import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
+
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
     private Context mContext;
     @Override
@@ -46,8 +54,10 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // 스위치 버튼이 체크되었는지 검사하여 텍스트뷰에 각 경우에 맞게 출력합니다.
                 if (isChecked){
+ //                   requestSetting(1, "Y");
                     Toast.makeText(mContext, "활성화", Toast.LENGTH_SHORT).show();
                 }else{
+//                    requestSetting(1, "N");
                     Toast.makeText(mContext, "비활성화", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -60,8 +70,10 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // 스위치 버튼이 체크되었는지 검사하여 텍스트뷰에 각 경우에 맞게 출력합니다.
                 if (isChecked){
+//                    requestSetting(2, "Y");
                     Toast.makeText(mContext, "활성화", Toast.LENGTH_SHORT).show();
                 }else{
+//                    requestSetting(2, "N");
                     Toast.makeText(mContext, "비활성화", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -69,6 +81,37 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
 
     }
+
+    /**
+     * 정보성 알림 설정 요청
+     * PHONE_NEMBER : 폰번호
+     * MEMBER_NO    : 회원번호
+     * NOTICE_VARI  : 구분(1:정보 알림, 마케팅 알림)
+     * ACTIVE_YN    : 활성화 유무(Y/N)
+     */
+    private void requestSetting(int various, String active) {
+
+        HashMap<String, String> postParams = new HashMap<String, String>();
+        postParams.put("PHONE_NEMBER", voLoginItem.MEMBER_PHONE);   // 폰번호
+        postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);         // 회원번호
+        postParams.put("NOTICE_VARI", String.valueOf(various));
+        postParams.put("ACTIVE_YN", active);
+
+        //로그인 요청
+        VolleyNetwork.getInstance(this).passwordChangeRequest(LOGIN_REQUEST, postParams, onResponseListener);
+    }
+
+    VolleyNetwork.OnResponseListener onResponseListener = new VolleyNetwork.OnResponseListener() {
+        @Override
+        public void onResponseSuccessListener(String it) {
+            Toast.makeText(mContext, "변경되었습니다.", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onResponseFailListener(VolleyError it) {
+            Toast.makeText(mContext, "변경에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+        }
+    };
 
     @Override
     public void onClick(View v) {
@@ -94,13 +137,11 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.member_logout:
                 // 로그아웃
                 showLogoutAlertDialog(this);
-                //Toast.makeText(this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.member_withdrawal:
                 // 회원탈퇴
                 showWithdrawAlertDialog(this);
-                //Toast.makeText(this, "회원 탈퇴 되었습니다.", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -154,6 +195,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // TODO - 회원탈퇴 (서버 연동)
+                // requestWithdraw();
                 Toast.makeText(context, "회원 탈퇴 되었습니다.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -164,6 +206,35 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             }
         }).show();
     }
+
+    /**
+     * 정보성 알림 설정 요청
+     * PHONE_NEMBER : 폰번호
+     * MEMBER_NO    : 회원번호
+     * NOTICE_VARI  : 구분(1:정보 알림, 마케팅 알림)
+     * ACTIVE_YN    : 활성화 유무(Y/N)
+     */
+    private void requestWithdraw() {
+
+        HashMap<String, String> postParams = new HashMap<String, String>();
+        postParams.put("PHONE_NEMBER", voLoginItem.MEMBER_PHONE);   // 폰번호
+        postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);         // 회원번호
+
+        //회원탈퇴 요청
+        VolleyNetwork.getInstance(this).passwordChangeRequest(LOGIN_REQUEST, postParams, onResponseListenerWithdraw);
+    }
+
+    VolleyNetwork.OnResponseListener onResponseListenerWithdraw = new VolleyNetwork.OnResponseListener() {
+        @Override
+        public void onResponseSuccessListener(String it) {
+            Toast.makeText(mContext, "회원 탈퇴 되었습니다.", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onResponseFailListener(VolleyError it) {
+            Toast.makeText(mContext, "회원 탈퇴에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+        }
+    };
 
 }
 
