@@ -17,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sincar.customer.adapter.MainBannerSliderAdapter;
+import com.sincar.customer.adapter.content.UseContent;
 import com.sincar.customer.service.PicassoImageLoadingService;
 import com.sincar.customer.util.Util;
 
@@ -109,6 +110,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         break;
                     }
                     case R.id.bottom_use_history: {
+                        //UseContent.clearItem(); //초기화
+
                         intent = new Intent(mContext, UseHistoryActivity.class);
                         startActivity(intent);
                         finish();

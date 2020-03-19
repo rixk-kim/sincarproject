@@ -110,7 +110,7 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
         holder.useLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO - 리스트 선택 시 이벤트 핸들러 추가 필요하면 여기에서 해주기
+                // 리스트 선택 시 이벤트 핸들러 추가 필요하면 여기에서 해주기
                 // 상세보기
                 Intent intent = new Intent(mContext, UseDetailActivity.class);
                 intent.putExtra("reserve_status", mValues.get(Integer.parseInt(use_pos)).reserve_status);
@@ -136,6 +136,10 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
     @Override
     public int getItemCount() {
         return mValues.size();
+    }
+
+    public void viewRenew() {
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

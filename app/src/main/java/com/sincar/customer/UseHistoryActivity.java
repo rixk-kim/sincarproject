@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -37,6 +38,7 @@ import static com.sincar.customer.HWApplication.voUseDataItem;
 import static com.sincar.customer.HWApplication.voUseItem;
 import static com.sincar.customer.HWApplication.voLoginData;
 import static com.sincar.customer.HWApplication.voLoginItem;
+import static com.sincar.customer.adapter.content.UseContent.clearItem;
 import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
 
 /**
@@ -47,8 +49,16 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
     private Context uContext;
     public static UseDataEntity voUseData;
 
+    private RecyclerView mRecyclerView;
+
+    //페이지 처리
+    private int request_page = 1;                           // 페이징변수. 초기 값은 0 이다.
+    private final int request_offset = 5;                  // 한 페이지마다 로드할 데이터 갯수.
+    private boolean mLockListView = false;          // 데이터 불러올때 중복안되게 하기위한 변수
+//    private ProgressBar progressBar;                // 데이터 로딩중을 표시할 프로그레스바
+
     public static UseHistoryActivity _useHistoryActivity;
-//    private MainActivity mMainActivity;
+    private UseContentRecyclerViewAdapter mUseContentRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,10 +89,60 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
             view.setVisibility(View.VISIBLE);
             if (view instanceof RecyclerView) {
                 Context context = view.getContext();
-                RecyclerView recyclerView = (RecyclerView) view;
+                mRecyclerView = (RecyclerView) view;
 
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-                recyclerView.setAdapter(new UseContentRecyclerViewAdapter(this, UseContent.ITEMS, _useHistoryActivity));
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+                mUseContentRecyclerViewAdapter = new UseContentRecyclerViewAdapter(this, UseContent.ITEMS, _useHistoryActivity);
+                mRecyclerView.setAdapter(mUseContentRecyclerViewAdapter);
+
+                mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                        super.onScrollStateChanged(recyclerView, newState);
+                    }
+
+                    @Override
+                    public void onScrolled(RecyclerView recyclerView, int dx, int dy){
+                        super.onScrolled(recyclerView, dx, dy);
+
+                        LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+                        int totalItemCount = layoutManager.getItemCount();
+                        int lastVisible = layoutManager.findLastCompletelyVisibleItemPosition();
+
+                        System.out.println("[spirit] lastVisibled : " + lastVisible );
+                        System.out.println("[spirit] lastVisibled : " + totalItemCount );
+
+                        if (lastVisible >= totalItemCount - 1) {
+                            int lastPageNum;
+                            if( 102 % request_offset == 0 ) {
+                                lastPageNum = (int)Math.floor(102/request_offset);
+                            }
+                            else {
+                                lastPageNum = (int)Math.floor(102/request_offset) + 1;
+                            }
+//                            Toast.makeText(getApplicationContext(), "lastVisibled " , Toast.LENGTH_SHORT).show();
+
+                            System.out.println("[spirit] lastPageNum : " + lastPageNum );
+                            System.out.println("[spirit] request_page : " + request_page );
+
+                            if(lastPageNum > request_page)
+                            {
+                                //다음 페이지 요청
+                                request_page+=1;
+                                int start_num = ((request_page - 1) * 5);
+                                for (int i = start_num; i <= (start_num + 5); i++) {
+                                    UseContent.addItem(UseContent.createDummyItem(i));
+
+                                    System.out.println("[spirit] addItem : [" + i + "]" );
+                                }
+
+                                mUseContentRecyclerViewAdapter.viewRenew();
+                                //UseContent.addItem(UseContent.createDummyItem((request_page*1) - 1));
+                            }
+                        }
+
+                    }
+                });
             }
         }else{
              LinearLayout view = findViewById(R.id.use_history_empty);
@@ -134,8 +194,8 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
     private void requestUseHistory() {
         HashMap<String, String> postParams = new HashMap<String, String>();
         postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);     // 회원번호
-        postParams.put("REQUESTT_PAGE", "1");                   // 요청페이지
-        postParams.put("REQUEST_NUM", "20");                    // 요청갯수
+        postParams.put("REQUESTT_PAGE", String.valueOf(request_page));    // 요청페이지
+        postParams.put("REQUEST_NUM", String.valueOf(request_offset));                    // 요청갯수
 
         //프로그래스바 시작
         Util.showDialog();
@@ -151,7 +211,7 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
              [{"SEQ":"1","RESERVE_STATUS":"0","RESERVE_TIME":"2020-12-22 14:00",...},
              {"SEQ":"1","RESERVE_STATUS":"0","RESERVE_TIME":"2020-12-22 14:00",...}..]}
              */
-            //serverData = "{login: [{\"REGISTER\":\"1\",\"CAUSE\":\"비밀번호 오류\",\"MEMBER_NO\":\"12345\",\"VERSION\":\"1.0.1\",\"APK_URL\":\"http://sincar.co.kr/apk/manager_1.0.1.apk\",\"MEMBER_NAME\":\"신차로\",\"MEMBER_PHONE\":\"01012345678\",\"MEMBER_RECOM_CODE\":\"FCF816\",\"PROFILE_DOWN_URL\":\"http://~~\",\"LICENSE_DOWN_URL\":\"http://~~\",\"AD_NUM\":\"3\",\"MY_POINT\":\"5,430\",\"INVITE_NUM\":\"7\",\"INVITE_FRI_NUM\":\"7\",\"ACCUM_POINT\":\"3,870\"}],\"DATA\":[{\"FRI_NAME\":\"김민정\",\"USE_SERVICE\":\"스팀세차\",\"SAVE_DATE\":\"20.02.26\",\"FRI_POINT\":\"100\"},{\"FRI_NAME\":\"이하영\",\"USE_SERVICE\":\"스팀세차\",\"SAVE_DATE\":\"20.02.28\",\"FRI_POINT\":\"120\"}],\"advertise\":[{\"AD_IMAGE_URL\":\"http://~~\"},{\"AD_IMAGE_URL\":\"http://~~\"},{\"AD_IMAGE_URL\":\"http://~~\"}]}";
+            serverData = "";
             //System.out.println("[spirit] it : "  + serverData);
 
             Gson gSon = new Gson();
@@ -230,6 +290,43 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
 
                     recyclerView.setLayoutManager(new LinearLayoutManager(context));
                     recyclerView.setAdapter(new UseContentRecyclerViewAdapter(uContext, UseContent.ITEMS, _useHistoryActivity));
+
+                    mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                        @Override
+                        public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                            super.onScrollStateChanged(recyclerView, newState);
+                        }
+
+                        @Override
+                        public void onScrolled(RecyclerView recyclerView, int dx, int dy){
+                            super.onScrolled(recyclerView, dx, dy);
+
+                            LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+                            int totalItemCount = layoutManager.getItemCount();
+                            int lastVisible = layoutManager.findLastCompletelyVisibleItemPosition();
+
+                            if (lastVisible >= totalItemCount - 1) {
+                                int lastPageNum;
+                                if( Integer.parseInt(voUseItem.TOTAL) % request_offset == 0 ) {
+                                    lastPageNum = (int)Math.floor(Integer.parseInt(voUseItem.TOTAL)/request_offset);
+                                }
+                                else {
+                                    lastPageNum = (int)Math.floor(Integer.parseInt(voUseItem.TOTAL)/request_offset) + 1;
+                                }
+
+                                if(lastPageNum > request_page)
+                                {
+                                    request_page+=1;
+                                    requestUseHistory();
+//                                    //다음 페이지 요청
+//                                    for (int i = 1; i <= 5; i++) {
+//                                        UseContent.addItem(UseContent.createDummyItem(i + ((request_page*5) - 1)));
+//                                    }
+                                }
+                            }
+
+                        }
+                    });
                 }
             }else{
                 LinearLayout view = findViewById(R.id.use_history_empty);

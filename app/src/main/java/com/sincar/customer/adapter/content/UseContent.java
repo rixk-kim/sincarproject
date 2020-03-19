@@ -17,7 +17,7 @@ public class UseContent {
      */
     public static final Map<Integer, UseItem> ITEM_MAP = new HashMap();
 
-    private static final int COUNT = 25;
+    private static final int COUNT = 5;
 
     static {
         // Add some sample items.
@@ -32,8 +32,13 @@ public class UseContent {
         ITEM_MAP.put(item.id, item);
     }
 
-    private static UseItem createDummyItem(int position) {
-        return new UseItem(position, "1","0", "12/22 14:00", "", "송파구 석촌호수로 274 (실내)", "관악 1호점 (김태현) ", "43,000원",
+    public static void clearItem() {
+        ITEMS.clear();
+        ITEM_MAP.clear();
+    }
+
+    public static UseItem createDummyItem(int position) {
+        return new UseItem(position, "1","0", "12/22 " + position, "", "송파구 석촌호수로 274 (실내)", "관악 1호점 (김태현) ", "43,000원",
                 "01012345678", "신차로", "45,000원", "2000원", "케이뱅크 ****3840",
                 "현대 싼타페", "12가 3238");
     }

@@ -302,22 +302,25 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- 결제 수단 divider -->
+<!--
             <View
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
                 android:background="#1a3e3e3e" />
-
+-->
             <!-- 결제 수단 영역 -->
+<!--
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/payment_type_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="28dp"
                 android:layout_marginEnd="28dp">
-
+-->
                 <!-- 결제수단 타이틀 -->
+<!--
                 <TextView
                     android:id="@+id/payment_type_title"
                     android:layout_width="wrap_content"
@@ -328,8 +331,9 @@
                     android:text="@string/payment_type_title"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
+-->
                 <!-- 결제수단 변경 -->
+<!--
                 <TextView
                     android:id="@+id/btnPaymentChange"
                     android:layout_width="wrap_content"
@@ -353,7 +357,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/payment_type_title" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
+-->
             <!-- 취소 정책 divider -->
             <View
                 android:layout_width="match_parent"
@@ -571,7 +575,7 @@
 
         <Button
             android:id="@+id/reserve_confirm_btn"
-            android:layout_width="match_parent"
+            android:layout_width="312dp"
             android:layout_height="52dp"
             android:background="@drawable/default_button_type_1"
             android:shadowColor="#C4C4C4"
