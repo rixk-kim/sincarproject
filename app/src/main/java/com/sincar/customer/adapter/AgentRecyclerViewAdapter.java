@@ -129,6 +129,16 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
         }
     }
 
+    public int getAgentPosition()
+    {
+        return prevAgentPosition;
+    }
+
+    public int getTimePosition()
+    {
+        return prevTimePosition;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
 

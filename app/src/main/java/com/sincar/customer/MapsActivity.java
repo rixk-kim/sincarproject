@@ -47,7 +47,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private double my_latitude;    //내위치 위도
     private double my_longitude;   //내위치 경도
 
-    public final static int MAP_REQ_CODE = 1002;
+    public final static int MAP_REQ_CODE = 1003;
 
     private TextView currentTextView;
 

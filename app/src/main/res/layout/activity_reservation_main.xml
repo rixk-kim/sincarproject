@@ -250,6 +250,7 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
             <RadioGroup
+                android:id="@+id/wash_place_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -259,7 +260,7 @@
 
                 <!-- TODO : 라디오버튼 아이콘과 간격 8dp 설정 필요 -->
                 <RadioButton
-                    android:id="@+id/radioButton"
+                    android:id="@+id/wash_place_button1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
@@ -271,7 +272,7 @@
                     android:text="@string/wash_indoor" />
 
                 <RadioButton
-                    android:id="@+id/radioButton2"
+                    android:id="@+id/wash_place_button2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="36dp"

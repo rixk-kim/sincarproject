@@ -18,7 +18,7 @@ import com.sincar.customer.adapter.content.ChargeContent;
 import com.sincar.customer.adapter.content.CouponeContent;
 
 public class PaymentActivity extends AppCompatActivity implements View.OnClickListener {
-    public final static int PAYMENT_REQ_CODE = 1003;
+    public final static int PAYMENT_REQ_CODE = 1004;
     private TextView amount_TextView;
     private String coupone_seq;
     private CheckBox clause_agree;

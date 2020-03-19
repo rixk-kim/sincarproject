@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,13 +40,32 @@ import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
 
 public class ReservationMainActivity extends AppCompatActivity implements View.OnClickListener {
     public final static int CAR_MANAGE_REQ_CODE = 1001;
+    public final static int CAR_REGISTER_REQ_CODE = 1005;
     private TextView car_name_str;
     private TextView car_number_str;
+
+    private String reserve_address; //예약주소
+    private String reserve_year;    //예약년도
+    private String reserve_month;   //예약월
+    private String reserve_day;     //예약일
+    private String agent_seq;       //예약한 대리점주 SEQ
+    private String agent_time;      //예약한 대리점주 시간
+    private String wash_area;       //세차장소
+
+    private RadioGroup rRadioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation_main);
+
+        Intent intent = getIntent(); /*데이터 수신*/
+        reserve_address     = intent.getExtras().getString("reserve_address");  /*String형*/
+        reserve_year        = intent.getExtras().getString("reserve_year");     /*String형*/
+        reserve_month       = intent.getExtras().getString("reserve_month");    /*String형*/
+        reserve_day         = intent.getExtras().getString("reserve_day");      /*String형*/
+        agent_seq           = intent.getExtras().getString("agent_seq");        /*String형*/
+        agent_time          = intent.getExtras().getString("agent_time");       /*String형*/
 
         // 화면 초기화
         init();
@@ -62,8 +82,47 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
         //예약하기
         findViewById(R.id.reserve_btn).setOnClickListener(this);
 
+        rRadioGroup = (RadioGroup)findViewById(R.id.wash_place_group);
+
+        rRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                String result;
+                if(checkedId == R.id.wash_place_button1){
+                    wash_area = "실내";
+                }else{
+                    wash_area = "실외";
+                }
+            }
+        });
+
+
+
+        // TODO - 서버 연동 후 PointContent.ITEMS에 리스 항목 추가 작업
+        // Set the adapter - 포인트 리스트 설정
+        String serverData = "{\"add_service\": [{\"CAR_SEQ\":\"\",\"CAR_COMPANY\":\"\",\"CAR_MODEL\":\"\",\"CAR_NUMBER\":\"\",\"CAR_PAY\":\"\"}],\n" +
+                "\"DATA\":[{\"SERVICE_NAME\":\"가니쉬 코팅\",\"SERVICE_DETAIL\":\"가니쉬란 어쩌구 저쩌구\",\"USE_PAY\":\"6,000\"},{\"SERVICE_NAME\":\"에머랄드 코팅\",\"SERVICE_DETAIL\":\"가니쉬란 어쩌구 저쩌구\",\"USE_PAY\":\"5,000\"},{\"SERVICE_NAME\":\"엔진룸 세척\",\"SERVICE_DETAIL\":\"가니쉬란 어쩌구 저쩌구\",\"USE_PAY\":\"6,000\"}]}";
+
+        Gson gSon = new Gson();
+        optionResult = gSon.fromJson(serverData, OptionResult.class);
+
+        voOptionItem.CAR_SEQ              = optionResult.add_service.get(0).CAR_SEQ;
+        voOptionItem.CAR_COMPANY          = optionResult.add_service.get(0).CAR_COMPANY;
+        voOptionItem.CAR_MODEL            = optionResult.add_service.get(0).CAR_MODEL;
+        voOptionItem.CAR_NUMBER           = optionResult.add_service.get(0).CAR_NUMBER;
+        voOptionItem.CAR_PAY              = optionResult.add_service.get(0).CAR_PAY;
+
+        car_name_str.setText(voOptionItem.CAR_COMPANY + voOptionItem.CAR_MODEL);
+        car_number_str.setText(voOptionItem.CAR_NUMBER);
+
         // TODO - 등록된 차량 정보 확인하여 필요한 레이아웃 visible 및 이벤트 핸들러 추가하기
         boolean isCarRegistered = false;
+
+        if(TextUtils.isEmpty(voOptionItem.CAR_COMPANY) || TextUtils.isEmpty(voOptionItem.CAR_MODEL))
+        {
+            isCarRegistered = true;
+        }
 
         if (!isCarRegistered) {
             findViewById(R.id.car_register_layout).setVisibility(View.GONE);
@@ -80,8 +139,21 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
             findViewById(R.id.btnCarRegister).setOnClickListener(this);
         }
 
-        // TODO - 서버 연동 후 PointContent.ITEMS에 리스 항목 추가 작업
-        // Set the adapter - 포인트 리스트 설정
+        voOptionDataItem     = optionResult.DATA;
+
+        List<OptionContent.OptionItem> ITEMS = new ArrayList<OptionContent.OptionItem>();
+
+        for(int i = 0; i < voOptionDataItem.size(); i++) {
+            OptionContent.addItem(new OptionContent.OptionItem(
+                    i,
+                    voOptionDataItem.get(i).SEQ,
+                    voOptionDataItem.get(i).SERVICE_NAME,
+                    voOptionDataItem.get(i).SERVICE_DETAIL,
+                    voOptionDataItem.get(i).USE_PAY,
+                    false
+            ));
+        }
+
         View view = findViewById(R.id.optionServiceList);
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -113,25 +185,29 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
         @Override
         public void onResponseSuccessListener(String serverData) {
             /*
-               {"car_list": [{"TOTAL":"5","CURRENT_PAGE":"1","CURRENT_NUM":"20"}],
-               "data":[{"CAR_SEQ":"1","CAR_COMPANY":"현대","CAR_MODEL":"싼타페","CAR_NUMBER":"12가1234","CAR_SELECTED":"false"},{},{}…]}
+                {"add_service": [{"CAR_SEQ":"3","CAR_COMPANY":"현대","CAR_MODEL":"산타페(대형)","CAR_NUMBER":"35나 8733","CAR_PAY":"50000"}],
+                "DATA":[{"SERVICE_NAME":"가니쉬 코팅","SERVICE_DETAIL":"가니쉬란 어쩌구 저쩌구","USE_PAY":"6,000"},{"SERVICE_NAME":"에머랄드 코팅","SERVICE_DETAIL":"가니쉬란 어쩌구 저쩌구","USE_PAY":"5,000"},{"SERVICE_NAME":"엔진룸 세척","SERVICE_DETAIL":"가니쉬란 어쩌구 저쩌구","USE_PAY":"6,000"}]}
              */
 
             Gson gSon = new Gson();
             optionResult = gSon.fromJson(serverData, OptionResult.class);
 
-            voOptionItem.TOTAL              = optionResult.add_service.get(0).TOTAL;
+            voOptionItem.CAR_SEQ              = optionResult.add_service.get(0).CAR_SEQ;
+            voOptionItem.CAR_COMPANY          = optionResult.add_service.get(0).CAR_COMPANY;
+            voOptionItem.CAR_MODEL            = optionResult.add_service.get(0).CAR_SEQ;
+            voOptionItem.CAR_NUMBER           = optionResult.add_service.get(0).CAR_NUMBER;
+            voOptionItem.CAR_PAY              = optionResult.add_service.get(0).CAR_PAY;
 
             voOptionDataItem     = optionResult.DATA;
 
-            List<CarContent.CarItem> ITEMS = new ArrayList<CarContent.CarItem>();
+            List<OptionContent.OptionItem> ITEMS = new ArrayList<OptionContent.OptionItem>();
 
             for(int i = 0; i < voOptionDataItem.size(); i++) {
                 OptionContent.addItem(new OptionContent.OptionItem(
                         i,
                         voOptionDataItem.get(i).SEQ,
                         voOptionDataItem.get(i).SERVICE_NAME,
-                        voOptionDataItem.get(i).SERVICE_NAME,
+                        voOptionDataItem.get(i).SERVICE_DETAIL,
                         voOptionDataItem.get(i).USE_PAY,
                         false
                 ));
@@ -152,7 +228,7 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
                     recyclerView.setAdapter(new OptionServiceRecyclerViewAdapter(OptionContent.ITEMS));
                 }
             }else{
-                // TODO - 등록차량 없을 때 화면 UI 추가
+                // TODO - 데이타 없을 때 화면 UI 추가
 //                LinearLayout view = findViewById(R.id.use_history_empty);
 //                view.setVisibility(View.VISIBLE);
             }
@@ -175,6 +251,9 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
 
             case R.id.btnCarRegister:
                 // TODO - 차량등록 기능 추가
+                intent = new Intent(this, CarRegisterActivity.class);
+                intent.putExtra("path", "reserveMain");
+                startActivityForResult(intent, CAR_REGISTER_REQ_CODE);
                 break;
 
             case R.id.btnCarModify:
@@ -188,7 +267,20 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
             case R.id.reserve_btn:
                 //결재 종류 선택 팝업
 //                reserveSelect();
-                startActivity(new Intent(this, PaymentActivity.class));
+                intent = new Intent(this, PaymentActivity.class);
+
+                Bundle bundle = new Bundle();
+                bundle.putString("reserve_address", reserve_address);   //주소
+                bundle.putString("reserve_year", reserve_year);         //년
+                bundle.putString("reserve_month", reserve_month);       //월
+                bundle.putString("reserve_day", reserve_day);           //일
+                bundle.putString("agent_seq", agent_seq);               //예약 대리점주 seq
+                bundle.putString("agent_time", agent_time);             // 예약시간
+                bundle.putString("wash_area", wash_area);               //세차장소
+                //부가서비스
+                intent.putExtras(bundle);
+
+                startActivity(intent);
                 break;
         }
     }
@@ -213,6 +305,22 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
                 Toast.makeText(ReservationMainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
             }
 
+        }else{
+            //차량 등록하고 리턴
+            if (resultCode == RESULT_OK) {
+                if(!TextUtils.isEmpty(data.getStringExtra("reserve_carname")))
+                {
+                    car_name_str.setText(data.getStringExtra("reserve_carname"));
+                }
+
+                if(!TextUtils.isEmpty(data.getStringExtra("reserve_carnumber")))
+                {
+                    car_number_str.setText(data.getStringExtra("reserve_carnumber"));
+                }
+                Toast.makeText(ReservationMainActivity.this, "차종: " + data.getStringExtra("reserve_carname") + " , 차번호 : " + data.getStringExtra("reserve_carnumber"), Toast.LENGTH_SHORT).show();
+            } else {   // RESULT_CANCEL
+                Toast.makeText(ReservationMainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

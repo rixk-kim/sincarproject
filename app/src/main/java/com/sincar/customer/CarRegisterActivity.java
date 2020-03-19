@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
     private Context cContext;
     private TextView car_select_colume1;
     private TextView car_select_colume2;
+    private EditText car_select_colume3;
     private String car_reg_path;
 
     @Override
@@ -50,12 +52,12 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
         // user_mobile_number => 휴대폰 번호
 
         // TODO - 서버 연동하여 이름, 휴대폰 번호 값 가지고 와서 설정해주기
-        car_select_colume1 = findViewById(R.id.car_select_colume1);
+        car_select_colume1 = (TextView) findViewById(R.id.car_select_colume1);
 //        car_select_colume1.setText("홍길동");
 //
-        car_select_colume2 = findViewById(R.id.car_select_colume2);
+        car_select_colume2 = (TextView) findViewById(R.id.car_select_colume2);
 //        user_mobile_number.setText("010-1234-5678");
-
+        car_select_colume3 = (EditText) findViewById(R.id.car_select_colume2);
     }
 
     @Override
@@ -72,12 +74,12 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                 break;
 
             case R.id.btnNext1:
-                //  TODO - 제조사 선택. 서버 요청 후 응답 받으면 setCompanyDialog() 호출.
+                //  제조사 선택. 서버 요청 후 응답 받으면 setCompanyDialog() 호출.
                 setCompanyDialog();
                 break;
 
             case R.id.btnNext2:
-                //  TODO - 차량 선택. 서버 요청 후 응답 받으면 setCarDialog() 호출.
+                //  차량 선택. 서버 요청 후 응답 받으면 setCarDialog() 호출.
                 setCarDialog();
                 break;
 
@@ -86,9 +88,20 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                 Toast.makeText(this, "차량이 등록 되었습니다.", Toast.LENGTH_SHORT).show();
 
                 //  TODO - 차량 등록 후 리스트 이동
-                intent = new Intent(this, CarManageActivity.class);
-                intent.putExtra("path", car_reg_path);
-                startActivity(intent);
+                if ("reserveMain".equals(car_reg_path))
+                {
+                    //reserve_carname//car_select_colume1 : 회사이름
+                    intent = new Intent(this, ReservationMainActivity.class);
+                    intent.putExtra("reserve_carname", car_select_colume1.getText().toString() + " " + car_select_colume2.getText().toString());
+                    intent.putExtra("reserve_carnumber", car_select_colume3.getText().toString());
+                    setResult(RESULT_OK, intent);
+                    startActivity(intent);
+
+                }else {
+                    intent = new Intent(this, CarManageActivity.class);
+                    intent.putExtra("path", car_reg_path);
+                    startActivity(intent);
+                }
                 finish();
                 break;
 
@@ -99,10 +112,22 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        Intent intent = new Intent(this, CarManageActivity.class);
-        intent.putExtra("path", car_reg_path);
-        startActivity(intent);
+        Intent intent;
+        if ("reserveMain".equals(car_reg_path))
+        {
+            //reserve_carname//car_select_colume1 : 회사이름
+            intent = new Intent(this, ReservationMainActivity.class);
+            intent.putExtra("reserve_carname", car_select_colume1.getText().toString() + " " + car_select_colume2.getText().toString());
+            intent.putExtra("reserve_carnumber", car_select_colume3.getText().toString());
+            setResult(RESULT_OK, intent);
+            startActivity(intent);
 
+        }else {
+
+            intent = new Intent(this, CarManageActivity.class);
+            intent.putExtra("path", car_reg_path);
+            startActivity(intent);
+        }
         finish();
     }
 

@@ -38,6 +38,8 @@ public class ReservationTimeActivity extends AppCompatActivity
     private String reserve_month;   //예약월
     private String reserve_day;     //예약일
 
+    private AgentRecyclerViewAdapter mAgentRecyclerViewAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,7 +153,8 @@ public class ReservationTimeActivity extends AppCompatActivity
             RecyclerView recyclerView = (RecyclerView) view;
 
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new AgentRecyclerViewAdapter(AgentContent.ITEMS, this));
+            mAgentRecyclerViewAdapter = new AgentRecyclerViewAdapter(AgentContent.ITEMS, this);
+            recyclerView.setAdapter(mAgentRecyclerViewAdapter);
         }
     }
 
@@ -264,7 +267,8 @@ public class ReservationTimeActivity extends AppCompatActivity
                 RecyclerView recyclerView = (RecyclerView) view;
 
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
-                recyclerView.setAdapter(new AgentRecyclerViewAdapter(AgentContent.ITEMS, this));
+                mAgentRecyclerViewAdapter = new AgentRecyclerViewAdapter(AgentContent.ITEMS, this);
+                recyclerView.setAdapter(mAgentRecyclerViewAdapter);
             }
         }else{
             // TODO - 대리점 정보 없을 때 화면 UI 추가
@@ -284,13 +288,20 @@ public class ReservationTimeActivity extends AppCompatActivity
 
     @Override
     public void onAgentListInteraction(AgentItem agentItem) {
-        Log.d("시간예약", "대리점주 id = " + agentItem.id);
+        Log.d("시간예약", "대리점주 id = " + mAgentRecyclerViewAdapter.getAgentPosition());
+        Log.d("시간예약", "대리점주 시간 = " + mAgentRecyclerViewAdapter.getTimePosition());
+        //agentItem.id => seq
 
-        // TODO - 예약시간 설정 하고 예약 메인 화면으로 이동에 필요한 데이타 전송필요(Bundle)
+        // 예약시간 설정 하고 예약 메인 화면으로 이동에 필요한 데이타 전송필요(Bundle)
         Intent intent = new Intent(this, ReservationMainActivity.class);
 
         Bundle bundle = new Bundle();
-        bundle.putString("대리점정보", "대리점정보");
+        bundle.putString("reserve_address", reserve_address);   //주소
+        bundle.putString("reserve_year", reserve_year);         //년
+        bundle.putString("reserve_month", reserve_month);       //월
+        bundle.putString("reserve_day", reserve_day);           //일
+        bundle.putString("agent_seq", String.valueOf(agentItem.id));                                    //예약 대리점주 seq
+        bundle.putString("agent_time", String.valueOf(mAgentRecyclerViewAdapter.getTimePosition()));    // 예약시간
         intent.putExtras(bundle);
         startActivity(intent);
         //finish();
