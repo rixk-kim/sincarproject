@@ -57,7 +57,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
 //
         car_select_colume2 = (TextView) findViewById(R.id.car_select_colume2);
 //        user_mobile_number.setText("010-1234-5678");
-        car_select_colume3 = (EditText) findViewById(R.id.car_select_colume2);
+        car_select_colume3 = (EditText) findViewById(R.id.car_select_colume3);
     }
 
     @Override
@@ -95,8 +95,8 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                     intent.putExtra("reserve_carname", car_select_colume1.getText().toString() + " " + car_select_colume2.getText().toString());
                     intent.putExtra("reserve_carnumber", car_select_colume3.getText().toString());
                     setResult(RESULT_OK, intent);
-                    startActivity(intent);
-
+                    //startActivity(intent);
+                    finish();
                 }else {
                     intent = new Intent(this, CarManageActivity.class);
                     intent.putExtra("path", car_reg_path);
@@ -120,8 +120,8 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
             intent.putExtra("reserve_carname", car_select_colume1.getText().toString() + " " + car_select_colume2.getText().toString());
             intent.putExtra("reserve_carnumber", car_select_colume3.getText().toString());
             setResult(RESULT_OK, intent);
-            startActivity(intent);
-
+            //startActivity(intent);
+            finish();
         }else {
 
             intent = new Intent(this, CarManageActivity.class);

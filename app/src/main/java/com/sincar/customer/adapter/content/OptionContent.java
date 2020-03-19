@@ -22,9 +22,9 @@ public class OptionContent {
     static {
         // Add some sample items.
         // TODO - 서버 연동 작업 후 Dummy 아이템 추가 코드 삭제 필요
-        for (int i = 1; i <= COUNT; i++) {
-            addItem(createDummyItem(i));
-        }
+//        for (int i = 1; i <= COUNT; i++) {
+//            addItem(createDummyItem(i));
+//        }
     }
 
     public static void addItem(OptionItem item) {
@@ -32,9 +32,9 @@ public class OptionContent {
         ITEM_MAP.put(item.id, item);
     }
 
-    private static OptionItem createDummyItem(int position) {
-        return new OptionItem(position, "1", "가니쉬 코팅", "부가 서비스 정보", "6000", false);
-    }
+//    private static OptionItem createDummyItem(int position) {
+//        return new OptionItem(position, "1", "가니쉬 코팅", "부가 서비스 정보", "6000", false);
+//    }
 
 //    private static PointItem makeDetails(int position) {
 //        StringBuilder builder = new StringBuilder();

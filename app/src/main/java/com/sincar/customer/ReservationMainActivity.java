@@ -308,6 +308,12 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
         }else{
             //차량 등록하고 리턴
             if (resultCode == RESULT_OK) {
+
+                findViewById(R.id.car_register_layout).setVisibility(View.GONE);
+                findViewById(R.id.car_modify_layout).setVisibility(View.VISIBLE);
+                findViewById(R.id.btnCarModify).setOnClickListener(this);
+
+
                 if(!TextUtils.isEmpty(data.getStringExtra("reserve_carname")))
                 {
                     car_name_str.setText(data.getStringExtra("reserve_carname"));
@@ -317,9 +323,12 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
                 {
                     car_number_str.setText(data.getStringExtra("reserve_carnumber"));
                 }
-                Toast.makeText(ReservationMainActivity.this, "차종: " + data.getStringExtra("reserve_carname") + " , 차번호 : " + data.getStringExtra("reserve_carnumber"), Toast.LENGTH_SHORT).show();
+
+
+
+//                Toast.makeText(ReservationMainActivity.this, "차종: " + data.getStringExtra("reserve_carname") + " , 차번호 : " + data.getStringExtra("reserve_carnumber"), Toast.LENGTH_SHORT).show();
             } else {   // RESULT_CANCEL
-                Toast.makeText(ReservationMainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(ReservationMainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
             }
         }
     }
