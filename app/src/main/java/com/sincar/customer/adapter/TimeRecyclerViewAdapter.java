@@ -1,11 +1,13 @@
 package com.sincar.customer.adapter;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,16 +22,18 @@ public class TimeRecyclerViewAdapter extends RecyclerView.Adapter<TimeRecyclerVi
     private int agentPosition;
     private final List<TimeItem> mValues;
     private OnTimeListInteractionListener mListener;
+    private Context trContext;
 
 //    private int prePosition;
 
     public TimeRecyclerViewAdapter(int agentPosition, List<TimeItem> items,
-                                   OnTimeListInteractionListener listener) {
+                                   OnTimeListInteractionListener listener, Context context) {
         this.agentPosition = agentPosition;
         mValues = items;
         if (listener != null && listener instanceof OnTimeListInteractionListener) {
             mListener = listener;
         }
+        this.trContext = context;
 //        prePosition = -1;
     }
 
@@ -66,10 +70,6 @@ public class TimeRecyclerViewAdapter extends RecyclerView.Adapter<TimeRecyclerVi
         for (TimeItem timeItem : mValues) {
             timeItem.selected = false;
         }
-//        if (prePosition >= 0 && prePosition < mValues.size()) {
-//            mValues.get(prePosition).selected = false;
-//        }
-//        prePosition = item.id;
 
         mValues.get(item.position).selected = true;
         mValues.get(item.position).agentPosition = agentPosition;

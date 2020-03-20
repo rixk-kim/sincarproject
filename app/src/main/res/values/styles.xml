@@ -28,4 +28,13 @@
         <item name="android:lineSpacingExtra">12.5sp</item>
         <item name="android:background">@drawable/button_color_selector1</item>
     </style>
+
+    <!-- Base application theme. -->
+
+    <style name="MyAlertDialogStyle" parent="@style/Theme.AppCompat.Dialog.Alert">
+        <item name="android:textColor">@color/customColorPrimary</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:background">@color/sub_main_menu12_bg</item>
+
+    </style>
 </resources>

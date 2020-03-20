@@ -1,5 +1,6 @@
 package com.sincar.customer;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,8 +33,8 @@ import static com.sincar.customer.util.Util.setAddMoneyDot;
 public class PaymentActivity extends AppCompatActivity implements View.OnClickListener, TextView.OnEditorActionListener {
     public final static int PAYMENT_REQ_CODE = 1004;
     private TextView amount_TextView;
-    private TextView branch_name, wash_address, reservation_time, my_point;
-    private EditText use_point;
+    private TextView branch_name, wash_address, reservation_time, my_point, use_point;
+//    private EditText use_point;
     private String coupone_seq;
     private CheckBox clause_agree;
     private Context pContext;
@@ -118,7 +119,9 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         my_point = (TextView) findViewById(R.id.my_point);
         my_point.setText(Util.setAddMoneyDot(voLoginItem.MY_POINT) + "원 보유");
 
-        use_point = (EditText) findViewById(R.id.use_point);
+        use_point = (TextView) findViewById(R.id.use_point);
+        use_point.setOnClickListener(this);
+
 //        use_point.addTextChangedListener(new TextWatcher() {
 //            @Override
 //            public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -316,8 +319,60 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                     Toast.makeText(PaymentActivity.this, "포인트 전액 사용하였습니다.", Toast.LENGTH_LONG).show();
                 }
                 break;
+
+            case R.id.use_point:
+                //입력창 선택시
+                setPointPopup();
+                break;
         }
 
+    }
+
+    private void setPointPopup()
+    {
+        final EditText et = new EditText(pContext);
+
+        final AlertDialog.Builder alt_bld = new AlertDialog.Builder(pContext,R.style.MyAlertDialogStyle);
+
+        alt_bld.setTitle("포인트 입력")
+                .setMessage("사용할 포인트를 입력하세요")
+                .setIcon(R.drawable.location)
+                .setCancelable(false)
+                .setView(et)
+                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        String value = et.getText().toString();
+                        //user_name.setText(value);
+                        try {
+                            int mPoint = Integer.parseInt(voLoginItem.MY_POINT);
+                            int input_point = Integer.parseInt(value);
+
+                            if (input_point < mPoint) {
+                                if (input_point >= total_amt) {
+                                    use_my_point = input_point - total_amt;
+                                } else {
+                                    use_my_point = input_point;
+                                }
+                                my_point.setText("0원 보유");
+                                use_point.setText(String.valueOf(use_my_point) + "원");
+                                total_amt -= use_my_point;
+                                mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결재하기");
+                            } else {
+                                Toast.makeText(PaymentActivity.this, "포인트를 초과 사용하였습니다.", Toast.LENGTH_LONG).show();
+                            }
+                        } catch (Exception e) {
+                            Toast.makeText(PaymentActivity.this, "다시 입력해주세요", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }).setNegativeButton("아니오",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // 아니오 클릭. dialog 닫기.
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = alt_bld.create();
+        alert.show();
     }
 
     private void reserveSelect()

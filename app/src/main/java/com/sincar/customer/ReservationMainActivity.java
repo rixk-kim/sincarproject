@@ -326,6 +326,9 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
 
         if (requestCode == CAR_MANAGE_REQ_CODE) {
             if (resultCode == RESULT_OK) {
+                findViewById(R.id.car_register_layout).setVisibility(View.GONE);
+                findViewById(R.id.car_modify_layout).setVisibility(View.VISIBLE);
+                findViewById(R.id.btnCarModify).setOnClickListener(this);
 
                 if(!TextUtils.isEmpty(data.getStringExtra("reserve_companyname")))
                 {
@@ -336,8 +339,7 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
                 {
                     reserve_carname = data.getStringExtra("reserve_carname");
                 }
-
-                car_name_str.setText(data.getStringExtra("reserve_carname" + " " + reserve_carname));
+                car_name_str.setText(reserve_companyname + " " + reserve_carname);
 
                 if(!TextUtils.isEmpty(data.getStringExtra("reserve_carnumber")))
                 {

@@ -35,12 +35,15 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
     private int prevTimePosition = -1;
 
     private String reserveTime;
+    private String reserveStatus;
+    private Context arContext;
 
-    public AgentRecyclerViewAdapter(List<AgentContent.AgentItem> items, OnAgentListInteractionListener listener) {
+    public AgentRecyclerViewAdapter(List<AgentContent.AgentItem> items, OnAgentListInteractionListener listener, Context context) {
         mValues = items;
         if (listener != null && listener instanceof OnAgentListInteractionListener) {
             mListener = listener;
         }
+        this.arContext = context;
     }
 
     @Override
@@ -94,7 +97,7 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
 
             recyclerView.setLayoutManager(new GridLayoutManager(context, timeSpanCount));
 //            recyclerView.setAdapter(new TimeRecyclerViewAdapter(position, ITEMS, this));
-            recyclerView.setAdapter(new TimeRecyclerViewAdapter(position, holder.mItem.reserve_info, this));
+            recyclerView.setAdapter(new TimeRecyclerViewAdapter(position, holder.mItem.reserve_info, this, arContext));
         }
     }
 
@@ -122,7 +125,7 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
         prevTimePosition = timeItem.position;
 
         reserveTime = mValues.get(timeItem.agentPosition).reserve_info.get(timeItem.position).reservation_time; //예약시간
-
+        reserveStatus = mValues.get(timeItem.agentPosition).reserve_info.get(timeItem.position).reservation_status; //예약여부
         Log.d("포지션", "prevAgentPosition = " + prevAgentPosition);
         Log.d("포지션", "prevTimePosition = " + prevTimePosition);
 
@@ -141,6 +144,11 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
     public String getTimePosition()
     {
         return reserveTime;
+    }
+
+    public String getStatusPosition()
+    {
+        return reserveStatus;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

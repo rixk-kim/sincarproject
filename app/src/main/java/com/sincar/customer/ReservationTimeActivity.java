@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
@@ -153,7 +154,7 @@ public class ReservationTimeActivity extends AppCompatActivity
             RecyclerView recyclerView = (RecyclerView) view;
 
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            mAgentRecyclerViewAdapter = new AgentRecyclerViewAdapter(AgentContent.ITEMS, this);
+            mAgentRecyclerViewAdapter = new AgentRecyclerViewAdapter(AgentContent.ITEMS, this, reContext);
             recyclerView.setAdapter(mAgentRecyclerViewAdapter);
         }
     }
@@ -267,7 +268,7 @@ public class ReservationTimeActivity extends AppCompatActivity
                 RecyclerView recyclerView = (RecyclerView) view;
 
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
-                mAgentRecyclerViewAdapter = new AgentRecyclerViewAdapter(AgentContent.ITEMS, this);
+                mAgentRecyclerViewAdapter = new AgentRecyclerViewAdapter(AgentContent.ITEMS, this, reContext);
                 recyclerView.setAdapter(mAgentRecyclerViewAdapter);
             }
         }else{
@@ -291,21 +292,25 @@ public class ReservationTimeActivity extends AppCompatActivity
         Log.d("시간예약", "대리점주 id = " + mAgentRecyclerViewAdapter.getAgentPosition());
         Log.d("시간예약", "대리점주 시간1 = " + mAgentRecyclerViewAdapter.getTimePosition());
         //agentItem.id => seq
-        Log.d("시간예약", "대리점주 시간2 = " + agentItem.reserve_info.get(mAgentRecyclerViewAdapter.getAgentPosition()).reservation_time);
+        Log.d("시간예약", "대리점주 시간2 = " +  mAgentRecyclerViewAdapter.getStatusPosition());
 
-        // 예약시간 설정 하고 예약 메인 화면으로 이동에 필요한 데이타 전송필요(Bundle)
-        Intent intent = new Intent(this, ReservationMainActivity.class);
+        if ("Y".equals(mAgentRecyclerViewAdapter.getStatusPosition())) {
+            // 예약시간 설정 하고 예약 메인 화면으로 이동에 필요한 데이타 전송필요(Bundle)
+            Intent intent = new Intent(this, ReservationMainActivity.class);
 
-        Bundle bundle = new Bundle();
-        bundle.putString("reserve_address", reserve_address);   //주소
-        bundle.putString("reserve_year", reserve_year);         //년
-        bundle.putString("reserve_month", reserve_month);       //월
-        bundle.putString("reserve_day", reserve_day);           //일
-        bundle.putString("agent_seq", String.valueOf(agentItem.id));
-        bundle.putString("agent_company", String.valueOf(agentItem.branch_area));    //예약 대리점주 지역
-        bundle.putString("agent_time", mAgentRecyclerViewAdapter.getTimePosition());    // 예약시간
-        intent.putExtras(bundle);
-        startActivity(intent);
-        //finish();
+            Bundle bundle = new Bundle();
+            bundle.putString("reserve_address", reserve_address);   //주소
+            bundle.putString("reserve_year", reserve_year);         //년
+            bundle.putString("reserve_month", reserve_month);       //월
+            bundle.putString("reserve_day", reserve_day);           //일
+            bundle.putString("agent_seq", String.valueOf(agentItem.id));
+            bundle.putString("agent_company", String.valueOf(agentItem.branch_area));    //예약 대리점주 지역
+            bundle.putString("agent_time", mAgentRecyclerViewAdapter.getTimePosition());    // 예약시간
+            intent.putExtras(bundle);
+            startActivity(intent);
+            //finish();
+        }else{
+            Toast.makeText(this, "예약 완료된 시간입니다. 다른 시간을 선택해주세요", Toast.LENGTH_SHORT).show();
+        }
     }
 }
