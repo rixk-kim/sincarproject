@@ -289,8 +289,9 @@ public class ReservationTimeActivity extends AppCompatActivity
     @Override
     public void onAgentListInteraction(AgentItem agentItem) {
         Log.d("시간예약", "대리점주 id = " + mAgentRecyclerViewAdapter.getAgentPosition());
-        Log.d("시간예약", "대리점주 시간 = " + mAgentRecyclerViewAdapter.getTimePosition());
+        Log.d("시간예약", "대리점주 시간1 = " + mAgentRecyclerViewAdapter.getTimePosition());
         //agentItem.id => seq
+        Log.d("시간예약", "대리점주 시간2 = " + agentItem.reserve_info.get(mAgentRecyclerViewAdapter.getAgentPosition()).reservation_time);
 
         // 예약시간 설정 하고 예약 메인 화면으로 이동에 필요한 데이타 전송필요(Bundle)
         Intent intent = new Intent(this, ReservationMainActivity.class);
@@ -300,8 +301,9 @@ public class ReservationTimeActivity extends AppCompatActivity
         bundle.putString("reserve_year", reserve_year);         //년
         bundle.putString("reserve_month", reserve_month);       //월
         bundle.putString("reserve_day", reserve_day);           //일
-        bundle.putString("agent_seq", String.valueOf(agentItem.id));                                    //예약 대리점주 seq
-        bundle.putString("agent_time", String.valueOf(mAgentRecyclerViewAdapter.getTimePosition()));    // 예약시간
+        bundle.putString("agent_seq", String.valueOf(agentItem.id));
+        bundle.putString("agent_company", String.valueOf(agentItem.branch_area));    //예약 대리점주 지역
+        bundle.putString("agent_time", mAgentRecyclerViewAdapter.getTimePosition());    // 예약시간
         intent.putExtras(bundle);
         startActivity(intent);
         //finish();

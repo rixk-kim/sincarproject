@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -23,6 +24,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.sincar.customer.util.GPSInfo;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -49,7 +53,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public final static int MAP_REQ_CODE = 1003;
 
-    private TextView currentTextView;
+    private TextView currentTextView, reserve_date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +123,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         findViewById(R.id.btnNext).setOnClickListener(this);
 
         currentTextView = findViewById(R.id.current_address);
+        reserve_date = findViewById(R.id.reserve_date);
+
+        //현재 날짜 요일 구하기
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat weekdayFormat = new SimpleDateFormat("EE", Locale.getDefault());
+        SimpleDateFormat dayFormat = new SimpleDateFormat("dd", Locale.getDefault());
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MM", Locale.getDefault());
+        SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.getDefault());
+
+        String weekDay = weekdayFormat.format(currentTime);
+        String year = yearFormat.format(currentTime);
+        String month = monthFormat.format(currentTime);
+        String day = dayFormat.format(currentTime);
+
+        reserve_date.setText(month + "/ " + day + " (" + weekDay + ")"); //9/15 (화)
 
         getAddress();
     }

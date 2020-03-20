@@ -34,6 +34,8 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
     private int prevAgentPosition = -1;
     private int prevTimePosition = -1;
 
+    private String reserveTime;
+
     public AgentRecyclerViewAdapter(List<AgentContent.AgentItem> items, OnAgentListInteractionListener listener) {
         mValues = items;
         if (listener != null && listener instanceof OnAgentListInteractionListener) {
@@ -119,6 +121,8 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
         prevAgentPosition = timeItem.agentPosition;
         prevTimePosition = timeItem.position;
 
+        reserveTime = mValues.get(timeItem.agentPosition).reserve_info.get(timeItem.position).reservation_time; //예약시간
+
         Log.d("포지션", "prevAgentPosition = " + prevAgentPosition);
         Log.d("포지션", "prevTimePosition = " + prevTimePosition);
 
@@ -134,9 +138,9 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
         return prevAgentPosition;
     }
 
-    public int getTimePosition()
+    public String getTimePosition()
     {
-        return prevTimePosition;
+        return reserveTime;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

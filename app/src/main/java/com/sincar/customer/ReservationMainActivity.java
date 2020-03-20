@@ -43,15 +43,23 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
     public final static int CAR_REGISTER_REQ_CODE = 1005;
     private TextView car_name_str;
     private TextView car_number_str;
+    private TextView agent_branch;
+    private TextView agent_reserve_date;
+    private String reserve_companyname;
+    private String reserve_carname;
+    private String reserve_carnumber;
 
     private String reserve_address; //예약주소
     private String reserve_year;    //예약년도
     private String reserve_month;   //예약월
     private String reserve_day;     //예약일
     private String agent_seq;       //예약한 대리점주 SEQ
+    private String agent_company;   //대리점명
     private String agent_time;      //예약한 대리점주 시간
     private String wash_area;       //세차장소
     private String car_wash_pay;    //기본세차비용
+
+    private String use_coupone_seq; //사용쿠폰 SEQ
 
     private RadioGroup rRadioGroup;
 
@@ -66,18 +74,32 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
         reserve_month       = intent.getExtras().getString("reserve_month");    /*String형*/
         reserve_day         = intent.getExtras().getString("reserve_day");      /*String형*/
         agent_seq           = intent.getExtras().getString("agent_seq");        /*String형*/
+        agent_company       = intent.getExtras().getString("agent_company");    /*String형*/
         agent_time          = intent.getExtras().getString("agent_time");       /*String형*/
 
         // 화면 초기화
-        init();
+        try {
+            init();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * 화면 초기화
      */
-    private void init() {
+    private void init() throws Exception {
         car_name_str = (TextView) findViewById(R.id.car_name_str);
         car_number_str = (TextView) findViewById(R.id.car_number_str);
+        agent_branch   = (TextView) findViewById(R.id.branch_name);
+        agent_branch.setText(agent_company);    //지점명
+
+        if(reserve_month.length() < 2) reserve_month = "0" + reserve_month;
+
+        String dayofday = Util.getDateDay(reserve_year+reserve_month+reserve_day);
+
+        agent_reserve_date = (TextView) findViewById(R.id.reserve_date);
+        agent_reserve_date.setText(reserve_month + "/" + reserve_day + "(" + dayofday + ")" + " " + agent_time);   //예약 날짜
 
         findViewById(R.id.btnPrev).setOnClickListener(this);
         //예약하기
@@ -103,7 +125,7 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
         // TODO - 서버 연동 후 PointContent.ITEMS에 리스 항목 추가 작업
         // Set the adapter - 포인트 리스트 설정
         String serverData = "{\"add_service\": [{\"CAR_SEQ\":\"\",\"CAR_COMPANY\":\"\",\"CAR_MODEL\":\"\",\"CAR_NUMBER\":\"\",\"CAR_PAY\":\"\"}],\n" +
-                "\"DATA\":[{\"SERVICE_NAME\":\"가니쉬 코팅\",\"SERVICE_DETAIL\":\"가니쉬란 어쩌구 저쩌구\",\"USE_PAY\":\"6,000\"},{\"SERVICE_NAME\":\"에머랄드 코팅\",\"SERVICE_DETAIL\":\"가니쉬란 어쩌구 저쩌구\",\"USE_PAY\":\"5,000\"},{\"SERVICE_NAME\":\"엔진룸 세척\",\"SERVICE_DETAIL\":\"가니쉬란 어쩌구 저쩌구\",\"USE_PAY\":\"6,000\"}]}";
+                "\"DATA\":[{\"SERVICE_NAME\":\"가니쉬 코팅\",\"SERVICE_DETAIL\":\"가니쉬란 어쩌구 저쩌구\",\"USE_PAY\":\"6000\"},{\"SERVICE_NAME\":\"에머랄드 코팅\",\"SERVICE_DETAIL\":\"가니쉬란 어쩌구 저쩌구\",\"USE_PAY\":\"5000\"},{\"SERVICE_NAME\":\"엔진룸 세척\",\"SERVICE_DETAIL\":\"가니쉬란 어쩌구 저쩌구\",\"USE_PAY\":\"6000\"}]}";
 
         Gson gSon = new Gson();
         optionResult = gSon.fromJson(serverData, OptionResult.class);
@@ -266,25 +288,34 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
                 break;
 
             case R.id.reserve_btn:
-                //결재 종류 선택 팝업
-//                reserveSelect();
-                intent = new Intent(this, PaymentActivity.class);
 
-                Bundle bundle = new Bundle();
-                bundle.putString("reserve_address", reserve_address);   //주소
-                bundle.putString("reserve_year", reserve_year);         //년
-                bundle.putString("reserve_month", reserve_month);       //월
-                bundle.putString("reserve_day", reserve_day);           //일
-                bundle.putString("agent_seq", agent_seq);               //예약 대리점주 seq
-                bundle.putString("agent_time", agent_time);             //예약시간
-                bundle.putString("wash_area", wash_area);               //세차장소
-                bundle.putString("wash_area", wash_area);               //제조사 + 차량
-                bundle.putString("wash_area", wash_area);               //차번호
-                bundle.putString("car_wash_pay", car_wash_pay);         //차량 기본 세차 금액
-                //부가서비스
-                intent.putExtras(bundle);
+                if(TextUtils.isEmpty(car_name_str.getText().toString().trim()) || TextUtils.isEmpty(car_number_str.getText().toString().trim()))
+                {
+                    Toast.makeText(ReservationMainActivity.this, "등록된 차량이 없습니다.", Toast.LENGTH_SHORT).show();
+                }else {
 
-                startActivity(intent);
+                    intent = new Intent(this, PaymentActivity.class);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("reserve_address", reserve_address);   //주소
+                    bundle.putString("reserve_year", reserve_year);         //년
+                    bundle.putString("reserve_month", reserve_month);       //월
+                    bundle.putString("reserve_day", reserve_day);           //일
+                    bundle.putString("agent_seq", agent_seq);               //예약 대리점주 seq
+                    bundle.putString("agent_company", agent_company);       //예약 대리점주
+                    bundle.putString("agent_time", agent_time);             //예약시간
+                    if(TextUtils.isEmpty(wash_area)) wash_area = "실내";
+                    bundle.putString("wash_area", wash_area);               //세차장소
+
+                    bundle.putString("car_company", reserve_companyname);   //제조사
+                    bundle.putString("car_name", reserve_carname);          //차량 이름
+                    bundle.putString("car_number", reserve_carnumber);      //차번호
+                    bundle.putString("car_wash_pay", car_wash_pay);         //차량 기본 세차 금액
+                    //부가서비스
+                    intent.putExtras(bundle);
+
+                    startActivity(intent);
+                }
                 break;
         }
     }
@@ -295,14 +326,23 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
 
         if (requestCode == CAR_MANAGE_REQ_CODE) {
             if (resultCode == RESULT_OK) {
+
+                if(!TextUtils.isEmpty(data.getStringExtra("reserve_companyname")))
+                {
+                    reserve_companyname = data.getStringExtra("reserve_companyname");
+                }
+
                 if(!TextUtils.isEmpty(data.getStringExtra("reserve_carname")))
                 {
-                    car_name_str.setText(data.getStringExtra("reserve_carname"));
+                    reserve_carname = data.getStringExtra("reserve_carname");
                 }
+
+                car_name_str.setText(data.getStringExtra("reserve_carname" + " " + reserve_carname));
 
                 if(!TextUtils.isEmpty(data.getStringExtra("reserve_carnumber")))
                 {
-                    car_number_str.setText(data.getStringExtra("reserve_carnumber"));
+                    reserve_carnumber = data.getStringExtra("reserve_carnumber");
+                    car_number_str.setText(reserve_carnumber);
                 }
 
                 if(!TextUtils.isEmpty(data.getStringExtra("car_wash_pay")))
@@ -322,15 +362,21 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
                 findViewById(R.id.car_modify_layout).setVisibility(View.VISIBLE);
                 findViewById(R.id.btnCarModify).setOnClickListener(this);
 
+                if(!TextUtils.isEmpty(data.getStringExtra("reserve_companyname")))
+                {
+                    reserve_companyname = data.getStringExtra("reserve_companyname");
+                }
 
                 if(!TextUtils.isEmpty(data.getStringExtra("reserve_carname")))
                 {
-                    car_name_str.setText(data.getStringExtra("reserve_carname"));
+                    reserve_carname = data.getStringExtra("reserve_carname");
                 }
+                car_name_str.setText(reserve_companyname + " " + reserve_carname);
 
                 if(!TextUtils.isEmpty(data.getStringExtra("reserve_carnumber")))
                 {
-                    car_number_str.setText(data.getStringExtra("reserve_carnumber"));
+                    reserve_carnumber = data.getStringExtra("reserve_carnumber");
+                    car_number_str.setText(reserve_carnumber);
                 }
 
                 if(!TextUtils.isEmpty(data.getStringExtra("car_wash_pay")))

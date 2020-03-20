@@ -291,11 +291,18 @@
 
                 <!-- TODO : 포인트 사용 금액 EditBox style change -->
                 <EditText
+                    android:id="@+id/use_point"
                     android:layout_width="120dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="18dp"
+                    android:paddingRight="5dp"
+                    android:gravity="right|center_vertical|center_horizontal"
                     android:background="@drawable/border"
+                    android:inputType="number"
+                    android:digits="0123456789"
                     android:hint="@string/amount_default"
+                    android:textSize="17sp"
+                    android:textColor="@color/default_text_color"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/discount_point" />
 

@@ -113,7 +113,8 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                 {
                     //reserve_carname//car_select_colume1 : 회사이름
                     intent = new Intent(this, ReservationMainActivity.class);
-                    intent.putExtra("reserve_carname", car_select_colume1.getText().toString() + " " + car_select_colume2.getText().toString());
+                    intent.putExtra("reserve_companyname", car_select_colume1.getText().toString());
+                    intent.putExtra("reserve_carname", car_select_colume2.getText().toString());
                     intent.putExtra("reserve_carnumber", car_select_colume3.getText().toString());
                     intent.putExtra("car_wash_pay", "50000");
                     setResult(RESULT_OK, intent);
@@ -139,7 +140,8 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
         {
             //reserve_carname//car_select_colume1 : 회사이름
             intent = new Intent(this, ReservationMainActivity.class);
-            intent.putExtra("reserve_carname", car_select_colume1.getText().toString() + " " + car_select_colume2.getText().toString());
+            intent.putExtra("reserve_companyname", car_select_colume1.getText().toString());
+            intent.putExtra("reserve_carname", car_select_colume2.getText().toString());
             intent.putExtra("reserve_carnumber", car_select_colume3.getText().toString());
             intent.putExtra("car_wash_pay", "50000");
             setResult(RESULT_OK, intent);
@@ -249,7 +251,8 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                 if ("reserveMain".equals(car_reg_path)) {
                     //reserve_carname//car_select_colume1 : 회사이름
                     intent = new Intent(cContext, ReservationMainActivity.class);
-                    intent.putExtra("reserve_carname", car_select_colume1.getText().toString() + " " + car_select_colume2.getText().toString());
+                    intent.putExtra("reserve_companyname", car_select_colume1.getText().toString());
+                    intent.putExtra("reserve_carname", car_select_colume2.getText().toString());
                     intent.putExtra("reserve_carnumber", car_select_colume3.getText().toString());
                     intent.putExtra("car_wash_pay", voCarRegisterItem.CAR_PAY);
                     setResult(RESULT_OK, intent);

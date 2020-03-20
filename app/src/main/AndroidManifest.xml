@@ -292,7 +292,14 @@
             android:name=".PayApproveActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            tools:ignore="LockedOrientationActivity" /> <!-- 나이스 결제 시작 -->
+            tools:ignore="LockedOrientationActivity" /> <!-- 결제 시작 -->
+
+        <activity
+            android:name=".PayApproveResult"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" /> <!-- 결제 완료 -->
+
 
         <activity android:name=".TemplateActivity" /> <!-- template activity -->
         <provider

@@ -134,7 +134,7 @@
     <!-- 예약 메인 화면 시작 -->
     <string name="reservation_agent_dummy">관악구 1호점</string>
     <string name="reservation_date_dummy">9/15(화)</string>
-    <string name="reservation_time_dummy">9:00</string>
+    <string name="reservation_time_dummy"></string>
 
     <string name="car_info_title">차량 정보</string>
     <string name="register_car_not_exist">등록된 차량 없음</string>

@@ -38,7 +38,7 @@ public class CouponeContent {
     }
 
     private static CouponeItem createDummyItem(int position) {
-        return new CouponeItem(position, "1","2000원", "추천인 할인쿠폰", "~2020.12.31", "회원 가입을 축하해요!", "N", false);
+        return new CouponeItem(position, "1","2000", "추천인 할인쿠폰", "~2020.12.31", "회원 가입을 축하해요!", "N", false);
     }
 
 //    private static PointItem makeDetails(int position) {

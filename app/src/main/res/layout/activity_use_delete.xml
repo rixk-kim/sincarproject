@@ -30,6 +30,7 @@
 
     <!-- 내용 -->
     <LinearLayout
+        android:id="@+id/use_delete_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/default_background_type_2"
@@ -134,31 +135,35 @@
                     android:letterSpacing="0.05"/>
             </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="108dp"
-            android:gravity="center|center_horizontal|center_vertical">
-
-            <Button
-                android:id="@+id/reserve_delete_btn"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:layout_gravity="center"
-                android:background="@drawable/default_button_type_1"
-                android:gravity="center|center_horizontal|center_vertical"
-                android:shadowColor="#C4C4C4"
-                android:shadowDx="0"
-                android:shadowDy="0"
-                android:shadowRadius="7"
-                android:text="@string/btn_reserve_cancel"
-                android:textColor="#FFFFFF"
-                android:textSize="15sp"/>
-        </LinearLayout>
-
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:gravity="center|center_horizontal|center_vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/use_delete_layout"
+        tools:ignore="MissingConstraints">
+
+
+        <Button
+            android:id="@+id/reserve_delete_btn"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_gravity="center"
+            android:background="@drawable/default_button_type_1"
+            android:gravity="center|center_horizontal|center_vertical"
+            android:shadowColor="#C4C4C4"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="7"
+            android:text="@string/btn_reserve_cancel"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

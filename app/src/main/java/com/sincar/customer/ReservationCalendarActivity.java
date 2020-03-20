@@ -90,7 +90,7 @@ public class ReservationCalendarActivity extends AppCompatActivity implements Vi
             public void onSelectedDayChange(CalendarView view, int year,
                                             int month, int dayOfMonth) {
                 reserve_year    = String.valueOf(year);
-                reserve_month   = String.valueOf(month);
+                reserve_month   = String.valueOf(month + 1);
                 reserve_day     = String.valueOf(dayOfMonth);
 
                 Toast.makeText(calContext, "" + year + "/" +

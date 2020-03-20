@@ -15,10 +15,12 @@ import com.sincar.customer.adapter.content.OptionContent.OptionItem;
 
 import java.util.List;
 
+import static com.sincar.customer.util.Util.setAddMoneyDot;
+
 public class OptionServiceRecyclerViewAdapter extends RecyclerView.Adapter<OptionServiceRecyclerViewAdapter.ViewHolder> {
 
     private final List<OptionItem> mValues;
-
+    private int tmpPosition = -1;
     public OptionServiceRecyclerViewAdapter(List<OptionItem> items) {
         mValues = items;
     }
@@ -31,17 +33,21 @@ public class OptionServiceRecyclerViewAdapter extends RecyclerView.Adapter<Optio
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
 
         holder.mChecked.setChecked(mValues.get(position).checked);
         holder.mOptionName.setText(mValues.get(position).option_name);
-        holder.mOptionPay.setText(mValues.get(position).option_pay);
-
+        holder.mOptionPay.setText(setAddMoneyDot(mValues.get(position).option_pay) + "원");
+        tmpPosition = position;
         holder.mChecked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // TODO - 체크박스 이벤트 핸들러 추가
+                //mValues.get(tmpPosition).checked  = isChecked;
+                holder.mItem.checked = isChecked;
+                System.out.println("[spirit] checked => " + isChecked);
+
             }
         });
         holder.mInfo.setOnClickListener(new View.OnClickListener() {

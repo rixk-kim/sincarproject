@@ -161,6 +161,7 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
                     finish();
                 }else if("reserve".equals(path)){
                     intent = new Intent(this, ReservationMainActivity.class);
+                    intent.putExtra("reserve_companyname", mCarContentRecyclerViewAdapter.getItemCompanyName());
                     intent.putExtra("reserve_carname", mCarContentRecyclerViewAdapter.getItemcarName());
                     intent.putExtra("reserve_carnumber", mCarContentRecyclerViewAdapter.getItemcarNumber());
                     intent.putExtra("car_wash_pay", mCarContentRecyclerViewAdapter.getItemcarPay());
@@ -194,6 +195,7 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
             startActivity(intent);
         }else if("reserve".equals(path)){
             intent = new Intent(this, ReservationMainActivity.class);
+            intent.putExtra("reserve_companyname", mCarContentRecyclerViewAdapter.getItemCompanyName());
             intent.putExtra("reserve_carname", mCarContentRecyclerViewAdapter.getItemcarName());
             intent.putExtra("reserve_carnumber", mCarContentRecyclerViewAdapter.getItemcarNumber());
             intent.putExtra("car_wash_pay", mCarContentRecyclerViewAdapter.getItemcarPay());

@@ -24,6 +24,7 @@ public class CarContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
     private final List<CarContent.CarItem> mValues;
     private Context mContext;
     private LinearLayout mLayout;
+    private String carTitle;
     private String carName;
     private String carNumber;
     private String carPay;
@@ -120,6 +121,7 @@ public class CarContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
 
         mValues.get(item.id-1).car_selected = true;
 
+        carTitle    = mValues.get(item.id-1).car_title;
         carName     = mValues.get(item.id-1).car_name;
         carNumber   = mValues.get(item.id-1).car_number;
         carPay      = mValues.get(item.id-1).car_pay;
@@ -131,6 +133,13 @@ public class CarContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
 //        }
     }
 
+    //차 제조사
+    public String getItemCompanyName()
+    {
+        return carTitle;
+    }
+
+    //차이름
     public String getItemcarName()
     {
         return carName;

@@ -17,6 +17,8 @@ import com.sincar.customer.adapter.content.TimeContent.TimeItem;
 
 import java.util.List;
 
+import static com.sincar.customer.util.Util.setAddMoneyDot;
+
 public class ChargeContentRecyclerViewAdapter extends RecyclerView.Adapter<ChargeContentRecyclerViewAdapter.ViewHolder>  {
 
     private final List<ChargeItem> mValues;
@@ -37,7 +39,7 @@ public class ChargeContentRecyclerViewAdapter extends RecyclerView.Adapter<Charg
         holder.mItem = mValues.get(position);
 
         holder.mChargeTitle.setText(mValues.get(position).chargeTitle);
-        holder.mChargeAmount.setText(mValues.get(position).chargeAmount);
+        holder.mChargeAmount.setText(setAddMoneyDot(mValues.get(position).chargeAmount) + "원");
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

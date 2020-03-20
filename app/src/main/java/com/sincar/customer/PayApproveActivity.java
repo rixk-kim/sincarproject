@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -55,6 +56,7 @@ import static com.sincar.customer.HWApplication.voLoginItem;
 import static com.sincar.customer.util.Utility.isPackageInstalled;
 
 public class PayApproveActivity extends Activity {
+    private Context pContext;
     final String MERCHANT_URL = "https://sincar.co.kr/api/payment/index.asp";
 
     WebView mWeb;
@@ -70,6 +72,7 @@ public class PayApproveActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pay_approve);
+        pContext = this;
 
         Intent intent = getIntent();
         String urlString = null;
@@ -559,6 +562,15 @@ public class PayApproveActivity extends Activity {
         public void payAndroid(String reponseData, String message) {
             Toast.makeText(getApplicationContext(), "웹에서 클릭했어요 => " + reponseData, Toast.LENGTH_SHORT).show();
             System.out.println("[spirit] 웹에서 호출 reponseData =>" + reponseData);
+
+            if("success".equals(reponseData))
+            {
+                //완료 페이지 이동
+                //TODO - 데이타 서버 전송 후 예약완료 페이지로 이동. 포인트 사용했을 시 갱신해주기
+                Intent intent = new Intent(pContext, PayApproveResult.class);
+                startActivity(intent);
+                finish();
+            }
         }
     }
 }
