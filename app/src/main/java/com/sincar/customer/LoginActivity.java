@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.sincar.customer.HWApplication.voAdvertiseItem;
+import static com.sincar.customer.HWApplication.voCompanyListDataItem;
+import static com.sincar.customer.HWApplication.voCarListDataItem;
 import static com.sincar.customer.HWApplication.voLoginItem;
 import static com.sincar.customer.HWApplication.voLoginDataItem;
 import static com.sincar.customer.HWApplication.voLoginAdvertiseItem;
@@ -224,7 +226,7 @@ it =>  {"login": [{"REGISTER":"1","CAUSE":"비밀번호 오류","MEMBER_NO":"123
 "DATA":[{"FRI_NAME":"김민정","USE_SERVICE":"스팀세차","SAVE_DATE":"20.02.26","FRI_POINT":"100"},{"FRI_NAME":"이하영","USE_SERVICE":"스팀세차","SAVE_DATE":"20.02.28","FRI_POINT":"120"}],
 "advertise":[{"AD_IMAGE_URL":"http://~~"},{"AD_IMAGE_URL":"http://~~"},{"AD_IMAGE_URL"""http://~~"}]}
 */
-        it = "{login: [{\"REGISTER\":\"1\",\"CAUSE\":\"비밀번호 오류\",\"MEMBER_NO\":\"12345\",\"VERSION\":\"1.0.1\",\"APK_URL\":\"http://sincar.co.kr/apk/manager_1.0.1.apk\",\"MEMBER_NAME\":\"신차로\",\"MEMBER_PHONE\":\"01012345678\",\"MEMBER_RECOM_CODE\":\"FCF816\",\"REGISTER_RECOM_CODE\":\"ABCDEF\",\"PROFILE_DOWN_URL\":\"http://~~\",\"LICENSE_DOWN_URL\":\"http://~~\",\"AD_NUM\":\"3\",\"MY_POINT\":\"35430\",\"INVITE_NUM\":\"7\",\"INVITE_FRI_NUM\":\"7\",\"ACCUM_POINT\":\"123456\"}],\"DATA\":[{\"FRI_NAME\":\"김민정\",\"USE_SERVICE\":\"스팀세차\",\"SAVE_DATE\":\"20.02.26\",\"FRI_POINT\":\"100\"},{\"FRI_NAME\":\"이하영\",\"USE_SERVICE\":\"스팀세차\",\"SAVE_DATE\":\"20.02.28\",\"FRI_POINT\":\"120\"}],\"advertise\":[{\"AD_IMAGE_URL\":\"https://assets.materialup.com/uploads/dcc07ea4-845a-463b-b5f0-4696574da5ed/preview.jpg\",\"AD_LINK_URL\":\"http://www.naver.com\"},{\"AD_IMAGE_URL\":\"https://assets.materialup.com/uploads/20ded50d-cc85-4e72-9ce3-452671cf7a6d/preview.jpg\",\"AD_LINK_URL\":\"http://www.daum.net\"},{\"AD_IMAGE_URL\":\"https://assets.materialup.com/uploads/76d63bbc-54a1-450a-a462-d90056be881b/preview.png\",\"AD_LINK_URL\":\"http://www.nate.com\"}]}";
+        it = "{login: [{\"REGISTER\":\"1\",\"CAUSE\":\"비밀번호 오류\",\"MEMBER_NO\":\"12345\",\"VERSION\":\"1.0.1\",\"APK_URL\":\"http://sincar.co.kr/apk/manager_1.0.1.apk\",\"MEMBER_NAME\":\"신차로\",\"MEMBER_PHONE\":\"01012345678\",\"MEMBER_RECOM_CODE\":\"FCF816\",\"REGISTER_RECOM_CODE\":\"ABCDEF\",\"PROFILE_DOWN_URL\":\"http://~~\",\"LICENSE_DOWN_URL\":\"http://~~\",\"AD_NUM\":\"3\",\"MY_POINT\":\"35430\",\"INVITE_NUM\":\"7\",\"INVITE_FRI_NUM\":\"7\",\"ACCUM_POINT\":\"123456\"}],\"DATA\":[{\"FRI_NAME\":\"김민정\",\"USE_SERVICE\":\"스팀세차\",\"SAVE_DATE\":\"20.02.26\",\"FRI_POINT\":\"100\"},{\"FRI_NAME\":\"이하영\",\"USE_SERVICE\":\"스팀세차\",\"SAVE_DATE\":\"20.02.28\",\"FRI_POINT\":\"120\"}],\"advertise\":[{\"AD_IMAGE_URL\":\"https://assets.materialup.com/uploads/dcc07ea4-845a-463b-b5f0-4696574da5ed/preview.jpg\",\"AD_LINK_URL\":\"http://www.naver.com\"},{\"AD_IMAGE_URL\":\"https://assets.materialup.com/uploads/20ded50d-cc85-4e72-9ce3-452671cf7a6d/preview.jpg\",\"AD_LINK_URL\":\"http://www.daum.net\"},{\"AD_IMAGE_URL\":\"https://assets.materialup.com/uploads/76d63bbc-54a1-450a-a462-d90056be881b/preview.png\",\"AD_LINK_URL\":\"http://www.nate.com\"}],\"company_list\":[{\"CAR_COMPANY_CODE\":\"1\",\"CAR_COMPANY\":\"현대\"},{\"CAR_COMPANY_CODE\":\"2\",\"CAR_COMPANY\":\"삼성\"},{\"CAR_COMPANY_CODE\":\"3\",\"CAR_COMPANY\":\"대우\"}],\"car_list\":[{\"CAR_COMPANY_CODE\":\"1\",\"CAR_NAME\":\"아반떼\",\"CAR_CODE\":\"10\",\"CAR_WASH_PAY\":\"50000\"},{\"CAR_COMPANY_CODE\":\"1\",\"CAR_NAME\":\"아반떼\",\"CAR_CODE\":\"10\",\"CAR_WASH_PAY\":\"50000\"},{\"CAR_COMPANY_CODE\":\"1\",\"CAR_NAME\":\"아반떼\",\"CAR_CODE\":\"10\",\"CAR_WASH_PAY\":\"50000\"}]}";
         System.out.println("[spirit] it : "  + it);
         // {login: [
         //      {"REGISTER":"1",
@@ -381,6 +383,11 @@ it =>  {"login": [{"REGISTER":"1","CAUSE":"비밀번호 오류","MEMBER_NO":"123
         {
             Log.d("서버전송", "AD_IMAGE_URL = " + loginResult.advertise.get(j).AD_IMAGE_URL );
         }
+
+        //제조사 리스트
+        voCompanyListDataItem = loginResult.company_list;
+        //차량 리스트
+        voCarListDataItem = loginResult.car_list;
 //        final ArrayList<DataObject> adItem = DataParser.getFromParamtoArray(data, "advertise");
 //
 //        if(adItem.size() > 0) {

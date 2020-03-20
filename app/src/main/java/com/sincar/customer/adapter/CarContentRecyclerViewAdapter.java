@@ -26,6 +26,7 @@ public class CarContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
     private LinearLayout mLayout;
     private String carName;
     private String carNumber;
+    private String carPay;
 
     public CarContentRecyclerViewAdapter(Context context, List<CarContent.CarItem> items) {
         mContext = context;
@@ -121,6 +122,7 @@ public class CarContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
 
         carName     = mValues.get(item.id-1).car_name;
         carNumber   = mValues.get(item.id-1).car_number;
+        carPay      = mValues.get(item.id-1).car_pay;
 //        mValues.get(Integer.parseInt(item.car_seq)).agentPosition = agentPosition;
         notifyDataSetChanged();
 
@@ -137,6 +139,11 @@ public class CarContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
     public String getItemcarNumber()
     {
         return carNumber;
+    }
+
+    public String getItemcarPay()
+    {
+        return carPay;
     }
 
     @Override

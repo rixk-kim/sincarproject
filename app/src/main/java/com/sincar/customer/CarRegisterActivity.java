@@ -3,8 +3,12 @@ package com.sincar.customer;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +20,35 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+import com.sincar.customer.adapter.CarContentRecyclerViewAdapter;
+import com.sincar.customer.adapter.content.CarContent;
+import com.sincar.customer.item.CarRegisterResult;
+import com.sincar.customer.item.CarResult;
+import com.sincar.customer.network.VolleyNetwork;
+import com.sincar.customer.util.Util;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import static com.sincar.customer.HWApplication.carRegisterResult;
+import static com.sincar.customer.HWApplication.carResult;
+import static com.sincar.customer.HWApplication.voCarDataItem;
+import static com.sincar.customer.HWApplication.voCarItem;
+import static com.sincar.customer.HWApplication.voCarListDataItem;
+import static com.sincar.customer.HWApplication.voCarRegisterItem;
+import static com.sincar.customer.HWApplication.voCompanyListDataItem;
+import static com.sincar.customer.HWApplication.voLoginItem;
+import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
+
 public class CarRegisterActivity extends AppCompatActivity implements View.OnClickListener {
     private Context cContext;
     private TextView car_select_colume1;
     private TextView car_select_colume2;
     private EditText car_select_colume3;
+    private String car_wash_pay;
     private String car_reg_path;
 
     @Override
@@ -46,17 +74,9 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
         findViewById(R.id.btnNext2).setOnClickListener(this);           //차량 선택
         findViewById(R.id.car_reg_btn).setOnClickListener(this);        //확인
 
-
-
-        // myinfo_user_name => 이름
-        // user_mobile_number => 휴대폰 번호
-
-        // TODO - 서버 연동하여 이름, 휴대폰 번호 값 가지고 와서 설정해주기
+        // 서버 연동하여 제조사, 모델명, 차량 번호 값 가지고 와서 설정해주기.
         car_select_colume1 = (TextView) findViewById(R.id.car_select_colume1);
-//        car_select_colume1.setText("홍길동");
-//
         car_select_colume2 = (TextView) findViewById(R.id.car_select_colume2);
-//        user_mobile_number.setText("010-1234-5678");
         car_select_colume3 = (EditText) findViewById(R.id.car_select_colume3);
     }
 
@@ -66,7 +86,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
 
         switch (v.getId()) {
             case R.id.car_reg_btnPrev:
-                //  TODO - 내정보
+                //  내정보
                 intent = new Intent(this, CarManageActivity.class);
                 intent.putExtra("path", car_reg_path);
                 startActivity(intent);
@@ -84,7 +104,8 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                 break;
 
             case R.id.car_reg_btn:
-                //  TODO - 차량 등록
+                //  TODO - 차량 등록 후 결과값으로 차량 기본 세차비용 받어오자.
+                //requestCarRegister();
                 Toast.makeText(this, "차량이 등록 되었습니다.", Toast.LENGTH_SHORT).show();
 
                 //  TODO - 차량 등록 후 리스트 이동
@@ -94,6 +115,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                     intent = new Intent(this, ReservationMainActivity.class);
                     intent.putExtra("reserve_carname", car_select_colume1.getText().toString() + " " + car_select_colume2.getText().toString());
                     intent.putExtra("reserve_carnumber", car_select_colume3.getText().toString());
+                    intent.putExtra("car_wash_pay", "50000");
                     setResult(RESULT_OK, intent);
                     //startActivity(intent);
                     finish();
@@ -119,6 +141,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
             intent = new Intent(this, ReservationMainActivity.class);
             intent.putExtra("reserve_carname", car_select_colume1.getText().toString() + " " + car_select_colume2.getText().toString());
             intent.putExtra("reserve_carnumber", car_select_colume3.getText().toString());
+            intent.putExtra("car_wash_pay", "50000");
             setResult(RESULT_OK, intent);
             //startActivity(intent);
             finish();
@@ -130,6 +153,125 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
         }
         finish();
     }
+
+    /**
+     * 차량 서버 등록
+     * MEMBER_NO     : 회원번호
+     * CAR_COMPANY   : 제조사
+     * CAR_MODEL     : 모델명
+     * CAR_NUMBER    : 차량번호
+     */
+    private void requestCarRegister() {
+        if (car_select_colume1 != null || car_select_colume1.getText().toString().trim().length() != 0) {
+            if (car_select_colume1.getText().toString().trim().length() == 0) {
+                showCarErrorAlert("1");
+                return;
+            }
+        }
+
+        if (car_select_colume2 != null || car_select_colume2.getText().toString().trim().length() != 0) {
+            if (car_select_colume2.getText().toString().trim().length() == 0) {
+                showCarErrorAlert("2");
+                return;
+            }
+        }
+
+        if (car_select_colume3 != null || car_select_colume3.getText().toString().trim().length() != 0) {
+            if (car_select_colume3.getText().toString().trim().length() == 0) {
+                showCarErrorAlert("3");
+                return;
+            }
+        }
+
+        HashMap<String, String> postParams = new HashMap<String, String>();
+        postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);             // 회원번호
+        postParams.put("CAR_COMPANY", voLoginItem.MEMBER_PHONE);        // 제조사
+        postParams.put("CAR_MODEL", "1");                               // 모델명
+        postParams.put("CAR_NUMBER", "20");                             // 차량번호
+
+        //프로그래스바 시작
+        Util.showDialog();
+        //사용내역 요청
+        VolleyNetwork.getInstance(this).passwordChangeRequest(LOGIN_REQUEST, postParams, onCarRegisterResponseListener);
+    }
+
+    /**
+     * 에러 팝업
+     * 1~ 2 서버 통신 후 에러 메세지
+     * 3 ~5 내부 유효성 검사 메세지
+     * @param resultCode : 내용 코드
+     */
+    private void showCarErrorAlert(String resultCode) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(cContext);
+        // 메세지
+        String errorMsg = "";
+        if (resultCode.equals("1")) {
+            errorMsg = getString(R.string.input_company_name_msg);
+        } else if (resultCode.equals("2")) {
+            errorMsg = getString(R.string.input_car_name_msg);
+        } else if (resultCode.equals("3")) {
+            errorMsg = getString(R.string.input_car_number_msg);
+        }
+
+        builder.setTitle(getString(R.string.notice));
+        builder.setMessage(errorMsg);
+        builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // TODO Auto-generated method stub
+                dialog.dismiss();
+            }
+        }).show();
+    }
+
+    VolleyNetwork.OnResponseListener onCarRegisterResponseListener = new VolleyNetwork.OnResponseListener() {
+        @Override
+        public void onResponseSuccessListener(String serverData) {
+            /*
+                 {"car_register": [{"PROFILE_RESULT":"0","CAUSE":"","CAR_PAY":"55000"}]}
+             */
+
+            Gson gSon = new Gson();
+            carRegisterResult = gSon.fromJson(serverData, CarRegisterResult.class);
+
+            voCarRegisterItem.REGISTERRESULT    = carRegisterResult.car_register.get(0).REGISTERRESULT;
+            voCarRegisterItem.CAUSE             = carRegisterResult.car_register.get(0).CAUSE;
+            voCarRegisterItem.CAR_PAY           = carRegisterResult.car_register.get(0).CAR_PAY;
+
+            //프로그래스바 종료
+            Util.dismiss();
+
+
+
+            if("0".equals(voCarRegisterItem.REGISTERRESULT)) {
+                Toast.makeText(cContext, "차량이 등록 되었습니다.", Toast.LENGTH_SHORT).show();
+                Intent intent;
+                if ("reserveMain".equals(car_reg_path)) {
+                    //reserve_carname//car_select_colume1 : 회사이름
+                    intent = new Intent(cContext, ReservationMainActivity.class);
+                    intent.putExtra("reserve_carname", car_select_colume1.getText().toString() + " " + car_select_colume2.getText().toString());
+                    intent.putExtra("reserve_carnumber", car_select_colume3.getText().toString());
+                    intent.putExtra("car_wash_pay", voCarRegisterItem.CAR_PAY);
+                    setResult(RESULT_OK, intent);
+                    //startActivity(intent);
+                    finish();
+                } else {
+                    intent = new Intent(cContext, CarManageActivity.class);
+                    intent.putExtra("path", car_reg_path);
+                    startActivity(intent);
+                }
+                finish();
+            }else{
+                Toast.makeText(cContext, "차량 등록에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+
+        @Override
+        public void onResponseFailListener(VolleyError it) {
+            Toast.makeText(cContext, "차량 등록에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+        }
+    };
 
     /**
      * 제조사 선택 Dialog
@@ -158,7 +300,23 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                 getApplicationContext(),
                 R.layout.company_row,       // GridView 항목의 레이아웃 row.xml
                 company_name);    // 데이터
+        /**
+         * 서버 연동 후  아래 코드로 변경
+         */
+/*
+        String[] company_name_1 = new String[voCompanyListDataItem.size()];
+        String[] company_code = new String[voCompanyListDataItem.size()];
+        for(int i = 0; i < voCompanyListDataItem.size(); i++)
+        {
+            company_name_1[i] = voCompanyListDataItem.get(0).CAR_COMPANY;
+            company_code[i] = voCompanyListDataItem.get(0).CAR_COMPANY;
+        }
 
+        final CompanyAdapter adapter = new CompanyAdapter (
+                getApplicationContext(),
+                R.layout.company_row,       // GridView 항목의 레이아웃 row.xml
+                company_name_1);    // 데이터
+*/
         GridView gv = (GridView)layout.findViewById(R.id.gridView1);
         gv.setAdapter(adapter);  // 커스텀 아답타를 GridView 에 적용
 
@@ -254,6 +412,27 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                 getApplicationContext(),
                 R.layout.car_row,       // GridView 항목의 레이아웃 row.xml
                 company_name);    // 데이터
+/**
+ * 서버 연동 후  아래 코드로 변경
+ */
+/*
+        String[] car_company_code = new String[voCarListDataItem.size()];
+        String[] car_name = new String[voCarListDataItem.size()];
+        String[] car_code = new String[voCarListDataItem.size()];
+        String[] car_wash_pay = new String[voCompanyListDataItem.size()];
+        for(int i = 0; i < voCompanyListDataItem.size(); i++)
+        {
+            car_company_code[i] = voCarListDataItem.get(0).CAR_COMPANY_CODE;
+            car_name[i]         = voCarListDataItem.get(0).CAR_NAME;
+            car_code[i]         = voCarListDataItem.get(0).CAR_CODE;
+            car_wash_pay[i]     = voCarListDataItem.get(0).CAR_WASH_PAY;
+        }
+
+        final CarAdapter adapter = new CarAdapter (
+                getApplicationContext(),
+                R.layout.car_row,       // GridView 항목의 레이아웃 row.xml
+                car_name);    // 데이터
+*/
 
         GridView gv = (GridView)layout.findViewById(R.id.car_gridView1);
         gv.setAdapter(adapter);  // 커스텀 아답타를 GridView 에 적용

@@ -16,10 +16,14 @@ import com.sincar.customer.item.AgentItem;
 import com.sincar.customer.item.AgentResult;
 import com.sincar.customer.item.CarDataItem;
 import com.sincar.customer.item.CarItem;
+import com.sincar.customer.item.CarListDataItem;
+import com.sincar.customer.item.CarRegisterItem;
+import com.sincar.customer.item.CarRegisterResult;
 import com.sincar.customer.item.CarResult;
 import com.sincar.customer.item.CardDataItem;
 import com.sincar.customer.item.CardItem;
 import com.sincar.customer.item.CardResult;
+import com.sincar.customer.item.CompanyListDataItem;
 import com.sincar.customer.item.CouponeDataItem;
 import com.sincar.customer.item.CouponeItem;
 import com.sincar.customer.item.CouponeResult;
@@ -66,6 +70,8 @@ public class HWApplication extends MultiDexApplication {
 
     public static ArrayList<LoginDataItem> voLoginDataItem;         //포인트 리스트
     public static ArrayList<LoginAdvertiseItem> voAdvertiseItem;    //광고 리스트
+    public static ArrayList<CompanyListDataItem> voCompanyListDataItem;     //제조사 리스트
+    public static ArrayList<CarListDataItem> voCarListDataItem;     //차량 리스트
     public static ArrayList<NoticeDataItem> voNoticeDataItem;       //공지 리스트
     public static ArrayList<CouponeDataItem> voCouponeDataItem;     //쿠폰 리스트
     public static ArrayList<CarDataItem> voCarDataItem;             //등록차량 리스트
@@ -108,6 +114,10 @@ public class HWApplication extends MultiDexApplication {
     public static OptionResult optionResult;
     public static OptionItem voOptionItem;
 
+    //차량등록
+    public static CarRegisterResult carRegisterResult;
+    public static CarRegisterItem voCarRegisterItem;
+
     AppStatus mAppStatus;
     @Override
     public void onCreate() {
@@ -140,8 +150,9 @@ public class HWApplication extends MultiDexApplication {
         voCardItem      = new CardItem();
         voAddressItem   = new AddressItem();
         voAgentItem     = new AgentItem();
-        voTimeItem     = new TimeItem();
-        voOptionItem     = new OptionItem();
+        voTimeItem      = new TimeItem();
+        voOptionItem    = new OptionItem();
+        voCarRegisterItem       = new CarRegisterItem();
 
     }
 

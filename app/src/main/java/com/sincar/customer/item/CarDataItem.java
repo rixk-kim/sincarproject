@@ -6,6 +6,7 @@ public class CarDataItem {
     public String CAR_MODEL;
     public String CAR_NUMBER;
     public String CAR_SELECTED;
+    public String CAR_PAY;
 
 
     @Override
@@ -16,6 +17,7 @@ public class CarDataItem {
                 ", CAR_MODEL='" + CAR_MODEL + '\'' +
                 ", CAR_NUMBER='" + CAR_NUMBER + '\'' +
                 ", CAR_SELECTED='" + CAR_SELECTED + '\'' +
+                ", CAR_PAY='" + CAR_PAY + '\'' +
                 "}";
     }
 }

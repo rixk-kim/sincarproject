@@ -51,6 +51,7 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
     private String agent_seq;       //예약한 대리점주 SEQ
     private String agent_time;      //예약한 대리점주 시간
     private String wash_area;       //세차장소
+    private String car_wash_pay;    //기본세차비용
 
     private RadioGroup rRadioGroup;
 
@@ -275,8 +276,11 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
                 bundle.putString("reserve_month", reserve_month);       //월
                 bundle.putString("reserve_day", reserve_day);           //일
                 bundle.putString("agent_seq", agent_seq);               //예약 대리점주 seq
-                bundle.putString("agent_time", agent_time);             // 예약시간
+                bundle.putString("agent_time", agent_time);             //예약시간
                 bundle.putString("wash_area", wash_area);               //세차장소
+                bundle.putString("wash_area", wash_area);               //제조사 + 차량
+                bundle.putString("wash_area", wash_area);               //차번호
+                bundle.putString("car_wash_pay", car_wash_pay);         //차량 기본 세차 금액
                 //부가서비스
                 intent.putExtras(bundle);
 
@@ -299,6 +303,11 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
                 if(!TextUtils.isEmpty(data.getStringExtra("reserve_carnumber")))
                 {
                     car_number_str.setText(data.getStringExtra("reserve_carnumber"));
+                }
+
+                if(!TextUtils.isEmpty(data.getStringExtra("car_wash_pay")))
+                {
+                    car_wash_pay = data.getStringExtra("car_wash_pay");
                 }
                 Toast.makeText(ReservationMainActivity.this, "차종: " + data.getStringExtra("reserve_carname") + " , 차번호 : " + data.getStringExtra("reserve_carnumber"), Toast.LENGTH_SHORT).show();
             } else {   // RESULT_CANCEL
@@ -324,7 +333,10 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
                     car_number_str.setText(data.getStringExtra("reserve_carnumber"));
                 }
 
-
+                if(!TextUtils.isEmpty(data.getStringExtra("car_wash_pay")))
+                {
+                    car_wash_pay = data.getStringExtra("car_wash_pay");
+                }
 
 //                Toast.makeText(ReservationMainActivity.this, "차종: " + data.getStringExtra("reserve_carname") + " , 차번호 : " + data.getStringExtra("reserve_carnumber"), Toast.LENGTH_SHORT).show();
             } else {   // RESULT_CANCEL

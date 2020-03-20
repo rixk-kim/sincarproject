@@ -113,7 +113,8 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
                         voCarDataItem.get(i).CAR_COMPANY,
                         voCarDataItem.get(i).CAR_MODEL,
                         voCarDataItem.get(i).CAR_NUMBER,
-                        false
+                        false,
+                        voCarDataItem.get(i).CAR_PAY
                 ));
             }
 
@@ -162,6 +163,7 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
                     intent = new Intent(this, ReservationMainActivity.class);
                     intent.putExtra("reserve_carname", mCarContentRecyclerViewAdapter.getItemcarName());
                     intent.putExtra("reserve_carnumber", mCarContentRecyclerViewAdapter.getItemcarNumber());
+                    intent.putExtra("car_wash_pay", mCarContentRecyclerViewAdapter.getItemcarPay());
                     setResult(RESULT_OK, intent);
                     finish();
 
@@ -194,6 +196,7 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
             intent = new Intent(this, ReservationMainActivity.class);
             intent.putExtra("reserve_carname", mCarContentRecyclerViewAdapter.getItemcarName());
             intent.putExtra("reserve_carnumber", mCarContentRecyclerViewAdapter.getItemcarNumber());
+            intent.putExtra("car_wash_pay", mCarContentRecyclerViewAdapter.getItemcarPay());
             setResult(RESULT_OK, intent);
             finish();
         }else {
