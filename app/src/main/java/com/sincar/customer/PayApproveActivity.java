@@ -45,16 +45,50 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
+import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+import com.sincar.customer.adapter.OptionServiceRecyclerViewAdapter;
+import com.sincar.customer.adapter.content.OptionContent;
+import com.sincar.customer.item.OptionResult;
+import com.sincar.customer.network.VolleyNetwork;
+import com.sincar.customer.util.Util;
 import com.sincar.customer.util.Utility;
 
-import static com.sincar.customer.HWApplication.voLoginItem;
-import static com.sincar.customer.util.Utility.isPackageInstalled;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import static com.sincar.customer.HWApplication.optionResult;
+import static com.sincar.customer.HWApplication.voLoginItem;
+import static com.sincar.customer.HWApplication.voOptionDataItem;
+import static com.sincar.customer.HWApplication.voOptionItem;
+import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
+import static com.sincar.customer.util.Utility.isPackageInstalled;
+/*
+bundle.putString("reserve_address", reserve_address);   //주소
+bundle.putString("reserve_year", reserve_year);         //년
+bundle.putString("reserve_month", reserve_month);       //월
+bundle.putString("reserve_day", reserve_day);           //일
+bundle.putString("agent_seq", agent_seq);               //예약 대리점주 seq
+bundle.putString("agent_company", agent_company);       //예약 대리점주
+bundle.putString("agent_time", agent_time);             //예약시간
+bundle.putString("wash_area", wash_area);               //세차장소
+bundle.putString("car_company", car_company);           //제조사
+bundle.putString("car_name", car_name);                 //차량 이름
+bundle.putString("car_number", car_number);             //차번호
+bundle.putString("car_wash_pay", car_wash_pay);         //차량 기본 세차 금액
+bundle.putString("use_my_point", String.valueOf(use_my_point));         //사용 포인트
+bundle.putString("use_coupone_seq", coupone_seq);                       //사용 쿠폰 seq
+bundle.putString("use_my_point", String.valueOf(use_my_point));         //사용 포인트
+bundle.putString("total_amt", String.valueOf(total_amt));               //총 결제 금액
+
+ */
 public class PayApproveActivity extends Activity {
     private Context pContext;
     final String MERCHANT_URL = "https://sincar.co.kr/api/payment/index.asp";
@@ -66,6 +100,25 @@ public class PayApproveActivity extends Activity {
     EditText et_url;
     Button btn_urlgo;
 
+    private String reserve_address; //예약주소
+    private String reserve_year;    //예약년도
+    private String reserve_month;   //예약월
+    private String reserve_day;     //예약일
+    private String agent_seq;       //예약한 대리점주 SEQ
+    private String agent_company;   //대리점 정보
+
+    private String agent_time;      //예약한 대리점주 시간
+    private String wash_area;       //세차장소
+    private String car_company;     //제조사
+    private String car_name;        //차량 이름
+    private String car_number;      //차번호
+    private String car_wash_pay;    //차량 기본 세차 금액
+
+    private String total_amt;          //세차비용
+    private String use_coupone_seq;    //사용 쿠폰
+    private String use_coupone_pay;    //쿠폰 비용
+    private String use_my_point;       //사용 포인트
+
     private static final int LAUNCHED_ACTIVITY = 0;
 
     @Override
@@ -74,8 +127,26 @@ public class PayApproveActivity extends Activity {
         setContentView(R.layout.pay_approve);
         pContext = this;
 
-        Intent intent = getIntent();
-        String urlString = null;
+        Intent intent = getIntent(); /*데이터 수신*/
+        reserve_address     = intent.getExtras().getString("reserve_address");  /*String형*/
+        reserve_year        = intent.getExtras().getString("reserve_year");     /*String형*/
+        reserve_month       = intent.getExtras().getString("reserve_month");    /*String형*/
+        reserve_day         = intent.getExtras().getString("reserve_day");      /*String형*/
+        agent_seq           = intent.getExtras().getString("agent_seq");        /*String형*/
+        agent_company       = intent.getExtras().getString("agent_company");      /*String형*/
+        agent_time          = intent.getExtras().getString("agent_time");       /*String형*/
+        wash_area           = intent.getExtras().getString("wash_area");        /*String형*/
+
+        car_company         = intent.getExtras().getString("car_company");      /*String형*/
+        car_name            = intent.getExtras().getString("car_name");         /*String형*/
+        car_number          = intent.getExtras().getString("car_number");       /*String형*/
+        car_wash_pay        = intent.getExtras().getString("car_wash_pay");     /*String형*/
+
+        use_my_point        = intent.getExtras().getString("use_my_point");      /*String형*/
+        use_coupone_seq     = intent.getExtras().getString("use_coupone_seq");         /*String형*/
+        use_my_point        = intent.getExtras().getString("use_my_point");       /*String형*/
+        total_amt           = intent.getExtras().getString("total_amt");     /*String형*/
+
 
         mWeb = (WebView) findViewById(R.id.web);
         ll_item01 = (LinearLayout) findViewById(R.id.ll_item01);
@@ -135,7 +206,7 @@ public class PayApproveActivity extends Activity {
         */
 
         String postParams = "MEMBER_NO=" + voLoginItem.MEMBER_NO;
-        postParams += "&AMOUNT=1004";
+        postParams += "&AMOUNT="+total_amt;
 
  //       mWeb.postUrl(MERCHANT_URL, EncodingUtils.getBytes(postParams, "EUC-KR"));
 
@@ -566,6 +637,7 @@ public class PayApproveActivity extends Activity {
             if("success".equals(reponseData))
             {
                 //완료 페이지 이동
+                //requestReserveInfo();
                 //TODO - 데이타 서버 전송 후 예약완료 페이지로 이동. 포인트 사용했을 시 갱신해주기
                 Intent intent = new Intent(pContext, PayApproveResult.class);
                 startActivity(intent);
@@ -573,4 +645,62 @@ public class PayApproveActivity extends Activity {
             }
         }
     }
+
+    /**
+     * 예약정보 전송
+     * MEMBER_NO        : 회원번호
+     * REQUESTT_PAGE    : 요청페이지
+     * REQUEST_NUM      : 요청갯수
+     */
+    private void requestReserveInfo() {
+        HashMap<String, String> postParams = new HashMap<String, String>();
+        postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);         // 회원번호
+        postParams.put("AGENT_SEQ", reserve_year);                       // 대리점 SEQ
+        postParams.put("AGENT_SEQ", reserve_month);                       //
+        postParams.put("AGENT_SEQ", reserve_day);                       //
+        postParams.put("AGENT_SEQ", agent_seq);                       //
+        postParams.put("AGENT_SEQ", agent_company);                       //
+        postParams.put("AGENT_SEQ", agent_time);                       //
+        postParams.put("AGENT_SEQ", wash_area);                       //
+        postParams.put("AGENT_SEQ", car_company);                       //
+        postParams.put("AGENT_SEQ", car_name);                       //
+        postParams.put("AGENT_SEQ", car_number);                       //
+        postParams.put("AGENT_SEQ", car_wash_pay);                       //
+        postParams.put("AGENT_SEQ", use_my_point);                       //
+        postParams.put("AGENT_SEQ", use_coupone_seq);                       //
+        postParams.put("AGENT_SEQ", use_my_point);                       //
+        postParams.put("AGENT_SEQ", total_amt);                       //
+        postParams.put("AGENT_SEQ", "1");                       //
+        postParams.put("AGENT_SEQ", "1");                       //
+
+        //프로그래스바 시작
+        Util.showDialog();
+        //사용내역 요청
+        VolleyNetwork.getInstance(this).passwordChangeRequest(LOGIN_REQUEST, postParams, onReserveResponseListener);
+    }
+
+    VolleyNetwork.OnResponseListener onReserveResponseListener = new VolleyNetwork.OnResponseListener() {
+        @Override
+        public void onResponseSuccessListener(String serverData) {
+            /*
+                {"add_service": [{"CAR_SEQ":"3","CAR_COMPANY":"현대","CAR_MODEL":"산타페(대형)","CAR_NUMBER":"35나 8733","CAR_PAY":"50000"}],
+                "DATA":[{"SERVICE_NAME":"가니쉬 코팅","SERVICE_DETAIL":"가니쉬란 어쩌구 저쩌구","USE_PAY":"6,000"},{"SERVICE_NAME":"에머랄드 코팅","SERVICE_DETAIL":"가니쉬란 어쩌구 저쩌구","USE_PAY":"5,000"},{"SERVICE_NAME":"엔진룸 세척","SERVICE_DETAIL":"가니쉬란 어쩌구 저쩌구","USE_PAY":"6,000"}]}
+             */
+
+            //TODO -포인트 갱신하고 다음 페이지 이동
+
+            //프로그래스바 종료
+            Util.dismiss();
+
+            Intent intent = new Intent(pContext, PayApproveResult.class);
+            startActivity(intent);
+            finish();
+        }
+
+        @Override
+        public void onResponseFailListener(VolleyError it) {
+
+        }
+    };
 }
+

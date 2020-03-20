@@ -285,12 +285,14 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                     bundle.putString("agent_company", agent_company);       //예약 대리점주
                     bundle.putString("agent_time", agent_time);             //예약시간
                     bundle.putString("wash_area", wash_area);               //세차장소
-                    bundle.putString("car_company", car_company);   //제조사
-                    bundle.putString("car_name", car_name);          //차량 이름
-                    bundle.putString("car_number", car_number);      //차번호
+                    bundle.putString("car_company", car_company);           //제조사
+                    bundle.putString("car_name", car_name);                 //차량 이름
+                    bundle.putString("car_number", car_number);             //차번호
                     bundle.putString("car_wash_pay", car_wash_pay);         //차량 기본 세차 금액
                     bundle.putString("use_my_point", String.valueOf(use_my_point));         //사용 포인트
-                    bundle.putString("use_coupone_seq", coupone_seq);         //사용 쿠폰 seq
+                    bundle.putString("use_coupone_seq", coupone_seq);                       //사용 쿠폰 seq
+                    bundle.putString("use_my_point", String.valueOf(use_my_point));         //사용 포인트
+                    bundle.putString("total_amt", String.valueOf(total_amt));               //총 결제 금액
 
                     //부가서비스
                     intent.putExtras(bundle);
