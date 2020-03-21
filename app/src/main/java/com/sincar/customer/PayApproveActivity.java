@@ -57,6 +57,7 @@ import com.google.gson.Gson;
 import com.sincar.customer.adapter.OptionServiceRecyclerViewAdapter;
 import com.sincar.customer.adapter.content.OptionContent;
 import com.sincar.customer.item.OptionResult;
+import com.sincar.customer.item.ReserveResult;
 import com.sincar.customer.network.VolleyNetwork;
 import com.sincar.customer.util.Util;
 import com.sincar.customer.util.Utility;
@@ -64,10 +65,11 @@ import com.sincar.customer.util.Utility;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import static com.sincar.customer.HWApplication.optionResult;
+import static com.sincar.customer.HWApplication.reserveResult;
 import static com.sincar.customer.HWApplication.voLoginItem;
 import static com.sincar.customer.HWApplication.voOptionDataItem;
 import static com.sincar.customer.HWApplication.voOptionItem;
+import static com.sincar.customer.HWApplication.voReserveItem;
 import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
 import static com.sincar.customer.util.Utility.isPackageInstalled;
 /*
@@ -109,6 +111,7 @@ public class PayApproveActivity extends Activity {
 
     private String agent_time;      //예약한 대리점주 시간
     private String wash_area;       //세차장소
+    private String car_wash_option; //옵션
     private String car_company;     //제조사
     private String car_name;        //차량 이름
     private String car_number;      //차번호
@@ -136,6 +139,7 @@ public class PayApproveActivity extends Activity {
         agent_company       = intent.getExtras().getString("agent_company");      /*String형*/
         agent_time          = intent.getExtras().getString("agent_time");       /*String형*/
         wash_area           = intent.getExtras().getString("wash_area");        /*String형*/
+        car_wash_option     = intent.getExtras().getString("car_wash_option");        /*String형*/
 
         car_company         = intent.getExtras().getString("car_company");      /*String형*/
         car_name            = intent.getExtras().getString("car_name");         /*String형*/
@@ -654,24 +658,23 @@ public class PayApproveActivity extends Activity {
      */
     private void requestReserveInfo() {
         HashMap<String, String> postParams = new HashMap<String, String>();
+        //PHONE_NEMBER
         postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);         // 회원번호
-        postParams.put("AGENT_SEQ", reserve_year);                       // 대리점 SEQ
-        postParams.put("AGENT_SEQ", reserve_month);                       //
-        postParams.put("AGENT_SEQ", reserve_day);                       //
-        postParams.put("AGENT_SEQ", agent_seq);                       //
-        postParams.put("AGENT_SEQ", agent_company);                       //
-        postParams.put("AGENT_SEQ", agent_time);                       //
-        postParams.put("AGENT_SEQ", wash_area);                       //
-        postParams.put("AGENT_SEQ", car_company);                       //
-        postParams.put("AGENT_SEQ", car_name);                       //
-        postParams.put("AGENT_SEQ", car_number);                       //
-        postParams.put("AGENT_SEQ", car_wash_pay);                       //
-        postParams.put("AGENT_SEQ", use_my_point);                       //
-        postParams.put("AGENT_SEQ", use_coupone_seq);                       //
-        postParams.put("AGENT_SEQ", use_my_point);                       //
-        postParams.put("AGENT_SEQ", total_amt);                       //
-        postParams.put("AGENT_SEQ", "1");                       //
-        postParams.put("AGENT_SEQ", "1");                       //
+        postParams.put("RESERVE_YEAR", reserve_year);               // 년
+        postParams.put("RESERVE_MONTH", reserve_month);             // 월
+        postParams.put("RESERVE_DAY", reserve_day);                 // 일
+        postParams.put("AGENT_SEQ", agent_seq);                     // 대리점 SEQ
+        postParams.put("AGENT_COMPANY", agent_company);             // 대리점
+        postParams.put("AGENT_TIME", agent_time);                   // 예약시간
+        postParams.put("WASH_PLACE", wash_area);                    // 세차장소
+        postParams.put("ADD_SERVICE", car_wash_option);             // 부가 서비스
+        postParams.put("CAR_COMPANY", car_company);                 // 제조사
+        postParams.put("CAR_MODEL", car_name);                      // 모델명
+        postParams.put("CAR_NUMBER", car_number);                   // 차량번호
+        postParams.put("POINT_USE", use_my_point);                  // 사용 포인트
+        postParams.put("COUPONE_SEQ", use_coupone_seq);             // 사용 쿠폰번호
+        postParams.put("CHARGE_PAY", total_amt);                    // 총 결재 요금
+
 
         //프로그래스바 시작
         Util.showDialog();
@@ -683,11 +686,18 @@ public class PayApproveActivity extends Activity {
         @Override
         public void onResponseSuccessListener(String serverData) {
             /*
-                {"add_service": [{"CAR_SEQ":"3","CAR_COMPANY":"현대","CAR_MODEL":"산타페(대형)","CAR_NUMBER":"35나 8733","CAR_PAY":"50000"}],
-                "DATA":[{"SERVICE_NAME":"가니쉬 코팅","SERVICE_DETAIL":"가니쉬란 어쩌구 저쩌구","USE_PAY":"6,000"},{"SERVICE_NAME":"에머랄드 코팅","SERVICE_DETAIL":"가니쉬란 어쩌구 저쩌구","USE_PAY":"5,000"},{"SERVICE_NAME":"엔진룸 세척","SERVICE_DETAIL":"가니쉬란 어쩌구 저쩌구","USE_PAY":"6,000"}]}
+                  {"reserve": [{"RESERVE_RESULT":"0","CAUSE":"","MY_POINT":"24000"}]}
              */
 
             //TODO -포인트 갱신하고 다음 페이지 이동
+            Gson gSon = new Gson();
+            reserveResult = gSon.fromJson(serverData, ReserveResult.class);
+
+            voReserveItem.RESERVE_RESULT     = reserveResult.reserve.get(0).RESERVE_RESULT;
+            voReserveItem.CAUSE              = reserveResult.reserve.get(0).CAUSE;
+            voReserveItem.MY_POINT           = reserveResult.reserve.get(0).MY_POINT;
+
+            voLoginItem.MY_POINT = voReserveItem.MY_POINT;  //포인트 갱신
 
             //프로그래스바 종료
             Util.dismiss();

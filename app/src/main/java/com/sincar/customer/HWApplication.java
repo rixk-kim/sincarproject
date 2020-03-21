@@ -37,6 +37,8 @@ import com.sincar.customer.item.NoticeResult;
 import com.sincar.customer.item.OptionDataItem;
 import com.sincar.customer.item.OptionItem;
 import com.sincar.customer.item.OptionResult;
+import com.sincar.customer.item.ReserveItem;
+import com.sincar.customer.item.ReserveResult;
 import com.sincar.customer.item.TimeItem;
 import com.sincar.customer.item.UseDataItem;
 import com.sincar.customer.item.UseItem;
@@ -118,6 +120,10 @@ public class HWApplication extends MultiDexApplication {
     public static CarRegisterResult carRegisterResult;
     public static CarRegisterItem voCarRegisterItem;
 
+    //예약결과
+    public static ReserveResult reserveResult;
+    public static ReserveItem voReserveItem;
+
     AppStatus mAppStatus;
     @Override
     public void onCreate() {
@@ -153,6 +159,7 @@ public class HWApplication extends MultiDexApplication {
         voTimeItem      = new TimeItem();
         voOptionItem    = new OptionItem();
         voCarRegisterItem       = new CarRegisterItem();
+        voReserveItem   = new ReserveItem();
 
     }
 

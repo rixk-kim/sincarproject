@@ -58,6 +58,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     private int use_coupone_seq;    //사용 쿠폰
     private int use_coupone_pay;    //쿠폰 비용
     private int use_my_point;       //사용 포인트
+    private String car_wash_option; //옵션
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +106,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         reservation_time = (TextView)findViewById(R.id.reservation_time);
         if(reserve_month.length() < 2) reserve_month = "0" + reserve_month;
         String dayofday = Util.getDateDay(reserve_year+reserve_month+reserve_day);
-        reservation_time.setText(reserve_month + "/" + reserve_day + " (" + dayofday + ")" + agent_time); //예약시간
+        reservation_time.setText(reserve_month + "/" + reserve_day + " (" + dayofday + ") " + agent_time); //예약시간
 
         findViewById(R.id.btnNext).setVisibility(View.INVISIBLE);
         findViewById(R.id.btnCouponRegister).setOnClickListener(this);
@@ -192,6 +193,12 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
             if(OptionContent.ITEMS.get(i).checked) {
                 ChargeContent.addItem(new ChargeContent.ChargeItem(i+1, OptionContent.ITEMS.get(i).option_name, OptionContent.ITEMS.get(i).option_pay));
                 total_amt += Integer.parseInt(OptionContent.ITEMS.get(i).option_pay);
+
+                if(i+1 >= OptionContent.ITEMS.size()) {
+                    car_wash_option += OptionContent.ITEMS.get(i).option_name;
+                }else{
+                    car_wash_option += OptionContent.ITEMS.get(i).option_name + "/";
+                }
             }
  //           ChargeContent.addItem(new ChargeContent.ChargeItem(1, "가니쉬코팅", "6,000원"));
 
@@ -284,14 +291,14 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                     bundle.putString("agent_seq", agent_seq);               //예약 대리점주 seq
                     bundle.putString("agent_company", agent_company);       //예약 대리점주
                     bundle.putString("agent_time", agent_time);             //예약시간
-                    bundle.putString("wash_area", wash_area);               //세차장소
+                    bundle.putString("wash_area", wash_area);               //세차장소(실내/실외)
+                    bundle.putString("car_wash_option", car_wash_option);   //옵션(가니쉬코팅/에머랄드 코팅)
                     bundle.putString("car_company", car_company);           //제조사
                     bundle.putString("car_name", car_name);                 //차량 이름
                     bundle.putString("car_number", car_number);             //차번호
-                    bundle.putString("car_wash_pay", car_wash_pay);         //차량 기본 세차 금액
+//                    bundle.putString("car_wash_pay", car_wash_pay);         //차량 기본 세차 금액
                     bundle.putString("use_my_point", String.valueOf(use_my_point));         //사용 포인트
                     bundle.putString("use_coupone_seq", coupone_seq);                       //사용 쿠폰 seq
-                    bundle.putString("use_my_point", String.valueOf(use_my_point));         //사용 포인트
                     bundle.putString("total_amt", String.valueOf(total_amt));               //총 결제 금액
 
                     //부가서비스
@@ -324,6 +331,12 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
             case R.id.use_point:
                 //입력창 선택시
+                my_point.setText(use_my_point + "원 보유");
+                total_amt += use_my_point;
+                use_my_point = 0;
+                use_point.setText("0원");
+                mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결재하기");
+
                 setPointPopup();
                 break;
         }

@@ -337,7 +337,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                 if(car_select_colume1 != null) {
                     car_select_colume1.setText(company_name[position]);
                 }
-                Toast.makeText(cContext, "position : " + adapter.getCount(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(cContext, "position : " + adapter.getCount(), Toast.LENGTH_SHORT).show();
                 ad.dismiss();
             }
         });
@@ -453,7 +453,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                 if(car_select_colume2 != null) {
                     car_select_colume2.setText(company_name[position]);
                 }
-                Toast.makeText(cContext, "position : " + adapter.getCount(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(cContext, "position : " + adapter.getCount(), Toast.LENGTH_SHORT).show();
 
                 ad.dismiss();;
             }

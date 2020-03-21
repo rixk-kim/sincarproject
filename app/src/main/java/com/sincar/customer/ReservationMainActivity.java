@@ -306,7 +306,6 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
                     bundle.putString("agent_time", agent_time);             //예약시간
                     if(TextUtils.isEmpty(wash_area)) wash_area = "실내";
                     bundle.putString("wash_area", wash_area);               //세차장소
-
                     bundle.putString("car_company", reserve_companyname);   //제조사
                     bundle.putString("car_name", reserve_carname);          //차량 이름
                     bundle.putString("car_number", reserve_carnumber);      //차번호
