@@ -192,7 +192,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 break;
 
             case R.id.btnCurrent:
-                // TODO - 지도 current button => 하단 버튼과 기능 중복됨
+                // 지도 current button => 하단 버튼과 기능 중복됨
                 break;
 
             case R.id.btnReserveAddress:

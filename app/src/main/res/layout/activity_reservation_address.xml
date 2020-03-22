@@ -43,7 +43,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnSearchCancel"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:imeOptions="actionSearch" />
+            android:imeOptions="actionDone" />
 
         <ImageView
             android:id="@+id/btnSearchCancel"

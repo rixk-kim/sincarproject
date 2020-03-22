@@ -301,7 +301,7 @@
                     android:inputType="number"
                     android:digits="0123456789"
                     android:hint="@string/amount_default"
-                    android:textSize="17sp"
+                    android:textSize="15sp"
                     android:textColor="@color/default_text_color"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/discount_point" />

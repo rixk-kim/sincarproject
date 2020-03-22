@@ -161,6 +161,8 @@
             android:ems="10"
             android:hint="@string/hint_password_title"
             android:inputType="textPassword"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
             android:textColor="#3E3E3E"
             android:textSize="14sp" />
     </LinearLayout>

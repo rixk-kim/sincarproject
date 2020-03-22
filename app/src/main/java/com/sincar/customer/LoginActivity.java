@@ -97,6 +97,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 // 로그인 요청
                 //requestLogin();
+                startLogin("sss");
             }
             return false;
             }

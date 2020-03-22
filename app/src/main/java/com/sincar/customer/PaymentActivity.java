@@ -331,7 +331,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
             case R.id.use_point:
                 //입력창 선택시
-                my_point.setText(use_my_point + "원 보유");
+                my_point.setText(setAddMoneyDot(voLoginItem.MY_POINT) + "원 보유");
                 total_amt += use_my_point;
                 use_my_point = 0;
                 use_point.setText("0원");
@@ -359,16 +359,16 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                         String value = et.getText().toString();
                         //user_name.setText(value);
                         try {
-                            int mPoint = Integer.parseInt(voLoginItem.MY_POINT);
+                            int mPoint = Integer.parseInt(voLoginItem.MY_POINT);    //내 포인트
                             int input_point = Integer.parseInt(value);
 
-                            if (input_point < mPoint) {
+                            if (input_point <= mPoint) {
                                 if (input_point >= total_amt) {
                                     use_my_point = input_point - total_amt;
                                 } else {
                                     use_my_point = input_point;
                                 }
-                                my_point.setText("0원 보유");
+                                my_point.setText(String.valueOf(mPoint-input_point) + "원 보유");
                                 use_point.setText(String.valueOf(use_my_point) + "원");
                                 total_amt -= use_my_point;
                                 mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결재하기");

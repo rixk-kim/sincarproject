@@ -82,15 +82,17 @@
                 android:background="@null"
                 android:ems="10"
                 android:hint="제조사를 선택 하세요"
+                android:nextFocusDown="@+id/car_select_colume2"
                 android:textColor="#3E3E3E"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:inputType="text"
+                android:imeOptions="actionNext"/>
 
             <ImageView
                 android:id="@+id/btnNext1"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginRight="32dp"
-                android:contentDescription="@string/actionbar_prev_icon_description"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:background="@color/customColorPrimary1"
@@ -126,7 +128,10 @@
                 android:ems="10"
                 android:hint="차종을 선택 하세요"
                 android:textColor="#3E3E3E"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:inputType="text"
+                android:nextFocusDown="@+id/car_select_colume3"
+                android:imeOptions="actionNext"/>
 
             <ImageView
                 android:id="@+id/btnNext2"
@@ -182,7 +187,8 @@
                 android:hint="차종 번호를 입력 하세요"
                 android:textColor="#3E3E3E"
                 android:textSize="15sp"
-                android:imeOptions="actionSearch" />
+                android:inputType="text"
+                android:imeOptions="actionDone" />
         </LinearLayout>
 
 

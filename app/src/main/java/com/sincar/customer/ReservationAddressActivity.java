@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,7 +33,7 @@ import static com.sincar.customer.HWApplication.voLoginItem;
 import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
 
 public class ReservationAddressActivity extends AppCompatActivity implements View.OnClickListener {
-
+    private EditText mSearchAddressKeyword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,8 @@ public class ReservationAddressActivity extends AppCompatActivity implements Vie
         findViewById(R.id.btnSearchCancel).setOnClickListener(this);
         findViewById(R.id.btnSearchAddress).setOnClickListener(this);
 
+        mSearchAddressKeyword = findViewById(R.id.searchAddressKeyword);
+
         // TODO - 서버 연동 후 AddressContent.ITEMS에 리스 항목추가 작업
         // Set the adapter - 포인트 리스트 설정
         View view = findViewById(R.id.searchAddressList);
@@ -62,26 +66,20 @@ public class ReservationAddressActivity extends AppCompatActivity implements Vie
     }
 
     /**
-     * 검색단어 리스트 요청
-     * PHONE_NEMBER     : 폰번호
-     * MEMBER_NO        : 회원번호
-     * REQUESTT_PAGE    : 요청페이지
-     * REQUEST_NUM      : 요청갯수
+     * 주소 검색 요청
+     * MEMBER_NO    : 회원번호
+     * SEARCH_WORD  : 검색단어
      */
-    private void requestNoticeList() {
+    private void requestSearchWord() {
         HashMap<String, String> postParams = new HashMap<String, String>();
-        postParams.put("PHONE_NEMBER", voLoginItem.MEMBER_PHONE);   // 폰번호
-        postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);         // 회원번호
-        postParams.put("REQUESTT_PAGE", "1");                       // 요청페이지
-        postParams.put("REQUEST_NUM", "20");                        // 요청갯수
+        postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);      // 회원번호
+        postParams.put("SEARCH_WORD", mSearchAddressKeyword.getText().toString().trim());    // 검색단어
 
-        //프로그래스바 시작
-        Util.showDialog();
-        //사용내역 요청
-        VolleyNetwork.getInstance(this).passwordChangeRequest(LOGIN_REQUEST, postParams, onResponseListener);
+        //검색 요청
+        VolleyNetwork.getInstance(this).passwordChangeRequest(LOGIN_REQUEST, postParams, onSearchResponseListener);
     }
 
-    VolleyNetwork.OnResponseListener onResponseListener = new VolleyNetwork.OnResponseListener() {
+    VolleyNetwork.OnResponseListener onSearchResponseListener = new VolleyNetwork.OnResponseListener() {
         @Override
         public void onResponseSuccessListener(String serverData) {
             /*
@@ -144,11 +142,17 @@ public class ReservationAddressActivity extends AppCompatActivity implements Vie
                 finish();
                 break;
             case R.id.btnSearchCancel:
-                // TODO - 검색 주소 삭제 및 리스트 Clear
+                // 검색 주소 Clear
+                mSearchAddressKeyword.setText("");
                 break;
             case R.id.btnSearchAddress:
                 // TODO - 주소 검색 리스트 생성
+                // 서버연동
+                Toast.makeText(ReservationAddressActivity.this, "서버 연동 준비중입니다.", Toast.LENGTH_SHORT).show();
+                //requestSearchWord()
                 break;
         }
     }
+
+
 }
