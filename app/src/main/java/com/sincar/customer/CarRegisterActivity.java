@@ -51,6 +51,27 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
     private String car_wash_pay;
     private String car_reg_path;
 
+    final String company_name[] = {
+            "1.현대","기아","포드","르노삼성","한국지엠","쌍용","캐딜락","쉐보레","GMC","허머",
+            "올즈모빌","폰티악","새턴","포드","링컨","머큐리","크라이슬러","닷지","지프","헤네시",
+            "테슬라 모터스","BMW","마이바흐","벤츠","스마트","폭스바겐","아우디","굼바트","피아트","마이바흐",
+            "페라리","람보르기니","알파로메오","마세라티","란치아","파가니","르노","링컨","머큐리","크라이슬러",
+            "닷지","지프","헤네시","테슬라 모터스","BMW","마이바흐","벤츠","현대","기아","벤츠",
+            "포드","르노삼성","한국지엠","쌍용","캐딜락","쉐보레","GMC","허머","올즈모빌","폰티악",
+            "새턴","포드","링컨","머큐리","크라이슬러","닷지","지프","헤네시","테슬라 모터스","70.BMW"
+
+    };
+    final String car_model[] = {
+            "1.코롤라","F-시리즈","아반떼","골프","로간","X-트레일","폴로","투싼","센트라","HR-V",
+            "11.코롤라","F-시리즈","아반떼","골프","로간","X-트레일","폴로","투싼","센트라","HR-V",
+            "21.코롤라","F-시리즈","아반떼","골프","로간","X-트레일","폴로","투싼","센트라","HR-V",
+            "31.코롤라","F-시리즈","아반떼","골프","로간","X-트레일","폴로","투싼","센트라","HR-V",
+            "41.코롤라","F-시리즈","아반떼","골프","로간","X-트레일","폴로","투싼","센트라","HR-V",
+            "51.코롤라","F-시리즈","아반떼","골프","로간","X-트레일","폴로","투싼","센트라","HR-V",
+            "61.코롤라","F-시리즈","아반떼","골프","로간","X-트레일","폴로","투싼","센트라","70.HR-V",
+
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,27 +126,29 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
 
             case R.id.car_reg_btn:
                 //  TODO - 차량 등록 후 결과값으로 차량 기본 세차비용 받어오자.
-                //requestCarRegister();
-                Toast.makeText(this, "차량이 등록 되었습니다.", Toast.LENGTH_SHORT).show();
+                boolean check_Stratus = inputTextCheck();
+                if(check_Stratus) {
+                    //requestCarRegister();
+                    Toast.makeText(this, "차량이 등록 되었습니다.", Toast.LENGTH_SHORT).show();
 
-                //  TODO - 차량 등록 후 리스트 이동
-                if ("reserveMain".equals(car_reg_path))
-                {
-                    //reserve_carname//car_select_colume1 : 회사이름
-                    intent = new Intent(this, ReservationMainActivity.class);
-                    intent.putExtra("reserve_companyname", car_select_colume1.getText().toString());
-                    intent.putExtra("reserve_carname", car_select_colume2.getText().toString());
-                    intent.putExtra("reserve_carnumber", car_select_colume3.getText().toString());
-                    intent.putExtra("car_wash_pay", "50000");
-                    setResult(RESULT_OK, intent);
-                    //startActivity(intent);
+                    //  TODO - 차량 등록 후 리스트 이동
+                    if ("reserveMain".equals(car_reg_path)) {
+                        //reserve_carname//car_select_colume1 : 회사이름
+                        intent = new Intent(this, ReservationMainActivity.class);
+                        intent.putExtra("reserve_companyname", car_select_colume1.getText().toString());
+                        intent.putExtra("reserve_carname", car_select_colume2.getText().toString());
+                        intent.putExtra("reserve_carnumber", car_select_colume3.getText().toString());
+                        intent.putExtra("car_wash_pay", "50000");
+                        setResult(RESULT_OK, intent);
+                        //startActivity(intent);
+                        finish();
+                    } else {
+                        intent = new Intent(this, CarManageActivity.class);
+                        intent.putExtra("path", car_reg_path);
+                        startActivity(intent);
+                    }
                     finish();
-                }else {
-                    intent = new Intent(this, CarManageActivity.class);
-                    intent.putExtra("path", car_reg_path);
-                    startActivity(intent);
                 }
-                finish();
                 break;
 
         }
@@ -156,6 +179,64 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
         finish();
     }
 
+    private boolean inputTextCheck()
+    {
+        if (car_select_colume1 != null || car_select_colume1.getText().toString().trim().length() != 0) {
+            if (car_select_colume1.getText().toString().trim().length() == 0) {
+                showCarErrorAlert("1");
+                return false;
+            }else{
+                //입력한 제조사 존재 여부 확인
+                boolean company_status = false;
+                for(int i = 0; i < company_name.length; i++) {
+                    if(car_select_colume1.getText().toString().trim().equals(company_name[i]))
+                    {
+                        company_status = true;
+                    }
+                }
+
+                if(!company_status)
+                {
+                    showCarErrorAlert("4");
+                    return false;
+                }
+
+            }
+        }
+
+        if (car_select_colume2 != null || car_select_colume2.getText().toString().trim().length() != 0) {
+            if (car_select_colume2.getText().toString().trim().length() == 0) {
+                showCarErrorAlert("2");
+                return false;
+            }else{
+                //입력한 모델 존재 여부 확인
+                boolean car_status = false;
+                for(int i = 0; i < company_name.length; i++) {
+                    if(car_select_colume2.getText().toString().trim().equals(car_model[i]))
+                    {
+                        car_status = true;
+                    }
+                }
+
+                if(!car_status)
+                {
+                    showCarErrorAlert("5");
+                    return false;
+                }
+
+            }
+        }
+
+        if (car_select_colume3 != null || car_select_colume3.getText().toString().trim().length() != 0) {
+            if (car_select_colume3.getText().toString().trim().length() == 0) {
+                showCarErrorAlert("3");
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     /**
      * 차량 서버 등록
      * MEMBER_NO     : 회원번호
@@ -164,28 +245,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
      * CAR_NUMBER    : 차량번호
      */
     private void requestCarRegister() {
-        if (car_select_colume1 != null || car_select_colume1.getText().toString().trim().length() != 0) {
-            if (car_select_colume1.getText().toString().trim().length() == 0) {
-                showCarErrorAlert("1");
-                return;
-            }
-        }
-
-        if (car_select_colume2 != null || car_select_colume2.getText().toString().trim().length() != 0) {
-            if (car_select_colume2.getText().toString().trim().length() == 0) {
-                showCarErrorAlert("2");
-                return;
-            }
-        }
-
-        if (car_select_colume3 != null || car_select_colume3.getText().toString().trim().length() != 0) {
-            if (car_select_colume3.getText().toString().trim().length() == 0) {
-                showCarErrorAlert("3");
-                return;
-            }
-        }
-
-        HashMap<String, String> postParams = new HashMap<String, String>();
+         HashMap<String, String> postParams = new HashMap<String, String>();
         postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);             // 회원번호
         postParams.put("CAR_COMPANY", voLoginItem.MEMBER_PHONE);        // 제조사
         postParams.put("CAR_MODEL", "1");                               // 모델명
@@ -213,6 +273,10 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
             errorMsg = getString(R.string.input_car_name_msg);
         } else if (resultCode.equals("3")) {
             errorMsg = getString(R.string.input_car_number_msg);
+        } else if (resultCode.equals("4")) {
+            errorMsg = getString(R.string.input_company_not_msg);
+        } else if (resultCode.equals("5")) {
+            errorMsg = getString(R.string.input_car_not_msg);
         }
 
         builder.setTitle(getString(R.string.notice));
@@ -281,16 +345,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
      */
     private void setCompanyDialog()
     {
-        final String company_name[] = {
-                "1.현대","기아","포드","르노삼성","한국지엠","쌍용","캐딜락","쉐보레","GMC","허머",
-                "올즈모빌","폰티악","새턴","포드","링컨","머큐리","크라이슬러","닷지","지프","헤네시",
-                "테슬라 모터스","BMW","마이바흐","벤츠","스마트","폭스바겐","아우디","굼바트","피아트","마이바흐",
-                "페라리","람보르기니","알파로메오","마세라티","란치아","파가니","르노","링컨","머큐리","크라이슬러",
-                "닷지","지프","헤네시","테슬라 모터스","BMW","마이바흐","벤츠","현대","기아","벤츠",
-                "포드","르노삼성","한국지엠","쌍용","캐딜락","쉐보레","GMC","허머","올즈모빌","폰티악",
-                "새턴","포드","링컨","머큐리","크라이슬러","닷지","지프","헤네시","테슬라 모터스","70.BMW"
 
-        };
 
         LayoutInflater inflater = (LayoutInflater) cContext.getSystemService(LAYOUT_INFLATER_SERVICE);
 
@@ -386,23 +441,11 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
     }
 
     /**
-     * 차량 선택
-     */
-    /**
-     * 제조사 선택 Dialog
+     * 차량 선택 Dialog
      */
     private void setCarDialog()
     {
-        final String company_name[] = {
-                "1.코롤라","F-시리즈","아반떼","골프","로간","X-트레일","폴로","투싼","센트라","HR-V",
-                "11.코롤라","F-시리즈","아반떼","골프","로간","X-트레일","폴로","투싼","센트라","HR-V",
-                "21.코롤라","F-시리즈","아반떼","골프","로간","X-트레일","폴로","투싼","센트라","HR-V",
-                "31.코롤라","F-시리즈","아반떼","골프","로간","X-트레일","폴로","투싼","센트라","HR-V",
-                "41.코롤라","F-시리즈","아반떼","골프","로간","X-트레일","폴로","투싼","센트라","HR-V",
-                "51.코롤라","F-시리즈","아반떼","골프","로간","X-트레일","폴로","투싼","센트라","HR-V",
-                "61.코롤라","F-시리즈","아반떼","골프","로간","X-트레일","폴로","투싼","센트라","70.HR-V",
 
-        };
 
         LayoutInflater inflater = (LayoutInflater) cContext.getSystemService(LAYOUT_INFLATER_SERVICE);
 
@@ -414,7 +457,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
         final CarAdapter adapter = new CarAdapter (
                 getApplicationContext(),
                 R.layout.car_row,       // GridView 항목의 레이아웃 row.xml
-                company_name);    // 데이터
+                car_model);    // 데이터
 /**
  * 서버 연동 후  아래 코드로 변경
  */
@@ -451,7 +494,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                                     int position, long id) {
                 //tv.setText("position : " + position);
                 if(car_select_colume2 != null) {
-                    car_select_colume2.setText(company_name[position]);
+                    car_select_colume2.setText(car_model[position]);
                 }
 //                Toast.makeText(cContext, "position : " + adapter.getCount(), Toast.LENGTH_SHORT).show();
 

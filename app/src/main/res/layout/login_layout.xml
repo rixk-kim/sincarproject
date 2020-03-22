@@ -123,7 +123,8 @@
             android:maxLength="20"
             android:nextFocusDown="@+id/user_pwd_et"
             android:textColor="#3E3E3E"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:imeOptions="actionNext" />
     </LinearLayout>
 
     <LinearLayout

@@ -181,7 +181,8 @@
                 android:ems="10"
                 android:hint="차종 번호를 입력 하세요"
                 android:textColor="#3E3E3E"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:imeOptions="actionSearch" />
         </LinearLayout>
 
 
