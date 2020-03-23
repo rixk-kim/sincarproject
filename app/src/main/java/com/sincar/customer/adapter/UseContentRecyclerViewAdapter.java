@@ -103,7 +103,7 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
                     }
                 }
 
-                Toast.makeText(mContext, "전화걸기 요청", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, "전화걸기 요청", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -127,7 +127,7 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
                 intent.putExtra("car_number", mValues.get(Integer.parseInt(use_pos)).car_number);
                 mContext.startActivity(intent);
 
-                Toast.makeText(mContext, "상세보기 요청", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, "상세보기 요청", Toast.LENGTH_SHORT).show();
 
             }
         });

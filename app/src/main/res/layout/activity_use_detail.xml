@@ -40,13 +40,11 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <!-- 내용 -->
     <LinearLayout
         android:id="@+id/use_detail_layout_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/default_background_type_2"
         android:orientation="vertical"
         android:layout_marginTop="16dp"
         android:layout_marginStart="32dp"
@@ -58,7 +56,6 @@
             android:id="@+id/reserve_cancel_area"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@drawable/default_background_type_6"
             android:shadowDx="0"
             android:shadowDy="0"
             android:shadowRadius="7"
@@ -272,9 +269,7 @@
             android:layout_width="match_parent"
             android:layout_height="182dp"
             android:layout_gravity="center|center_horizontal|center_vertical"
-
             android:layout_marginTop="1dp"
-            android:background="@drawable/default_background_type_2"
             android:gravity="center_vertical"
             android:orientation="vertical">
 

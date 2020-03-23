@@ -27,11 +27,6 @@ public class MyProfileSettingsDetailActivity extends AppCompatActivity implement
         findViewById(R.id.myinfo_profile_btnPrev).setOnClickListener(this);
         findViewById(R.id.myinfo_btnNext).setOnClickListener(this);
 
-
-        // myinfo_user_name => 이름
-        // user_mobile_number => 휴대폰 번호
-
-        // TODO - 서버 연동하여 이름, 휴대폰 번호 값 가지고 와서 설정해주기
         TextView myinfo_user_name = findViewById(R.id.myinfo_user_name);
         myinfo_user_name.setText(voLoginItem.MEMBER_NAME);
 

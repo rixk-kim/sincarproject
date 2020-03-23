@@ -82,6 +82,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
      * 화면 초기화
      */
     private void init() {
+
+        findViewById(R.id.btnPrev).setOnClickListener(this);
+
         login_btn = (Button) findViewById(R.id.login_btn);
         login_btn.setOnClickListener(this);
 
@@ -152,6 +155,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.btnPrev:
+                Intent intent = new Intent(this, LoginActivityPre.class);
+                startActivity(intent);
+
+                finish();
+                break;
+
             // 로그인 버튼
             case R.id.login_btn:
                 // 전화번호 입력 검증

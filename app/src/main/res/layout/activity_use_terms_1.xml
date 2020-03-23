@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NoticeActivity">
+
+    <!-- ActionBar 영역 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/use_terms1_include"
+        tools:ignore="MissingConstraints">
+
+        <!-- ActionBar : Back / Title / Info -->
+        <ImageView
+            android:id="@+id/useterms1_btnPrev"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="32dp"
+            android:contentDescription="@string/actionbar_prev_icon_description"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/prev_image_selector" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:id="@+id/payment_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginBottom="54dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+
+            android:layout_marginEnd="28dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="left|center_vertical|center_horizontal"
+                android:text="@string/use_terms_text1"
+                android:textSize="16sp"
+                android:textColor="#3e3e3e"
+                android:letterSpacing="0.05" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="44dp"
+                android:layout_gravity="left|center_vertical|center_horizontal"
+                android:text="@string/use_terms_text1_1"
+                android:textSize="16sp"
+                android:textColor="#3e3e3e"
+                android:letterSpacing="0.05" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_gravity="left|center_vertical|center_horizontal"
+                android:text="@string/use_terms_text1_2"
+                android:textSize="15sp"
+                android:textColor="#3e3e3e"
+                android:letterSpacing="0.05" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="44dp"
+                android:layout_gravity="left|center_vertical|center_horizontal"
+                android:text="@string/use_terms_text1_3"
+                android:textSize="16sp"
+                android:textColor="#3e3e3e"
+                android:letterSpacing="0.05" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="44dp"
+                android:layout_gravity="left|center_vertical|center_horizontal"
+                android:text="@string/use_terms_text1_4"
+                android:textSize="15sp"
+                android:textColor="#3e3e3e"
+                android:letterSpacing="0.05" />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

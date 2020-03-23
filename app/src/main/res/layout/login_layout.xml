@@ -27,7 +27,7 @@
             android:contentDescription="@string/actionbar_prev_icon_description"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/filled" />
+            android:src="@drawable/arrow_red_24_px" />
         <!--
         <TextView
             android:id="@+id/title_activity"
@@ -107,7 +107,7 @@
             android:layout_height="24dp"
             android:layout_marginStart="12dp"
             android:contentDescription="@string/hint_phone_title"
-            app:srcCompat="@drawable/icon_phone" />
+            android:src="@drawable/phone" />
 
         <EditText
             android:id="@+id/user_id_et"
@@ -124,7 +124,10 @@
             android:nextFocusDown="@+id/user_pwd_et"
             android:textColor="#3E3E3E"
             android:textSize="14sp"
-            android:imeOptions="actionNext" />
+            android:imeOptions="actionNext" >
+
+            <requestFocus />
+        </EditText>
     </LinearLayout>
 
     <LinearLayout
@@ -149,7 +152,7 @@
             android:layout_height="24dp"
             android:layout_marginStart="12dp"
             android:contentDescription="@string/lock_description"
-            app:srcCompat="@drawable/lock" />
+            android:src="@drawable/lock" />
 
         <EditText
             android:id="@+id/user_pwd_et"

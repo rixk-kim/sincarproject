@@ -41,10 +41,9 @@ import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
 public class ReservationMainActivity extends AppCompatActivity implements View.OnClickListener {
     public final static int CAR_MANAGE_REQ_CODE = 1001;
     public final static int CAR_REGISTER_REQ_CODE = 1005;
-    private TextView car_name_str;
-    private TextView car_number_str;
-    private TextView agent_branch;
-    private TextView agent_reserve_date;
+    private TextView car_name_str, car_number_str;
+    private TextView agent_branch, agent_reserve_date;
+    private TextView emptyView;
     private String reserve_companyname;
     private String reserve_carname;
     private String reserve_carnumber;
@@ -105,6 +104,9 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
         //예약하기
         findViewById(R.id.reserve_btn).setOnClickListener(this);
 
+        //리스트 없을 때
+        emptyView = (TextView) findViewById(R.id.option_empty_view);
+
         rRadioGroup = (RadioGroup)findViewById(R.id.wash_place_group);
 
         rRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -124,8 +126,12 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
 
         // TODO - 서버 연동 후 PointContent.ITEMS에 리스 항목 추가 작업
         // Set the adapter - 포인트 리스트 설정
+//        String serverData = "{\"add_service\": [{\"CAR_SEQ\":\"\",\"CAR_COMPANY\":\"\",\"CAR_MODEL\":\"\",\"CAR_NUMBER\":\"\",\"CAR_PAY\":\"\"}],\n" +
+//                "\"DATA\":[{\"SERVICE_NAME\":\"가니쉬 코팅\",\"SERVICE_DETAIL\":\"가니쉬란 어쩌구 저쩌구\",\"USE_PAY\":\"6000\"},{\"SERVICE_NAME\":\"에머랄드 코팅\",\"SERVICE_DETAIL\":\"가니쉬란 어쩌구 저쩌구\",\"USE_PAY\":\"5000\"},{\"SERVICE_NAME\":\"엔진룸 세척\",\"SERVICE_DETAIL\":\"가니쉬란 어쩌구 저쩌구\",\"USE_PAY\":\"6000\"}]}";
+
         String serverData = "{\"add_service\": [{\"CAR_SEQ\":\"\",\"CAR_COMPANY\":\"\",\"CAR_MODEL\":\"\",\"CAR_NUMBER\":\"\",\"CAR_PAY\":\"\"}],\n" +
-                "\"DATA\":[{\"SERVICE_NAME\":\"가니쉬 코팅\",\"SERVICE_DETAIL\":\"가니쉬란 어쩌구 저쩌구\",\"USE_PAY\":\"6000\"},{\"SERVICE_NAME\":\"에머랄드 코팅\",\"SERVICE_DETAIL\":\"가니쉬란 어쩌구 저쩌구\",\"USE_PAY\":\"5000\"},{\"SERVICE_NAME\":\"엔진룸 세척\",\"SERVICE_DETAIL\":\"가니쉬란 어쩌구 저쩌구\",\"USE_PAY\":\"6000\"}]}";
+                "\"DATA\":[]}";
+
 
         Gson gSon = new Gson();
         optionResult = gSon.fromJson(serverData, OptionResult.class);
@@ -178,12 +184,21 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
         }
 
         View view = findViewById(R.id.optionServiceList);
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+        if(voOptionDataItem.size() > 0) {
 
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new OptionServiceRecyclerViewAdapter(OptionContent.ITEMS));
+            view.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+
+            if (view instanceof RecyclerView) {
+                Context context = view.getContext();
+                RecyclerView recyclerView = (RecyclerView) view;
+
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                recyclerView.setAdapter(new OptionServiceRecyclerViewAdapter(OptionContent.ITEMS));
+            }
+        }else{
+            view.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
         }
     }
 

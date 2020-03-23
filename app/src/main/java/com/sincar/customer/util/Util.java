@@ -115,7 +115,7 @@ public class Util {
     /**
      * 특정 날짜에 대하여 요일을 구함(일 ~ 토)
      * @param date
-     * @param dateType
+     * @param
      * @return
      * @throws Exception
      */
@@ -171,6 +171,21 @@ public class Util {
         String hour = hourFormat.format(currentTime);
 
         return Integer.parseInt(hour);
+    }
+
+    /**
+     * 현재 년월일 리턴
+     *
+     * @param
+     * @param
+     */
+    public static String getYearMonthDay() {
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat mFormat = new SimpleDateFormat("yyyy.MM.dd(E) HH:mm", Locale.getDefault());
+
+        String tmp_hour = mFormat.format(currentTime);
+
+        return tmp_hour;
     }
 
     /**

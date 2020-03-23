@@ -300,6 +300,17 @@
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" /> <!-- 결제 완료 -->
 
+        <activity
+            android:name=".UseTerms1Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" /> <!-- 이용약관/알림수신.. 상세 -->
+
+        <activity
+            android:name=".UseTerms2Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" /> <!-- 취소정책 상세 -->
 
         <activity android:name=".TemplateActivity" /> <!-- template activity -->
         <provider

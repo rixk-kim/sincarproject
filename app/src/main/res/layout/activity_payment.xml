@@ -21,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginBottom="54dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include"
@@ -290,7 +291,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/discount_point" />
 
                 <!-- TODO : 포인트 사용 금액 EditBox style change -->
-                <TextView
+                <EditText
                     android:id="@+id/use_point"
                     android:layout_width="120dp"
                     android:layout_height="40dp"
@@ -300,34 +301,36 @@
                     android:background="@drawable/border"
                     android:inputType="number"
                     android:digits="0123456789"
+                    android:maxLength="10"
                     android:hint="@string/amount_default"
                     android:textSize="15sp"
                     android:textColor="@color/default_text_color"
+                    android:imeOptions="actionDone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/discount_point" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- 결제 수단 divider -->
-<!--
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
                 android:background="#1a3e3e3e" />
--->
+
             <!-- 결제 수단 영역 -->
-<!--
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/payment_type_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="28dp"
                 android:layout_marginEnd="28dp">
--->
+
                 <!-- 결제수단 타이틀 -->
-<!--
+
                 <TextView
                     android:id="@+id/payment_type_title"
                     android:layout_width="wrap_content"
@@ -338,7 +341,7 @@
                     android:text="@string/payment_type_title"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
--->
+
                 <!-- 결제수단 변경 -->
 <!--
                 <TextView
@@ -351,7 +354,7 @@
                     android:text="@string/payment_change"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
+-->
                 <TextView
                     android:id="@+id/pay"
                     android:layout_width="wrap_content"
@@ -363,8 +366,9 @@
                     android:text="@string/payment_type"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/payment_type_title" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
--->
+
             <!-- 취소 정책 divider -->
             <View
                 android:layout_width="match_parent"
@@ -577,7 +581,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="bottom|center_horizontal|center_vertical"
-        app:layout_constraintTop_toBottomOf="@+id/optionServiceList"
+        app:layout_constraintTop_toBottomOf="@+id/payment_content"
         tools:layout_editor_absoluteX="16dp">
 
         <Button

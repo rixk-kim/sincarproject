@@ -45,23 +45,35 @@ public class UseTermsActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.terms_menu_1:
-                // TODO - 서비스 이용약관
-                Toast.makeText(this, "서비스 이용약관 정보 준비중입니다.", Toast.LENGTH_SHORT).show();
+
+ //               Toast.makeText(this, "서비스 이용약관 정보 준비중입니다.", Toast.LENGTH_SHORT).show();
+                intent = new Intent(this, UseTerms1Activity.class);
+                intent.putExtra("path", "1");
+                startActivity(intent);
                 break;
 
             case R.id.terms_menu_2:
                 // TODO - 개인정보 처리방침
-                Toast.makeText(this, "개인정보 처리방침 정보 준비중입니다.", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "개인정보 처리방침 정보 준비중입니다.", Toast.LENGTH_SHORT).show();
+                intent = new Intent(this, UseTerms1Activity.class);
+                intent.putExtra("path", "2");
+                startActivity(intent);
                 break;
 
             case R.id.terms_menu_3:
                 // TODO - 위치기반서비스 이용약관
-                Toast.makeText(this, "위치기반서비스 이용약관 정보 준비중입니다.", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "위치기반서비스 이용약관 정보 준비중입니다.", Toast.LENGTH_SHORT).show();
+                intent = new Intent(this, UseTerms1Activity.class);
+                intent.putExtra("path", "3");
+                startActivity(intent);
                 break;
 
             case R.id.terms_menu_4:
                 // TODO - 마케팅 정보 수신동의
-                Toast.makeText(this, "마케팅 정보 수신동의 정보 준비중입니다.", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "마케팅 정보 수신동의 정보 준비중입니다.", Toast.LENGTH_SHORT).show();
+                intent = new Intent(this, UseTerms1Activity.class);
+                intent.putExtra("path", "4");
+                startActivity(intent);
                 break;
         }
     }

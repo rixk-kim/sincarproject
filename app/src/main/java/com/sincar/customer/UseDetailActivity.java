@@ -17,6 +17,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sincar.customer.util.Util;
+
+import static com.sincar.customer.util.Util.getYear;
+
 public class UseDetailActivity extends AppCompatActivity implements View.OnClickListener {
     private Context detailContext;
     private Activity detailActivity;
@@ -185,7 +189,7 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
             case R.id.reserve_cancel_btn:
                 // TODO - 예약 취소
                 Toast toast = Toast.makeText(this, "예약을 취소하였습니다.", Toast.LENGTH_LONG);
-
+//                cancel_time = Util.getYearMonthDay();
                 intent = new Intent(this, UseDeleteActivity.class);
                 intent.putExtra("reserve_status", reserve_status);
                 intent.putExtra("common_pay", common_pay);
@@ -193,7 +197,7 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
                 intent.putExtra("approve_info", approve_info);
                 intent.putExtra("use_pay", use_pay);
                 intent.putExtra("reserve_time", reserve_time);
-                intent.putExtra("cencel_time", cancel_time);
+                intent.putExtra("cancel_time", cancel_time);
                 intent.putExtra("wash_address", wash_address);
                 intent.putExtra("wash_agent", wash_agent);
                 intent.putExtra("agent_mobile", agent_mobile);

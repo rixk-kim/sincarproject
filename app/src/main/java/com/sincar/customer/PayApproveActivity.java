@@ -72,25 +72,7 @@ import static com.sincar.customer.HWApplication.voOptionItem;
 import static com.sincar.customer.HWApplication.voReserveItem;
 import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
 import static com.sincar.customer.util.Utility.isPackageInstalled;
-/*
-bundle.putString("reserve_address", reserve_address);   //주소
-bundle.putString("reserve_year", reserve_year);         //년
-bundle.putString("reserve_month", reserve_month);       //월
-bundle.putString("reserve_day", reserve_day);           //일
-bundle.putString("agent_seq", agent_seq);               //예약 대리점주 seq
-bundle.putString("agent_company", agent_company);       //예약 대리점주
-bundle.putString("agent_time", agent_time);             //예약시간
-bundle.putString("wash_area", wash_area);               //세차장소
-bundle.putString("car_company", car_company);           //제조사
-bundle.putString("car_name", car_name);                 //차량 이름
-bundle.putString("car_number", car_number);             //차번호
-bundle.putString("car_wash_pay", car_wash_pay);         //차량 기본 세차 금액
-bundle.putString("use_my_point", String.valueOf(use_my_point));         //사용 포인트
-bundle.putString("use_coupone_seq", coupone_seq);                       //사용 쿠폰 seq
-bundle.putString("use_my_point", String.valueOf(use_my_point));         //사용 포인트
-bundle.putString("total_amt", String.valueOf(total_amt));               //총 결제 금액
 
- */
 public class PayApproveActivity extends Activity {
     private Context pContext;
     final String MERCHANT_URL = "https://sincar.co.kr/api/payment/index.asp";
@@ -635,7 +617,7 @@ public class PayApproveActivity extends Activity {
     final class AndroidBridge {
         @JavascriptInterface //이게 있어야 웹에서 실행이 가능합니다.
         public void payAndroid(String reponseData, String message) {
-            Toast.makeText(getApplicationContext(), "웹에서 클릭했어요 => " + reponseData, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), "웹에서 클릭했어요 => " + reponseData, Toast.LENGTH_SHORT).show();
             System.out.println("[spirit] 웹에서 호출 reponseData =>" + reponseData);
 
             if("success".equals(reponseData))

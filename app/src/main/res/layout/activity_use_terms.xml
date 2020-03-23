@@ -69,7 +69,7 @@
                 android:layout_gravity="left|center_vertical|center_horizontal"
                 android:text="@string/use_terms_text1"
                 android:textSize="15sp"
-                android:textColor="#3e3e3e"
+                android:textColor="@drawable/text_color_selector"
                 android:letterSpacing="0.05" />
         </LinearLayout>
 
@@ -92,7 +92,7 @@
                 android:text="@string/use_terms_text2"
                 android:layout_gravity="left|center_vertical|center_horizontal"
                 android:textSize="15sp"
-                android:textColor="#3e3e3e"
+                android:textColor="@drawable/text_color_selector"
                 android:letterSpacing="0.05" />
         </LinearLayout>
 
@@ -116,7 +116,7 @@
                 android:text="@string/use_terms_text3"
                 android:layout_gravity="left|center_vertical|center_horizontal"
                 android:textSize="15sp"
-                android:textColor="#3e3e3e"
+                android:textColor="@drawable/text_color_selector"
                 android:letterSpacing="0.05" />
         </LinearLayout>
 
@@ -140,7 +140,7 @@
                 android:text="@string/use_terms_text4"
                 android:layout_gravity="left|center_vertical|center_horizontal"
                 android:textSize="15sp"
-                android:textColor="#3e3e3e"
+                android:textColor="@drawable/text_color_selector"
                 android:letterSpacing="0.05" />
         </LinearLayout>
 

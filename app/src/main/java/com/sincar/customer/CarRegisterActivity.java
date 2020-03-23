@@ -45,8 +45,8 @@ import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
 
 public class CarRegisterActivity extends AppCompatActivity implements View.OnClickListener {
     private Context cContext;
-    private TextView car_select_colume1;
-    private TextView car_select_colume2;
+    private EditText car_select_colume1;
+    private EditText car_select_colume2;
     private EditText car_select_colume3;
     private String car_wash_pay;
     private String car_reg_path;
@@ -96,8 +96,8 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
         findViewById(R.id.car_reg_btn).setOnClickListener(this);        //확인
 
         // 서버 연동하여 제조사, 모델명, 차량 번호 값 가지고 와서 설정해주기.
-        car_select_colume1 = (TextView) findViewById(R.id.car_select_colume1);
-        car_select_colume2 = (TextView) findViewById(R.id.car_select_colume2);
+        car_select_colume1 = (EditText) findViewById(R.id.car_select_colume1);
+        car_select_colume2 = (EditText) findViewById(R.id.car_select_colume2);
         car_select_colume3 = (EditText) findViewById(R.id.car_select_colume3);
     }
 
@@ -310,7 +310,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
 
 
             if("0".equals(voCarRegisterItem.REGISTERRESULT)) {
-                Toast.makeText(cContext, "차량이 등록 되었습니다.", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(cContext, "차량이 등록 되었습니다.", Toast.LENGTH_SHORT).show();
                 Intent intent;
                 if ("reserveMain".equals(car_reg_path)) {
                     //reserve_carname//car_select_colume1 : 회사이름
@@ -391,6 +391,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                 //tv.setText("position : " + position);
                 if(car_select_colume1 != null) {
                     car_select_colume1.setText(company_name[position]);
+                    car_select_colume1.setSelection(car_select_colume1.getText().toString().trim().length()); //커서를 끝에 위치!
                 }
 //                Toast.makeText(cContext, "position : " + adapter.getCount(), Toast.LENGTH_SHORT).show();
                 ad.dismiss();
@@ -495,6 +496,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                 //tv.setText("position : " + position);
                 if(car_select_colume2 != null) {
                     car_select_colume2.setText(car_model[position]);
+                    car_select_colume2.setSelection(car_select_colume2.getText().toString().trim().length()); //커서를 끝에 위치!
                 }
 //                Toast.makeText(cContext, "position : " + adapter.getCount(), Toast.LENGTH_SHORT).show();
 

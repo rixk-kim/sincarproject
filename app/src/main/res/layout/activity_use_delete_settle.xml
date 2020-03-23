@@ -44,7 +44,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/default_background_type_2"
         android:orientation="vertical"
         android:layout_marginTop="16dp"
         android:layout_marginStart="32dp"
@@ -53,6 +52,7 @@
         tools:layout_editor_absoluteX="0dp">
 
         <LinearLayout
+            android:id="@+id/cancel_area"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/default_background_type_6"
@@ -75,7 +75,7 @@
             <TextView
                 android:id="@+id/settle_reserve_cancel_time"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="16dp"
                 android:layout_gravity="center"
                 android:gravity="center|center_horizontal|center_vertical"
                 android:text="2019.12.19(월) 15:21"
@@ -89,7 +89,8 @@
             android:layout_height="match_parent"
             android:layout_marginTop="32dp"
             android:orientation="vertical"
-            tools:ignore="MissingConstraints">
+            tools:ignore="MissingConstraints"
+            app:layout_constraintTop_toBottomOf="@id/cancel_area">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -268,9 +269,7 @@
             android:layout_width="match_parent"
             android:layout_height="182dp"
             android:layout_gravity="center|center_horizontal|center_vertical"
-
             android:layout_marginTop="1dp"
-            android:background="@drawable/default_background_type_2"
             android:gravity="center_vertical"
             android:orientation="vertical">
 

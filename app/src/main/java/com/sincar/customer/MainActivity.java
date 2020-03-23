@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 i.setData(u);
                 startActivity(i);
 
-                Toast.makeText(getApplicationContext(), "Banner selected is " + voAdvertiseItem.get(position).AD_LINK_URL, Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "Banner selected is " + voAdvertiseItem.get(position).AD_LINK_URL, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -136,23 +136,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (v.getId()) {
             case R.id.btnCustomerPoint:
-                // TODO - 포인트 보기
+                // 포인트 보기
                 intent = new Intent(this, PointHistoryActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btnMainMenu1:
-                // TODO - 스팀세차
+                // 스팀세차
                 intent = new Intent(this, MapsActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btnMainMenu2:
                 // TODO - 대리운전
+                Toast.makeText(getApplicationContext(), "대리운전 준비중입니다.", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btnMainMenu3:
                 // TODO - 카페어링
+                Toast.makeText(getApplicationContext(), "카페어링 준비중입니다.", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btnMainMenu4:
                 // TODO - 카쉐어
+                Toast.makeText(getApplicationContext(), "카쉐어 준비중입니다.", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btnCarRegisterClose:
                 // 배너 차량등록 종료

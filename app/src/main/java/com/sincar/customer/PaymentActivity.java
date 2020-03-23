@@ -30,11 +30,11 @@ import com.sincar.customer.util.Util;
 import static com.sincar.customer.HWApplication.voLoginItem;
 import static com.sincar.customer.util.Util.setAddMoneyDot;
 
-public class PaymentActivity extends AppCompatActivity implements View.OnClickListener, TextView.OnEditorActionListener {
+public class PaymentActivity extends AppCompatActivity implements View.OnClickListener {
     public final static int PAYMENT_REQ_CODE = 1004;
     private TextView amount_TextView;
-    private TextView branch_name, wash_address, reservation_time, my_point, use_point;
-//    private EditText use_point;
+    private TextView branch_name, wash_address, reservation_time, my_point;
+    private EditText use_point;
     private String coupone_seq;
     private CheckBox clause_agree;
     private Context pContext;
@@ -96,6 +96,8 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         findViewById(R.id.btnPrev).setOnClickListener(this);
         findViewById(R.id.btnPointUse).setOnClickListener(this);    //포인트 전액 사용
 
+        findViewById(R.id.btnCancelDesc).setOnClickListener(this);    //취소정책 : 자세히
+
         ((TextView)findViewById(R.id.title_activity)).setText(R.string.payment_title);
         branch_name = (TextView)findViewById(R.id.branch_name);
         branch_name.setText(agent_company); //지점명
@@ -120,67 +122,37 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         my_point = (TextView) findViewById(R.id.my_point);
         my_point.setText(Util.setAddMoneyDot(voLoginItem.MY_POINT) + "원 보유");
 
-        use_point = (TextView) findViewById(R.id.use_point);
+        use_point = (EditText) findViewById(R.id.use_point);
         use_point.setOnClickListener(this);
 
-//        use_point.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                // 입력되는 텍스트에 변화가 있을 때
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable arg0) {
-//                // 입력이 끝났을 때
-//                int input_point = Integer.parseInt(use_point.getText().toString().trim());
-//                int mPoint = Integer.parseInt(voLoginItem.MY_POINT);
-//                if(input_point > mPoint)
-//                {
-//                    Toast.makeText(PaymentActivity.this, "보유 포인트를 초과하였습니다.", Toast.LENGTH_SHORT).show();
-//                }else {
-//                    if (mPoint >= total_amt) {
-//                        use_my_point = mPoint - total_amt;
-//                    } else {
-//                        use_my_point = mPoint;
-//                    }
-//                    my_point.setText("0원 보유");
-//                    use_point.setText(String.valueOf(use_my_point) + "원");
-//                    total_amt -= use_my_point;
-//                    mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결재하기");
-//                }
-//            }
-//
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                // 입력하기 전에
-//            }
-//        });
-//
-//        use_point.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//                if (actionId == EditorInfo.IME_ACTION_DONE) {
-//                    // 확인 버튼 눌렀을 때
-//                    int input_point = Integer.parseInt(use_point.getText().toString().trim());
-//                    int mPoint = Integer.parseInt(voLoginItem.MY_POINT);
-//                    if(input_point > mPoint)
-//                    {
-//                        Toast.makeText(PaymentActivity.this, "보유 포인트를 초과하였습니다.", Toast.LENGTH_SHORT).show();
-//                    }else {
-//                        if (mPoint >= total_amt) {
-//                            use_my_point = mPoint - total_amt;
-//                        } else {
-//                            use_my_point = mPoint;
-//                        }
-//                        my_point.setText("0원 보유");
-//                        use_point.setText(String.valueOf(use_my_point) + "원");
-//                        total_amt -= use_my_point;
-//                        mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결재하기");
-//                    }
-//                }
-//                return false;
-//            }
-//        });
+        use_point.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    // 확인 버튼 눌렀을 때
+                    String value = use_point.getText().toString().trim();
+
+                    int mPoint = Integer.parseInt(voLoginItem.MY_POINT);    //내 포인트
+                    int input_point = Integer.parseInt(value);
+
+                    if (input_point <= mPoint) {
+                        if (input_point >= total_amt) {
+                            use_my_point = input_point - total_amt;
+                        } else {
+                            use_my_point = input_point;
+                        }
+//                        my_point.setText(setAddMoneyDot(String.valueOf(mPoint-input_point)) + "원 보유");
+                        use_point.setText(setAddMoneyDot(String.valueOf(use_my_point)) + "원");
+                        use_point.setSelection(use_point.getText().toString().trim().length()); //커서를 끝에 위치!
+                        total_amt -= use_my_point;
+                        mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결재하기");
+                    } else {
+                        Toast.makeText(PaymentActivity.this, "포인트를 초과 사용하였습니다.", Toast.LENGTH_LONG).show();
+                    }
+                }
+                return false;
+            }
+        });
 
         // TODO - 서버 연동 후 PointContent.ITEMS에 리스 항목 추가 작업
         ChargeContent.clearItem(); //초기화
@@ -217,38 +189,38 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결재하기");
     }
 
-    @Override
-    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        // TODO Auto-generated method stub
-
-        //오버라이드한 onEditorAction() 메소드
-
-        if(v.getId()==R.id.use_point && actionId==EditorInfo.IME_ACTION_DONE){ // 뷰의 id를 식별, 키보드의 완료 키 입력 검출
-
-            //이 부분에 원하는 이벤트를 작성합니다
-            //이 부분에 원하는 이벤트를 작성합니다
-            //이 부분에 원하는 이벤트를 작성합니다
-// 입력이 끝났을 때
-            int input_point = Integer.parseInt(use_point.getText().toString().trim());
-            int mPoint = Integer.parseInt(voLoginItem.MY_POINT);
-            if(input_point > mPoint)
-            {
-                Toast.makeText(PaymentActivity.this, "보유 포인트를 초과하였습니다.", Toast.LENGTH_SHORT).show();
-            }else {
-                if (mPoint >= total_amt) {
-                    use_my_point = mPoint - total_amt;
-                } else {
-                    use_my_point = mPoint;
-                }
-                my_point.setText("0원 보유");
-                use_point.setText(String.valueOf(use_my_point) + "원");
-                total_amt -= use_my_point;
-                mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결재하기");
-            }
-        }
-
-        return false;
-    }
+//    @Override
+//    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//        // TODO Auto-generated method stub
+//
+//        //오버라이드한 onEditorAction() 메소드
+//
+//        if(v.getId()==R.id.use_point && actionId==EditorInfo.IME_ACTION_DONE){ // 뷰의 id를 식별, 키보드의 완료 키 입력 검출
+//
+//            //이 부분에 원하는 이벤트를 작성합니다
+//            //이 부분에 원하는 이벤트를 작성합니다
+//            //이 부분에 원하는 이벤트를 작성합니다
+//// 입력이 끝났을 때
+//            int input_point = Integer.parseInt(use_point.getText().toString().trim());
+//            int mPoint = Integer.parseInt(voLoginItem.MY_POINT);
+//            if(input_point > mPoint)
+//            {
+//                Toast.makeText(PaymentActivity.this, "보유 포인트를 초과하였습니다.", Toast.LENGTH_SHORT).show();
+//            }else {
+//                if (mPoint >= total_amt) {
+//                    use_my_point = mPoint - total_amt;
+//                } else {
+//                    use_my_point = mPoint;
+//                }
+//                my_point.setText("0원 보유");
+//                use_point.setText(String.valueOf(use_my_point) + "원");
+//                total_amt -= use_my_point;
+//                mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결재하기");
+//            }
+//        }
+//
+//        return false;
+//    }
 
 
     @Override
@@ -329,15 +301,10 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
 
-            case R.id.use_point:
-                //입력창 선택시
-                my_point.setText(setAddMoneyDot(voLoginItem.MY_POINT) + "원 보유");
-                total_amt += use_my_point;
-                use_my_point = 0;
-                use_point.setText("0원");
-                mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결재하기");
-
-                setPointPopup();
+            case R.id.btnCancelDesc:
+                //취소 정책 자세히
+                intent = new Intent(this, UseTerms2Activity.class);
+                startActivity(intent);
                 break;
         }
 
@@ -426,10 +393,10 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
                     total_amt -= Integer.parseInt(data.getStringExtra("coupone_pay"));
                     mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결재하기");
-                    Toast.makeText(PaymentActivity.this, "Result: " + data.getStringExtra("coupone_seq"), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(PaymentActivity.this, "Result: " + data.getStringExtra("coupone_seq"), Toast.LENGTH_SHORT).show();
                 }
             } else {   // RESULT_CANCEL
-                Toast.makeText(PaymentActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PaymentActivity.this, "쿠폰 정보를 가져오지 못했습니다.", Toast.LENGTH_SHORT).show();
             }
 
         }

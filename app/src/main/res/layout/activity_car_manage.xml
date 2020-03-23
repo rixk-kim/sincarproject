@@ -40,8 +40,8 @@
 
         <ImageView
             android:id="@+id/car_manage_btnNext"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_marginEnd="24dp"
             android:contentDescription="@string/actionbar_next_icon_description"
             app:layout_constraintStart_toEndOf="@+id/title_activity"

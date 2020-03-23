@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import com.sincar.customer.util.Util;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class UseDeleteActivity extends AppCompatActivity implements View.OnClickListener {
@@ -124,6 +126,7 @@ public class UseDeleteActivity extends AppCompatActivity implements View.OnClick
             case R.id.reserve_delete_btn:
                 if(delete_checkbox.isChecked() == true){
                     // TODO - 예약취소로 이동
+                    cancel_time = Util.getYearMonthDay();
                     intent = new Intent(this, UseDeleteSettleActivity.class);
                     intent.putExtra("reserve_status", reserve_status);
                     intent.putExtra("common_pay", common_pay);
@@ -131,7 +134,7 @@ public class UseDeleteActivity extends AppCompatActivity implements View.OnClick
                     intent.putExtra("approve_info", approve_info);
                     intent.putExtra("use_pay", use_pay);
                     intent.putExtra("reserve_time", reserve_time);
-                    intent.putExtra("cencel_time", cancel_time);
+                    intent.putExtra("cancel_time", cancel_time);
                     intent.putExtra("wash_address", wash_address);
                     intent.putExtra("wash_agent", wash_agent);
                     intent.putExtra("agent_mobile", agent_mobile);

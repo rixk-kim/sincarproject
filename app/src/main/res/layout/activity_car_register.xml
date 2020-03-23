@@ -50,7 +50,6 @@
         android:layout_marginTop="56dp"
         android:layout_marginEnd="24dp"
         android:orientation="vertical"
-        android:background="@drawable/default_background_type_3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +96,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:background="@color/customColorPrimary1"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark"
-                app:srcCompat="@drawable/filled_copy" />
+                app:srcCompat="@drawable/chevron_left_24_px" />
         </LinearLayout>
 
 
@@ -143,7 +142,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:background="@color/customColorPrimary1"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark"
-                app:srcCompat="@drawable/filled_copy" />
+                app:srcCompat="@drawable/chevron_left_24_px" />
         </LinearLayout>
 
         <LinearLayout
@@ -171,24 +170,64 @@
                 android:gravity="left|center_vertical|center_horizontal"
                 android:background="@null"
                 android:ems="10"
-                android:hint="차종 번호"
+                android:hint="차량 번호"
                 android:textColor="#3E3E3E"
                 android:textSize="15sp" />
 
-            <EditText
-                android:id="@+id/car_select_colume3"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginLeft="20dp"
-                android:gravity="left|center_vertical|center_horizontal"
-                android:background="@null"
-                android:ems="10"
-                android:hint="차종 번호를 입력 하세요"
-                android:textColor="#3E3E3E"
-                android:textSize="15sp"
-                android:inputType="text"
-                android:imeOptions="actionDone" />
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/car_select_colume3"
+                    android:layout_width="43dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center|center_vertical|center_horizontal"
+                    android:background="@drawable/edt_underline"
+                    android:ems="10"
+                    android:hint="12"
+                    android:ellipsize="end"
+                    android:textColor="#3E3E3E"
+                    android:textSize="15sp"
+                    android:inputType="number"
+                    android:nextFocusDown="@+id/car_select_colume4"
+                    android:imeOptions="actionNext" />
+
+                <EditText
+                    android:id="@+id/car_select_colume4"
+                    android:layout_width="38dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="12dp"
+                    android:gravity="center|center_vertical|center_horizontal"
+                    android:background="@drawable/edt_underline"
+                    android:ems="10"
+                    android:hint="가"
+                    android:textColor="#3E3E3E"
+                    android:textSize="15sp"
+                    android:inputType="text"
+                    android:nextFocusDown="@+id/car_select_colume5"
+                    android:imeOptions="actionNext" />
+
+                <EditText
+                    android:id="@+id/car_select_colume5"
+                    android:layout_width="62dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="12dp"
+                    android:gravity="center|center_vertical|center_horizontal"
+                    android:background="@drawable/edt_underline"
+                    android:ems="10"
+                    android:hint="1234"
+                    android:textColor="#3E3E3E"
+                    android:textSize="15sp"
+                    android:inputType="number"
+                    android:imeOptions="actionDone" />
+            </LinearLayout>
         </LinearLayout>
 
 

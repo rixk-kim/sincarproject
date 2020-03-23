@@ -156,7 +156,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
-                app:slider_interval="5000"
+                app:slider_interval="3000"
                 app:slider_loopSlides="true"
                 app:slider_defaultBanner="1"
                 app:slider_indicatorSize="5dp"

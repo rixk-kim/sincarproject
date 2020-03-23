@@ -79,6 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:gravity="center_vertical"
+            android:background="@drawable/button_color_selector1"
             android:orientation="horizontal">
 
             <TextView
@@ -110,6 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:gravity="center_vertical"
+            android:background="@drawable/button_color_selector1"
             android:orientation="horizontal">
 
             <TextView
@@ -142,6 +144,7 @@
             android:layout_height="64dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:background="@drawable/button_color_selector1"
             android:visibility="gone">
 
             <TextView
@@ -174,6 +177,7 @@
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:gravity="center_vertical"
+            android:background="@drawable/button_color_selector1"
             android:orientation="horizontal">
 
             <TextView
@@ -205,6 +209,7 @@
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:gravity="center_vertical"
+            android:background="@drawable/button_color_selector1"
             android:orientation="horizontal">
 
             <TextView
@@ -236,6 +241,7 @@
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:gravity="center_vertical"
+            android:background="@drawable/button_color_selector1"
             android:orientation="horizontal">
 
             <TextView

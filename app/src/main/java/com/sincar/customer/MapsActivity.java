@@ -255,7 +255,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
 
                 //ConvertGPS("서울 송파구 석촌호수로 274");
-                Toast.makeText(this, cAddress + "로 부르셨습니다. 정보 갱신중..", Toast.LENGTH_LONG).show();
+//                Toast.makeText(this, cAddress + "로 부르셨습니다. 정보 갱신중..", Toast.LENGTH_LONG).show();
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());
@@ -271,9 +271,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             if (resultCode == RESULT_OK) {
                 currentTextView.setText(data.getStringExtra("search_result"));
                 ConvertGPS(data.getStringExtra("search_result"));
-                Toast.makeText(MapsActivity.this, "Result: " + data.getStringExtra("search_result"), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MapsActivity.this, "Result: " + data.getStringExtra("search_result"), Toast.LENGTH_SHORT).show();
             } else {   // RESULT_CANCEL
-                Toast.makeText(MapsActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MapsActivity.this, "Failed", Toast.LENGTH_SHORT).show();
             }
 
         }
