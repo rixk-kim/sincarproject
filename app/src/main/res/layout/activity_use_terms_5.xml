@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:id="@+id/use_terms1_include"
+        android:id="@+id/use_terms5_include"
         tools:ignore="MissingConstraints">
 
         <!-- ActionBar : Back / Title / Info -->
@@ -33,7 +33,7 @@
         android:layout_marginBottom="54dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include"
+        app:layout_constraintTop_toBottomOf="@+id/use_terms5_include"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
