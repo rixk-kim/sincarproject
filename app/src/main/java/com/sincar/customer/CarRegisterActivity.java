@@ -51,6 +51,8 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
     private String car_wash_pay;
     private String car_reg_path;
 
+    private String car_company_code = "";
+/*
     final String company_name[] = {
             "1.현대","기아","포드","르노삼성","한국지엠","쌍용","캐딜락","쉐보레","GMC","허머",
             "올즈모빌","폰티악","새턴","포드","링컨","머큐리","크라이슬러","닷지","지프","헤네시",
@@ -71,7 +73,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
             "61.코롤라","F-시리즈","아반떼","골프","로간","X-트레일","폴로","투싼","센트라","70.HR-V",
 
     };
-
+*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,13 +123,13 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
 
             case R.id.car_name:
                 //  차량 선택. 서버 요청 후 응답 받으면 setCarDialog() 호출.
-                setCarDialog();
+                setCarDialog(car_company_code);
                 break;
 
             case R.id.car_reg_btn:
                 //  TODO - 차량 등록 후 결과값으로 차량 기본 세차비용 받어오자.
-                boolean check_Stratus = inputTextCheck();
-                if(check_Stratus) {
+//                boolean check_Stratus = inputTextCheck();
+//                if(check_Stratus) {
                     //requestCarRegister();
                     Toast.makeText(this, "차량이 등록 되었습니다.", Toast.LENGTH_SHORT).show();
 
@@ -148,7 +150,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                         startActivity(intent);
                     }
                     finish();
-                }
+ //               }
                 break;
 
         }
@@ -179,63 +181,63 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
         finish();
     }
 
-    private boolean inputTextCheck()
-    {
-        if (car_select_colume1 != null || car_select_colume1.getText().toString().trim().length() != 0) {
-            if (car_select_colume1.getText().toString().trim().length() == 0) {
-                showCarErrorAlert("1");
-                return false;
-            }else{
-                //입력한 제조사 존재 여부 확인
-                boolean company_status = false;
-                for(int i = 0; i < company_name.length; i++) {
-                    if(car_select_colume1.getText().toString().trim().equals(company_name[i]))
-                    {
-                        company_status = true;
-                    }
-                }
-
-                if(!company_status)
-                {
-                    showCarErrorAlert("4");
-                    return false;
-                }
-
-            }
-        }
-
-        if (car_select_colume2 != null || car_select_colume2.getText().toString().trim().length() != 0) {
-            if (car_select_colume2.getText().toString().trim().length() == 0) {
-                showCarErrorAlert("2");
-                return false;
-            }else{
-                //입력한 모델 존재 여부 확인
-                boolean car_status = false;
-                for(int i = 0; i < company_name.length; i++) {
-                    if(car_select_colume2.getText().toString().trim().equals(car_model[i]))
-                    {
-                        car_status = true;
-                    }
-                }
-
-                if(!car_status)
-                {
-                    showCarErrorAlert("5");
-                    return false;
-                }
-
-            }
-        }
-
-        if (car_select_colume3 != null || car_select_colume3.getText().toString().trim().length() != 0) {
-            if (car_select_colume3.getText().toString().trim().length() == 0) {
-                showCarErrorAlert("3");
-                return false;
-            }
-        }
-
-        return true;
-    }
+//    private boolean inputTextCheck()
+//    {
+//        if (car_select_colume1 != null || car_select_colume1.getText().toString().trim().length() != 0) {
+//            if (car_select_colume1.getText().toString().trim().length() == 0) {
+//                showCarErrorAlert("1");
+//                return false;
+//            }else{
+//                //입력한 제조사 존재 여부 확인
+//                boolean company_status = false;
+//                for(int i = 0; i < company_name.length; i++) {
+//                    if(car_select_colume1.getText().toString().trim().equals(company_name[i]))
+//                    {
+//                        company_status = true;
+//                    }
+//                }
+//
+//                if(!company_status)
+//                {
+//                    showCarErrorAlert("4");
+//                    return false;
+//                }
+//
+//            }
+//        }
+//
+//        if (car_select_colume2 != null || car_select_colume2.getText().toString().trim().length() != 0) {
+//            if (car_select_colume2.getText().toString().trim().length() == 0) {
+//                showCarErrorAlert("2");
+//                return false;
+//            }else{
+//                //입력한 모델 존재 여부 확인
+//                boolean car_status = false;
+//                for(int i = 0; i < company_name.length; i++) {
+//                    if(car_select_colume2.getText().toString().trim().equals(car_model[i]))
+//                    {
+//                        car_status = true;
+//                    }
+//                }
+//
+//                if(!car_status)
+//                {
+//                    showCarErrorAlert("5");
+//                    return false;
+//                }
+//
+//            }
+//        }
+//
+//        if (car_select_colume3 != null || car_select_colume3.getText().toString().trim().length() != 0) {
+//            if (car_select_colume3.getText().toString().trim().length() == 0) {
+//                showCarErrorAlert("3");
+//                return false;
+//            }
+//        }
+//
+//        return true;
+//    }
 
     /**
      * 차량 서버 등록
@@ -345,7 +347,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
      */
     private void setCompanyDialog()
     {
-
+        String tmp_company_code = "";
 
         LayoutInflater inflater = (LayoutInflater) cContext.getSystemService(LAYOUT_INFLATER_SERVICE);
 
@@ -354,27 +356,20 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
         AlertDialog.Builder aDialog = new AlertDialog.Builder(cContext);
 
         // 커스텀 아답타 생성
-        final CompanyAdapter adapter = new CompanyAdapter (
-                getApplicationContext(),
-                R.layout.company_row,       // GridView 항목의 레이아웃 row.xml
-                company_name);    // 데이터
-        /**
-         * 서버 연동 후  아래 코드로 변경
-         */
-/*
-        String[] company_name_1 = new String[voCompanyListDataItem.size()];
-        String[] company_code = new String[voCompanyListDataItem.size()];
+        final String[] company_name_1 = new String[voCompanyListDataItem.size()];
+        final String[] company_code = new String[voCompanyListDataItem.size()];
+
         for(int i = 0; i < voCompanyListDataItem.size(); i++)
         {
-            company_name_1[i] = voCompanyListDataItem.get(0).CAR_COMPANY;
-            company_code[i] = voCompanyListDataItem.get(0).CAR_COMPANY;
+            company_name_1[i]   = voCompanyListDataItem.get(i).CAR_COMPANY;
+            company_code[i]     = voCompanyListDataItem.get(i).CAR_COMPANY_CODE;
         }
 
         final CompanyAdapter adapter = new CompanyAdapter (
                 getApplicationContext(),
                 R.layout.company_row,       // GridView 항목의 레이아웃 row.xml
                 company_name_1);    // 데이터
-*/
+
         GridView gv = (GridView)layout.findViewById(R.id.gridView1);
         gv.setAdapter(adapter);  // 커스텀 아답타를 GridView 에 적용
 
@@ -390,10 +385,10 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                                     int position, long id) {
                 //tv.setText("position : " + position);
                 if(car_select_colume1 != null) {
-                    car_select_colume1.setText(company_name[position]);
-//                    car_select_colume1.setSelection(car_select_colume1.getText().toString().trim().length()); //커서를 끝에 위치!
+                    car_select_colume1.setText(company_name_1[position]);
+                    car_select_colume1.setText(""); //차량 초기화
+                    car_company_code = company_code[position];
                 }
-//                Toast.makeText(cContext, "position : " + adapter.getCount(), Toast.LENGTH_SHORT).show();
                 ad.dismiss();
             }
         });
@@ -444,7 +439,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
     /**
      * 차량 선택 Dialog
      */
-    private void setCarDialog()
+    private void setCarDialog(String tmp_company_code)
     {
 
 
@@ -455,56 +450,68 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
         AlertDialog.Builder aDialog = new AlertDialog.Builder(cContext);
 
         // 커스텀 아답타 생성
-        final CarAdapter adapter = new CarAdapter (
-                getApplicationContext(),
-                R.layout.car_row,       // GridView 항목의 레이아웃 row.xml
-                car_model);    // 데이터
-/**
- * 서버 연동 후  아래 코드로 변경
- */
-/*
-        String[] car_company_code = new String[voCarListDataItem.size()];
-        String[] car_name = new String[voCarListDataItem.size()];
-        String[] car_code = new String[voCarListDataItem.size()];
-        String[] car_wash_pay = new String[voCompanyListDataItem.size()];
-        for(int i = 0; i < voCompanyListDataItem.size(); i++)
+        int data_size = 0;
+
+        for(int k = 0; k < voCarListDataItem.size(); k++)
         {
-            car_company_code[i] = voCarListDataItem.get(0).CAR_COMPANY_CODE;
-            car_name[i]         = voCarListDataItem.get(0).CAR_NAME;
-            car_code[i]         = voCarListDataItem.get(0).CAR_CODE;
-            car_wash_pay[i]     = voCarListDataItem.get(0).CAR_WASH_PAY;
+            if(tmp_company_code.equals(voCarListDataItem.get(k).CAR_COMPANY_CODE))
+            {
+                data_size+=1;
+            }
         }
 
-        final CarAdapter adapter = new CarAdapter (
-                getApplicationContext(),
-                R.layout.car_row,       // GridView 항목의 레이아웃 row.xml
-                car_name);    // 데이터
-*/
+        String[] car_company_code   = new String[data_size];
+        final String[] car_name     = new String[data_size];
+        String[] car_code           = new String[data_size];
+        String[] car_wash_pay       = new String[data_size];
 
-        GridView gv = (GridView)layout.findViewById(R.id.car_gridView1);
-        gv.setAdapter(adapter);  // 커스텀 아답타를 GridView 에 적용
+        int tmp_k = 0;
+        for(int i = 0; i < voCarListDataItem.size(); i++)
+        {
+            if(tmp_company_code.equals(voCarListDataItem.get(i).CAR_COMPANY_CODE))
+            {
+                car_company_code[tmp_k] = voCarListDataItem.get(i).CAR_COMPANY_CODE;
+                car_name[tmp_k]         = voCarListDataItem.get(i).CAR_NAME;
+                car_code[tmp_k]         = voCarListDataItem.get(i).CAR_CODE;
+                car_wash_pay[tmp_k]     = voCarListDataItem.get(i).CAR_WASH_PAY;
 
-        aDialog.setView(layout); //dialog.xml 파일을 뷰로 셋팅
-        //팝업창 생성
-        final AlertDialog ad = aDialog.create();
-
-        // GridView 아이템을 클릭하면 상단 텍스트뷰에 position 출력
-        gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                //tv.setText("position : " + position);
-                if(car_select_colume2 != null) {
-                    car_select_colume2.setText(car_model[position]);
-//                    car_select_colume2.setSelection(car_select_colume2.getText().toString().trim().length()); //커서를 끝에 위치!
-                }
-//                Toast.makeText(cContext, "position : " + adapter.getCount(), Toast.LENGTH_SHORT).show();
-
-                ad.dismiss();;
+                tmp_k += 1;
             }
-        });
-        ad.show();//보여줌!
+        }
 
+        if(car_name.length > 0)
+        {
+            final CarAdapter adapter = new CarAdapter(
+                    getApplicationContext(),
+                    R.layout.car_row,       // GridView 항목의 레이아웃 row.xml
+                    car_name);    // 데이터
+
+
+            GridView gv = (GridView) layout.findViewById(R.id.car_gridView1);
+            gv.setAdapter(adapter);  // 커스텀 아답타를 GridView 에 적용
+
+            aDialog.setView(layout); //dialog.xml 파일을 뷰로 셋팅
+            //팝업창 생성
+            final AlertDialog ad = aDialog.create();
+
+            // GridView 아이템을 클릭하면 상단 텍스트뷰에 position 출력
+            gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view,
+                                        int position, long id) {
+                    //tv.setText("position : " + position);
+                    if (car_select_colume2 != null) {
+                        car_select_colume2.setText(car_name[position]);
+                        //                    car_select_colume2.setSelection(car_select_colume2.getText().toString().trim().length()); //커서를 끝에 위치!
+                    }
+                    //                Toast.makeText(cContext, "position : " + adapter.getCount(), Toast.LENGTH_SHORT).show();
+
+                    ad.dismiss();
+                    ;
+                }
+            });
+            ad.show();//보여줌!
+        }
     }
 
     class CarAdapter extends BaseAdapter {

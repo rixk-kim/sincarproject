@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -85,12 +86,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onSlideClick(int position) {
                 // Banner 선택 시 필요한 동작 추가
                 // voAdvertiseItem.get(i).AD_LINK_URL ==> 웹뷰 띄워주자.
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                Uri u = Uri.parse(voAdvertiseItem.get(position).AD_LINK_URL);
-                i.setData(u);
-                startActivity(i);
-
-//                Toast.makeText(getApplicationContext(), "Banner selected is " + voAdvertiseItem.get(position).AD_LINK_URL, Toast.LENGTH_LONG).show();
+                if(position <= 0) position = 0;
+                System.out.println("[spirit] advertise pos => " + position);
+                if(!TextUtils.isEmpty(voAdvertiseItem.get(position).AD_LINK_URL)) {
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    Uri u = Uri.parse(voAdvertiseItem.get(position).AD_LINK_URL);
+                    i.setData(u);
+                    startActivity(i);
+                }else {
+                    Toast.makeText(getApplicationContext(), "이동할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

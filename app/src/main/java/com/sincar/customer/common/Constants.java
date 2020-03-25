@@ -15,10 +15,10 @@ public class Constants {
     public static final String PREFERENCE_STRING = "SINCAR_PERF";
     public static final String PREFERENCE_PERMISSION_CHERCK = "checkPermission";
 
-    // 실서버
+    // 실서버  http://sincar.co.kr/api/IF_SINCAR_AGENT_001.asp?PHONE_NUMBER=01054490789&PASSWORD=1234
 //    public static final String BASE_URL = "http://14.63.214.44:7060";
 
-    public static final String BASE_URL = "http://droad.iptime.org:8080";
+    public static final String BASE_URL = "http://sincar.co.kr/api";
 
 
     // 연결 서버 변경
@@ -28,7 +28,7 @@ public class Constants {
     public static final String UPDATE_CHECK_URL = REAL_SERVER + "/Begin/MTD/TVerCheck.do?";
 
     // 로그인   http://droad.iptime.org:8080/login_check_mobile.php?id=test2019&pw=1234
-    public static final String LOGIN_REQUEST = REAL_SERVER + "/login_check_mobile.php?";
+    public static final String LOGIN_REQUEST = REAL_SERVER + "/IF_SINCAR_AGENT_001.asp?";
 
     //리스트 요청
     public static final String FREIGHT_LIST_REQUEST = REAL_SERVER + "/freight_list.php?";

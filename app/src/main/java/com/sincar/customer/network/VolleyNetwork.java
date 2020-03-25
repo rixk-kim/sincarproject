@@ -5,14 +5,18 @@ import android.graphics.Bitmap;
 import androidx.collection.LruCache;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 public class VolleyNetwork {
@@ -21,7 +25,7 @@ public class VolleyNetwork {
     private ImageLoader imageLoader;
     private static Context ctx;
 
-    String serverUrl = "http://my-json-feed";
+    String serverUrl = "";
 
     private VolleyNetwork(Context context) {
         ctx = context;
@@ -74,10 +78,10 @@ public class VolleyNetwork {
     public void passwordChangeRequest(String command,
                                       final Map<String, String> params,
                                       final OnResponseListener onResponseListener) {
-        String url = serverUrl + command;
+        String url = command;
 
         // Formulate the request and handle the response.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -96,6 +100,19 @@ public class VolleyNetwork {
                         }
                     }
                 }) {
+            @Override //response를 UTF8로 변경해주는 소스코드
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                try {
+                    String utf8String = new String(response.data, "UTF-8");
+                    return Response.success(utf8String, HttpHeaderParser.parseCacheHeaders(response));
+                } catch (UnsupportedEncodingException e) {
+                    // log error
+                    return Response.error(new ParseError(e));
+                } catch (Exception e) {
+                    // log error
+                    return Response.error(new ParseError(e));
+                }
+            }
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
