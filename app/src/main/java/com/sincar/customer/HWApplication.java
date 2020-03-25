@@ -5,6 +5,9 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+
 import androidx.multidex.MultiDexApplication;
 
 import com.sincar.customer.entity.LoginDataEntity;
@@ -48,6 +51,7 @@ import com.sincar.customer.item.UseDataItem;
 import com.sincar.customer.item.UseItem;
 import com.sincar.customer.item.UseResult;
 import com.sincar.customer.preference.PreferenceManager;
+import com.sincar.customer.util.LoadingProgress;
 
 import java.util.ArrayList;
 
@@ -136,6 +140,8 @@ public class HWApplication extends MultiDexApplication {
     public static JoinResult joinResult;
     public static JoinItem voJoinItem;
 
+
+
     AppStatus mAppStatus;
     @Override
     public void onCreate() {
@@ -174,7 +180,6 @@ public class HWApplication extends MultiDexApplication {
         voReserveItem   = new ReserveItem();
         voAuthItem      = new AuthItem();
         voJoinItem      = new JoinItem();
-
     }
 
     public static HWApplication getInstance() {
@@ -276,4 +281,6 @@ public class HWApplication extends MultiDexApplication {
         }
 
     }
+
+
 }

@@ -214,7 +214,7 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
         postParams.put("AGENT_SEQ", "1");                       // 대리점 SEQ
 
         //프로그래스바 시작
-        Util.showDialog();
+        Util.showDialog(this);
         //사용내역 요청
         VolleyNetwork.getInstance(this).passwordChangeRequest(LOGIN_REQUEST, postParams, onResponseListener);
     }

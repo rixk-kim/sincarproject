@@ -3,10 +3,13 @@ package com.sincar.customer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -25,6 +28,7 @@ import com.sincar.customer.network.DataObject;
 import com.sincar.customer.network.JsonParser;
 import com.sincar.customer.network.VolleyNetwork;
 import com.sincar.customer.util.DataParser;
+import com.sincar.customer.util.LoadingProgress;
 import com.sincar.customer.util.Util;
 
 import java.util.ArrayList;
@@ -67,6 +71,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     //public static Activity loginActivity;
 
+    //progress
+    public LoadingProgress mProgress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +83,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         // 화면 초기화
         init();
+
+        mProgress = new LoadingProgress(this);
     }
 
     /**
@@ -207,7 +216,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         postParams.put("PASSWORD", pwEt.getText().toString().trim());           // 사용자 패스워드
 
         //프로그래스바 시작
-        Util.showDialog();
+        //Util.showDialog(this);
+        showProgress();
+
 
         //로그인 요청
         VolleyNetwork.getInstance(this).passwordChangeRequest(LOGIN_REQUEST, postParams, onResponseListener);
@@ -276,7 +287,8 @@ it =>  {"login": [{"REGISTER":"1","CAUSE":"비밀번호 오류","MEMBER_NO":"123
         voCarListDataItem = loginResult.car_list;
 
         //프로그래스바 종료
-        Util.dismiss();
+        //Util.dismiss();
+        hideProgress();
 
         try {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -284,6 +296,37 @@ it =>  {"login": [{"REGISTER":"1","CAUSE":"비밀번호 오류","MEMBER_NO":"123
             finish();
         } catch (Exception e) {
             e.toString();
+        }
+    }
+
+    /**
+     * 로딩 프로그래스 START.
+     */
+    public void showProgress(){
+        //네트웍 연결상태 체크하여 연결된 네트웍이 있을때만 진행.
+//        String acc_type = DAPPreference.get(this,Constants.PREFERENCE_ACC_TYPE,"");
+//        if(!TextUtils.isEmpty(acc_type) && !"Unknown".equals(acc_type)) {
+        if (mProgress == null) {
+            mProgress = new LoadingProgress(this);
+        }
+
+
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                mProgress.show();
+            }
+        });
+        //       }
+    }
+
+    /**
+     * 로딩 프로그래스 END.
+     */
+    public void hideProgress(){
+        if(mProgress!=null){
+            mProgress.dismiss();
         }
     }
 }

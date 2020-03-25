@@ -7,7 +7,7 @@
 
     <string name="not_register_device_msg">등록되지 않은 기기 입니다.\n관리자에게 문의하세요.</string>
     <string name="fail_to_server_connect_msg">서버와 통신에 실패하였습니다.\n네트워크 (LTE, wifi)를 확인 후 다시 시도하여 주세요.</string>
-    <string name="connect_server_msg">서버와 통신중 입니다.\n잠시만 기다려 주세요.</string>
+    <string name="connect_server_msg">loading...</string>
     <string name="error_network_connected">네트워크상의 문제로 연결이 되지 않았습니다.</string>
     <string name="server_accept_failed_connect_msg">서버에 연결할 수 없습니다.\n관리자에게 문의하세요.</string>
     <string name="server_connect_error">서버와 통신에 실패하였습니다.</string>

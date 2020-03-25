@@ -10,6 +10,9 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Display;
 import android.view.inputmethod.InputMethodManager;
@@ -66,6 +69,8 @@ public class Util {
 
     // 프로그래스 바
     public static ProgressDialog mProgressDialog;
+
+
 
 
     /**
@@ -473,14 +478,15 @@ public class Util {
     /**
      * 프로그래스 다이얼로그 보여주기
      */
-    public static void showDialog() {
+    public static void showDialog(Context mContext) {
         try {
             if (mProgressDialog != null) {
                 mProgressDialog.dismiss();
                 mProgressDialog = null;
             }
-            mProgressDialog = new ProgressDialog(mUtilContext);
-            mProgressDialog.setMessage(mUtilContext.getString(R.string.connect_server_msg));
+            mProgressDialog = new ProgressDialog(mContext);
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+           // mProgressDialog.setMessage(mContext.getString(R.string.connect_server_msg));
             mProgressDialog.setCancelable(false);
             mProgressDialog.show();
         } catch (Exception e) {
@@ -501,4 +507,6 @@ public class Util {
             e.printStackTrace();
         }
     }
+
+
 }

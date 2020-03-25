@@ -171,7 +171,7 @@ public class ReservationTimeActivity extends AppCompatActivity
         postParams.put("REQUEST_DATE", "20200320");                   //날짜
 
         //프로그래스바 시작
-        Util.showDialog();
+        Util.showDialog(this);
         //사용내역 요청
         VolleyNetwork.getInstance(this).passwordChangeRequest(LOGIN_REQUEST, postParams, onResponseListener);
     }

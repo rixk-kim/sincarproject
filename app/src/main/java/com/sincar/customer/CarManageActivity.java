@@ -82,7 +82,7 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
         postParams.put("REQUEST_NUM", "20");                        // 요청갯수
 
         //프로그래스바 시작
-        Util.showDialog();
+        Util.showDialog(this);
         //사용내역 요청
         VolleyNetwork.getInstance(this).passwordChangeRequest(LOGIN_REQUEST, postParams, onResponseListener);
     }

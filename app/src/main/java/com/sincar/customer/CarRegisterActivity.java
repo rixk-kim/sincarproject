@@ -254,7 +254,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
         postParams.put("CAR_NUMBER", "20");                             // 차량번호
 
         //프로그래스바 시작
-        Util.showDialog();
+        Util.showDialog(this);
         //사용내역 요청
         VolleyNetwork.getInstance(this).passwordChangeRequest(LOGIN_REQUEST, postParams, onCarRegisterResponseListener);
     }
