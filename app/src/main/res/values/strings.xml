@@ -32,6 +32,11 @@
     <string name="input_company_code_msg">코드를 입력하세요.</string>
     <string name="input_id_msg">전화번호를 입력하세요.</string>
     <string name="input_pwd_msg">비밀번호를 입력하세요.</string>
+    <string name="input_auth_msg">문자 메세지로 전송된 코드를 입력해주세요.</string>
+    <string name="hint_auth_title">코드 입력</string>
+    <string name="error_auth_msg">입력하신 코드가 올바르지 않습니다.\n다시 입력해주세요.</string>
+    <string name="input_recom_msg">추천인 코드를 등록하면 가입 즉시\n5천원 할인쿠폰이 지급돼요!</string>
+    <string name="input_terms_msg">서비스 이용을 위해 약관에 동의해주세요.</string>
 
     <string name="input_company_name_msg">제조사를 입력하세요.</string>
     <string name="input_car_name_msg">모델명를 입력하세요.</string>
@@ -64,13 +69,15 @@
     <!-- 5. 비밀번호 변경 시작 -->
     <string name="title_activity_password_change">비밀번호 변경</string>
 
-    <string name="desc_activity_password_change">변경하실 새 비밀번호를 입력해주세요.\n(영문+숫자 조합 6자리 이상)</string>
+    <string name="desc_activity_password_change">변경하실 새 비밀번호를 입력해주세요.\n(영문+숫자 조합 8자리 이상)</string>
+    <string name="desc_activity_password">비밀번호는 영문+숫자 조합 8자리\n이상으로 설정해주시기 바랍니다.</string>
     <string name="password_change_success">비밀번호 재설정이 완료되었습니다.\n로그인 해주시기 바랍니다.</string>
 
     <!-- 공통 -->
     <string name="actionbar_prev_icon_description">이전버튼</string>
     <string name="actionbar_next_icon_description">다음버튼</string>
     <string name="btn_confirm">확인</string>
+    <string name="btn_next_text">다음</string>
 
     <!-- 이미지 description -->
     <string name="lock_description">Lock 아이콘</string>
@@ -82,8 +89,13 @@
     <string name="hint_password_title">비밀번호</string>
     <string name="member_login">로그인</string>
     <string name="member_join">회원가입</string>
+    <string name="member_join_name">본인 실명</string>
+    <string name="member_join_next">건너뛰기</string>
+    <string name="member_join_recom">추천인 코드</string>
 
     <!-- EditBox hint -->
+    <string name="hint_password1">비밀번호</string>
+    <string name="hint_password2">비밀번호 확인</string>
     <string name="hint_new_password1">새 비밀번호</string>
     <string name="hint_new_password2">새 비밀번호 확인</string>
     <!-- 5. 비밀번호 변경 끝 -->

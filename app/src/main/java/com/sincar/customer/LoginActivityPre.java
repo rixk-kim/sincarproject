@@ -69,7 +69,7 @@ public class LoginActivityPre extends Activity implements View.OnClickListener {
 
             case R.id.memberjoin_btn:
                 //회원가입 이동
-                Intent intent1 = new Intent(LoginActivityPre.this, com.sincar.customer.MemberShipActivity.class);
+                Intent intent1 = new Intent(LoginActivityPre.this, com.sincar.customer.MemberJoinActivity.class);
                 startActivity(intent1);
                 // 최초 생성 후 이동 시 제거
                 finish();

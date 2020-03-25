@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -22,12 +23,21 @@ import java.util.regex.Pattern;
 
 public class PasswordChangeActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText new_password1, new_password2;
+    private TextView description_activity;
     private Context pContext;
+    private String path;
+    private String phone_number;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_change);
         pContext = this;
+
+        Intent intent = getIntent(); /*데이터 수신*/
+        path  = intent.getExtras().getString("path");       /*String형*/
+        if("join".equals(path)) {
+            phone_number = intent.getExtras().getString("phone_number");       /*String형*/
+        }
 
         init();
     }
@@ -44,6 +54,14 @@ public class PasswordChangeActivity extends AppCompatActivity implements View.On
         new_password1 = (EditText) findViewById(R.id.new_password1);
         new_password2 = (EditText) findViewById(R.id.new_password2);
 
+        if("join".equals(path)) {
+            description_activity = (TextView) findViewById(R.id.description_activity);
+            description_activity.setText(R.string.desc_activity_password);
+
+            new_password1.setHint(R.string.hint_password1);
+            new_password2.setHint(R.string.hint_password2);
+        }
+
         Map<String, String> params = null;
 
         VolleyNetwork.getInstance(this).passwordChangeRequest("url", params, onResponseListener);
@@ -54,8 +72,10 @@ public class PasswordChangeActivity extends AppCompatActivity implements View.On
         Intent intent;
         switch (v.getId()) {
             case R.id.change_btnPrev:
-                intent = new Intent(this, MyProfileSettingsDetailActivity.class);
-                startActivity(intent);
+                if(!"join".equals(path)) {
+                    intent = new Intent(this, MyProfileSettingsDetailActivity.class);
+                    startActivity(intent);
+                }
                 finish();
                 break;
 
@@ -66,68 +86,77 @@ public class PasswordChangeActivity extends AppCompatActivity implements View.On
 
             // commonAlert에 listener 필요해서 확인 눌렀을때 해야할 일 처리 필요할꺼 같은데요.
             case R.id.btnPassword:
-
+                String tmp_password1 = new_password1.getText().toString().trim();
+                String tmp_password2 = new_password2.getText().toString().trim();
 
                 //비밀번호 유효성
-                if(TextUtils.isEmpty(new_password1.getText().toString().trim()))
+                if(TextUtils.isEmpty(tmp_password1))
                 {
                     Toast.makeText(PasswordChangeActivity.this,"비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if(!Pattern.matches("^[a-zA-Z0-9]*$", new_password1.getText().toString().trim()))
+                if(!Pattern.matches("^(?=.*[0-9]+)[a-zA-Z][a-zA-Z0-9]{7,29}$", tmp_password1))
                 {
                     Toast.makeText(PasswordChangeActivity.this,"비밀번호 형식을 지켜주세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if(new_password1.getText().toString().trim().length() < 6)
+                if(tmp_password1.length() < 8)
                 {
                     Toast.makeText(PasswordChangeActivity.this,"비밀번호 길이를 지켜주세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if(TextUtils.isEmpty(new_password2.getText().toString().trim()))
+                if(TextUtils.isEmpty(tmp_password2))
                 {
                     Toast.makeText(PasswordChangeActivity.this,"비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if(!Pattern.matches("^[a-zA-Z0-9]*$", new_password2.getText().toString().trim()))
+                if(!Pattern.matches("^(?=.*[0-9]+)[a-zA-Z][a-zA-Z0-9]{7,29}$", tmp_password2))
                 {
                     Toast.makeText(PasswordChangeActivity.this,"비밀번호 형식을 지켜주세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if(new_password2.getText().toString().trim().length() < 6)
+                if(tmp_password2.length() < 8)
                 {
                     Toast.makeText(PasswordChangeActivity.this,"비밀번호 길이를 지켜주세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if(!new_password1.equals(new_password2))
+                if(!tmp_password1.equals(tmp_password2))
                 {
                     Toast.makeText(PasswordChangeActivity.this,"비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
  //               Util.commonAlert(this, getString(R.string.password_change_success), false, false);
+                if(!"join".equals(path)) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    // 메세지
+                    builder.setTitle(getString(R.string.notice));
+                    builder.setMessage(R.string.password_change_success);
+                    builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // TODO Auto-generated method stub
+                            dialog.dismiss();
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                // 메세지
-                builder.setTitle(getString(R.string.notice));
-                builder.setMessage(R.string.password_change_success);
-                builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // TODO Auto-generated method stub
-                        dialog.dismiss();
-
-                        Intent intent1 = new Intent(pContext, LoginActivity.class);
-                        startActivity(intent1);
-                        finish();
-                    }
-                }).show();
+                            Intent intent1 = new Intent(pContext, LoginActivity.class);
+                            startActivity(intent1);
+                            finish();
+                        }
+                    }).show();
+                }else{
+                    //TODO - 본인 실명 입력 페이지 이동
+                    intent = new Intent(this, MemberNickNameActivity.class);
+//                    intent.putExtra("path", "join");
+                    intent.putExtra("phone_number", phone_number);
+                    intent.putExtra("password", tmp_password1);
+                    startActivity(intent);
+                }
                 break;
         }
     }

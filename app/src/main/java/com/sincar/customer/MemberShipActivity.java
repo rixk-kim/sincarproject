@@ -32,7 +32,7 @@ public class MemberShipActivity extends Activity implements View.OnClickListener
     BottomNavigationView bottomNavigationView;
 
     WebView mWebView;
-    private String register_url = "https://www.sincar.co.kr/member/index.asp";
+    private String register_url = "https://www.sincar.co.kr/mobile/member/index.asp";
     private Context mContext;
 
     private Button login_btn;

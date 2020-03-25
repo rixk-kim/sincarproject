@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,8 +46,7 @@ import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
 
 public class CarRegisterActivity extends AppCompatActivity implements View.OnClickListener {
     private Context cContext;
-    private EditText car_select_colume1;
-    private EditText car_select_colume2;
+    private TextView car_select_colume1, car_select_colume2;
     private EditText car_select_colume3;
     private String car_wash_pay;
     private String car_reg_path;
@@ -90,14 +90,14 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
      */
     @SuppressLint("ResourceAsColor")
     private void init() {
-        findViewById(R.id.car_reg_btnPrev).setOnClickListener(this);    //이전
-        findViewById(R.id.btnNext1).setOnClickListener(this);           //제조사 선택
-        findViewById(R.id.btnNext2).setOnClickListener(this);           //차량 선택
+        findViewById(R.id.car_reg_btnPrev).setOnClickListener(this);        //이전
+        findViewById(R.id.car_company).setOnClickListener(this);           //제조사 선택
+        findViewById(R.id.car_name).setOnClickListener(this);                   //차량 선택
         findViewById(R.id.car_reg_btn).setOnClickListener(this);        //확인
 
         // 서버 연동하여 제조사, 모델명, 차량 번호 값 가지고 와서 설정해주기.
-        car_select_colume1 = (EditText) findViewById(R.id.car_select_colume1);
-        car_select_colume2 = (EditText) findViewById(R.id.car_select_colume2);
+        car_select_colume1 = (TextView) findViewById(R.id.car_select_colume1);
+        car_select_colume2 = (TextView) findViewById(R.id.car_select_colume2);
         car_select_colume3 = (EditText) findViewById(R.id.car_select_colume3);
     }
 
@@ -114,12 +114,12 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                 finish();
                 break;
 
-            case R.id.btnNext1:
+            case R.id.car_company:
                 //  제조사 선택. 서버 요청 후 응답 받으면 setCompanyDialog() 호출.
                 setCompanyDialog();
                 break;
 
-            case R.id.btnNext2:
+            case R.id.car_name:
                 //  차량 선택. 서버 요청 후 응답 받으면 setCarDialog() 호출.
                 setCarDialog();
                 break;
@@ -391,7 +391,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                 //tv.setText("position : " + position);
                 if(car_select_colume1 != null) {
                     car_select_colume1.setText(company_name[position]);
-                    car_select_colume1.setSelection(car_select_colume1.getText().toString().trim().length()); //커서를 끝에 위치!
+//                    car_select_colume1.setSelection(car_select_colume1.getText().toString().trim().length()); //커서를 끝에 위치!
                 }
 //                Toast.makeText(cContext, "position : " + adapter.getCount(), Toast.LENGTH_SHORT).show();
                 ad.dismiss();
@@ -496,7 +496,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                 //tv.setText("position : " + position);
                 if(car_select_colume2 != null) {
                     car_select_colume2.setText(car_model[position]);
-                    car_select_colume2.setSelection(car_select_colume2.getText().toString().trim().length()); //커서를 끝에 위치!
+//                    car_select_colume2.setSelection(car_select_colume2.getText().toString().trim().length()); //커서를 끝에 위치!
                 }
 //                Toast.makeText(cContext, "position : " + adapter.getCount(), Toast.LENGTH_SHORT).show();
 

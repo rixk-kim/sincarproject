@@ -10,6 +10,7 @@
                 android:radius="7dp"/>
         </shape>
     </item>
+
     <item android:state_pressed="true">
         <shape >
             <gradient

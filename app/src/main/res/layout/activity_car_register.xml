@@ -63,7 +63,7 @@
             android:layout_marginStart="40dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="40dp"
-            android:background="@drawable/layout_background"
+            android:background="@drawable/button_color_selector1"
             android:elevation="10dp"
             android:gravity="center_vertical|center_horizontal"
             android:orientation="horizontal"
@@ -73,7 +73,7 @@
 
 
 
-            <EditText
+            <TextView
                 android:id="@+id/car_select_colume1"
                 android:layout_width="296dp"
                 android:layout_height="match_parent"
@@ -81,11 +81,8 @@
                 android:background="@null"
                 android:ems="10"
                 android:hint="제조사를 선택 하세요"
-                android:nextFocusDown="@+id/car_select_colume2"
                 android:textColor="#3E3E3E"
-                android:textSize="15sp"
-                android:inputType="text"
-                android:imeOptions="actionNext"/>
+                android:textSize="15sp"/>
 
             <ImageView
                 android:id="@+id/btnNext1"
@@ -108,7 +105,7 @@
             android:layout_marginStart="40dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="40dp"
-            android:background="@drawable/layout_background"
+            android:background="@drawable/button_color_selector1"
             android:elevation="10dp"
             android:gravity="center_vertical|center_horizontal"
             android:orientation="horizontal"
@@ -118,7 +115,7 @@
 
 
 
-            <EditText
+            <TextView
                 android:id="@+id/car_select_colume2"
                 android:layout_width="296dp"
                 android:layout_height="match_parent"
@@ -127,10 +124,7 @@
                 android:ems="10"
                 android:hint="차종을 선택 하세요"
                 android:textColor="#3E3E3E"
-                android:textSize="15sp"
-                android:inputType="text"
-                android:nextFocusDown="@+id/car_select_colume3"
-                android:imeOptions="actionNext"/>
+                android:textSize="15sp"/>
 
             <ImageView
                 android:id="@+id/btnNext2"
@@ -166,8 +160,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:layout_marginLeft="20dp"
-                android:gravity="left|center_vertical|center_horizontal"
+                android:gravity="center|center_vertical|center_horizontal"
                 android:background="@null"
                 android:ems="10"
                 android:hint="차량 번호"
@@ -183,20 +176,19 @@
 
                 <EditText
                     android:id="@+id/car_select_colume3"
-                    android:layout_width="43dp"
+                    android:layout_width="167dp"
                     android:layout_height="20dp"
                     android:layout_marginTop="20dp"
                     android:gravity="center|center_vertical|center_horizontal"
                     android:background="@drawable/edt_underline"
                     android:ems="10"
-                    android:hint="12"
+                    android:hint="12 가 1234"
                     android:ellipsize="end"
                     android:textColor="#3E3E3E"
                     android:textSize="15sp"
-                    android:inputType="number"
-                    android:nextFocusDown="@+id/car_select_colume4"
-                    android:imeOptions="actionNext" />
-
+                    android:inputType="text"
+                    android:imeOptions="actionDone" />
+<!--
                 <EditText
                     android:id="@+id/car_select_colume4"
                     android:layout_width="38dp"
@@ -227,6 +219,7 @@
                     android:textSize="15sp"
                     android:inputType="number"
                     android:imeOptions="actionDone" />
+-->
             </LinearLayout>
         </LinearLayout>
 

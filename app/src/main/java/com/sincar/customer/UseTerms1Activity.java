@@ -10,21 +10,21 @@ import android.widget.Toast;
 
 
 public class UseTerms1Activity extends AppCompatActivity implements View.OnClickListener {
-    private String vari;
+    private String variable;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent(); /*데이터 수신*/
-        vari    = intent.getExtras().getString("path");    /*String형*/
+        variable    = intent.getExtras().getString("path");    /*String형*/
 
-        if("1".equals(vari))
+        if("1".equals(variable) || "5".equals(variable))
         {
             setContentView(R.layout.activity_use_terms_1);  //서비스 이용약관
-        }else if("2".equals(vari))
+        }else if("2".equals(variable) || "6".equals(variable))
         {
             setContentView(R.layout.activity_use_terms_2);  //개인정보 처리방침
-        }else if("3".equals(vari))
+        }else if("3".equals(variable) || "7".equals(variable))
         {
             setContentView(R.layout.activity_use_terms_3);  //위치기반서비스 이용약관
         }else
@@ -40,13 +40,13 @@ public class UseTerms1Activity extends AppCompatActivity implements View.OnClick
      */
     private void init() {
         // TODO - 서비스 이용약관 내용 수정
-        if("1".equals(vari))
+        if("1".equals(variable) || "5".equals(variable))
         {
             findViewById(R.id.useterms1_btnPrev).setOnClickListener(this);
-        }else if("2".equals(vari))
+        }else if("2".equals(variable) || "6".equals(variable))
         {
             findViewById(R.id.useterms2_btnPrev).setOnClickListener(this);
-        }else if("3".equals(vari))
+        }else if("3".equals(variable) || "7".equals(variable))
         {
             findViewById(R.id.useterms3_btnPrev).setOnClickListener(this);
         }else
@@ -65,8 +65,11 @@ public class UseTerms1Activity extends AppCompatActivity implements View.OnClick
             case R.id.useterms3_btnPrev:
             case R.id.useterms4_btnPrev:
                 //  내정보
-                intent = new Intent(this, UseTermsActivity.class);
-                startActivity(intent);
+                int tmp_variable = Integer.parseInt(variable);
+                if(tmp_variable < 5) {
+                    intent = new Intent(this, UseTermsActivity.class);
+                    startActivity(intent);
+                }
                 finish();
                 break;
         }
@@ -76,9 +79,11 @@ public class UseTerms1Activity extends AppCompatActivity implements View.OnClick
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        Intent intent = new Intent(this, UseTermsActivity.class);
-        startActivity(intent);
-
+        int tmp_variable = Integer.parseInt(variable);
+        if(tmp_variable < 5) {
+            Intent intent = new Intent(this, UseTermsActivity.class);
+            startActivity(intent);
+        }
         finish();
     }
 }

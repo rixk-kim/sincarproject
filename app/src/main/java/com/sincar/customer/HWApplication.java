@@ -14,6 +14,8 @@ import com.sincar.customer.item.AddressResult;
 import com.sincar.customer.item.AgentDataItem;
 import com.sincar.customer.item.AgentItem;
 import com.sincar.customer.item.AgentResult;
+import com.sincar.customer.item.AuthItem;
+import com.sincar.customer.item.AuthResult;
 import com.sincar.customer.item.CarDataItem;
 import com.sincar.customer.item.CarItem;
 import com.sincar.customer.item.CarListDataItem;
@@ -27,6 +29,8 @@ import com.sincar.customer.item.CompanyListDataItem;
 import com.sincar.customer.item.CouponeDataItem;
 import com.sincar.customer.item.CouponeItem;
 import com.sincar.customer.item.CouponeResult;
+import com.sincar.customer.item.JoinItem;
+import com.sincar.customer.item.JoinResult;
 import com.sincar.customer.item.LoginAdvertiseItem;
 import com.sincar.customer.item.LoginDataItem;
 import com.sincar.customer.item.LoginItem;
@@ -124,6 +128,14 @@ public class HWApplication extends MultiDexApplication {
     public static ReserveResult reserveResult;
     public static ReserveItem voReserveItem;
 
+    //회원가입-인증
+    public static AuthResult authResult;
+    public static AuthItem voAuthItem;
+
+    //회원가입
+    public static JoinResult joinResult;
+    public static JoinItem voJoinItem;
+
     AppStatus mAppStatus;
     @Override
     public void onCreate() {
@@ -160,6 +172,8 @@ public class HWApplication extends MultiDexApplication {
         voOptionItem    = new OptionItem();
         voCarRegisterItem       = new CarRegisterItem();
         voReserveItem   = new ReserveItem();
+        voAuthItem      = new AuthItem();
+        voJoinItem      = new JoinItem();
 
     }
 
