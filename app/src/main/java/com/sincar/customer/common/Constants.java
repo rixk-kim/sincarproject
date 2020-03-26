@@ -42,6 +42,8 @@ public class Constants {
 
     public static final String MEMBER_WITHRAW_REQUEST       = REAL_SERVER + "/IF_SINCAR_AGENT_020.asp?";   //회원탈퇴
 
+    public static final String POINT_LIST_REQUEST       = REAL_SERVER + "/IF_SINCAR_AGENT_022.asp?";        //포인트 리스트 요청
+
 
     //리스트 요청
     public static final String FREIGHT_LIST_REQUEST = REAL_SERVER + "/freight_list.php?";

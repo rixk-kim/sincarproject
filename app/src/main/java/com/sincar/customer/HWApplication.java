@@ -46,6 +46,9 @@ import com.sincar.customer.item.OptionItem;
 import com.sincar.customer.item.OptionResult;
 import com.sincar.customer.item.PasswordItem;
 import com.sincar.customer.item.PasswordResult;
+import com.sincar.customer.item.PointDataItem;
+import com.sincar.customer.item.PointItem;
+import com.sincar.customer.item.PointResult;
 import com.sincar.customer.item.RecommandItem;
 import com.sincar.customer.item.RecommandResult;
 import com.sincar.customer.item.ReserveCancelItem;
@@ -102,6 +105,7 @@ public class HWApplication extends MultiDexApplication {
     public static ArrayList<UseDataItem> voUseDataItem;             //이용내역
     public static ArrayList<UseDataDetailItem> voUseDataDetailItem; //이용내역
     public static ArrayList<OptionDataItem> voOptionDataItem;       //부가서비스 리스트
+    public static ArrayList<PointDataItem> voPointDataItem;       //포인트 리스트
 
     //공지사항
     public static NoticeResult noticeResult;
@@ -172,6 +176,10 @@ public class HWApplication extends MultiDexApplication {
     public static WithdrawResult withdrawResult;
     public static WithdrawItem voWithdrawItem;
 
+    //포인트 조회
+    public static PointResult pointResult;
+    public static PointItem voPointItem;
+
     AppStatus mAppStatus;
     @Override
     public void onCreate() {
@@ -216,6 +224,7 @@ public class HWApplication extends MultiDexApplication {
         voRecommandItem = new RecommandItem();
         voSettingItem   = new SettingItem();
         voWithdrawItem  = new WithdrawItem();
+        voPointItem     = new PointItem();
     }
 
     public static HWApplication getInstance() {

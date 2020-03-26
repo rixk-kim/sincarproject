@@ -33,7 +33,7 @@ public class PointContent {
     }
 
     private static PointItem createDummyItem(int position) {
-        return new PointItem(position, "김민정","스팀세차", "20.03.01", "+100");
+        return new PointItem(position, String.valueOf(position), "김민정","스팀세차", "20.03.01", "+100");
     }
 
 //    private static PointItem makeDetails(int position) {
@@ -51,13 +51,15 @@ public class PointContent {
      */
     public static class PointItem {
         public final int id;
+        public final String seq;
         public final String username;
         public final String service_type;
         public final String date;
         public final String point;
 
-        public PointItem(int id, String username, String service_type, String date, String point) {
+        public PointItem(int id, String seq, String username, String service_type, String date, String point) {
             this.id = id;
+            this.seq = seq;
             this.username = username;
             this.service_type = service_type;
             this.date = date;
