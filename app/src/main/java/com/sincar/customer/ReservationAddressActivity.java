@@ -76,7 +76,7 @@ public class ReservationAddressActivity extends AppCompatActivity implements Vie
         postParams.put("SEARCH_WORD", mSearchAddressKeyword.getText().toString().trim());    // 검색단어
 
         //검색 요청
-        VolleyNetwork.getInstance(this).passwordChangeRequest(LOGIN_REQUEST, postParams, onSearchResponseListener);
+        VolleyNetwork.getInstance(this).serverDataRequest(LOGIN_REQUEST, postParams, onSearchResponseListener);
     }
 
     VolleyNetwork.OnResponseListener onSearchResponseListener = new VolleyNetwork.OnResponseListener() {

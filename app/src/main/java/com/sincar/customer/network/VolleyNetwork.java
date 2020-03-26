@@ -75,7 +75,7 @@ public class VolleyNetwork {
     //==============================================================================================
 
     // sample password 변경 코드. 인터페이스 보고 추후 변경. 이런 구조로 하면 어떨까...그리고 VolleyNetwork는 이름바꾸면 되요.
-    public void passwordChangeRequest(String command,
+    public void serverDataRequest(String command,
                                       final Map<String, String> params,
                                       final OnResponseListener onResponseListener) {
         String url = command;

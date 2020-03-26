@@ -107,7 +107,7 @@ public class PointHistoryActivity extends AppCompatActivity implements View.OnCl
 //        postParams.put("REQUEST_NUM", "20");
 //
 //        //로그인 요청
-//        VolleyNetwork.getInstance(this).passwordChangeRequest(LOGIN_REQUEST, postParams, onResponseListener);
+//        VolleyNetwork.getInstance(this).serverDataRequest(LOGIN_REQUEST, postParams, onResponseListener);
     }
 
     @Override

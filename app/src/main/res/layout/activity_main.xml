@@ -149,22 +149,30 @@
                 app:layout_constraintTop_toBottomOf="@+id/btnMainMenu2" />
 
             <!-- 배너 -->
-            <ss.com.bannerslider.Slider
-                android:id="@+id/banner_slider"
+            <LinearLayout
+                android:id="@+id/banner_slider_layout"
                 android:layout_width="0dp"
                 android:layout_height="120dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
-                app:slider_interval="3000"
-                app:slider_loopSlides="true"
-                app:slider_defaultBanner="1"
-                app:slider_indicatorSize="5dp"
-                android:background="@drawable/layout_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnMainMenu3" />
-
+                app:layout_constraintTop_toBottomOf="@+id/btnMainMenu3">
+                <ss.com.bannerslider.Slider
+                    android:id="@+id/banner_slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="118dp"
+                    android:paddingBottom="1dp"
+                    android:paddingTop="1dp"
+                    android:paddingRight="1dp"
+                    android:paddingLeft="1dp"
+                    app:slider_interval="3000"
+                    app:slider_loopSlides="true"
+                    app:slider_defaultBanner="1"
+                    app:slider_indicatorSize="5dp"
+                    android:background="@drawable/layout_background" />
+            </LinearLayout>
 <!--
             <Button
                 android:id="@+id/mainBanner"
@@ -190,7 +198,7 @@
                 android:background="@drawable/layout_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/banner_slider">
+                app:layout_constraintTop_toBottomOf="@+id/banner_slider_layout">
 
                 <TextView
                     android:id="@+id/registerTitle"

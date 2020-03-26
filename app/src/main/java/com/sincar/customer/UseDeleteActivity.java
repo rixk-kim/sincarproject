@@ -1,18 +1,32 @@
 package com.sincar.customer;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+import com.sincar.customer.item.PasswordResult;
+import com.sincar.customer.item.ReserveCancelResult;
+import com.sincar.customer.network.VolleyNetwork;
 import com.sincar.customer.util.Util;
+
+import java.util.HashMap;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import static com.sincar.customer.HWApplication.reserveCancelResult;
+import static com.sincar.customer.HWApplication.voReserveCancelItem;
+import static com.sincar.customer.common.Constants.RESERVE_CANCEL_REQUEST;
+
 public class UseDeleteActivity extends AppCompatActivity implements View.OnClickListener {
+    private String reserve_seq;     //seq
     private String reserve_status;  //예약상태
     private String common_pay;      //일반요금
     private String coupone_pay;     //쿠폰요금
@@ -42,6 +56,7 @@ public class UseDeleteActivity extends AppCompatActivity implements View.OnClick
         useActivity.finish();
 
         Intent intent = getIntent(); /*데이터 수신*/
+        reserve_seq     = intent.getExtras().getString("reserve_seq");       /*String형*/
         reserve_status  = intent.getExtras().getString("reserve_status");       /*String형*/
         common_pay      = intent.getExtras().getString("common_pay");       /*String형*/
         coupone_pay     = intent.getExtras().getString("coupone_pay");      /*String형*/
@@ -107,6 +122,7 @@ public class UseDeleteActivity extends AppCompatActivity implements View.OnClick
             case R.id.use_delete_btnPrev:
                 //  이용내역 상세으로
                 intent = new Intent(this, UseDetailActivity.class);
+                intent.putExtra("reserve_seq", reserve_seq);
                 intent.putExtra("reserve_status", reserve_status);
                 intent.putExtra("common_pay", common_pay);
                 intent.putExtra("coupone_pay", coupone_pay);
@@ -125,29 +141,70 @@ public class UseDeleteActivity extends AppCompatActivity implements View.OnClick
 
             case R.id.reserve_delete_btn:
                 if(delete_checkbox.isChecked() == true){
-                    // TODO - 예약취소로 이동
-                    cancel_time = Util.getYearMonthDay();
-                    intent = new Intent(this, UseDeleteSettleActivity.class);
-                    intent.putExtra("reserve_status", reserve_status);
-                    intent.putExtra("common_pay", common_pay);
-                    intent.putExtra("coupone_pay", coupone_pay);
-                    intent.putExtra("approve_info", approve_info);
-                    intent.putExtra("use_pay", use_pay);
-                    intent.putExtra("reserve_time", reserve_time);
-                    intent.putExtra("cancel_time", cancel_time);
-                    intent.putExtra("wash_address", wash_address);
-                    intent.putExtra("wash_agent", wash_agent);
-                    intent.putExtra("agent_mobile", agent_mobile);
-                    intent.putExtra("car_info", car_info);
-                    intent.putExtra("car_number", car_number);
-                    startActivity(intent);
-                    finish();
+                    // 예약취소로 이동
+                    requestUseHistory();
                 }else {
                     Toast.makeText(UseDeleteActivity.this, "동의를 체크해 주세요.", Toast.LENGTH_LONG).show();
                 }
                 break;
         }
     }
+
+    /**
+     * 예약취소 요청
+     * SEQ        : 예약 SEQ
+     */
+    private void requestUseHistory() {
+        HashMap<String, String> postParams = new HashMap<String, String>();
+        postParams.put("SEQ", reserve_seq);                 // SEQ
+
+        //프로그래스바 시작
+        Util.showDialog(this);
+        //예약취소 요청
+        VolleyNetwork.getInstance(this).serverDataRequest(RESERVE_CANCEL_REQUEST, postParams, onReserveCancelResponseListener);
+    }
+
+    VolleyNetwork.OnResponseListener onReserveCancelResponseListener = new VolleyNetwork.OnResponseListener() {
+        @Override
+        public void onResponseSuccessListener(String it) {
+            Gson gSon = new Gson();
+            //LoginResult loginResult = gSon.fromJson(it, LoginResult.class);
+            reserveCancelResult = gSon.fromJson(it, ReserveCancelResult.class);
+
+            voReserveCancelItem.RESERVE_RESULT  = reserveCancelResult.reserve.RESERVE_RESULT;
+            voReserveCancelItem.CAUSE           = reserveCancelResult.reserve.CAUSE;
+
+            //프로그래스바 종료
+            Util.dismiss();
+
+            if("0".equals(voReserveCancelItem.RESERVE_RESULT)) {
+                cancel_time = Util.getYearMonthDay();
+                Intent intent = new Intent(dContext, UseDeleteSettleActivity.class);
+                intent.putExtra("reserve_seq", reserve_seq);
+                intent.putExtra("reserve_status", reserve_status);
+                intent.putExtra("common_pay", common_pay);
+                intent.putExtra("coupone_pay", coupone_pay);
+                intent.putExtra("approve_info", approve_info);
+                intent.putExtra("use_pay", use_pay);
+                intent.putExtra("reserve_time", reserve_time);
+                intent.putExtra("cancel_time", cancel_time);
+                intent.putExtra("wash_address", wash_address);
+                intent.putExtra("wash_agent", wash_agent);
+                intent.putExtra("agent_mobile", agent_mobile);
+                intent.putExtra("car_info", car_info);
+                intent.putExtra("car_number", car_number);
+                startActivity(intent);
+                finish();
+            }else{
+                Toast.makeText(dContext, "예약 변경 실패하였습니다. 재시도 해주세요.", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        public void onResponseFailListener(VolleyError it) {
+            Toast.makeText(dContext, "예약 변경 실패하였습니다. 재시도 해주세요.", Toast.LENGTH_LONG).show();
+        }
+    };
 
     @SuppressLint("NewApi")
     @Override

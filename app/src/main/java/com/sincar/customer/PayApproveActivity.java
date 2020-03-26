@@ -661,7 +661,7 @@ public class PayApproveActivity extends Activity {
         //프로그래스바 시작
         Util.showDialog(this);
         //사용내역 요청
-        VolleyNetwork.getInstance(this).passwordChangeRequest(LOGIN_REQUEST, postParams, onReserveResponseListener);
+        VolleyNetwork.getInstance(this).serverDataRequest(LOGIN_REQUEST, postParams, onReserveResponseListener);
     }
 
     VolleyNetwork.OnResponseListener onReserveResponseListener = new VolleyNetwork.OnResponseListener() {

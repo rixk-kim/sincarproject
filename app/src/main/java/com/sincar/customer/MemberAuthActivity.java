@@ -20,11 +20,13 @@ import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.sincar.customer.item.AuthResult;
 import com.sincar.customer.network.VolleyNetwork;
+import com.sincar.customer.util.Util;
 
 import java.util.HashMap;
 
 import static com.sincar.customer.HWApplication.authResult;
 import static com.sincar.customer.HWApplication.voAuthItem;
+import static com.sincar.customer.common.Constants.AUTH_NUMBER_REQUEST;
 import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
 
 /**
@@ -128,8 +130,7 @@ public class MemberAuthActivity extends Activity implements View.OnClickListener
         switch (v.getId()) {
 
             case R.id.join_auth_btn:
-                // TODO - 비밀번호 입력으로 이동
-                //join_user_auth.getText().toString().trim()
+                // 비밀번호 입력으로 이동
                 if(TextUtils.isEmpty(join_user_auth.getText().toString().trim()))
                 {
                     Toast.makeText(MemberAuthActivity.this, "코드를 입력 해주세요.", Toast.LENGTH_LONG).show();
@@ -158,16 +159,19 @@ public class MemberAuthActivity extends Activity implements View.OnClickListener
     private void requestAuthCode() {
 
         HashMap<String, String> postParams = new HashMap<String, String>();
-        postParams.put("phoneNumber", phone_number);     // 사용자 전화번호
+        postParams.put("PHONE_NUMBER", phone_number);     // 사용자 전화번호
+
+        //프로그래스바 시작
+        Util.showDialog(this);
 
         //인증번호 요청
-        VolleyNetwork.getInstance(this).passwordChangeRequest(LOGIN_REQUEST, postParams, onAuthResponseListener);
+        VolleyNetwork.getInstance(this).serverDataRequest(AUTH_NUMBER_REQUEST, postParams, onReAuthResponseListener);
     }
 
-    VolleyNetwork.OnResponseListener onAuthResponseListener = new VolleyNetwork.OnResponseListener() {
+    VolleyNetwork.OnResponseListener onReAuthResponseListener = new VolleyNetwork.OnResponseListener() {
         @Override
         public void onResponseSuccessListener(String it) {
-            it = " {\"auth_send\": {\"AUTH_RESULT\":\"0\",\"CAUSE\":\"\",\"AUTH_NUMBER\":\"123456\"}}";
+ //           it = " {\"auth_send\": {\"AUTH_RESULT\":\"0\",\"CAUSE\":\"\",\"AUTH_NUMBER\":\"123456\"}}";
             Gson gSon = new Gson();
             //LoginResult loginResult = gSon.fromJson(it, LoginResult.class);
             authResult = gSon.fromJson(it, AuthResult.class);
@@ -176,6 +180,9 @@ public class MemberAuthActivity extends Activity implements View.OnClickListener
             voAuthItem.CAUSE            = authResult.auth_send.CAUSE;
             voAuthItem.AUTH_NUMBER      = authResult.auth_send.AUTH_NUMBER;  //인증번호
 
+            //프로그래스바 종료
+            Util.dismiss();
+
             countDownTimer();
 
             Toast.makeText(MemberAuthActivity.this, "재전송 하였습니다.", Toast.LENGTH_LONG).show();
@@ -183,6 +190,9 @@ public class MemberAuthActivity extends Activity implements View.OnClickListener
 
         @Override
         public void onResponseFailListener(VolleyError it) {
+            //프로그래스바 종료
+            Util.dismiss();
+
             Toast.makeText(MemberAuthActivity.this, "재전송에 실패하였습니다.", Toast.LENGTH_LONG).show();
         }
     };

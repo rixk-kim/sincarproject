@@ -305,7 +305,7 @@ public class MemberJoinTermsActivity extends Activity implements View.OnClickLis
         }
 
         //인증번호 요청
-        VolleyNetwork.getInstance(this).passwordChangeRequest(LOGIN_REQUEST, postParams, onMemberJoinResponseListener);
+        VolleyNetwork.getInstance(this).serverDataRequest(LOGIN_REQUEST, postParams, onMemberJoinResponseListener);
     }
 
     VolleyNetwork.OnResponseListener onMemberJoinResponseListener = new VolleyNetwork.OnResponseListener() {

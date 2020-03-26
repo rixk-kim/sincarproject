@@ -82,7 +82,7 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
         //프로그래스바 시작
         Util.showDialog(this);
         //사용내역 요청
-        VolleyNetwork.getInstance(this).passwordChangeRequest(LOGIN_REQUEST, postParams, onResponseListener);
+        VolleyNetwork.getInstance(this).serverDataRequest(LOGIN_REQUEST, postParams, onResponseListener);
     }
 
     VolleyNetwork.OnResponseListener onResponseListener = new VolleyNetwork.OnResponseListener() {

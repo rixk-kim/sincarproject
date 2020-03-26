@@ -28,7 +28,13 @@ public class Constants {
     public static final String UPDATE_CHECK_URL = REAL_SERVER + "/Begin/MTD/TVerCheck.do?";
 
     // 로그인   http://droad.iptime.org:8080/login_check_mobile.php?id=test2019&pw=1234
-    public static final String LOGIN_REQUEST = REAL_SERVER + "/IF_SINCAR_AGENT_001.asp?";
+    public static final String LOGIN_REQUEST                = REAL_SERVER + "/IF_SINCAR_AGENT_001.asp?";   //로그인
+    public static final String AUTH_NUMBER_REQUEST          = REAL_SERVER + "/IF_SINCAR_AGENT_002.asp?";   //인증번호 발송 요청
+    public static final String CHANGE_PASSWORD              = REAL_SERVER + "/IF_SINCAR_AGENT_004.asp?";   //비밀번호 변경
+    public static final String USE_HISTORY_REQUEST          = REAL_SERVER + "/IF_SINCAR_AGENT_005.asp?";   //이용내역 조회
+    public static final String RESERVE_CANCEL_REQUEST       = REAL_SERVER + "/IF_SINCAR_AGENT_006.asp?";   //예약취소
+    public static final String RECOMMEND_REGISTER_REQUEST   = REAL_SERVER + "/IF_SINCAR_AGENT_007.asp?";   //추천인 코드 등록
+    public static final String NOTICE_LIST_REQUEST          = REAL_SERVER + "/IF_SINCAR_AGENT_008.asp?";   //공지사항 요청
 
     //리스트 요청
     public static final String FREIGHT_LIST_REQUEST = REAL_SERVER + "/freight_list.php?";

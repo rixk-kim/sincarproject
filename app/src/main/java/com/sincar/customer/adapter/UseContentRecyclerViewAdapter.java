@@ -56,11 +56,12 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
     public void onBindViewHolder(final com.sincar.customer.adapter.UseContentRecyclerViewAdapter.ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
 
-        holder.mUseSeq = Integer.parseInt(mValues.get(position).seq);
-        holder.reserve_status = Integer.parseInt(mValues.get(position).reserve_status);
+        holder.mUseSeq = mValues.get(position).seq;
+        holder.reserve_status = mValues.get(position).reserve_status;
         holder.reserve_time.setText(mValues.get(position).reserve_time);
         holder.cancel_time = mValues.get(position).cancel_time;
         holder.wash_address.setText(mValues.get(position).wash_address);
+
         holder.wash_agent.setText(mValues.get(position).wash_agent);
         holder.use_pay.setText(mValues.get(position).use_pay);
         holder.agent_mobile = mValues.get(position).agent_mobile;
@@ -72,11 +73,11 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
         holder.car_number = mValues.get(position).car_number;       //차량번호
 
         //0: 예약중, 1:완료 , 2: 예약취소
-        if(holder.reserve_status == 0) {
+        if("0".equals(holder.reserve_status)) {
             holder.reserve_view.setText("예약 건");
-        }else if(holder.reserve_status == 1) {
+        }else if("1".equals(holder.reserve_status)) {
             holder.reserve_view.setText("완료 건");
-        }else if(holder.reserve_status == 2) {
+        }else if("2".equals(holder.reserve_status)) {
             holder.reserve_view.setText("예약취소 건");
         }
 
@@ -113,6 +114,7 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
                 // 리스트 선택 시 이벤트 핸들러 추가 필요하면 여기에서 해주기
                 // 상세보기
                 Intent intent = new Intent(mContext, UseDetailActivity.class);
+                intent.putExtra("reserve_seq", mValues.get(Integer.parseInt(use_pos)).seq);
                 intent.putExtra("reserve_status", mValues.get(Integer.parseInt(use_pos)).reserve_status);
                 intent.putExtra("common_pay", mValues.get(Integer.parseInt(use_pos)).common_pay);
                 intent.putExtra("coupone_pay", mValues.get(Integer.parseInt(use_pos)).coupone_pay);
@@ -145,8 +147,8 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
 
-        public int mUseSeq;
-        public int reserve_status;
+        public String mUseSeq;
+        public String reserve_status;
         private LinearLayout useLinearLayout;
 
         public final TextView reserve_time;
@@ -172,8 +174,8 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
             super(view);
             mView = view;
 
-            mUseSeq         = 0;
-            reserve_status  = 0;
+            mUseSeq         = "";
+            reserve_status  = "";
             reserve_view    = view.findViewById(R.id.use_column1);
             reserve_time    = view.findViewById(R.id.use_column3);
             wash_address    = view.findViewById(R.id.use_column5);

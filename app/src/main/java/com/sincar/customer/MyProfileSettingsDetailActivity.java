@@ -48,6 +48,7 @@ public class MyProfileSettingsDetailActivity extends AppCompatActivity implement
             case R.id.myinfo_btnNext:
                 //  비밀번호변경
                 intent = new Intent(this, PasswordChangeActivity.class);
+                intent.putExtra("path", "change");
                 startActivity(intent);
                 finish();
                 break;

@@ -22,9 +22,9 @@ public class NoticeContent {
     static {
         // Add some sample items.
         // TODO - 서버 연동 작업 후 Dummy 아이템 추가 코드 삭제 필요
-        for (int i = 1; i <= COUNT; i++) {
-            addItem(createDummyItem(i));
-        }
+//        for (int i = 1; i <= COUNT; i++) {
+//            addItem(createDummyItem(i));
+//        }
     }
 
     public static void addItem(NoticeItem item) {
@@ -32,9 +32,14 @@ public class NoticeContent {
         ITEM_MAP.put(item.id, item);
     }
 
-    private static NoticeItem createDummyItem(int position) {
-        return new NoticeItem(position, "1","[이벤트]할인쿠폰 이벤트", "2020.03.01", "SIN 그룹에서 스팀워시 대리점을 모집합니다. 송파지사, 서초지사에서 모집중이며 자세한 사항은 고객센터를 통해 연락부탁드립니다. SIN 그룹에서 스팀워시 대리점을 모집합니다. 송파지사, 서초지사에서 모집중이며 자세한 사항은 고객센터를 통해 연락부탁드립니다. SIN 그룹에서 스팀워시 대리점을 모집합니다. 송파지사, 서초지사에서 모집중이며 자세한 사항은 고객센터를 통해 연락부탁드립니다. SIN 그룹에서 스팀워시 대리점을 모집합니다. 송파지사, 서초지사에서 모집중이며 자세한 사항은 고객센터를 통해 연락부탁드립니다. 감사합니다. ");
+    public static void clearItem() {
+        ITEMS.clear();
+        ITEM_MAP.clear();
     }
+
+//    private static NoticeItem createDummyItem(int position) {
+//        return new NoticeItem(position, "1","[이벤트]할인쿠폰 이벤트", "2020.03.01", "SIN 그룹에서 스팀워시 대리점을 모집합니다. 송파지사, 서초지사에서 모집중이며 자세한 사항은 고객센터를 통해 연락부탁드립니다. SIN 그룹에서 스팀워시 대리점을 모집합니다. 송파지사, 서초지사에서 모집중이며 자세한 사항은 고객센터를 통해 연락부탁드립니다. SIN 그룹에서 스팀워시 대리점을 모집합니다. 송파지사, 서초지사에서 모집중이며 자세한 사항은 고객센터를 통해 연락부탁드립니다. SIN 그룹에서 스팀워시 대리점을 모집합니다. 송파지사, 서초지사에서 모집중이며 자세한 사항은 고객센터를 통해 연락부탁드립니다. 감사합니다. ");
+//    }
 
 //    private static PointItem makeDetails(int position) {
 //        StringBuilder builder = new StringBuilder();

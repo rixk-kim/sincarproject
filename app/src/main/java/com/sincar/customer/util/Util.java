@@ -71,7 +71,8 @@ public class Util {
     public static ProgressDialog mProgressDialog;
 
 
-
+    //progress
+    public static LoadingProgress mProgress;
 
     /**
      * 현재 년도 리턴
@@ -479,34 +480,84 @@ public class Util {
      * 프로그래스 다이얼로그 보여주기
      */
     public static void showDialog(Context mContext) {
-        try {
-            if (mProgressDialog != null) {
-                mProgressDialog.dismiss();
-                mProgressDialog = null;
+//        try {
+//            if (mProgressDialog != null) {
+//                mProgressDialog.dismiss();
+//                mProgressDialog = null;
+//            }
+//            mProgressDialog = new ProgressDialog(mContext);
+//            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//           // mProgressDialog.setMessage(mContext.getString(R.string.connect_server_msg));
+//            mProgressDialog.setCancelable(false);
+//            mProgressDialog.show();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        //네트웍 연결상태 체크하여 연결된 네트웍이 있을때만 진행.
+//        String acc_type = DAPPreference.get(this,Constants.PREFERENCE_ACC_TYPE,"");
+//        if(!TextUtils.isEmpty(acc_type) && !"Unknown".equals(acc_type)) {
+//        if (mProgress == null) {
+        mProgress =null;
+        mProgress = new LoadingProgress(mContext);
+//        }
+
+
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                mProgress.show();
             }
-            mProgressDialog = new ProgressDialog(mContext);
-            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-           // mProgressDialog.setMessage(mContext.getString(R.string.connect_server_msg));
-            mProgressDialog.setCancelable(false);
-            mProgressDialog.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        });
+        //       }
     }
 
     /**
      * 프로그래스 다이얼로그 해제
      */
     public static void dismiss() throws NullPointerException {
-        try {
-            if (mProgressDialog == null) {
-                return;
-            }
-            mProgressDialog.dismiss();
-        } catch (Exception e) {
-            e.printStackTrace();
+//        try {
+//            if (mProgressDialog == null) {
+//                return;
+//            }
+//            mProgressDialog.dismiss();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        if(mProgress!=null){
+            mProgress.dismiss();
+            mProgress = null;
         }
     }
 
+    /**
+     * 로딩 프로그래스 START.
+     */
+    public static void showProgress(Context mContext){
+        //네트웍 연결상태 체크하여 연결된 네트웍이 있을때만 진행.
+//        String acc_type = DAPPreference.get(this,Constants.PREFERENCE_ACC_TYPE,"");
+//        if(!TextUtils.isEmpty(acc_type) && !"Unknown".equals(acc_type)) {
+        if (mProgress == null) {
+            mProgress = new LoadingProgress(mContext);
+        }
 
+
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                mProgress.show();
+            }
+        });
+        //       }
+    }
+
+    /**
+     * 로딩 프로그래스 END.
+     */
+    public static void hideProgress(){
+        if(mProgress!=null){
+            mProgress.dismiss();
+        }
+    }
 }

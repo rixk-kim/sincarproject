@@ -4,7 +4,7 @@ public class NoticeDataItem {
     public String SEQ;
     public String TITLE;
     public String REG_DATE;
-    public String CONTENTS;
+    public String CONTENT;
 
     @Override
     public String toString() {
@@ -12,7 +12,7 @@ public class NoticeDataItem {
                 "SEQ='" + SEQ + '\'' +
                 ", TITLE='" + TITLE + '\'' +
                 ", REG_DATE='" + REG_DATE + '\'' +
-                ", FRI_POINT='" + CONTENTS + '\'' +
+                ", CONTENT='" + CONTENT + '\'' +
                 "}";
     }
 }

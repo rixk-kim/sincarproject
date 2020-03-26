@@ -98,7 +98,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         postParams.put("ACTIVE_YN", active);
 
         //로그인 요청
-        VolleyNetwork.getInstance(this).passwordChangeRequest(LOGIN_REQUEST, postParams, onResponseListener);
+        VolleyNetwork.getInstance(this).serverDataRequest(LOGIN_REQUEST, postParams, onResponseListener);
     }
 
     VolleyNetwork.OnResponseListener onResponseListener = new VolleyNetwork.OnResponseListener() {
@@ -221,7 +221,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);         // 회원번호
 
         //회원탈퇴 요청
-        VolleyNetwork.getInstance(this).passwordChangeRequest(LOGIN_REQUEST, postParams, onResponseListenerWithdraw);
+        VolleyNetwork.getInstance(this).serverDataRequest(LOGIN_REQUEST, postParams, onResponseListenerWithdraw);
     }
 
     VolleyNetwork.OnResponseListener onResponseListenerWithdraw = new VolleyNetwork.OnResponseListener() {

@@ -15,11 +15,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+import com.sincar.customer.item.AuthResult;
+import com.sincar.customer.item.PasswordResult;
 import com.sincar.customer.network.VolleyNetwork;
 import com.sincar.customer.util.Util;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
+
+import static com.sincar.customer.HWApplication.passwordResult;
+import static com.sincar.customer.HWApplication.voAuthItem;
+import static com.sincar.customer.HWApplication.voLoginItem;
+import static com.sincar.customer.HWApplication.voPasswordItem;
+import static com.sincar.customer.common.Constants.AUTH_NUMBER_REQUEST;
+import static com.sincar.customer.common.Constants.CHANGE_PASSWORD;
 
 public class PasswordChangeActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText new_password1, new_password2;
@@ -62,9 +73,9 @@ public class PasswordChangeActivity extends AppCompatActivity implements View.On
             new_password2.setHint(R.string.hint_password2);
         }
 
-        Map<String, String> params = null;
-
-        VolleyNetwork.getInstance(this).passwordChangeRequest("url", params, onResponseListener);
+//        Map<String, String> params = null;
+//
+//        VolleyNetwork.getInstance(this).serverDataRequest("url", params, onResponseListener);
     }
 
     @Override
@@ -80,7 +91,6 @@ public class PasswordChangeActivity extends AppCompatActivity implements View.On
                 break;
 
             // 비밀번호 변경
-            // TODO - 해야할 일
             // 새 비밀번호, 새 비밀번호 확인 입력값 유효성 확인 및 값 비교
             // 서버 통신 후 결과값 확인. 비밀번호 변경 후 로직 변경 필요
 
@@ -132,27 +142,12 @@ public class PasswordChangeActivity extends AppCompatActivity implements View.On
                     return;
                 }
 
- //               Util.commonAlert(this, getString(R.string.password_change_success), false, false);
                 if(!"join".equals(path)) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    // 메세지
-                    builder.setTitle(getString(R.string.notice));
-                    builder.setMessage(R.string.password_change_success);
-                    builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // TODO Auto-generated method stub
-                            dialog.dismiss();
-
-                            Intent intent1 = new Intent(pContext, LoginActivity.class);
-                            startActivity(intent1);
-                            finish();
-                        }
-                    }).show();
+                    //비밀번호 재설정
+                    changePassword(tmp_password1);
                 }else{
-                    //TODO - 본인 실명 입력 페이지 이동
+                    //본인 실명 입력 페이지 이동
                     intent = new Intent(this, MemberNickNameActivity.class);
-//                    intent.putExtra("path", "join");
                     intent.putExtra("phone_number", phone_number);
                     intent.putExtra("password", tmp_password1);
                     startActivity(intent);
@@ -161,9 +156,18 @@ public class PasswordChangeActivity extends AppCompatActivity implements View.On
         }
     }
 
-    //==============================================================================================
+    private void changePassword(String password) {
 
+        HashMap<String, String> postParams = new HashMap<String, String>();
+        postParams.put("NEW_PASSWORD", password);               // 새 비밀번호
+        postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);     // 회원번호
 
+        //프로그래스바 시작
+        Util.showDialog(this);
+
+        //인증번호 요청
+        VolleyNetwork.getInstance(this).serverDataRequest(CHANGE_PASSWORD, postParams, onChangeResponseListener);
+    }
 
     private void hideActionBar() {
         ActionBar ab = getSupportActionBar();
@@ -187,15 +191,43 @@ public class PasswordChangeActivity extends AppCompatActivity implements View.On
         // colorPrimary color 변경
     }
 
-    VolleyNetwork.OnResponseListener onResponseListener = new VolleyNetwork.OnResponseListener() {
+    VolleyNetwork.OnResponseListener onChangeResponseListener = new VolleyNetwork.OnResponseListener() {
         @Override
         public void onResponseSuccessListener(String it) {
+            Gson gSon = new Gson();
+            //LoginResult loginResult = gSon.fromJson(it, LoginResult.class);
+            passwordResult = gSon.fromJson(it, PasswordResult.class);
 
+            voPasswordItem.PASSWORD_RESULT      = passwordResult.password_change.PASSWORD_RESULT;
+            voPasswordItem.CAUSE                = passwordResult.password_change.CAUSE;
+
+            //프로그래스바 종료
+            Util.dismiss();
+
+            if("0".equals(voPasswordItem.PASSWORD_RESULT)) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(pContext);
+                // 메세지
+                builder.setTitle(getString(R.string.notice));
+                builder.setMessage(R.string.password_change_success);
+                builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // TODO Auto-generated method stub
+                        dialog.dismiss();
+
+                        Intent intent1 = new Intent(pContext, LoginActivity.class);
+                        startActivity(intent1);
+                        finish();
+                    }
+                }).show();
+            }else{
+                Toast.makeText(PasswordChangeActivity.this, "비밀번호 변경 실패하였습니다. 재시도 해주세요.", Toast.LENGTH_LONG).show();
+            }
         }
 
         @Override
         public void onResponseFailListener(VolleyError it) {
-
+            Toast.makeText(PasswordChangeActivity.this, "비밀번호 변경 실패하였습니다. 재시도 해주세요.", Toast.LENGTH_LONG).show();
         }
     };
 }

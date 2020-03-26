@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
@@ -71,8 +73,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     //public static Activity loginActivity;
 
-    //progress
-    public LoadingProgress mProgress;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +85,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         // 화면 초기화
         init();
 
-        mProgress = new LoadingProgress(this);
+        Util.mProgress = new LoadingProgress(this);
     }
 
     /**
@@ -216,12 +217,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         postParams.put("PASSWORD", pwEt.getText().toString().trim());           // 사용자 패스워드
 
         //프로그래스바 시작
-        //Util.showDialog(this);
-        showProgress();
+        Util.showDialog(this);
+        //Util.showProgress(this);
 
 
         //로그인 요청
-        VolleyNetwork.getInstance(this).passwordChangeRequest(LOGIN_REQUEST, postParams, onResponseListener);
+        VolleyNetwork.getInstance(this).serverDataRequest(LOGIN_REQUEST, postParams, onResponseListener);
     }
 
     VolleyNetwork.OnResponseListener onResponseListener = new VolleyNetwork.OnResponseListener() {
@@ -233,6 +234,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         @Override
         public void onResponseFailListener(VolleyError it) {
             System.out.println("[spirit]  실패");
+
+            //프로그래스바 종료
+            Util.dismiss();
         }
     };
 
@@ -253,6 +257,9 @@ it =>  {"login": [{"REGISTER":"1","CAUSE":"비밀번호 오류","MEMBER_NO":"123
 
         Gson gSon = new Gson();
         loginResult = gSon.fromJson(server_data, LoginResult.class);
+
+        voLoginItem.REGISTER        = loginResult.login.get(0).REGISTER;
+        voLoginItem.CAUSE           = loginResult.login.get(0).CAUSE;
 
         voLoginItem.MEMBER_NO       = loginResult.login.get(0).MEMBER_NO;
         voLoginItem.VERSION         = loginResult.login.get(0).VERSION;
@@ -287,46 +294,21 @@ it =>  {"login": [{"REGISTER":"1","CAUSE":"비밀번호 오류","MEMBER_NO":"123
         voCarListDataItem = loginResult.car_list;
 
         //프로그래스바 종료
-        //Util.dismiss();
-        hideProgress();
+        Util.dismiss();
+        //Util.hideProgress();
 
-        try {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        } catch (Exception e) {
-            e.toString();
-        }
-    }
-
-    /**
-     * 로딩 프로그래스 START.
-     */
-    public void showProgress(){
-        //네트웍 연결상태 체크하여 연결된 네트웍이 있을때만 진행.
-//        String acc_type = DAPPreference.get(this,Constants.PREFERENCE_ACC_TYPE,"");
-//        if(!TextUtils.isEmpty(acc_type) && !"Unknown".equals(acc_type)) {
-        if (mProgress == null) {
-            mProgress = new LoadingProgress(this);
-        }
-
-
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                mProgress.show();
+        if("0".equals(voLoginItem.REGISTER) && !TextUtils.isEmpty(voLoginItem.MEMBER_NO)) {
+            try {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            } catch (Exception e) {
+                e.toString();
             }
-        });
-        //       }
-    }
-
-    /**
-     * 로딩 프로그래스 END.
-     */
-    public void hideProgress(){
-        if(mProgress!=null){
-            mProgress.dismiss();
+        }else{
+            Toast.makeText(this, "로그인에 실패하였습니다. 재시도 해주세요.", Toast.LENGTH_LONG).show();
         }
     }
+
+
 }

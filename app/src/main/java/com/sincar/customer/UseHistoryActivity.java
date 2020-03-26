@@ -36,10 +36,11 @@ import java.util.List;
 import static com.sincar.customer.HWApplication.useResult;
 import static com.sincar.customer.HWApplication.voUseDataItem;
 import static com.sincar.customer.HWApplication.voUseItem;
-import static com.sincar.customer.HWApplication.voLoginData;
+import static com.sincar.customer.HWApplication.voUseDataDetailItem;
 import static com.sincar.customer.HWApplication.voLoginItem;
 import static com.sincar.customer.adapter.content.UseContent.clearItem;
 import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
+import static com.sincar.customer.common.Constants.USE_HISTORY_REQUEST;
 
 /**
  * 이용내역
@@ -53,7 +54,7 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
 
     //페이지 처리
     private int request_page = 1;                           // 페이징변수. 초기 값은 0 이다.
-    private final int request_offset = 5;                  // 한 페이지마다 로드할 데이터 갯수.
+    private final int request_offset = 20;                  // 한 페이지마다 로드할 데이터 갯수.
     private boolean mLockListView = false;          // 데이터 불러올때 중복안되게 하기위한 변수
 //    private ProgressBar progressBar;                // 데이터 로딩중을 표시할 프로그레스바
 
@@ -82,72 +83,73 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
         // TODO - 서버 연동 후 CardContent.ITEMS에 리스 항목 추가 작업
         // Set the adapter - 이용내역 리스트 설정
         // 실서버 연동시
-        // requestUseHistory();
+        UseContent.clearItem(); //초기화
+        requestUseHistory();
 
-         if(UseContent.ITEMS.size() > 0) {
-            View view = findViewById(R.id.useHistoryList);
-            view.setVisibility(View.VISIBLE);
-            if (view instanceof RecyclerView) {
-                Context context = view.getContext();
-                mRecyclerView = (RecyclerView) view;
-
-                mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-                mUseContentRecyclerViewAdapter = new UseContentRecyclerViewAdapter(this, UseContent.ITEMS, _useHistoryActivity);
-                mRecyclerView.setAdapter(mUseContentRecyclerViewAdapter);
-
-                mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                    @Override
-                    public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                        super.onScrollStateChanged(recyclerView, newState);
-                    }
-
-                    @Override
-                    public void onScrolled(RecyclerView recyclerView, int dx, int dy){
-                        super.onScrolled(recyclerView, dx, dy);
-
-                        LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
-                        int totalItemCount = layoutManager.getItemCount();
-                        int lastVisible = layoutManager.findLastCompletelyVisibleItemPosition();
-
-                        System.out.println("[spirit] lastVisibled : " + lastVisible );
-                        System.out.println("[spirit] lastVisibled : " + totalItemCount );
-
-                        if (lastVisible >= totalItemCount - 1) {
-                            int lastPageNum;
-                            if( 102 % request_offset == 0 ) {
-                                lastPageNum = (int)Math.floor(102/request_offset);
-                            }
-                            else {
-                                lastPageNum = (int)Math.floor(102/request_offset) + 1;
-                            }
-//                            Toast.makeText(getApplicationContext(), "lastVisibled " , Toast.LENGTH_SHORT).show();
-
-                            System.out.println("[spirit] lastPageNum : " + lastPageNum );
-                            System.out.println("[spirit] request_page : " + request_page );
-
-                            if(lastPageNum > request_page)
-                            {
-                                //다음 페이지 요청
-                                request_page+=1;
-                                int start_num = ((request_page - 1) * 5);
-                                for (int i = start_num; i <= (start_num + 5); i++) {
-                                    UseContent.addItem(UseContent.createDummyItem(i));
-
-                                    System.out.println("[spirit] addItem : [" + i + "]" );
-                                }
-
-                                mUseContentRecyclerViewAdapter.viewRenew();
-                                //UseContent.addItem(UseContent.createDummyItem((request_page*1) - 1));
-                            }
-                        }
-
-                    }
-                });
-            }
-        }else{
-             LinearLayout view = findViewById(R.id.use_history_empty);
-             view.setVisibility(View.VISIBLE);
-        }
+//         if(UseContent.ITEMS.size() > 0) {
+//            View view = findViewById(R.id.useHistoryList);
+//            view.setVisibility(View.VISIBLE);
+//            if (view instanceof RecyclerView) {
+//                Context context = view.getContext();
+//                mRecyclerView = (RecyclerView) view;
+//
+//                mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+//                mUseContentRecyclerViewAdapter = new UseContentRecyclerViewAdapter(this, UseContent.ITEMS, _useHistoryActivity);
+//                mRecyclerView.setAdapter(mUseContentRecyclerViewAdapter);
+//
+//                mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//                    @Override
+//                    public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+//                        super.onScrollStateChanged(recyclerView, newState);
+//                    }
+//
+//                    @Override
+//                    public void onScrolled(RecyclerView recyclerView, int dx, int dy){
+//                        super.onScrolled(recyclerView, dx, dy);
+//
+//                        LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+//                        int totalItemCount = layoutManager.getItemCount();
+//                        int lastVisible = layoutManager.findLastCompletelyVisibleItemPosition();
+//
+//                        System.out.println("[spirit] lastVisibled : " + lastVisible );
+//                        System.out.println("[spirit] lastVisibled : " + totalItemCount );
+//
+//                        if (lastVisible >= totalItemCount - 1) {
+//                            int lastPageNum;
+//                            if( 102 % request_offset == 0 ) {
+//                                lastPageNum = (int)Math.floor(102/request_offset);
+//                            }
+//                            else {
+//                                lastPageNum = (int)Math.floor(102/request_offset) + 1;
+//                            }
+////                            Toast.makeText(getApplicationContext(), "lastVisibled " , Toast.LENGTH_SHORT).show();
+//
+//                            System.out.println("[spirit] lastPageNum : " + lastPageNum );
+//                            System.out.println("[spirit] request_page : " + request_page );
+//
+//                            if(lastPageNum > request_page)
+//                            {
+//                                //다음 페이지 요청
+//                                request_page+=1;
+//                                int start_num = ((request_page - 1) * 5);
+//                                for (int i = start_num; i <= (start_num + 5); i++) {
+//                                    UseContent.addItem(UseContent.createDummyItem(i));
+//
+//                                    System.out.println("[spirit] addItem : [" + i + "]" );
+//                                }
+//
+//                                mUseContentRecyclerViewAdapter.viewRenew();
+//                                //UseContent.addItem(UseContent.createDummyItem((request_page*1) - 1));
+//                            }
+//                        }
+//
+//                    }
+//                });
+//            }
+//        }else{
+//             LinearLayout view = findViewById(R.id.use_history_empty);
+//             view.setVisibility(View.VISIBLE);
+//        }
         //////////////////////////////////////////////////////////////////////////////
 
         //하단메뉴 고정(0:홈)
@@ -193,14 +195,14 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
      */
     private void requestUseHistory() {
         HashMap<String, String> postParams = new HashMap<String, String>();
-        postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);     // 회원번호
-        postParams.put("REQUESTT_PAGE", String.valueOf(request_page));    // 요청페이지
-        postParams.put("REQUEST_NUM", String.valueOf(request_offset));                    // 요청갯수
+        postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);                 // 회원번호
+        postParams.put("REQUESTT_PAGE", String.valueOf(request_page));      // 요청페이지
+        postParams.put("REQUEST_NUM", String.valueOf(request_offset));      // 요청갯수
 
         //프로그래스바 시작
         Util.showDialog(this);
         //사용내역 요청
-        VolleyNetwork.getInstance(this).passwordChangeRequest(LOGIN_REQUEST, postParams, onResponseListener);
+        VolleyNetwork.getInstance(this).serverDataRequest(USE_HISTORY_REQUEST, postParams, onResponseListener);
     }
 
     VolleyNetwork.OnResponseListener onResponseListener = new VolleyNetwork.OnResponseListener() {
@@ -211,8 +213,14 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
              [{"SEQ":"1","RESERVE_STATUS":"0","RESERVE_TIME":"2020-12-22 14:00",...},
              {"SEQ":"1","RESERVE_STATUS":"0","RESERVE_TIME":"2020-12-22 14:00",...}..]}
              */
-            serverData = "";
+//            serverData = "";
             //System.out.println("[spirit] it : "  + serverData);
+            /*
+             {"use_list":
+             [{"TOTAL":"100","CURRENT_PAGE":"1","CURRENT_NUM":"20"}],
+             "data": [{"SEQ":"1","RESERVE_STATUS":"0","RESERVE_TIME":"2020-12-22 14:00",...},{"SEQ":"1","RESERVE_STATUS":"0","RESERVE_TIME":"2020-12-22 14:00",...}..]}
+             */
+ //           serverData = "{\"use_list\":[{\"TOTAL\":\"30\",\"CURRENT_PAGE\":\"1\",\"CURRENT_NUM\":\"20\"}],\"data\":[{\"SEQ\":\"D4DSA3AS6D\",\"RESERVE_STATUS\":\"0\",\"RESERVE_TIME\":\"2020-03-26 10:32\",\"CANCEL_TIME\":\"2020-03-26 10:32\",\"WASH_ADDRESS\":\"서울특별시 송파구 석촌호수로 274 (지상)\",\"AGENT\":\"\",\"USE_PAY\":\"42000\",\"RESERVE_NAME\":\"홍길동\",\"RESERVE_PHONE\":\"01000000000\",\"COMMON_PAY\":\"45000\",\"COUPONE\":\"3000\",\"CHARGE_INFO\":\"케이뱅크 \",\"CAR_MODEL\":\"아반떼((준중형))\",\"CAR_NUMBER\":\"12가1234\"},{\"SEQ\":\"ASDGDFDS12\",\"RESERVE_STATUS\":\"0\",\"RESERVE_TIME\":\"2020-03-26 10:32\",\"CANCEL_TIME\":\"2020-03-26 10:32\",\"WASH_ADDRESS\":\"서울특별시 송파구 석촌호수로 274 (지상)\",\"AGENT\":\"\",\"USE_PAY\":\"42000\",\"RESERVE_NAME\":\"이순신\",\"RESERVE_PHONE\":\"01000000000\",\"COMMON_PAY\":\"45000\",\"COUPONE\":\"3000\",\"CHARGE_INFO\":\"케이뱅크 \",\"CAR_MODEL\":\"아반떼((준중형))\",\"CAR_NUMBER\":\"12가1234\"},{\"SEQ\":\"ASDGDAAS42\",\"RESERVE_STATUS\":\"0\",\"RESERVE_TIME\":\"2020-03-26 10:32\",\"CANCEL_TIME\":\"2020-03-26 10:32\",\"WASH_ADDRESS\":\"서울특별시 송파구 석촌호수로 274 (지상)\",\"AGENT\":\"\",\"USE_PAY\":\"42000\",\"RESERVE_NAME\":\"박철순\",\"RESERVE_PHONE\":\"01000000000\",\"COMMON_PAY\":\"45000\",\"COUPONE\":\"3000\",\"CHARGE_INFO\":\"케이뱅크 \",\"CAR_MODEL\":\"아반떼((준중형))\",\"CAR_NUMBER\":\"12가1234\"},{\"SEQ\":\"BSCF1234AS\",\"RESERVE_STATUS\":\"0\",\"RESERVE_TIME\":\"2020-03-26 10:32\",\"CANCEL_TIME\":\"2020-03-26 10:32\",\"WASH_ADDRESS\":\"서울특별시 송파구 석촌호수로 274 (지상)\",\"AGENT\":\"\",\"USE_PAY\":\"42000\",\"RESERVE_NAME\":\"장보고\",\"RESERVE_PHONE\":\"01000000000\",\"COMMON_PAY\":\"45000\",\"COUPONE\":\"3000\",\"CHARGE_INFO\":\"케이뱅크 \",\"CAR_MODEL\":\"아반떼((준중형))\",\"CAR_NUMBER\":\"12가1234\"},{\"SEQ\":\"ASDVG12345\",\"RESERVE_STATUS\":\"0\",\"RESERVE_TIME\":\"2020-03-26 10:32\",\"CANCEL_TIME\":\"2020-03-26 10:32\",\"WASH_ADDRESS\":\"서울특별시 송파구 석촌호수로 274 (지상)\",\"AGENT\":\"\",\"USE_PAY\":\"42000\",\"RESERVE_NAME\":\"박상원\",\"RESERVE_PHONE\":\"01000000000\",\"COMMON_PAY\":\"45000\",\"COUPONE\":\"3000\",\"CHARGE_INFO\":\"케이뱅크 \",\"CAR_MODEL\":\"아반떼((준중형))\",\"CAR_NUMBER\":\"12가1234\"},{\"SEQ\":\"ASDVG12322\",\"RESERVE_STATUS\":\"0\",\"RESERVE_TIME\":\"2020-03-26 10:32\",\"CANCEL_TIME\":\"2020-03-26 10:32\",\"WASH_ADDRESS\":\"서울특별시 송파구 석촌호수로 274 (지상)\",\"AGENT\":\"\",\"USE_PAY\":\"42000\",\"RESERVE_NAME\":\"김형욱\",\"RESERVE_PHONE\":\"01000000000\",\"COMMON_PAY\":\"45000\",\"COUPONE\":\"3000\",\"CHARGE_INFO\":\"케이뱅크 \",\"CAR_MODEL\":\"아반떼((준중형))\",\"CAR_NUMBER\":\"12가1234\"},{\"SEQ\":\"ASDV232322\",\"RESERVE_STATUS\":\"0\",\"RESERVE_TIME\":\"2020-03-26 10:32\",\"CANCEL_TIME\":\"2020-03-26 10:32\",\"WASH_ADDRESS\":\"서울특별시 송파구 석촌호수로 274 (지상)\",\"AGENT\":\"\",\"USE_PAY\":\"42000\",\"RESERVE_NAME\":\"최창민\",\"RESERVE_PHONE\":\"01000000000\",\"COMMON_PAY\":\"45000\",\"COUPONE\":\"3000\",\"CHARGE_INFO\":\"케이뱅크 \",\"CAR_MODEL\":\"아반떼((준중형))\",\"CAR_NUMBER\":\"12가1234\"},{\"SEQ\":\"ASDVAA2322\",\"RESERVE_STATUS\":\"0\",\"RESERVE_TIME\":\"2020-03-26 10:32\",\"CANCEL_TIME\":\"2020-03-26 10:32\",\"WASH_ADDRESS\":\"서울특별시 송파구 석촌호수로 274 (지상)\",\"AGENT\":\"\",\"USE_PAY\":\"42000\",\"RESERVE_NAME\":\"박상철\",\"RESERVE_PHONE\":\"01000000000\",\"COMMON_PAY\":\"45000\",\"COUPONE\":\"3000\",\"CHARGE_INFO\":\"케이뱅크 \",\"CAR_MODEL\":\"아반떼((준중형))\",\"CAR_NUMBER\":\"12가1234\"},{\"SEQ\":\"ASDVBB2322\",\"RESERVE_STATUS\":\"0\",\"RESERVE_TIME\":\"2020-03-26 10:32\",\"CANCEL_TIME\":\"2020-03-26 10:32\",\"WASH_ADDRESS\":\"서울특별시 송파구 석촌호수로 274 (지상)\",\"AGENT\":\"\",\"USE_PAY\":\"42000\",\"RESERVE_NAME\":\"김인식\",\"RESERVE_PHONE\":\"01000000000\",\"COMMON_PAY\":\"45000\",\"COUPONE\":\"3000\",\"CHARGE_INFO\":\"케이뱅크 \",\"CAR_MODEL\":\"아반떼((준중형))\",\"CAR_NUMBER\":\"12가1234\"},{\"SEQ\":\"ASDVCC2322\",\"RESERVE_STATUS\":\"0\",\"RESERVE_TIME\":\"2020-03-26 10:32\",\"CANCEL_TIME\":\"2020-03-26 10:32\",\"WASH_ADDRESS\":\"서울특별시 송파구 석촌호수로 274 (지상)\",\"AGENT\":\"\",\"USE_PAY\":\"42000\",\"RESERVE_NAME\":\"강남\",\"RESERVE_PHONE\":\"01000000000\",\"COMMON_PAY\":\"45000\",\"COUPONE\":\"3000\",\"CHARGE_INFO\":\"케이뱅크 \",\"CAR_MODEL\":\"아반떼((준중형))\",\"CAR_NUMBER\":\"12가1234\"},{\"SEQ\":\"ASDVDD2322\",\"RESERVE_STATUS\":\"0\",\"RESERVE_TIME\":\"2020-03-26 10:32\",\"CANCEL_TIME\":\"2020-03-26 10:32\",\"WASH_ADDRESS\":\"서울특별시 송파구 석촌호수로 274 (지상)\",\"AGENT\":\"\",\"USE_PAY\":\"42000\",\"RESERVE_NAME\":\"김환희\",\"RESERVE_PHONE\":\"01000000000\",\"COMMON_PAY\":\"45000\",\"COUPONE\":\"3000\",\"CHARGE_INFO\":\"케이뱅크 \",\"CAR_MODEL\":\"아반떼((준중형))\",\"CAR_NUMBER\":\"12가1234\"},{\"SEQ\":\"AADVDD2322\",\"RESERVE_STATUS\":\"0\",\"RESERVE_TIME\":\"2020-03-26 10:32\",\"CANCEL_TIME\":\"2020-03-26 10:32\",\"WASH_ADDRESS\":\"서울특별시 송파구 석촌호수로 274 (지상)\",\"AGENT\":\"\",\"USE_PAY\":\"42000\",\"RESERVE_NAME\":\"강준식\",\"RESERVE_PHONE\":\"01000000000\",\"COMMON_PAY\":\"45000\",\"COUPONE\":\"3000\",\"CHARGE_INFO\":\"케이뱅크 \",\"CAR_MODEL\":\"아반떼((준중형))\",\"CAR_NUMBER\":\"12가1234\"},{\"SEQ\":\"AADVTT2322\",\"RESERVE_STATUS\":\"0\",\"RESERVE_TIME\":\"2020-03-26 10:32\",\"CANCEL_TIME\":\"2020-03-26 10:32\",\"WASH_ADDRESS\":\"서울특별시 송파구 석촌호수로 274 (지상)\",\"AGENT\":\"\",\"USE_PAY\":\"42000\",\"RESERVE_NAME\":\"임형철\",\"RESERVE_PHONE\":\"01000000000\",\"COMMON_PAY\":\"45000\",\"COUPONE\":\"3000\",\"CHARGE_INFO\":\"케이뱅크 \",\"CAR_MODEL\":\"아반떼((준중형))\",\"CAR_NUMBER\":\"12가1234\"},{\"SEQ\":\"AADVRR2322\",\"RESERVE_STATUS\":\"0\",\"RESERVE_TIME\":\"2020-03-26 10:32\",\"CANCEL_TIME\":\"2020-03-26 10:32\",\"WASH_ADDRESS\":\"서울특별시 송파구 석촌호수로 274 (지상)\",\"AGENT\":\"\",\"USE_PAY\":\"42000\",\"RESERVE_NAME\":\"김창식\",\"RESERVE_PHONE\":\"01000000000\",\"COMMON_PAY\":\"45000\",\"COUPONE\":\"3000\",\"CHARGE_INFO\":\"케이뱅크 \",\"CAR_MODEL\":\"아반떼((준중형))\",\"CAR_NUMBER\":\"12가1234\"},{\"SEQ\":\"AACCRR2322\",\"RESERVE_STATUS\":\"0\",\"RESERVE_TIME\":\"2020-03-26 10:32\",\"CANCEL_TIME\":\"2020-03-26 10:32\",\"WASH_ADDRESS\":\"서울특별시 송파구 석촌호수로 274 (지상)\",\"AGENT\":\"\",\"USE_PAY\":\"42000\",\"RESERVE_NAME\":\"박홍신\",\"RESERVE_PHONE\":\"01000000000\",\"COMMON_PAY\":\"45000\",\"COUPONE\":\"3000\",\"CHARGE_INFO\":\"케이뱅크 \",\"CAR_MODEL\":\"아반떼((준중형))\",\"CAR_NUMBER\":\"12가1234\"},{\"SEQ\":\"AACCRR6622\",\"RESERVE_STATUS\":\"0\",\"RESERVE_TIME\":\"2020-03-26 10:32\",\"CANCEL_TIME\":\"2020-03-26 10:32\",\"WASH_ADDRESS\":\"서울특별시 송파구 석촌호수로 274 (지상)\",\"AGENT\":\"\",\"USE_PAY\":\"42000\",\"RESERVE_NAME\":\"김일이\",\"RESERVE_PHONE\":\"01000000000\",\"COMMON_PAY\":\"45000\",\"COUPONE\":\"3000\",\"CHARGE_INFO\":\"케이뱅크 \",\"CAR_MODEL\":\"아반떼((준중형))\",\"CAR_NUMBER\":\"12가1234\"},{\"SEQ\":\"AACCLL6622\",\"RESERVE_STATUS\":\"0\",\"RESERVE_TIME\":\"2020-03-26 10:32\",\"CANCEL_TIME\":\"2020-03-26 10:32\",\"WASH_ADDRESS\":\"서울특별시 송파구 석촌호수로 274 (지상)\",\"AGENT\":\"\",\"USE_PAY\":\"42000\",\"RESERVE_NAME\":\"김삼사\",\"RESERVE_PHONE\":\"01000000000\",\"COMMON_PAY\":\"45000\",\"COUPONE\":\"3000\",\"CHARGE_INFO\":\"케이뱅크 \",\"CAR_MODEL\":\"아반떼((준중형))\",\"CAR_NUMBER\":\"12가1234\"},{\"SEQ\":\"AACCLL6622\",\"RESERVE_STATUS\":\"0\",\"RESERVE_TIME\":\"2020-03-26 10:32\",\"CANCEL_TIME\":\"2020-03-26 10:32\",\"WASH_ADDRESS\":\"서울특별시 송파구 석촌호수로 274 (지상)\",\"AGENT\":\"\",\"USE_PAY\":\"42000\",\"RESERVE_NAME\":\"김오육\",\"RESERVE_PHONE\":\"01000000000\",\"COMMON_PAY\":\"45000\",\"COUPONE\":\"3000\",\"CHARGE_INFO\":\"케이뱅크 \",\"CAR_MODEL\":\"아반떼((준중형))\",\"CAR_NUMBER\":\"12가1234\"},{\"SEQ\":\"AACCII6622\",\"RESERVE_STATUS\":\"0\",\"RESERVE_TIME\":\"2020-03-26 10:32\",\"CANCEL_TIME\":\"2020-03-26 10:32\",\"WASH_ADDRESS\":\"서울특별시 송파구 석촌호수로 274 (지상)\",\"AGENT\":\"\",\"USE_PAY\":\"42000\",\"RESERVE_NAME\":\"김칠팔\",\"RESERVE_PHONE\":\"01000000000\",\"COMMON_PAY\":\"45000\",\"COUPONE\":\"3000\",\"CHARGE_INFO\":\"케이뱅크 \",\"CAR_MODEL\":\"아반떼((준중형))\",\"CAR_NUMBER\":\"12가1234\"},{\"SEQ\":\"AACCPP6622\",\"RESERVE_STATUS\":\"0\",\"RESERVE_TIME\":\"2020-03-26 10:32\",\"CANCEL_TIME\":\"2020-03-26 10:32\",\"WASH_ADDRESS\":\"서울특별시 송파구 석촌호수로 274 (지상)\",\"AGENT\":\"\",\"USE_PAY\":\"42000\",\"RESERVE_NAME\":\"김구십\",\"RESERVE_PHONE\":\"01000000000\",\"COMMON_PAY\":\"45000\",\"COUPONE\":\"3000\",\"CHARGE_INFO\":\"케이뱅크 \",\"CAR_MODEL\":\"아반떼((준중형))\",\"CAR_NUMBER\":\"12가1234\"}]}";
 
             Gson gSon = new Gson();
             useResult = gSon.fromJson(serverData, UseResult.class);
@@ -221,15 +229,15 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
             voUseItem.CURRENT_PAGE       = useResult.use_list.get(0).CURRENT_PAGE;
             voUseItem.CURRENT_NUM        = useResult.use_list.get(0).CURRENT_NUM;
 
-            voUseDataItem     = useResult.DATA;
+            voUseDataItem     = useResult.data;
 
-            List<UseContent.UseItem> ITEMS = new ArrayList<UseContent.UseItem>();
+ //           List<UseContent.UseItem> ITEMS = new ArrayList<UseContent.UseItem>();
 
             for(int i = 0; i < voUseDataItem.size(); i++) {
                 UseContent.addItem(new UseContent.UseItem(
                         i,
                         voUseDataItem.get(i).SEQ,
-                        voUseDataItem.get(i).RESERVE_TIME,
+                        voUseDataItem.get(i).RESERVE_STATUS,
                         voUseDataItem.get(i).RESERVE_TIME,
                         voUseDataItem.get(i).CANCEL_TIME,
                         voUseDataItem.get(i).WASH_ADDRESS,
@@ -246,44 +254,17 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
                 ));
             }
 
-
-//            ArrayList<DataObject> data = JsonParser.getData(serverData);
-//
-//            // 로그인 정보
-//            DataObject useListItem = DataParser.getFromParamtoItem(data, "use_list");
-//            voUseData.setTotalPage(useListItem.getValue("TOTAL"));      //총페이지
-//            voUseData.setCurrentPage(useListItem.getValue("TOTAL"));    //현재페이지
-//            voUseData.setCurrentNum(useListItem.getValue("TOTAL"));     //현재갯수
-//
-//            ArrayList<DataObject> use_data_item = DataParser.getFromParamtoArray(data, "data");
-//
-//            List<UseContent.UseItem> ITEMS = new ArrayList<UseContent.UseItem>();
-//            for(int i = 0; i < use_data_item.size(); i++) {
-//                UseContent.addItem(new UseContent.UseItem(
-//                        i,
-//                        use_data_item.get(i).getValue("SEQ"),
-//                        use_data_item.get(i).getValue("RESERVE_STATUS"),
-//                        use_data_item.get(i).getValue("RESERVE_TIME"),
-//                        use_data_item.get(i).getValue("CANCEL_TIME"),
-//                        use_data_item.get(i).getValue("WASH_ADDRESS"),
-//                        use_data_item.get(i).getValue("AGENT"),
-//                        use_data_item.get(i).getValue("USE_PAY"),
-//                        use_data_item.get(i).getValue("RESERVE_PHONE"),
-//                        use_data_item.get(i).getValue("RESERVE_NAME"),
-//                        use_data_item.get(i).getValue("COMMON_PAY"),
-//                        use_data_item.get(i).getValue("COMMON_PAY"),
-//                        use_data_item.get(i).getValue("CHARGE_INFO"),
-//                        use_data_item.get(i).getValue("CAR_MODEL"),
-//                        use_data_item.get(i).getValue("CAR_NUMBER")
-//                ));
-//            }
             //프로그래스바 종료
             Util.dismiss();
             // TODO - 서버 연동 후 UseContent.ITEMS에 리스 항목 추가 작업 확인
             // Set the adapter - 이용내역 리스트 설정
             if(UseContent.ITEMS.size() > 0) {
                 View view = findViewById(R.id.useHistoryList);
+                LinearLayout view1 = findViewById(R.id.use_history_empty);
+
                 view.setVisibility(View.VISIBLE);
+                view1.setVisibility(View.GONE);
+
                 if (view instanceof RecyclerView) {
                     Context context = view.getContext();
                     RecyclerView recyclerView = (RecyclerView) view;
@@ -291,7 +272,7 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
                     recyclerView.setLayoutManager(new LinearLayoutManager(context));
                     recyclerView.setAdapter(new UseContentRecyclerViewAdapter(uContext, UseContent.ITEMS, _useHistoryActivity));
 
-                    mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                         @Override
                         public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                             super.onScrollStateChanged(recyclerView, newState);
@@ -327,10 +308,14 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
 
                         }
                     });
+
                 }
             }else{
-                LinearLayout view = findViewById(R.id.use_history_empty);
-                view.setVisibility(View.VISIBLE);
+                View view = findViewById(R.id.useHistoryList);
+                view.setVisibility(View.GONE);
+
+                LinearLayout view1 = findViewById(R.id.use_history_empty);
+                view1.setVisibility(View.VISIBLE);
             }
         }
 

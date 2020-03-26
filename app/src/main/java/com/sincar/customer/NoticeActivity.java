@@ -3,6 +3,8 @@ package com.sincar.customer;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,14 +36,19 @@ import static com.sincar.customer.HWApplication.loginResult;
 import static com.sincar.customer.HWApplication.voLoginData;
 import static com.sincar.customer.HWApplication.voLoginItem;
 import static com.sincar.customer.HWApplication.voNoticeItem;
+import static com.sincar.customer.HWApplication.voUseItem;
 import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
 import static com.sincar.customer.HWApplication.noticeResult;
 
 import static com.sincar.customer.HWApplication.voNoticeDataItem;
+import static com.sincar.customer.common.Constants.NOTICE_LIST_REQUEST;
 
 public class NoticeActivity extends AppCompatActivity implements View.OnClickListener {
     public static NoticeActivity _noticeActivity;
     private Context nContext;
+    //페이지 처리
+    private int request_page = 1;                           // 페이징변수. 초기 값은 0 이다.
+    private final int request_offset = 20;                  // 한 페이지마다 로드할 데이터 갯수.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,21 +67,11 @@ public class NoticeActivity extends AppCompatActivity implements View.OnClickLis
     private void init() {
         findViewById(R.id.notice_btnPrev).setOnClickListener(this);
 
+        NoticeContent.clearItem(); //초기화
 
-        // TODO - 서버 연동 후 PointContent.ITEMS에 리스 항목 추가 작업
-        // TODO - 서버 연동 되면 requestNoticeList() 호출. 이후 NoticeContent 의 Dummy 아이템 추가 코드 삭제
-        // Set the adapter - 포인트 리스트 설정
-        View view = findViewById(R.id.noticeHistoryList);
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new NoticeContentRecyclerViewAdapter(this, NoticeContent.ITEMS));
-        }
-
-
-    }
+        // 서버 연동
+        requestNoticeList();
+     }
 
     /**
      * 공지 리스트 요청
@@ -85,18 +82,18 @@ public class NoticeActivity extends AppCompatActivity implements View.OnClickLis
      */
     private void requestNoticeList() {
         HashMap<String, String> postParams = new HashMap<String, String>();
-        postParams.put("PHONE_NEMBER", voLoginItem.MEMBER_PHONE);   // 폰번호
-        postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);         // 회원번호
-        postParams.put("REQUESTT_PAGE", "1");                       // 요청페이지
-        postParams.put("REQUEST_NUM", "20");                        // 요청갯수
+        postParams.put("PHONE_NUMBER", voLoginItem.MEMBER_PHONE);       // 폰번호
+        postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);             // 회원번호
+        postParams.put("REQUEST_PAGE", String.valueOf(request_page));   // 요청페이지
+        postParams.put("REQUEST_NUM", String.valueOf(request_offset));  // 요청갯수
 
         //프로그래스바 시작
         Util.showDialog(this);
         //사용내역 요청
-        VolleyNetwork.getInstance(this).passwordChangeRequest(LOGIN_REQUEST, postParams, onResponseListener);
+        VolleyNetwork.getInstance(this).serverDataRequest(NOTICE_LIST_REQUEST, postParams, onNoticeResponseListener);
     }
 
-    VolleyNetwork.OnResponseListener onResponseListener = new VolleyNetwork.OnResponseListener() {
+    VolleyNetwork.OnResponseListener onNoticeResponseListener = new VolleyNetwork.OnResponseListener() {
         @Override
         public void onResponseSuccessListener(String serverData) {
             /*
@@ -111,7 +108,7 @@ public class NoticeActivity extends AppCompatActivity implements View.OnClickLis
             voNoticeItem.CURRENT_PAGE       = noticeResult.notice.get(0).CURRENT_PAGE;
             voNoticeItem.CURRENT_NUM        = noticeResult.notice.get(0).CURRENT_NUM;
 
-            voNoticeDataItem     = noticeResult.DATA;
+            voNoticeDataItem     = noticeResult.data;
 
             List<NoticeContent.NoticeItem> ITEMS = new ArrayList<NoticeContent.NoticeItem>();
 
@@ -121,7 +118,7 @@ public class NoticeActivity extends AppCompatActivity implements View.OnClickLis
                         voNoticeDataItem.get(i).SEQ,
                         voNoticeDataItem.get(i).TITLE,
                         voNoticeDataItem.get(i).REG_DATE,
-                        voNoticeDataItem.get(i).CONTENTS
+                        voNoticeDataItem.get(i).CONTENT
                 ));
             }
 
@@ -138,6 +135,43 @@ public class NoticeActivity extends AppCompatActivity implements View.OnClickLis
 
                     recyclerView.setLayoutManager(new LinearLayoutManager(context));
                     recyclerView.setAdapter(new NoticeContentRecyclerViewAdapter(nContext, NoticeContent.ITEMS));
+
+                    recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                        @Override
+                        public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                            super.onScrollStateChanged(recyclerView, newState);
+                        }
+
+                        @Override
+                        public void onScrolled(RecyclerView recyclerView, int dx, int dy){
+                            super.onScrolled(recyclerView, dx, dy);
+
+                            LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+                            int totalItemCount = layoutManager.getItemCount();
+                            int lastVisible = layoutManager.findLastCompletelyVisibleItemPosition();
+
+                            if (lastVisible >= totalItemCount - 1) {
+                                int lastPageNum;
+                                if( Integer.parseInt(voNoticeItem.TOTAL) % request_offset == 0 ) {
+                                    lastPageNum = (int)Math.floor(Integer.parseInt(voNoticeItem.TOTAL)/request_offset);
+                                }
+                                else {
+                                    lastPageNum = (int)Math.floor(Integer.parseInt(voNoticeItem.TOTAL)/request_offset) + 1;
+                                }
+
+                                if(lastPageNum > request_page)
+                                {
+                                    request_page+=1;
+                                    requestNoticeList();
+//                                    //다음 페이지 요청
+//                                    for (int i = 1; i <= 5; i++) {
+//                                        UseContent.addItem(UseContent.createDummyItem(i + ((request_page*5) - 1)));
+//                                    }
+                                }
+                            }
+
+                        }
+                    });
                 }
             }else{
                 // TODO - 공지사항 없을 때 화면 UI 추가

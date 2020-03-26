@@ -17,7 +17,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+import com.sincar.customer.item.RecommandResult;
+import com.sincar.customer.network.VolleyNetwork;
+import com.sincar.customer.util.Util;
+
+import java.util.HashMap;
+
 import static com.sincar.customer.HWApplication.voLoginItem;
+import static com.sincar.customer.HWApplication.voRecommandItem;
+import static com.sincar.customer.HWApplication.recommandResult;
+import static com.sincar.customer.common.Constants.RECOMMEND_REGISTER_REQUEST;
 
 public class MyProfileSettingsRecomActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView recomTextView, chuTextView;
@@ -25,11 +36,14 @@ public class MyProfileSettingsRecomActivity extends AppCompatActivity implements
     private String recom_code;
     private LinearLayout myinfo_linearLayout13;
     private LinearLayout myinfo_linearLayout14;
+    private Context rContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myinfo_recom);
+
+        rContext = this;
         recom_code = voLoginItem.MEMBER_RECOM_CODE;
         // 화면 초기화
         init();
@@ -60,15 +74,7 @@ public class MyProfileSettingsRecomActivity extends AppCompatActivity implements
             myinfo_linearLayout13.setVisibility(View.GONE);
             myinfo_linearLayout14.setVisibility(View.VISIBLE);
         }
-        // myinfo_user_name => 이름
-        // user_mobile_number => 휴대폰 번호
 
-        // TODO - 서버 연동하여 이름, 휴대폰 번호 값 가지고 와서 설정해주기
-//        TextView myinfo_user_name = findViewById(R.id.myinfo_user_name);
-//        myinfo_user_name.setText("홍길동");
-//
-//        TextView user_mobile_number = findViewById(R.id.user_mobile_number);
-//        user_mobile_number.setText("010-1234-5678");
     }
 
     @Override
@@ -102,11 +108,60 @@ public class MyProfileSettingsRecomActivity extends AppCompatActivity implements
                 }
 
                 //서버전송
-
-                Toast.makeText(this, "전송완료", Toast.LENGTH_LONG).show();
+                requestRecomRegister();
+ //               Toast.makeText(this, "전송완료", Toast.LENGTH_LONG).show();
                 break;
         }
     }
+
+    /**
+     * 추천인코드 등록 요청
+     * MEMBER_NO        : 회원번호
+     * RECOM_CODE       : 추천인코드
+     */
+    private void requestRecomRegister() {
+        HashMap<String, String> postParams = new HashMap<String, String>();
+        postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);                     // 회원번호
+        postParams.put("RECOM_CODE", chu_code.getText().toString().trim());     // 추천인코드
+
+        //프로그래스바 시작
+        Util.showDialog(this);
+        //추천인코드 등록 요청
+        VolleyNetwork.getInstance(this).serverDataRequest(RECOMMEND_REGISTER_REQUEST, postParams, onRecomRegisterResponseListener);
+    }
+
+    VolleyNetwork.OnResponseListener onRecomRegisterResponseListener = new VolleyNetwork.OnResponseListener() {
+        @Override
+        public void onResponseSuccessListener(String it) {
+            Gson gSon = new Gson();
+            //LoginResult loginResult = gSon.fromJson(it, LoginResult.class);
+            recommandResult = gSon.fromJson(it, RecommandResult.class);
+
+            voRecommandItem.RECOMMEND_RESULT    = recommandResult.recommend.RECOMMEND_RESULT;
+            voRecommandItem.CAUSE               = recommandResult.recommend.CAUSE;
+
+            //프로그래스바 종료
+            Util.dismiss();
+
+            if("0".equals(voRecommandItem.RECOMMEND_RESULT)) {
+                voLoginItem.REGISTER_RECOM_CODE = chu_code.getText().toString().trim();
+
+                myinfo_linearLayout13.setVisibility(View.VISIBLE);
+                myinfo_linearLayout14.setVisibility(View.GONE);
+                chuTextView.setText(voLoginItem.REGISTER_RECOM_CODE);
+
+                Toast.makeText(rContext, "추천인 코드 등록 되었습니다.", Toast.LENGTH_LONG).show();
+
+            }else{
+                Toast.makeText(rContext, "추천인 코드 등록 실패하였습니다. 재시도 해주세요.", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        public void onResponseFailListener(VolleyError it) {
+            Toast.makeText(rContext, "추천인 코드 등록 실패하였습니다. 재시도 해주세요.", Toast.LENGTH_LONG).show();
+        }
+    };
 
     private void showAlert() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

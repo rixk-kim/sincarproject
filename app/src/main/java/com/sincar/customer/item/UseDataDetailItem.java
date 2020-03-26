@@ -2,7 +2,8 @@ package com.sincar.customer.item;
 
 import java.util.ArrayList;
 
-public class UseDataItem {
+public class UseDataDetailItem {
+
     public String SEQ;
     public String RESERVE_STATUS;
     public String RESERVE_TIME;

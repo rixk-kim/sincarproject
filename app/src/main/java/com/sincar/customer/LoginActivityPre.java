@@ -56,21 +56,19 @@ public class LoginActivityPre extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
-            // 로그인 버튼
             case R.id.login_btn:
                 // 로그인 이동
-                Intent intent = new Intent(LoginActivityPre.this, com.sincar.customer.LoginActivity.class);
+                intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
-                // 최초 생성 후 이동 시 제거
                 finish();
                 break;
 
             case R.id.memberjoin_btn:
-                //회원가입 이동
-                Intent intent1 = new Intent(LoginActivityPre.this, com.sincar.customer.MemberJoinActivity.class);
-                startActivity(intent1);
-                // 최초 생성 후 이동 시 제거
+                // 회원가입 이동
+                intent = new Intent(this, MemberJoinActivity.class);
+                startActivity(intent);
                 finish();
                 break;
 

@@ -469,7 +469,10 @@
                             android:textColor="#3E3E3E"
                             android:gravity="center"
                             android:textSize="15sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            android:inputType="text"
+                            android:imeOptions="actionDone"
+                            />
                     </LinearLayout>
 
                     <LinearLayout

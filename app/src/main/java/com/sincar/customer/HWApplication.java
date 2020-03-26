@@ -44,9 +44,16 @@ import com.sincar.customer.item.NoticeResult;
 import com.sincar.customer.item.OptionDataItem;
 import com.sincar.customer.item.OptionItem;
 import com.sincar.customer.item.OptionResult;
+import com.sincar.customer.item.PasswordItem;
+import com.sincar.customer.item.PasswordResult;
+import com.sincar.customer.item.RecommandItem;
+import com.sincar.customer.item.RecommandResult;
+import com.sincar.customer.item.ReserveCancelItem;
+import com.sincar.customer.item.ReserveCancelResult;
 import com.sincar.customer.item.ReserveItem;
 import com.sincar.customer.item.ReserveResult;
 import com.sincar.customer.item.TimeItem;
+import com.sincar.customer.item.UseDataDetailItem;
 import com.sincar.customer.item.UseDataItem;
 import com.sincar.customer.item.UseItem;
 import com.sincar.customer.item.UseResult;
@@ -89,6 +96,7 @@ public class HWApplication extends MultiDexApplication {
     public static ArrayList<AddressDataItem> voAddressDataItem;     //주소검색 리스트
     public static AgentDataItem voAgentDataItem;                    //대리점 리스트
     public static ArrayList<UseDataItem> voUseDataItem;             //이용내역
+    public static ArrayList<UseDataDetailItem> voUseDataDetailItem; //이용내역
     public static ArrayList<OptionDataItem> voOptionDataItem;       //부가서비스 리스트
 
     //공지사항
@@ -140,7 +148,17 @@ public class HWApplication extends MultiDexApplication {
     public static JoinResult joinResult;
     public static JoinItem voJoinItem;
 
+    //비밀번호 변경
+    public static PasswordResult passwordResult;
+    public static PasswordItem voPasswordItem;
 
+    //예약취소
+    public static ReserveCancelResult reserveCancelResult;
+    public static ReserveCancelItem voReserveCancelItem;
+
+    //추천인 등록
+    public static RecommandResult recommandResult;
+    public static RecommandItem voRecommandItem;
 
     AppStatus mAppStatus;
     @Override
@@ -167,6 +185,7 @@ public class HWApplication extends MultiDexApplication {
         voLoginItem = new LoginItem();
 //        voLoginDataItem = new LoginDataItem();
         voLoginAdvertiseItem = new LoginAdvertiseItem();
+        voUseItem       = new UseItem();
 
         voNoticeItem    = new NoticeItem();
         voCouponeItem   = new CouponeItem();
@@ -180,6 +199,9 @@ public class HWApplication extends MultiDexApplication {
         voReserveItem   = new ReserveItem();
         voAuthItem      = new AuthItem();
         voJoinItem      = new JoinItem();
+        voPasswordItem  = new PasswordItem();
+        voReserveCancelItem = new ReserveCancelItem();
+        voRecommandItem = new RecommandItem();
     }
 
     public static HWApplication getInstance() {

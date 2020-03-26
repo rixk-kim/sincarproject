@@ -25,6 +25,7 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
     private Context detailContext;
     private Activity detailActivity;
 
+    private String reserve_seq;     //seq
     private String reserve_status;  //예약상태
     private String common_pay;      //일반요금
     private String coupone_pay;     //쿠폰요금
@@ -66,6 +67,7 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
         useActivity.finish();
 
         Intent intent = getIntent(); /*데이터 수신*/
+        reserve_seq     = intent.getExtras().getString("reserve_seq");       /*String형*/
         reserve_status  = intent.getExtras().getString("reserve_status");       /*String형*/
         common_pay      = intent.getExtras().getString("common_pay");       /*String형*/
         coupone_pay     = intent.getExtras().getString("coupone_pay");      /*String형*/
@@ -188,9 +190,10 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
 
             case R.id.reserve_cancel_btn:
                 // TODO - 예약 취소
-                Toast toast = Toast.makeText(this, "예약을 취소하였습니다.", Toast.LENGTH_LONG);
+//                Toast toast = Toast.makeText(this, "예약을 취소하였습니다.", Toast.LENGTH_LONG);
 //                cancel_time = Util.getYearMonthDay();
                 intent = new Intent(this, UseDeleteActivity.class);
+                intent.putExtra("reserve_seq", reserve_seq);
                 intent.putExtra("reserve_status", reserve_status);
                 intent.putExtra("common_pay", common_pay);
                 intent.putExtra("coupone_pay", coupone_pay);

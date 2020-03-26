@@ -17,7 +17,7 @@ public class NoticeContentRecyclerViewAdapter extends RecyclerView.Adapter<com.s
 
     private final List<NoticeContent.NoticeItem> mValues;
     private Context mContext;
-    private String notice_pos;
+    private String notice_title, notice_date, notice_pos;
 
     public NoticeContentRecyclerViewAdapter(Context context, List<NoticeContent.NoticeItem> items) {
         mContext = context;
@@ -40,16 +40,18 @@ public class NoticeContentRecyclerViewAdapter extends RecyclerView.Adapter<com.s
         holder.mNotiSeq = Integer.parseInt(mValues.get(position).seq);
         holder.mNotiContent = mValues.get(position).contents;
 
+        notice_title = mValues.get(position).title;
+        notice_date  = mValues.get(position).date;
         notice_pos = String.valueOf(position);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO - 리스트 선택 시 이벤트 핸들러 추가 필요하면 여기에서 해주기
+                // 리스트 선택 시 이벤트 핸들러 추가 필요하면 여기에서 해주기
                 Intent intent = new Intent(mContext, NoticeDetailActivity.class);
-                intent.putExtra("title", mValues.get(Integer.parseInt(notice_pos)).title);
-                intent.putExtra("date", mValues.get(Integer.parseInt(notice_pos)).date);
-                intent.putExtra("contents", mValues.get(Integer.parseInt(notice_pos)).contents);
+                intent.putExtra("title", notice_title);
+                intent.putExtra("date", notice_date);
+                intent.putExtra("contents", holder.mNotiContent);
                 mContext.startActivity(intent);
             }
         });
