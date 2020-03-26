@@ -35,6 +35,13 @@ public class Constants {
     public static final String RESERVE_CANCEL_REQUEST       = REAL_SERVER + "/IF_SINCAR_AGENT_006.asp?";   //예약취소
     public static final String RECOMMEND_REGISTER_REQUEST   = REAL_SERVER + "/IF_SINCAR_AGENT_007.asp?";   //추천인 코드 등록
     public static final String NOTICE_LIST_REQUEST          = REAL_SERVER + "/IF_SINCAR_AGENT_008.asp?";   //공지사항 요청
+    public static final String COUPONE_LIST_REQUEST         = REAL_SERVER + "/IF_SINCAR_AGENT_011.asp?";   //쿠폰 리스트 요청
+    public static final String CAR_REGISTER_REQUEST         = REAL_SERVER + "/IF_SINCAR_AGENT_012.asp?";   //차량등록
+    public static final String CAR_LIST_REQUEST             = REAL_SERVER + "/IF_SINCAR_AGENT_013.asp?";   //등록차량 리스트 요청
+    public static final String INFO_CHANGE_REQUEST          = REAL_SERVER + "/IF_SINCAR_AGENT_014.asp?";   //알림변경 요청
+
+    public static final String MEMBER_WITHRAW_REQUEST       = REAL_SERVER + "/IF_SINCAR_AGENT_020.asp?";   //회원탈퇴
+
 
     //리스트 요청
     public static final String FREIGHT_LIST_REQUEST = REAL_SERVER + "/freight_list.php?";

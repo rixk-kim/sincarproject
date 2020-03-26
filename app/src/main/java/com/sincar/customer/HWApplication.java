@@ -52,11 +52,15 @@ import com.sincar.customer.item.ReserveCancelItem;
 import com.sincar.customer.item.ReserveCancelResult;
 import com.sincar.customer.item.ReserveItem;
 import com.sincar.customer.item.ReserveResult;
+import com.sincar.customer.item.SettingItem;
+import com.sincar.customer.item.SettingResult;
 import com.sincar.customer.item.TimeItem;
 import com.sincar.customer.item.UseDataDetailItem;
 import com.sincar.customer.item.UseDataItem;
 import com.sincar.customer.item.UseItem;
 import com.sincar.customer.item.UseResult;
+import com.sincar.customer.item.WithdrawItem;
+import com.sincar.customer.item.WithdrawResult;
 import com.sincar.customer.preference.PreferenceManager;
 import com.sincar.customer.util.LoadingProgress;
 
@@ -160,6 +164,14 @@ public class HWApplication extends MultiDexApplication {
     public static RecommandResult recommandResult;
     public static RecommandItem voRecommandItem;
 
+    //알림 변경
+    public static SettingResult settingResult;
+    public static SettingItem voSettingItem;
+
+    //회원 탈퇴
+    public static WithdrawResult withdrawResult;
+    public static WithdrawItem voWithdrawItem;
+
     AppStatus mAppStatus;
     @Override
     public void onCreate() {
@@ -202,6 +214,8 @@ public class HWApplication extends MultiDexApplication {
         voPasswordItem  = new PasswordItem();
         voReserveCancelItem = new ReserveCancelItem();
         voRecommandItem = new RecommandItem();
+        voSettingItem   = new SettingItem();
+        voWithdrawItem  = new WithdrawItem();
     }
 
     public static HWApplication getInstance() {

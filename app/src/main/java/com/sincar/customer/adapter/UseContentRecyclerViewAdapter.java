@@ -34,6 +34,7 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
     private int itemCount = 0;
     private Activity useActivity;
     private LinearLayout useLinearLayout;
+    private String send_reserve_time, send_use_pay, send_wash_address, send_wash_agent;
 
     public UseContentRecyclerViewAdapter(Context context, List<UseContent.UseItem> items, Activity uActivity) {
         mContext    = context;
@@ -58,12 +59,20 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
 
         holder.mUseSeq = mValues.get(position).seq;
         holder.reserve_status = mValues.get(position).reserve_status;
+
         holder.reserve_time.setText(mValues.get(position).reserve_time);
+        send_reserve_time = mValues.get(position).reserve_time;
+
         holder.cancel_time = mValues.get(position).cancel_time;
         holder.wash_address.setText(mValues.get(position).wash_address);
+        send_wash_address = mValues.get(position).wash_address;
 
         holder.wash_agent.setText(mValues.get(position).wash_agent);
+        send_wash_agent = mValues.get(position).wash_agent;
+
         holder.use_pay.setText(mValues.get(position).use_pay);
+        send_use_pay = mValues.get(position).use_pay;
+
         holder.agent_mobile = mValues.get(position).agent_mobile;
 
         holder.common_pay = mValues.get(position).common_pay;       //기본요금
@@ -114,19 +123,20 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
                 // 리스트 선택 시 이벤트 핸들러 추가 필요하면 여기에서 해주기
                 // 상세보기
                 Intent intent = new Intent(mContext, UseDetailActivity.class);
-                intent.putExtra("reserve_seq", mValues.get(Integer.parseInt(use_pos)).seq);
-                intent.putExtra("reserve_status", mValues.get(Integer.parseInt(use_pos)).reserve_status);
-                intent.putExtra("common_pay", mValues.get(Integer.parseInt(use_pos)).common_pay);
-                intent.putExtra("coupone_pay", mValues.get(Integer.parseInt(use_pos)).coupone_pay);
-                intent.putExtra("approve_info", mValues.get(Integer.parseInt(use_pos)).approve_info);
-                intent.putExtra("use_pay", mValues.get(Integer.parseInt(use_pos)).use_pay);
-                intent.putExtra("reserve_time", mValues.get(Integer.parseInt(use_pos)).reserve_time);
-                intent.putExtra("cencel_time", mValues.get(Integer.parseInt(use_pos)).cancel_time);
-                intent.putExtra("wash_address", mValues.get(Integer.parseInt(use_pos)).wash_address);
-                intent.putExtra("wash_agent", mValues.get(Integer.parseInt(use_pos)).wash_agent);
-                intent.putExtra("agent_mobile", mValues.get(Integer.parseInt(use_pos)).agent_mobile);
-                intent.putExtra("car_info", mValues.get(Integer.parseInt(use_pos)).car_info);
-                intent.putExtra("car_number", mValues.get(Integer.parseInt(use_pos)).car_number);
+                intent.putExtra("reserve_seq", holder.mUseSeq);
+                intent.putExtra("reserve_status", holder.reserve_status);
+                intent.putExtra("common_pay", holder.common_pay);
+                intent.putExtra("coupone_pay", holder.coupone_pay);
+                intent.putExtra("approve_info", holder.approve_info);
+                intent.putExtra("use_pay", send_use_pay);
+                intent.putExtra("reserve_time", send_reserve_time);
+
+                intent.putExtra("cencel_time", holder.cancel_time);
+                intent.putExtra("wash_address", send_wash_address);
+                intent.putExtra("wash_agent", send_wash_agent);
+                intent.putExtra("agent_mobile", holder.agent_mobile);
+                intent.putExtra("car_info", holder.car_info);
+                intent.putExtra("car_number", holder.car_number);
                 mContext.startActivity(intent);
 
 //                Toast.makeText(mContext, "상세보기 요청", Toast.LENGTH_SHORT).show();

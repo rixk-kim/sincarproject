@@ -28,10 +28,12 @@ public class CarContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
     private String carName;
     private String carNumber;
     private String carPay;
+    private String path;
 
-    public CarContentRecyclerViewAdapter(Context context, List<CarContent.CarItem> items) {
-        mContext = context;
-        mValues = items;
+    public CarContentRecyclerViewAdapter(Context context, List<CarContent.CarItem> items, String path) {
+        mContext    = context;
+        mValues     = items;
+        this.path   = path;
     }
 
     @SuppressLint("ResourceAsColor")
@@ -119,18 +121,17 @@ public class CarContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
 //        }
 //        prePosition = item.id;
 
-        mValues.get(item.id-1).car_selected = true;
+        if("reserve".equals(path))
+        {
+            mValues.get(item.id).car_selected = true;
 
-        carTitle    = mValues.get(item.id-1).car_title;
-        carName     = mValues.get(item.id-1).car_name;
-        carNumber   = mValues.get(item.id-1).car_number;
-        carPay      = mValues.get(item.id-1).car_pay;
-//        mValues.get(Integer.parseInt(item.car_seq)).agentPosition = agentPosition;
+            carTitle    = mValues.get(item.id).car_title;   //제조사
+            carName     = mValues.get(item.id).car_name;    //차종
+            carNumber   = mValues.get(item.id).car_number;  //차번호
+            carPay      = mValues.get(item.id).car_pay;     //기본 세차비용
+        }
+
         notifyDataSetChanged();
-
-//        if (mListener != null) {
-//            mListener.OnCarListInteractionListener(item);
-//        }
     }
 
     //차 제조사

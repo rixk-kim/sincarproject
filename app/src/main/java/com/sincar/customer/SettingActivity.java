@@ -14,15 +14,27 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+import com.sincar.customer.item.AuthResult;
+import com.sincar.customer.item.SettingResult;
+import com.sincar.customer.item.WithdrawResult;
 import com.sincar.customer.network.VolleyNetwork;
+import com.sincar.customer.util.Util;
 
 import java.util.HashMap;
 
+import static com.sincar.customer.HWApplication.settingResult;
+import static com.sincar.customer.HWApplication.voWithdrawItem;
+import static com.sincar.customer.HWApplication.withdrawResult;
 import static com.sincar.customer.HWApplication.voLoginItem;
+import static com.sincar.customer.HWApplication.voSettingItem;
+import static com.sincar.customer.common.Constants.INFO_CHANGE_REQUEST;
 import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
+import static com.sincar.customer.common.Constants.MEMBER_WITHRAW_REQUEST;
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
     private Context mContext;
+    private Switch mSwitch1, mSwitch2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,33 +60,33 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
         // TODO - 활성화 유무에 따라 서버 연동 항목 추가 작업
         //정보성 알림
-        Switch mSwitch1 = findViewById(R.id.infoSwitch1);
+        mSwitch1 = findViewById(R.id.infoSwitch1);
         mSwitch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // 스위치 버튼이 체크되었는지 검사하여 텍스트뷰에 각 경우에 맞게 출력합니다.
                 if (isChecked){
- //                   requestSetting(1, "Y");
-                    Toast.makeText(mContext, "활성화", Toast.LENGTH_SHORT).show();
+                    requestSetting(1, "Y");
+ //                   Toast.makeText(mContext, "활성화", Toast.LENGTH_SHORT).show();
                 }else{
-//                    requestSetting(1, "N");
-                    Toast.makeText(mContext, "비활성화", Toast.LENGTH_SHORT).show();
+                    requestSetting(1, "N");
+//                    Toast.makeText(mContext, "비활성화", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
         //마켓팅 알림
-        Switch mSwitch2 = findViewById(R.id.infoSwitch2);
+        mSwitch2 = findViewById(R.id.infoSwitch2);
         mSwitch2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // 스위치 버튼이 체크되었는지 검사하여 텍스트뷰에 각 경우에 맞게 출력합니다.
                 if (isChecked){
-//                    requestSetting(2, "Y");
-                    Toast.makeText(mContext, "활성화", Toast.LENGTH_SHORT).show();
+                    requestSetting(2, "Y");
+//                    Toast.makeText(mContext, "활성화", Toast.LENGTH_SHORT).show();
                 }else{
-//                    requestSetting(2, "N");
-                    Toast.makeText(mContext, "비활성화", Toast.LENGTH_SHORT).show();
+                    requestSetting(2, "N");
+//                    Toast.makeText(mContext, "비활성화", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -92,19 +104,43 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private void requestSetting(int various, String active) {
 
         HashMap<String, String> postParams = new HashMap<String, String>();
-        postParams.put("PHONE_NEMBER", voLoginItem.MEMBER_PHONE);   // 폰번호
+        postParams.put("PHONE_NUMBER", voLoginItem.MEMBER_PHONE);   // 폰번호
         postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);         // 회원번호
         postParams.put("NOTICE_VARI", String.valueOf(various));
         postParams.put("ACTIVE_YN", active);
 
+        //프로그래스바 시작
+        Util.showDialog(this);
+
+        //통신중에는 비활성화
+        mSwitch1.setEnabled(false);
+        mSwitch2.setEnabled(false);
+
         //로그인 요청
-        VolleyNetwork.getInstance(this).serverDataRequest(LOGIN_REQUEST, postParams, onResponseListener);
+        VolleyNetwork.getInstance(this).serverDataRequest(INFO_CHANGE_REQUEST, postParams, onInfoResponseListener);
     }
 
-    VolleyNetwork.OnResponseListener onResponseListener = new VolleyNetwork.OnResponseListener() {
+    VolleyNetwork.OnResponseListener onInfoResponseListener = new VolleyNetwork.OnResponseListener() {
         @Override
         public void onResponseSuccessListener(String it) {
-            Toast.makeText(mContext, "변경되었습니다.", Toast.LENGTH_SHORT).show();
+            Gson gSon = new Gson();
+            settingResult = gSon.fromJson(it, SettingResult.class);
+
+            voSettingItem.SETTING_RESULT    = settingResult.setting_info.SETTING_RESULT;
+            voSettingItem.CAUSE             = settingResult.setting_info.CAUSE;
+
+            //프로그래스바 종료
+            Util.dismiss();
+
+            //활성화
+            mSwitch1.setEnabled(true);
+            mSwitch2.setEnabled(true);
+
+            if("0".equals(voSettingItem.SETTING_RESULT)) {
+                Toast.makeText(mContext, "변경되었습니다.", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(mContext, "변경에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
@@ -195,8 +231,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // TODO - 회원탈퇴 (서버 연동)
-                // requestWithdraw();
-                Toast.makeText(context, "회원 탈퇴 되었습니다.", Toast.LENGTH_SHORT).show();
+                requestWithdraw();
+                //Toast.makeText(context, "회원 탈퇴 되었습니다.", Toast.LENGTH_SHORT).show();
             }
         });
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -217,17 +253,38 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private void requestWithdraw() {
 
         HashMap<String, String> postParams = new HashMap<String, String>();
-        postParams.put("PHONE_NEMBER", voLoginItem.MEMBER_PHONE);   // 폰번호
+        postParams.put("PHONE_NUMBER", voLoginItem.MEMBER_PHONE);   // 폰번호
         postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);         // 회원번호
 
+        //프로그래스바 시작
+        Util.showDialog(this);
+
         //회원탈퇴 요청
-        VolleyNetwork.getInstance(this).serverDataRequest(LOGIN_REQUEST, postParams, onResponseListenerWithdraw);
+        VolleyNetwork.getInstance(this).serverDataRequest(MEMBER_WITHRAW_REQUEST, postParams, onWithdrawResponseListenerWithdraw);
     }
 
-    VolleyNetwork.OnResponseListener onResponseListenerWithdraw = new VolleyNetwork.OnResponseListener() {
+    VolleyNetwork.OnResponseListener onWithdrawResponseListenerWithdraw = new VolleyNetwork.OnResponseListener() {
         @Override
         public void onResponseSuccessListener(String it) {
-            Toast.makeText(mContext, "회원 탈퇴 되었습니다.", Toast.LENGTH_SHORT).show();
+
+            Gson gSon = new Gson();
+            withdrawResult = gSon.fromJson(it, WithdrawResult.class);
+
+            voWithdrawItem.WITHRAW_RESULT    = withdrawResult.withraw.WITHRAW_RESULT;
+            voWithdrawItem.CAUSE             = withdrawResult.withraw.CAUSE;
+
+            //프로그래스바 종료
+            Util.dismiss();
+
+            if("0".equals(voWithdrawItem.WITHRAW_RESULT)) {
+                Toast.makeText(mContext, "회원 탈퇴 되었습니다.", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(mContext, LoginActivityPre.class);
+                startActivity(intent);
+                finish();
+            }else{
+                Toast.makeText(mContext, "회원 탈퇴에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override

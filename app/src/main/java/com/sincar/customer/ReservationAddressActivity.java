@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,16 +54,36 @@ public class ReservationAddressActivity extends AppCompatActivity implements Vie
 
         mSearchAddressKeyword = findViewById(R.id.searchAddressKeyword);
 
+        View view = findViewById(R.id.searchAddressList);
+        view.setVisibility(View.GONE);
+
+        LinearLayout view1 = findViewById(R.id.search_history_empty);
+        view1.setVisibility(View.VISIBLE);
+
         // TODO - 서버 연동 후 AddressContent.ITEMS에 리스 항목추가 작업
         // Set the adapter - 포인트 리스트 설정
-        View view = findViewById(R.id.searchAddressList);
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+//        View view = findViewById(R.id.searchAddressList);
+//        if (view instanceof RecyclerView) {
+//            Context context = view.getContext();
+//            RecyclerView recyclerView = (RecyclerView) view;
+//
+//            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+//            recyclerView.setAdapter(new AddressContentRecyclerViewAdapter(AddressContent.ITEMS));
+//        }
+    }
 
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new AddressContentRecyclerViewAdapter(AddressContent.ITEMS));
-        }
+    /**
+     * 최근 검색 내역 요청
+     */
+    private void requestCurrentWord() {
+        HashMap<String, String> postParams = new HashMap<String, String>();
+        postParams.put("PHONE_NUMBER", voLoginItem.MEMBER_NO);  // 폰번호
+        postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);     // 회원번호
+        postParams.put("REQUEST_PAGE", "1");                    // 요청페이지
+        postParams.put("REQUEST_NUM", "10");                    // 요청갯수
+
+        //검색 요청
+        VolleyNetwork.getInstance(this).serverDataRequest(LOGIN_REQUEST, postParams, onSearchResponseListener);
     }
 
     /**
@@ -113,6 +134,11 @@ public class ReservationAddressActivity extends AppCompatActivity implements Vie
             // Set the adapter - 이용내역 리스트 설정
             if(AddressContent.ITEMS.size() > 0) {
                 View view = findViewById(R.id.searchAddressList);
+                LinearLayout view1 = findViewById(R.id.search_history_empty);
+
+                view.setVisibility(View.VISIBLE);
+                view1.setVisibility(View.GONE);
+
                 if (view instanceof RecyclerView) {
                     Context context = view.getContext();
                     RecyclerView recyclerView = (RecyclerView) view;
@@ -121,9 +147,12 @@ public class ReservationAddressActivity extends AppCompatActivity implements Vie
                     recyclerView.setAdapter(new AddressContentRecyclerViewAdapter(AddressContent.ITEMS));
                 }
             }else{
-                // TODO - 검색단어 없을 때 화면 UI 추가
-//                LinearLayout view = findViewById(R.id.use_history_empty);
-//                view.setVisibility(View.VISIBLE);
+                // 검색단어 없을 때 화면 UI 추가
+                View view = findViewById(R.id.searchAddressList);
+                view.setVisibility(View.GONE);
+
+                LinearLayout view1 = findViewById(R.id.search_history_empty);
+                view1.setVisibility(View.VISIBLE);
             }
         }
 
@@ -149,7 +178,7 @@ public class ReservationAddressActivity extends AppCompatActivity implements Vie
                 // TODO - 주소 검색 리스트 생성
                 // 서버연동
                 Toast.makeText(ReservationAddressActivity.this, "서버 연동 준비중입니다.", Toast.LENGTH_SHORT).show();
-                //requestSearchWord()
+                //requestSearchWord();
                 break;
         }
     }

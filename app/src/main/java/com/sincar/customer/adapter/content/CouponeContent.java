@@ -19,13 +19,13 @@ public class CouponeContent {
 
     private static final int COUNT = 25;
 
-    static {
-        // Add some sample items.
-        // TODO - 서버 연동 작업 후 Dummy 아이템 추가 코드 삭제 필요
-        for (int i = 1; i <= COUNT; i++) {
-            addItem(createDummyItem(i));
-        }
-    }
+//    static {
+//        // Add some sample items.
+//        // TODO - 서버 연동 작업 후 Dummy 아이템 추가 코드 삭제 필요
+//        for (int i = 1; i <= COUNT; i++) {
+//            addItem(createDummyItem(i));
+//        }
+//    }
 
     public static void addItem(CouponeItem item) {
         ITEMS.add(item);
@@ -37,18 +37,8 @@ public class CouponeContent {
         ITEM_MAP.clear();   // .put(item.id, item);
     }
 
-    private static CouponeItem createDummyItem(int position) {
-        return new CouponeItem(position, "1","2000", "추천인 할인쿠폰", "~2020.12.31", "회원 가입을 축하해요!", "N", false);
-    }
-
-//    private static PointItem makeDetails(int position) {
-//        StringBuilder builder = new StringBuilder();
-//        builder.append("Details about Item: ").append(position);
-//        for (int i = 0; i < position; i++) {
-//            builder.append("\nMore details information here.");
-//        }
-//        return builder.toString();
-//        return ITEM_MAP.get(position);
+//    private static CouponeItem createDummyItem(int position) {
+//        return new CouponeItem(position, "1","2000", "추천인 할인쿠폰", "~2020.12.31", "회원 가입을 축하해요!", "N", false);
 //    }
 
     /**

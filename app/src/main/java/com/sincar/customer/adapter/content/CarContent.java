@@ -19,22 +19,27 @@ public class CarContent {
 
     private static final int COUNT = 25;
 
-    static {
-        // Add some sample items.
-        // TODO - 서버 연동 작업 후 Dummy 아이템 추가 코드 삭제 필요
-        for (int i = 1; i <= COUNT; i++) {
-            addItem(createDummyItem(i));
-        }
-    }
+//    static {
+//        // Add some sample items.
+//        // TODO - 서버 연동 작업 후 Dummy 아이템 추가 코드 삭제 필요
+//        for (int i = 1; i <= COUNT; i++) {
+//            addItem(createDummyItem(i));
+//        }
+//    }
 
     public static void addItem(CarItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
 
-    private static CarItem createDummyItem(int position) {
-        return new CarItem(position, "1","포드", "익스플로러 스포츠 트랙", "12가 1234",false, "50000");
+    public static void clearItem() {
+        ITEMS.clear();// .add(item);
+        ITEM_MAP.clear();   // .put(item.id, item);
     }
+
+//    private static CarItem createDummyItem(int position) {
+//        return new CarItem(position, "1","포드", "익스플로러 스포츠 트랙", "12가 1234",false, "50000");
+//    }
 
     /**
      * A CarItem item representing a piece of content.

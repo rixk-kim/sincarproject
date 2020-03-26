@@ -38,8 +38,8 @@
     <string name="input_recom_msg">추천인 코드를 등록하면 가입 즉시\n5천원 할인쿠폰이 지급돼요!</string>
     <string name="input_terms_msg">서비스 이용을 위해 약관에 동의해주세요.</string>
 
-    <string name="input_company_name_msg">제조사를 입력하세요.</string>
-    <string name="input_car_name_msg">모델명를 입력하세요.</string>
+    <string name="input_company_name_msg">제조사를 선택하세요.</string>
+    <string name="input_car_name_msg">모델명를 선택하세요.</string>
     <string name="input_car_number_msg">차량 번호를 입력하세요.</string>
 
     <string name="input_company_not_msg">제조사를 다시 입력하세요.</string>

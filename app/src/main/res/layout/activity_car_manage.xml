@@ -64,9 +64,9 @@
         app:layout_constraintTop_toBottomOf="@+id/car_manage_include" />
 
     <LinearLayout
+        android:id="@+id/car_confirm_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:gravity="center|center_horizontal|center_vertical">
 
         <Button

@@ -23,10 +23,13 @@ public class CouponeContentRecyclerViewAdapter extends RecyclerView.Adapter<com.
     private LinearLayout mLayout;
     private String coupone_seq;
     private String coupone_pay;
+    private String path;
+    private int pre_position = -1;
 
-    public CouponeContentRecyclerViewAdapter(Context context, List<CouponeContent.CouponeItem> items) {
+    public CouponeContentRecyclerViewAdapter(Context context, List<CouponeContent.CouponeItem> items, String path) {
         mContext = context;
         mValues = items;
+        this.path = path;
     }
 
     @Override
@@ -43,7 +46,6 @@ public class CouponeContentRecyclerViewAdapter extends RecyclerView.Adapter<com.
         holder.mView.setOnClickListener(this);
 
         setViewLayout(holder, position);
-
 
 //        holder.mItem = mValues.get(position);
 //
@@ -94,10 +96,14 @@ public class CouponeContentRecyclerViewAdapter extends RecyclerView.Adapter<com.
             couponeItem.coupone_selected = false;
         }
 
-        mValues.get(item.id-1).coupone_selected = true;
+        if("payment".equals(path)) {
+            mValues.get(item.id).coupone_selected = true;
 
-        coupone_seq     = mValues.get(item.id-1).seq;
-        coupone_pay     = mValues.get(item.id-1).pay;
+            coupone_seq = mValues.get(item.id).seq;
+            coupone_pay = mValues.get(item.id).pay;
+
+            pre_position = item.id;
+        }
 
         notifyDataSetChanged();
     }
