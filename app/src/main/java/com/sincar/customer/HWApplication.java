@@ -55,6 +55,9 @@ import com.sincar.customer.item.ReserveCancelItem;
 import com.sincar.customer.item.ReserveCancelResult;
 import com.sincar.customer.item.ReserveItem;
 import com.sincar.customer.item.ReserveResult;
+import com.sincar.customer.item.SearchWordDataItem;
+import com.sincar.customer.item.SearchWordItem;
+import com.sincar.customer.item.SearchWordResult;
 import com.sincar.customer.item.SettingItem;
 import com.sincar.customer.item.SettingResult;
 import com.sincar.customer.item.TimeItem;
@@ -92,20 +95,21 @@ public class HWApplication extends MultiDexApplication {
     //public static LoginDataItem voLoginDataItem;              //친구 정보
     public static LoginAdvertiseItem voLoginAdvertiseItem;      //광고 정보
 
-    public static ArrayList<LoginDataItem> voLoginDataItem;         //포인트 리스트
-    public static ArrayList<LoginAdvertiseItem> voAdvertiseItem;    //광고 리스트
+    public static ArrayList<LoginDataItem> voLoginDataItem;                 //포인트 리스트
+    public static ArrayList<LoginAdvertiseItem> voAdvertiseItem;            //광고 리스트
     public static ArrayList<CompanyListDataItem> voCompanyListDataItem;     //제조사 리스트
-    public static ArrayList<CarListDataItem> voCarListDataItem;     //차량 리스트
-    public static ArrayList<NoticeDataItem> voNoticeDataItem;       //공지 리스트
-    public static ArrayList<CouponeDataItem> voCouponeDataItem;     //쿠폰 리스트
-    public static ArrayList<CarDataItem> voCarDataItem;             //등록차량 리스트
-    public static ArrayList<CardDataItem> voCardDataItem;           //등록카드 리스트
-    public static ArrayList<AddressDataItem> voAddressDataItem;     //주소검색 리스트
-    public static AgentDataItem voAgentDataItem;                    //대리점 리스트
-    public static ArrayList<UseDataItem> voUseDataItem;             //이용내역
-    public static ArrayList<UseDataDetailItem> voUseDataDetailItem; //이용내역
-    public static ArrayList<OptionDataItem> voOptionDataItem;       //부가서비스 리스트
-    public static ArrayList<PointDataItem> voPointDataItem;       //포인트 리스트
+    public static ArrayList<CarListDataItem> voCarListDataItem;             //차량 리스트
+    public static ArrayList<NoticeDataItem> voNoticeDataItem;               //공지 리스트
+    public static ArrayList<CouponeDataItem> voCouponeDataItem;             //쿠폰 리스트
+    public static ArrayList<CarDataItem> voCarDataItem;                     //등록차량 리스트
+    public static ArrayList<CardDataItem> voCardDataItem;                   //등록카드 리스트
+    public static ArrayList<AddressDataItem> voAddressDataItem;             //최근주소검색 리스트
+    public static ArrayList<SearchWordDataItem> voSearchWordDataItem;       //주소검색 리스트
+    public static AgentDataItem voAgentDataItem;                            //대리점 리스트
+    public static ArrayList<UseDataItem> voUseDataItem;                     //이용내역
+    public static ArrayList<UseDataDetailItem> voUseDataDetailItem;         //이용내역
+    public static ArrayList<OptionDataItem> voOptionDataItem;               //부가서비스 리스트
+    public static ArrayList<PointDataItem> voPointDataItem;                 //포인트 리스트
 
     //공지사항
     public static NoticeResult noticeResult;
@@ -123,9 +127,13 @@ public class HWApplication extends MultiDexApplication {
     public static CardResult cardResult;
     public static CardItem voCardItem;
 
-    //주소 검색
+    //최근 주소 검색
     public static AddressResult addressResult;
     public static AddressItem voAddressItem;
+
+    //주소 검색
+    public static SearchWordResult searchWordResult;
+    public static SearchWordItem voSearchWordItem;
 
     //대리점 검색
     public static AgentResult agentResult;
@@ -225,6 +233,7 @@ public class HWApplication extends MultiDexApplication {
         voSettingItem   = new SettingItem();
         voWithdrawItem  = new WithdrawItem();
         voPointItem     = new PointItem();
+        voSearchWordItem= new SearchWordItem();
     }
 
     public static HWApplication getInstance() {

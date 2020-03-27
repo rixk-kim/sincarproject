@@ -71,6 +71,7 @@ import static com.sincar.customer.HWApplication.voOptionDataItem;
 import static com.sincar.customer.HWApplication.voOptionItem;
 import static com.sincar.customer.HWApplication.voReserveItem;
 import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
+import static com.sincar.customer.common.Constants.PAY_APPROVE_REQUEST;
 import static com.sincar.customer.util.Utility.isPackageInstalled;
 
 public class PayApproveActivity extends Activity {
@@ -623,11 +624,24 @@ public class PayApproveActivity extends Activity {
             if("success".equals(reponseData))
             {
                 //완료 페이지 이동
-                //requestReserveInfo();
+
                 //TODO - 데이타 서버 전송 후 예약완료 페이지로 이동. 포인트 사용했을 시 갱신해주기
-                Intent intent = new Intent(pContext, PayApproveResult.class);
-                startActivity(intent);
-                finish();
+//                Intent intent = new Intent(pContext, PayApproveResult.class);
+//                startActivity(intent);
+//                finish();
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        runOnUiThread(new Runnable(){
+                            @Override
+                            public void run() {
+                                // 해당 작업을 처리함
+                                requestReserveInfo();
+                            }
+                        });
+                    }
+                }).start();
             }
         }
     }
@@ -642,6 +656,7 @@ public class PayApproveActivity extends Activity {
         HashMap<String, String> postParams = new HashMap<String, String>();
         //PHONE_NEMBER
         postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);         // 회원번호
+        postParams.put("RESERVE_ADDRESS", reserve_address);         // 예약주소
         postParams.put("RESERVE_YEAR", reserve_year);               // 년
         postParams.put("RESERVE_MONTH", reserve_month);             // 월
         postParams.put("RESERVE_DAY", reserve_day);                 // 일
@@ -661,7 +676,7 @@ public class PayApproveActivity extends Activity {
         //프로그래스바 시작
         Util.showDialog(this);
         //사용내역 요청
-        VolleyNetwork.getInstance(this).serverDataRequest(LOGIN_REQUEST, postParams, onReserveResponseListener);
+        VolleyNetwork.getInstance(this).serverDataRequest(PAY_APPROVE_REQUEST, postParams, onReserveResponseListener);
     }
 
     VolleyNetwork.OnResponseListener onReserveResponseListener = new VolleyNetwork.OnResponseListener() {
@@ -669,9 +684,10 @@ public class PayApproveActivity extends Activity {
         public void onResponseSuccessListener(String serverData) {
             /*
                   {"reserve": [{"RESERVE_RESULT":"0","CAUSE":"","MY_POINT":"24000"}]}
+                  {"reserve": [{"RESERVE_RESULT":"1","CAUSE":"형식에 맞지 않습니다.","MY_POINT":""}]}
              */
 
-            //TODO -포인트 갱신하고 다음 페이지 이동
+            //서버 저장하고 다음 이동
             Gson gSon = new Gson();
             reserveResult = gSon.fromJson(serverData, ReserveResult.class);
 
@@ -679,20 +695,43 @@ public class PayApproveActivity extends Activity {
             voReserveItem.CAUSE              = reserveResult.reserve.get(0).CAUSE;
             voReserveItem.MY_POINT           = reserveResult.reserve.get(0).MY_POINT;
 
-            voLoginItem.MY_POINT = voReserveItem.MY_POINT;  //포인트 갱신
-
             //프로그래스바 종료
             Util.dismiss();
 
-            Intent intent = new Intent(pContext, PayApproveResult.class);
-            startActivity(intent);
-            finish();
+            System.out.println("[spirit]RESERVE_RESULT ====>" + voReserveItem.RESERVE_RESULT);
+            if("0".equals(voReserveItem.RESERVE_RESULT)) {
+                voLoginItem.MY_POINT = voReserveItem.MY_POINT;  //포인트 갱신
+
+                Intent intent = new Intent(pContext, PayApproveResult.class);
+                startActivity(intent);
+                finish();
+            }else{
+                Toast.makeText(pContext, "서버 저장에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
         public void onResponseFailListener(VolleyError it) {
+            //프로그래스바 종료
+            Util.dismiss();
 
+            saveFailShowAlertDialog();
         }
     };
+
+    /**
+     * 회원탈퇴 알럿 다이얼로그
+     */
+    private void saveFailShowAlertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle(context.getString(R.string.notice));
+        builder.setMessage(R.string.payment_save_fail);
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Toast.makeText(context, "회원 탈퇴 되었습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
 

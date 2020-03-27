@@ -7,7 +7,7 @@ public class ReserveResult {
 
     @Override
     public String toString() {
-        return "OptionResult{" +
+        return "ReserveResult{" +
                 "reserve=" + reserve +
                 '}';
     }

@@ -7,7 +7,7 @@ public class ReserveItem {
 
     @Override
     public String toString() {
-        return "OptionItem{" +
+        return "ReserveItem{" +
                 "RESERVE_RESULT='" + RESERVE_RESULT + '\'' +
                 ", CAUSE='" + CAUSE + '\'' +
                 ", MY_POINT='" + MY_POINT + '\'' +

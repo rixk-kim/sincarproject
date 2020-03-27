@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btnMainMenu2).setOnClickListener(this);
         findViewById(R.id.btnMainMenu3).setOnClickListener(this);
         findViewById(R.id.btnMainMenu4).setOnClickListener(this);
+        findViewById(R.id.btnMainMenu5).setOnClickListener(this);
+        findViewById(R.id.btnMainMenu6).setOnClickListener(this);
         findViewById(R.id.btnCarRegisterClose).setOnClickListener(this);
         findViewById(R.id.btnCarRegister).setOnClickListener(this);
 
@@ -94,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     i.setData(u);
                     startActivity(i);
                 }else {
-                    Toast.makeText(getApplicationContext(), "이동할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "서비스 준비중입니다.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -148,19 +150,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnMainMenu1:
                 // 스팀세차
                 intent = new Intent(this, MapsActivity.class);
+                intent.putExtra("menu", "steam");
                 startActivity(intent);
                 break;
             case R.id.btnMainMenu2:
                 // TODO - 대리운전
-                Toast.makeText(getApplicationContext(), "대리운전 준비중입니다.", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "대리운전 준비중입니다.", Toast.LENGTH_SHORT).show();
+                intent = new Intent(this, MapsActivity.class);
+                intent.putExtra("menu", "driver");
+                startActivity(intent);
                 break;
             case R.id.btnMainMenu3:
-                // TODO - 카페어링
-                Toast.makeText(getApplicationContext(), "카페어링 준비중입니다.", Toast.LENGTH_SHORT).show();
+                // TODO - 차량공유
+                //Toast.makeText(getApplicationContext(), "카페어링 준비중입니다.", Toast.LENGTH_SHORT).show();
+                intent = new Intent(this, MapsActivity.class);
+                intent.putExtra("menu", "pairing");
+                startActivity(intent);
                 break;
             case R.id.btnMainMenu4:
-                // TODO - 카쉐어
-                Toast.makeText(getApplicationContext(), "카쉐어 준비중입니다.", Toast.LENGTH_SHORT).show();
+                // TODO - 승차공유
+                //Toast.makeText(getApplicationContext(), "카쉐어 준비중입니다.", Toast.LENGTH_SHORT).show();
+                intent = new Intent(this, MapsActivity.class);
+                intent.putExtra("menu", "sharing");
+                startActivity(intent);
+                break;
+            case R.id.btnMainMenu5:
+                // TODO - 퀵・탁송
+                //Toast.makeText(getApplicationContext(), "카페어링 준비중입니다.", Toast.LENGTH_SHORT).show();
+                intent = new Intent(this, MapsActivity.class);
+                intent.putExtra("menu", "quick");
+                startActivity(intent);
+                break;
+            case R.id.btnMainMenu6:
+                // TODO - 배달라이더
+                //Toast.makeText(getApplicationContext(), "카쉐어 준비중입니다.", Toast.LENGTH_SHORT).show();
+                intent = new Intent(this, MapsActivity.class);
+                intent.putExtra("menu", "rider");
+                startActivity(intent);
                 break;
             case R.id.btnCarRegisterClose:
                 // 배너 차량등록 종료

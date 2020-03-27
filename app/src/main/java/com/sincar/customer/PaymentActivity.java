@@ -35,30 +35,30 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     private TextView amount_TextView;
     private TextView branch_name, wash_address, reservation_time, my_point;
     private EditText use_point;
-    private String coupone_seq;
+    private String coupone_seq = "";
     private CheckBox clause_agree;
     private Context pContext;
     private Button mButton;
 
-    private String reserve_address; //예약주소
-    private String reserve_year;    //예약년도
-    private String reserve_month;   //예약월
-    private String reserve_day;     //예약일
-    private String agent_seq;       //예약한 대리점주 SEQ
-    private String agent_company;   //대리점 정보
+    private String reserve_address = ""; //예약주소
+    private String reserve_year = "";    //예약년도
+    private String reserve_month = "";   //예약월
+    private String reserve_day = "";     //예약일
+    private String agent_seq = "";       //예약한 대리점주 SEQ
+    private String agent_company = "";   //대리점 정보
 
-    private String agent_time;      //예약한 대리점주 시간
-    private String wash_area;       //세차장소
-    private String car_company;     //제조사
-    private String car_name;        //차량 이름
-    private String car_number;      //차번호
-    private String car_wash_pay;    //차량 기본 세차 금액
+    private String agent_time = "";      //예약한 대리점주 시간
+    private String wash_area = "";       //세차장소
+    private String car_company = "";     //제조사
+    private String car_name = "";        //차량 이름
+    private String car_number = "";      //차번호
+    private String car_wash_pay = "";    //차량 기본 세차 금액
 
     private int total_amt = 0;      //세차비용
-    private int use_coupone_seq;    //사용 쿠폰
-    private int use_coupone_pay;    //쿠폰 비용
-    private int use_my_point;       //사용 포인트
-    private String car_wash_option; //옵션
+    private int use_coupone_seq = 0;    //사용 쿠폰
+    private int use_coupone_pay = 0;    //쿠폰 비용
+    private int use_my_point = 0;       //사용 포인트
+    private String car_wash_option = ""; //옵션
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

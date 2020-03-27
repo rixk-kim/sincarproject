@@ -21,10 +21,10 @@ public class AddressContent {
 
     static {
         // Add some sample items.
-        // TODO - 서버 연동 작업 후 Dummy 아이템 추가 코드 삭제 필요
-        for (int i = 1; i <= COUNT; i++) {
-            addItem(createDummyItem(i));
-        }
+        // 서버 연동 작업 후 Dummy 아이템 추가 코드 삭제 필요
+//        for (int i = 1; i <= COUNT; i++) {
+//            addItem(createDummyItem(i));
+//        }
     }
 
     public static void addItem(AddressItem item) {
@@ -32,21 +32,28 @@ public class AddressContent {
         ITEM_MAP.put(item.id, item);
     }
 
-    private static AddressItem createDummyItem(int position) {
-        return new AddressItem(position, "송파구청","송파구 송파동 32");
+    public static void clearItem() {
+        ITEMS.clear();
+        ITEM_MAP.clear();
     }
+
+//    private static AddressItem createDummyItem(int position) {
+//        return new AddressItem(position, String.valueOf(position),"송파구청","송파구 송파동 32");
+//    }
 
     /**
      * A AddressItem item representing a piece of content.
      */
     public static class AddressItem {
         public final int id;
+        public final String seq;
         public final String title;
         public final String description;
 
-        public AddressItem(int id, String title, String description) {
-            this.id = id;
-            this.title = title;
+        public AddressItem(int id, String seq, String title, String description) {
+            this.id     = id;
+            this.seq    = seq;
+            this.title  = title;
             this.description = description;
         }
     }

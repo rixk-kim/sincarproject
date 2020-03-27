@@ -1,5 +1,6 @@
 package com.sincar.customer;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Context;
@@ -54,12 +55,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public final static int MAP_REQ_CODE = 1003;
 
     private TextView currentTextView, reserve_date;
+    private String main_path;
+
+    //시연용 코드
+    private ConstraintLayout mConstraintLayout, mbtnReserveAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         gContext = this;
+
+        Intent intent = getIntent(); /*데이터 수신*/
+        main_path    = intent.getExtras().getString("menu");    /*String형*/
 
         // GPS 정보
         gps         = new GPSInfo(gContext);
@@ -118,9 +126,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // TODO - 지도의 파란동그라미 작업(layout에 추가, 이벤트 작업)
         findViewById(R.id.btnMapHome).setOnClickListener(this);
         findViewById(R.id.btnCurrent).setOnClickListener(this);
-        findViewById(R.id.btnReserveAddress).setOnClickListener(this);
-        findViewById(R.id.btnReserveDate).setOnClickListener(this);
+        mbtnReserveAddress = (ConstraintLayout) findViewById(R.id.btnReserveAddress);
+
+        mConstraintLayout = (ConstraintLayout)findViewById(R.id.btnReserveDate);
+        if("steam".equals(main_path))
+        {
+            mbtnReserveAddress.setOnClickListener(this);
+            mConstraintLayout.setOnClickListener(this);
+        }else{
+            mConstraintLayout.setVisibility(View.GONE);
+        }
+
         findViewById(R.id.btnNext).setOnClickListener(this);
+
 
         currentTextView = findViewById(R.id.current_address);
         reserve_date = findViewById(R.id.reserve_date);
@@ -212,48 +230,51 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 break;
             case R.id.btnNext:
                 // "이 위치로 부름" 작업(시나리오 확인) => 현 위치로 이동
-                mMap.clear();
+                if("steam".equals(main_path)) {
+                    mMap.clear();
 
 
-                // GPS 정보
-                gps         = new GPSInfo(gContext);
-                latitude    = gps.getLatitude();
-                longitude   = gps.getLongitude();
+                    // GPS 정보
+                    gps = new GPSInfo(gContext);
+                    latitude = gps.getLatitude();
+                    longitude = gps.getLongitude();
 
-                my_latitude     = latitude;
-                my_longitude    = longitude;
+                    my_latitude = latitude;
+                    my_longitude = longitude;
 
-                if (gps.isGetLocation()) {
+                    if (gps.isGetLocation()) {
 
-                    myPos = new LatLng(my_latitude, my_longitude);
+                        myPos = new LatLng(my_latitude, my_longitude);
 
-                    markerOptions.position(myPos);
-                    markerOptions.title("내 위치");
-                    markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.group_7));
-                    markerOptions.draggable(false);
-                    mMap.addMarker(markerOptions);
+                        markerOptions.position(myPos);
+                        markerOptions.title("내 위치");
+                        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.group_7));
+                        markerOptions.draggable(false);
+                        mMap.addMarker(markerOptions);
 
-                    seoul = new LatLng(my_latitude, my_longitude);
+                        seoul = new LatLng(my_latitude, my_longitude);
 
-                    markerOptions.position(seoul);
-                    markerOptions.title("위치 변경");
-                    markerOptions.snippet("검색 위치");
-                    markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.current_icon));
-                    markerOptions.draggable(true);
-                    mMap.addMarker(markerOptions);
+                        markerOptions.position(seoul);
+                        markerOptions.title("위치 변경");
+                        markerOptions.snippet("검색 위치");
+                        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.current_icon));
+                        markerOptions.draggable(true);
+                        mMap.addMarker(markerOptions);
 
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(seoul));
-                    mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(seoul));
+                        mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
 
-                    //주소 갱신
-                    getAddress();
-                    currentTextView.setText(cAddress);
+                        //주소 갱신
+                        getAddress();
+                        currentTextView.setText(cAddress);
 
-                }else {
-                    // GPS 를 사용할수 없으므로
-                    gps.showSettingsAlert();
+                    } else {
+                        // GPS 를 사용할수 없으므로
+                        gps.showSettingsAlert();
+                    }
+                }else{
+                    Toast.makeText(this, "서비스 준비중입니다.", Toast.LENGTH_LONG).show();
                 }
-
                 //ConvertGPS("서울 송파구 석촌호수로 274");
 //                Toast.makeText(this, cAddress + "로 부르셨습니다. 정보 갱신중..", Toast.LENGTH_LONG).show();
                 break;

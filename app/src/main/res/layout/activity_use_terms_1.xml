@@ -4,29 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NoticeActivity">
+    tools:context=".UseTerms1Activity">
 
-    <!-- ActionBar 영역 -->
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:id="@+id/use_terms1_include"
-        tools:ignore="MissingConstraints">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:ignore="WebViewLayout">
+        <!-- ActionBar 영역 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:id="@+id/use_terms1_include"
+            tools:ignore="MissingConstraints">
 
-        <!-- ActionBar : Back / Title / Info -->
-        <ImageView
-            android:id="@+id/useterms1_btnPrev"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginStart="32dp"
-            android:contentDescription="@string/actionbar_prev_icon_description"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/prev_image_selector" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <ScrollView
+            <!-- ActionBar : Back / Title / Info -->
+            <ImageView
+                android:id="@+id/useterms1_btnPrev"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="32dp"
+                android:contentDescription="@string/actionbar_prev_icon_description"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/prev_image_selector" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+<!--
+        <ScrollView
         android:id="@+id/payment_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -111,4 +116,16 @@
 
     </LinearLayout>
     </ScrollView>
+-->
+        <WebView
+            android:id="@+id/nWebView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/use_terms1_include"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        </WebView>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
