@@ -19,13 +19,13 @@ public class UseContent {
 
     private static final int COUNT = 5;
 
-    static {
-        // Add some sample items.
-        // TODO - 서버 연동 작업 후 Dummy 아이템 추가 코드 삭제 필요
+//    static {
+//        // Add some sample items.
+//        // 서버 연동 작업 후 Dummy 아이템 추가 코드 삭제 필요
 //        for (int i = 1; i <= COUNT; i++) {
 //            addItem(createDummyItem(i));
 //        }
-    }
+//    }
 
     public static void addItem(UseItem item) {
         ITEMS.add(item);
@@ -37,11 +37,11 @@ public class UseContent {
         ITEM_MAP.clear();
     }
 
-    public static UseItem createDummyItem(int position) {
-        return new UseItem(position, "1","0", "12/22 " + position, "", "송파구 석촌호수로 274 (실내)", "관악 1호점 (김태현) ", "43,000원",
-                "01012345678", "신차로", "45,000원", "2000원", "케이뱅크 ****3840",
-                "현대 싼타페", "12가 3238");
-    }
+//    public static UseItem createDummyItem(int position) {
+//        return new UseItem(position, "1","0", "12/22 " + position, "", "송파구 석촌호수로 274 (실내)", "관악 1호점 (김태현) ", "43,000원",
+//                "01012345678", "신차로", "45,000원", "2000원", "케이뱅크 ****3840",
+//                "현대 싼타페", "12가 3238");
+//    }
 
 //    private static PointItem makeDetails(int position) {
 //        StringBuilder builder = new StringBuilder();

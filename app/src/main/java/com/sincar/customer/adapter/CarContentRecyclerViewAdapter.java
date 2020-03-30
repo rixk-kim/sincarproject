@@ -56,36 +56,6 @@ public class CarContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
         holder.mView.setOnClickListener(this);
 
         setViewLayout(holder, position);
-
-//        holder.mItem = mValues.get(position);
-//
-//        holder.mCarTitle.setText(mValues.get(position).car_title);
-//        holder.mCarSeq = Integer.parseInt(mValues.get(position).car_seq);
-//        holder.mCarName.setText(mValues.get(position).car_name);
-//        holder.mCarNumber.setText(mValues.get(position).car_number);
-//
-//        car_pos = String.valueOf(position);
-//
-//        holder.mCarDelete.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // TODO - 리스트 선택 시 이벤트 핸들러 추가 필요하면 여기에서 해주기
-//                // 카드 삭제
-//                Toast.makeText(mContext, "차량 삭제 요청 : " + holder.mCarSeq, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        mLayout = holder.mView.findViewById(R.id.car_layout);
-//        mLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // TODO - 리스트 선택 시 이벤트 핸들러 추가 필요하면 여기에서 해주기
-//                // 차량 선택시 배경 색상 변경해주기
-////                selectStatus[Integer.parseInt(car_pos)] = "true";
-//                Toast.makeText(mContext, "select", Toast.LENGTH_SHORT).show();
-//                mLayout.setBackgroundResource(R.color.card_background_color);
-//            }
-//        });
     }
 
     private void setViewLayout(final ViewHolder holder, final int position) {
@@ -105,7 +75,7 @@ public class CarContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
         holder.mCarDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO - 리스트 선택 시 이벤트 핸들러 추가 필요하면 여기에서 해주기
+                // 리스트 선택 시 이벤트 핸들러 추가 필요하면 여기에서 해주기
                 // 카드 삭제
                 //Toast.makeText(mContext, "차량 삭제 요청 : " + holder.mCarSeq, Toast.LENGTH_SHORT).show();
                 ((CarManageActivity)CarManageActivity.carContext).carDelete(String.valueOf(holder.mCarSeq));

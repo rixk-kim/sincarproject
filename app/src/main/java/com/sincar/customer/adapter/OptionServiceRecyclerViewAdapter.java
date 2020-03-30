@@ -43,7 +43,7 @@ public class OptionServiceRecyclerViewAdapter extends RecyclerView.Adapter<Optio
         holder.mChecked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // TODO - 체크박스 이벤트 핸들러 추가
+                // 체크박스 이벤트 핸들러 추가
                 //mValues.get(tmpPosition).checked  = isChecked;
                 holder.mItem.checked = isChecked;
                 System.out.println("[spirit] checked => " + isChecked);

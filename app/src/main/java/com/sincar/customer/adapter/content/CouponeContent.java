@@ -21,7 +21,7 @@ public class CouponeContent {
 
 //    static {
 //        // Add some sample items.
-//        // TODO - 서버 연동 작업 후 Dummy 아이템 추가 코드 삭제 필요
+//        // 서버 연동 작업 후 Dummy 아이템 추가 코드 삭제 필요
 //        for (int i = 1; i <= COUNT; i++) {
 //            addItem(createDummyItem(i));
 //        }

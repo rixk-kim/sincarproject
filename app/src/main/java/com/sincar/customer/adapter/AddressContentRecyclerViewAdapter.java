@@ -55,7 +55,7 @@ public class AddressContentRecyclerViewAdapter extends RecyclerView.Adapter<Addr
 //        holder.mIcon.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                // TODO - 리스트 선택 시 이벤트 핸들러 추가 필요하면 여기에서 해주기
+//                // 리스트 선택 시 이벤트 핸들러 추가 필요하면 여기에서 해주기
 //                // 임시로 주소 검색 화면 finish()처리함.
 //                // event handler로 해서 지도 앱으로 주서 전달 필요.
 //                Intent intent = new Intent(((Activity)holder.mView.getContext()), MapsActivity.class);

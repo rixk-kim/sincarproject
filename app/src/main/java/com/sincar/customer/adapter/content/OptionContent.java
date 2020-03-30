@@ -19,13 +19,13 @@ public class OptionContent {
 
     private static final int COUNT = 3;
 
-    static {
-        // Add some sample items.
-        // TODO - 서버 연동 작업 후 Dummy 아이템 추가 코드 삭제 필요
+//    static {
+//        // Add some sample items.
+//        // 서버 연동 작업 후 Dummy 아이템 추가 코드 삭제 필요
 //        for (int i = 1; i <= COUNT; i++) {
 //            addItem(createDummyItem(i));
 //        }
-    }
+//    }
 
     public static void addItem(OptionItem item) {
         ITEMS.add(item);

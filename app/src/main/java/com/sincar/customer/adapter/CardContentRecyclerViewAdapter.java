@@ -52,7 +52,7 @@ public class CardContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sin
         holder.mCardDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO - 리스트 선택 시 이벤트 핸들러 추가 필요하면 여기에서 해주기
+                // 리스트 선택 시 이벤트 핸들러 추가 필요하면 여기에서 해주기
                 // 카드 삭제
                 Toast.makeText(mContext, "카드 삭제 요청", Toast.LENGTH_SHORT).show();
             }
