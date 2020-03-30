@@ -55,7 +55,7 @@ public class ReservationCalendarActivity extends AppCompatActivity implements Vi
      */
     private void init() {
 
-        findViewById(R.id.btnPrev).setOnClickListener(this);
+        findViewById(R.id.btnPrev_layout1).setOnClickListener(this);
         findViewById(R.id.btnNext).setOnClickListener(this);
 
         // Calendar layout 및 이벤트 처리
@@ -90,7 +90,7 @@ public class ReservationCalendarActivity extends AppCompatActivity implements Vi
         Intent intent;
 
         switch (v.getId()) {
-            case R.id.btnPrev:
+            case R.id.btnPrev_layout1:
                 finish();
                 break;
             case R.id.btnNext:

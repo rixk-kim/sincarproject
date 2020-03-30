@@ -20,6 +20,8 @@ import com.sincar.customer.item.AgentResult;
 import com.sincar.customer.item.AuthItem;
 import com.sincar.customer.item.AuthResult;
 import com.sincar.customer.item.CarDataItem;
+import com.sincar.customer.item.CarDeleteItem;
+import com.sincar.customer.item.CarDeleteResult;
 import com.sincar.customer.item.CarItem;
 import com.sincar.customer.item.CarListDataItem;
 import com.sincar.customer.item.CarRegisterItem;
@@ -105,7 +107,7 @@ public class HWApplication extends MultiDexApplication {
     public static ArrayList<CardDataItem> voCardDataItem;                   //등록카드 리스트
     public static ArrayList<AddressDataItem> voAddressDataItem;             //최근주소검색 리스트
     public static ArrayList<SearchWordDataItem> voSearchWordDataItem;       //주소검색 리스트
-    public static AgentDataItem voAgentDataItem;                            //대리점 리스트
+    public static ArrayList<AgentDataItem> voAgentDataItem;                 //대리점 리스트
     public static ArrayList<UseDataItem> voUseDataItem;                     //이용내역
     public static ArrayList<UseDataDetailItem> voUseDataDetailItem;         //이용내역
     public static ArrayList<OptionDataItem> voOptionDataItem;               //부가서비스 리스트
@@ -188,6 +190,10 @@ public class HWApplication extends MultiDexApplication {
     public static PointResult pointResult;
     public static PointItem voPointItem;
 
+    //등록차량 삭제
+    public static CarDeleteResult carDeleteResult;
+    public static CarDeleteItem voCarDeleteItem;
+
     AppStatus mAppStatus;
     @Override
     public void onCreate() {
@@ -234,6 +240,7 @@ public class HWApplication extends MultiDexApplication {
         voWithdrawItem  = new WithdrawItem();
         voPointItem     = new PointItem();
         voSearchWordItem= new SearchWordItem();
+        voCarDeleteItem = new CarDeleteItem();
     }
 
     public static HWApplication getInstance() {

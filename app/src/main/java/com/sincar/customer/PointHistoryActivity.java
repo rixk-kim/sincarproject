@@ -52,7 +52,7 @@ public class PointHistoryActivity extends AppCompatActivity implements View.OnCl
      * 화면 초기화
      */
     private void init() {
-        findViewById(R.id.btnPrev).setOnClickListener(this);
+        findViewById(R.id.btnPrev_layout).setOnClickListener(this);
         findViewById(R.id.btnNext).setOnClickListener(this);
 
         // 서버 연동하여 1촌, 2촌, 누적 포인트 값 가지고 와서 설정해주기
@@ -82,6 +82,8 @@ public class PointHistoryActivity extends AppCompatActivity implements View.OnCl
         }
 
         // 서버 연동 후 PointContent.ITEMS에 리스 항목 추가 작업
+        PointContent.clearItem();
+        requestPointList();
         // Set the adapter - 포인트 리스트 설정
 //        List<PointContent.PointItem> ITEMS = new ArrayList<PointContent.PointItem>();
 //
@@ -230,7 +232,7 @@ public class PointHistoryActivity extends AppCompatActivity implements View.OnCl
         Intent intent;
 
         switch (v.getId()) {
-            case R.id.btnPrev:
+            case R.id.btnPrev_layout:
                 finish();
                 break;
             case R.id.btnNext:

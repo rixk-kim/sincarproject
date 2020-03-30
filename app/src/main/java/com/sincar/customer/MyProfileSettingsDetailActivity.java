@@ -24,7 +24,7 @@ public class MyProfileSettingsDetailActivity extends AppCompatActivity implement
      * 화면 초기화
      */
     private void init() {
-        findViewById(R.id.myinfo_profile_btnPrev).setOnClickListener(this);
+        findViewById(R.id.myinfo_profile_btnPrev_layout).setOnClickListener(this);
         findViewById(R.id.myinfo_btnNext).setOnClickListener(this);
 
         TextView myinfo_user_name = findViewById(R.id.myinfo_user_name);
@@ -39,7 +39,7 @@ public class MyProfileSettingsDetailActivity extends AppCompatActivity implement
         Intent intent;
 
         switch (v.getId()) {
-            case R.id.myinfo_profile_btnPrev:
+            case R.id.myinfo_profile_btnPrev_layout:
                 //  내정보
                 intent = new Intent(this, MyProfileSettingsActivity.class);
                 startActivity(intent);
@@ -50,7 +50,7 @@ public class MyProfileSettingsDetailActivity extends AppCompatActivity implement
                 intent = new Intent(this, PasswordChangeActivity.class);
                 intent.putExtra("path", "change");
                 startActivity(intent);
-                finish();
+//                finish();
                 break;
         }
     }

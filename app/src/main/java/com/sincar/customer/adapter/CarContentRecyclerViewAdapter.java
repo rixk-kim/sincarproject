@@ -1,6 +1,7 @@
 package com.sincar.customer.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.sincar.customer.CarManageActivity;
 import com.sincar.customer.R;
 import com.sincar.customer.adapter.content.CarContent;
 import com.sincar.customer.adapter.content.TimeContent;
@@ -104,7 +107,8 @@ public class CarContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
             public void onClick(View v) {
                 // TODO - 리스트 선택 시 이벤트 핸들러 추가 필요하면 여기에서 해주기
                 // 카드 삭제
-                Toast.makeText(mContext, "차량 삭제 요청 : " + holder.mCarSeq, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, "차량 삭제 요청 : " + holder.mCarSeq, Toast.LENGTH_SHORT).show();
+                ((CarManageActivity)CarManageActivity.carContext).carDelete(String.valueOf(holder.mCarSeq));
             }
         });
     }

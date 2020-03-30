@@ -70,7 +70,7 @@ public class UseDeleteSettleActivity extends AppCompatActivity implements View.O
      * 화면 초기화
      */
     private void init() {
-        findViewById(R.id.use_delete_settle_btnPrev).setOnClickListener(this);
+        findViewById(R.id.use_delete_settle_btnPrev_layout).setOnClickListener(this);
 
         //일반요금
         textView_settle_common_pay = (TextView) findViewById(R.id.settle_common_pay);
@@ -120,7 +120,7 @@ public class UseDeleteSettleActivity extends AppCompatActivity implements View.O
         Intent intent;
 
         switch (v.getId()) {
-            case R.id.use_delete_settle_btnPrev:
+            case R.id.use_delete_settle_btnPrev_layout:
                 //  이용내역으로
                 intent = new Intent(this, UseHistoryActivity.class);
                 startActivity(intent);

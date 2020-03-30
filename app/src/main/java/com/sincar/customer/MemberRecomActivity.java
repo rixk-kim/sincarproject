@@ -6,11 +6,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -38,6 +41,30 @@ public class MemberRecomActivity extends Activity implements View.OnClickListene
         findViewById(R.id.recom_nextBtn).setOnClickListener(this);
 
         recom_code = (EditText) findViewById(R.id.recom_code);
+
+        //추천인 입력 후 완료시
+        recom_code.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    // 유효성 체크 요청
+                    if(!TextUtils.isEmpty(recom_code.getText().toString().trim()))
+                    {
+                        //약관페이지로 이동
+                        //추천인 코드로 이동
+                        Intent intent = new Intent(MemberRecomActivity.this, com.sincar.customer.MemberJoinTermsActivity.class);
+                        intent.putExtra("phone_number", phone_number);
+                        intent.putExtra("password", password);
+                        intent.putExtra("nickname", nickname);  // 본인 실명
+                        intent.putExtra("recommand", recom_code.getText().toString().trim());   // 추천인 코드
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(MemberRecomActivity.this, "추천인 코드를 입력 해주세요.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     @Override

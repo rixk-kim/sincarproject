@@ -2,15 +2,18 @@ package com.sincar.customer;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -39,7 +42,7 @@ public class MemberAuthActivity extends Activity implements View.OnClickListener
     private Button join_auth_btn;       //확인
     private EditText join_user_auth;    //인증코드 입력
     private String phone_number;
-    private TextView auth_resend;
+    private Context AContext;
 
     private TextView auth_time_counter; //시간을 보여주는 TextView
  //   EditText emailAuth_number; //인증 번호를 입력 하는 칸
@@ -53,6 +56,7 @@ public class MemberAuthActivity extends Activity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.member_join_auth);
+        AContext = this;
 
         Intent intent = getIntent(); /*데이터 수신*/
         phone_number  = intent.getExtras().getString("phone_number");       /*String형*/
@@ -61,6 +65,32 @@ public class MemberAuthActivity extends Activity implements View.OnClickListener
         join_auth_btn.setOnClickListener(this);
 
         join_user_auth = (EditText) findViewById(R.id.join_user_auth);
+
+        // 핸드폰 번호 입력 후 확인 버튼 클릭 시
+        join_user_auth.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    // 비밀번호 입력으로 이동
+                    if(TextUtils.isEmpty(join_user_auth.getText().toString().trim()))
+                    {
+                        Toast.makeText(MemberAuthActivity.this, "코드를 입력 해주세요.", Toast.LENGTH_LONG).show();
+                    }else {
+                        if (voAuthItem.AUTH_NUMBER.equals(join_user_auth.getText().toString().trim()))
+                        {
+                            //비밀번호 입력으로 이동
+                            Intent intent = new Intent(AContext, PasswordChangeActivity.class);
+                            intent.putExtra("path", "join");
+                            intent.putExtra("phone_number", phone_number);
+                            startActivity(intent);
+                        }else{
+                            showAuthErrorAlert();
+                        }
+                    }
+                }
+                return false;
+            }
+        });
 
         auth_time_counter   = (TextView) findViewById(R.id.auth_time_counter);      //줄어드는 시간을 나타내는 TextView
         findViewById(R.id.auth_resend).setOnClickListener(this);                    //재전송

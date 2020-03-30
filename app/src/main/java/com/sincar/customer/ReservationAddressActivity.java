@@ -61,7 +61,7 @@ public class ReservationAddressActivity extends AppCompatActivity implements Vie
      * 화면 초기화
      */
     private void init() {
-        findViewById(R.id.btnPrev).setOnClickListener(this);
+        findViewById(R.id.btnPrev_layout1).setOnClickListener(this);
         findViewById(R.id.btnSearchCancel).setOnClickListener(this);
         findViewById(R.id.btnSearchAddress).setOnClickListener(this);
 
@@ -290,7 +290,7 @@ public class ReservationAddressActivity extends AppCompatActivity implements Vie
         Intent intent;
 
         switch (v.getId()) {
-            case R.id.btnPrev:
+            case R.id.btnPrev_layout1:
                 finish();
                 break;
             case R.id.btnSearchCancel:

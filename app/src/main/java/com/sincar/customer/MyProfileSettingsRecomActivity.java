@@ -53,7 +53,7 @@ public class MyProfileSettingsRecomActivity extends AppCompatActivity implements
      * 화면 초기화
      */
     private void init() {
-        findViewById(R.id.myinfo_recom_btnPrev).setOnClickListener(this);
+        findViewById(R.id.myinfo_recom_btnPrev_layout).setOnClickListener(this);
         findViewById(R.id.recom_code_copy_btn).setOnClickListener(this);
 
         recomTextView = (TextView) findViewById(R.id.recom_code);
@@ -82,7 +82,7 @@ public class MyProfileSettingsRecomActivity extends AppCompatActivity implements
         Intent intent;
 
         switch (v.getId()) {
-            case R.id.myinfo_recom_btnPrev:
+            case R.id.myinfo_recom_btnPrev_layout:
                 //  TODO - 내정보
                 intent = new Intent(this, MyProfileSettingsActivity.class);
                 startActivity(intent);

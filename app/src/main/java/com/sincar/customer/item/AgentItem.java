@@ -3,21 +3,33 @@ package com.sincar.customer.item;
 import java.util.ArrayList;
 
 public class AgentItem {
-    public String SEQ;
-    public String NAME;
-    public String AGENT_NAME;
-    public String WASH_AREA;
-
-    public ArrayList<TimeItem> TIME_INFO = new ArrayList();
+//    public String SEQ;
+//    public String NAME;
+//    public String AGENT_NAME;
+//    public String WASH_AREA;
+//
+//    public ArrayList<TimeItem> TIME_INFO = new ArrayList();
+//
+//    @Override
+//    public String toString() {
+//        return "AgentItem{" +
+//                ", SEQ='" + SEQ + '\'' +
+//                ", NAME='" + NAME + '\'' +
+//                ", AGENT_NAME='" + AGENT_NAME + '\'' +
+//                ", WASH_AREA='" + WASH_AREA + '\'' +
+//                ", TIME_INFO=" + TIME_INFO +
+//                '}';
+//    }
+    public String TOTAL;
+    public String CURRENT_PAGE;
+    public String CURRENT_NUM;
 
     @Override
     public String toString() {
         return "AgentItem{" +
-                ", SEQ='" + SEQ + '\'' +
-                ", NAME='" + NAME + '\'' +
-                ", AGENT_NAME='" + AGENT_NAME + '\'' +
-                ", WASH_AREA='" + WASH_AREA + '\'' +
-                ", TIME_INFO=" + TIME_INFO +
+                "TOTAL='" + TOTAL + '\'' +
+                ", CURRENT_PAGE='" + CURRENT_PAGE + '\'' +
+                ", CURRENT_NUM='" + CURRENT_NUM + '\'' +
                 '}';
     }
 }

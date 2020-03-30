@@ -14,16 +14,23 @@
         tools:ignore="MissingConstraints">
 
         <!-- ActionBar : Back / Title / Info -->
-        <ImageView
-            android:id="@+id/notice_btnPrev"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginStart="32dp"
-            android:contentDescription="@string/actionbar_prev_icon_description"
+        <LinearLayout
+            android:id="@+id/notice_btnPrev_layout"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_gravity="center|center_horizontal|center_vertical"
+            android:gravity="center|center_horizontal|center_vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/prev_image_selector" />
+            app:layout_constraintTop_toTopOf="parent">
+            <ImageView
+                android:id="@+id/notice_btnPrev"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:contentDescription="@string/actionbar_prev_icon_description"
+                android:src="@drawable/prev_image_selector" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/myinfo_title_activity"
@@ -35,7 +42,7 @@
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/notice_btnPrev"
+            app:layout_constraintStart_toStartOf="@+id/notice_btnPrev_layout"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

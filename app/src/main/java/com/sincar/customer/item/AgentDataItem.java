@@ -3,12 +3,30 @@ package com.sincar.customer.item;
 import java.util.ArrayList;
 
 public class AgentDataItem {
-    public ArrayList<AgentItem> DATA = new ArrayList();
+//    public ArrayList<AgentItem> DATA = new ArrayList();
+//
+//    @Override
+//    public String toString() {
+//        return "AgentDataItem{" +
+//                "DATA=" + DATA +
+//                '}';
+//    }
+
+    public String SEQ;
+    public String NAME;
+    public String AGENT_NAME;
+    public String WASH_AREA;
+
+    public ArrayList<TimeItem> TIME_INFO = new ArrayList();
 
     @Override
     public String toString() {
         return "AgentDataItem{" +
-                "DATA=" + DATA +
+                ", SEQ='" + SEQ + '\'' +
+                ", NAME='" + NAME + '\'' +
+                ", AGENT_NAME='" + AGENT_NAME + '\'' +
+                ", WASH_AREA='" + WASH_AREA + '\'' +
+                ", TIME_INFO=" + TIME_INFO +
                 '}';
     }
 }

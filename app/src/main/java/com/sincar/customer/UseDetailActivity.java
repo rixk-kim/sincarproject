@@ -89,7 +89,7 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
      * 화면 초기화
      */
     private void init() {
-        findViewById(R.id.use_detail_btnPrev).setOnClickListener(this);
+        findViewById(R.id.use_detail_btnPrev_layout).setOnClickListener(this);
         findViewById(R.id.reserve_cancel_btn).setOnClickListener(this);
 
         reserve_cancel_area = (LinearLayout) findViewById(R.id.reserve_cancel_area);
@@ -181,7 +181,7 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
         Intent intent;
 
         switch (v.getId()) {
-            case R.id.use_detail_btnPrev:
+            case R.id.use_detail_btnPrev_layout:
                 //  이용내역으로
                 intent = new Intent(this, UseHistoryActivity.class);
                 startActivity(intent);
@@ -189,7 +189,7 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
                 break;
 
             case R.id.reserve_cancel_btn:
-                // TODO - 예약 취소
+                // 예약 취소 이동
 //                Toast toast = Toast.makeText(this, "예약을 취소하였습니다.", Toast.LENGTH_LONG);
 //                cancel_time = Util.getYearMonthDay();
                 intent = new Intent(this, UseDeleteActivity.class);
@@ -207,7 +207,7 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
                 intent.putExtra("car_info", car_info);
                 intent.putExtra("car_number", car_number);
                 startActivity(intent);
-                finish();
+ //               finish();
                 break;
         }
     }

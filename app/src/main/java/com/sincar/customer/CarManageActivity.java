@@ -13,11 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.sincar.customer.adapter.CarContentRecyclerViewAdapter;
 import com.sincar.customer.adapter.content.CarContent;
+import com.sincar.customer.item.CarDeleteResult;
 import com.sincar.customer.item.CarResult;
 import com.sincar.customer.network.VolleyNetwork;
 import com.sincar.customer.util.Util;
@@ -29,13 +31,19 @@ import java.util.List;
 import static com.sincar.customer.HWApplication.carResult;
 import static com.sincar.customer.HWApplication.voCarDataItem;
 import static com.sincar.customer.HWApplication.voCarItem;
+
+import static com.sincar.customer.HWApplication.carDeleteResult;
+import static com.sincar.customer.HWApplication.voCarDeleteItem;
+
 import static com.sincar.customer.HWApplication.voLoginItem;
+import static com.sincar.customer.common.Constants.CAR_DELETE_REQUEST;
 import static com.sincar.customer.common.Constants.CAR_LIST_REQUEST;
 import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
 
 public class CarManageActivity extends AppCompatActivity implements View.OnClickListener {
     private String path;
-    private Context carContext;
+    public static Context carContext;
+
     private LinearLayout carLayout;
     private CarContentRecyclerViewAdapter mCarContentRecyclerViewAdapter;
 
@@ -61,8 +69,8 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
      */
     @SuppressLint("ResourceAsColor")
     private void init() {
-        findViewById(R.id.car_manage_btnPrev).setOnClickListener(this);
-        findViewById(R.id.car_manage_btnNext).setOnClickListener(this);
+        findViewById(R.id.car_manage_btnPrev_layout).setOnClickListener(this);
+        findViewById(R.id.car_manage_btnNext_layout).setOnClickListener(this);
         findViewById(R.id.car_manage_reg_btn).setOnClickListener(this); //확인
 
         carLayout = (LinearLayout)findViewById(R.id.car_confirm_layout);
@@ -203,7 +211,7 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
         Intent intent;
 
         switch (v.getId()) {
-            case R.id.car_manage_btnPrev:
+            case R.id.car_manage_btnPrev_layout:
             case R.id.car_manage_reg_btn:
                 //  TODO - 내정보
                 if("main".equals(path)) {
@@ -225,7 +233,7 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
                     finish();
                 }
                 break;
-            case R.id.car_manage_btnNext:
+            case R.id.car_manage_btnNext_layout:
                 //  TODO - 차량등록
                 intent = new Intent(this, CarRegisterActivity.class);
                 intent.putExtra("path", path);
@@ -259,8 +267,66 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
         finish();
     }
 
+    /**
+     * 차량 삭제 요청
+     * @param car_seq
+     */
+    public void carDelete(String car_seq)
+    {
+        requestCarDelete(car_seq);
+//        Toast.makeText(this, "차량 삭제 요청 : " + car_seq, Toast.LENGTH_SHORT).show();
+    }
 
+    /**
+     * 등록차량 삭제 요청
+     * MEMBER_NO        : 회원번호
+     * SEQ              : 등록차량 SEQ
+     */
+    private void requestCarDelete(String carSeq) {
+        HashMap<String, String> postParams = new HashMap<String, String>();
+        postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);     // 회원번호
+        postParams.put("SEQ", carSeq);                          // 등록차량 SEQ
+
+        //프로그래스바 시작
+        Util.showDialog(this);
+        //사용내역 요청
+        VolleyNetwork.getInstance(this).serverDataRequest(CAR_DELETE_REQUEST, postParams, onCarDeleteResponseListener);
+    }
+
+    VolleyNetwork.OnResponseListener onCarDeleteResponseListener = new VolleyNetwork.OnResponseListener() {
+        @Override
+        public void onResponseSuccessListener(String it) {
+            // {\"auth_send\": {\"AUTH_RESULT\":\"0\",\"CAUSE\":\"\",\"AUTH_NUMBER\":\"123456\"}}";
+            // {"delete_result": {"DELETE_RESULT":"1","CAUSE":"형식에 맞지 않습니다."}}
+            Gson gSon = new Gson();
+            //LoginResult loginResult = gSon.fromJson(it, LoginResult.class);
+            carDeleteResult = gSon.fromJson(it, CarDeleteResult.class);
+
+            voCarDeleteItem.DELETE_RESULT      = carDeleteResult.delete_result.DELETE_RESULT;
+            voCarDeleteItem.CAUSE              = carDeleteResult.delete_result.CAUSE;
+
+            //프로그래스바 종료
+            Util.dismiss();
+
+            if("0".equals(voCarDeleteItem.DELETE_RESULT))
+            {
+                Toast.makeText(carContext, "삭제 하였습니다.", Toast.LENGTH_LONG).show();
+
+                // 서버 연동 후 CarContent.ITEMS에 리스 항목 추가 작업
+                CarContent.clearItem(); //초기화
+                request_page = 1;
+                requestCarList();
+            }else{
+                Toast.makeText(carContext, "삭제에 실패하였습니다.", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        public void onResponseFailListener(VolleyError it) {
+            //프로그래스바 종료
+            Util.dismiss();
+
+            Toast.makeText(carContext, "삭제에 실패하였습니다.", Toast.LENGTH_LONG).show();
+        }
+    };
 }
-
-
-

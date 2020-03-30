@@ -66,7 +66,9 @@ public class CouponeActivity extends AppCompatActivity implements View.OnClickLi
      * 화면 초기화
      */
     private void init() {
-        findViewById(R.id.coupone_btnPrev).setOnClickListener(this);
+        //findViewById(R.id.coupone_btnPrev).setOnClickListener(this);
+        findViewById(R.id.coupone_btnPrev_layout).setOnClickListener(this);
+
         findViewById(R.id.coupone_confirm_btn).setOnClickListener(this);
         couponeLayout = (LinearLayout)findViewById(R.id.coupone_confirm_layout);
 
@@ -209,7 +211,7 @@ public class CouponeActivity extends AppCompatActivity implements View.OnClickLi
         Intent intent;
 
         switch (v.getId()) {
-            case R.id.coupone_btnPrev:
+            case R.id.coupone_btnPrev_layout:
             case R.id.coupone_confirm_btn:
                 if("payment".equals(path)){
                     intent = new Intent(this, PaymentActivity.class);

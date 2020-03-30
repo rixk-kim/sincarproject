@@ -21,7 +21,7 @@ public class PointInfoActivity extends AppCompatActivity implements View.OnClick
      * 화면 초기화
      */
     private void init() {
-        findViewById(R.id.btnPrev).setOnClickListener(this);
+        findViewById(R.id.btnPrev_layout1).setOnClickListener(this);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class PointInfoActivity extends AppCompatActivity implements View.OnClick
         Intent intent;
 
         switch (v.getId()) {
-            case R.id.btnPrev:
+            case R.id.btnPrev_layout1:
                 finish();
                 break;
         }

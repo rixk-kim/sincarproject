@@ -65,7 +65,7 @@ public class NoticeActivity extends AppCompatActivity implements View.OnClickLis
      * 화면 초기화
      */
     private void init() {
-        findViewById(R.id.notice_btnPrev).setOnClickListener(this);
+        findViewById(R.id.notice_btnPrev_layout).setOnClickListener(this);
 
         NoticeContent.clearItem(); //초기화
 
@@ -96,10 +96,9 @@ public class NoticeActivity extends AppCompatActivity implements View.OnClickLis
     VolleyNetwork.OnResponseListener onNoticeResponseListener = new VolleyNetwork.OnResponseListener() {
         @Override
         public void onResponseSuccessListener(String serverData) {
-            /*
-             {"notice": [{"TOTAL":"20","CURRENT_PAGE":"1","CURRENT_NUM":"20"}],
-             "data":[{"SEQ":"1","TITLE":"1","REG_DATE":"2020","CONTENTS":"SIN..."},{},{}...]}
-             */
+/*
+{"notice": [{"TOTAL":"20","CURRENT_PAGE":"1","CURRENT_NUM":"20"}],"data":[{"SEQ":"1","TITLE":"1","REG_DATE":"2020","CONTENTS":"SIN..."},{},{}...]}
+*/
 
             Gson gSon = new Gson();
             noticeResult = gSon.fromJson(serverData, NoticeResult.class);
@@ -125,8 +124,7 @@ public class NoticeActivity extends AppCompatActivity implements View.OnClickLis
             //프로그래스바 종료
             Util.dismiss();
 
-            // 서버 연동 후 UseContent.ITEMS에 리스 항목 추가 작업 확인
-            // Set the adapter - 이용내역 리스트 설정
+            // Set the adapter - 공지사항 리스트 설정
             if(NoticeContent.ITEMS.size() > 0) {
                 View view = findViewById(R.id.noticeHistoryList);
                 if (view instanceof RecyclerView) {
@@ -161,15 +159,11 @@ public class NoticeActivity extends AppCompatActivity implements View.OnClickLis
 
                                 if(lastPageNum > request_page)
                                 {
+                                    //다음 페이지 요청
                                     request_page+=1;
                                     requestNoticeList();
-//                                    //다음 페이지 요청
-//                                    for (int i = 1; i <= 5; i++) {
-//                                        UseContent.addItem(UseContent.createDummyItem(i + ((request_page*5) - 1)));
-//                                    }
                                 }
                             }
-
                         }
                     });
                 }
@@ -191,18 +185,12 @@ public class NoticeActivity extends AppCompatActivity implements View.OnClickLis
         Intent intent;
 
         switch (v.getId()) {
-            case R.id.notice_btnPrev:
+            case R.id.notice_btnPrev_layout:
                 //  TODO - 내정보
                 intent = new Intent(this, MyProfileSettingsActivity.class);
                 startActivity(intent);
                 finish();
                 break;
-//            case R.id.myinfo_btnNext:
-//                //  TODO - 비밀번호변경
-//                intent = new Intent(this, PasswordChangeActivity.class);
-//                startActivity(intent);
-//                finish();
-//                break;
         }
     }
 

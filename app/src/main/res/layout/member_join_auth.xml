@@ -67,7 +67,7 @@
             android:maxLength="20"
             android:textColor="#3E3E3E"
             android:textSize="14sp"
-            android:inputType="text"
+            android:inputType="number"
             android:imeOptions="actionDone" >
 
             <requestFocus />

@@ -189,40 +189,6 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결재하기");
     }
 
-//    @Override
-//    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//        // TODO Auto-generated method stub
-//
-//        //오버라이드한 onEditorAction() 메소드
-//
-//        if(v.getId()==R.id.use_point && actionId==EditorInfo.IME_ACTION_DONE){ // 뷰의 id를 식별, 키보드의 완료 키 입력 검출
-//
-//            //이 부분에 원하는 이벤트를 작성합니다
-//            //이 부분에 원하는 이벤트를 작성합니다
-//            //이 부분에 원하는 이벤트를 작성합니다
-//// 입력이 끝났을 때
-//            int input_point = Integer.parseInt(use_point.getText().toString().trim());
-//            int mPoint = Integer.parseInt(voLoginItem.MY_POINT);
-//            if(input_point > mPoint)
-//            {
-//                Toast.makeText(PaymentActivity.this, "보유 포인트를 초과하였습니다.", Toast.LENGTH_SHORT).show();
-//            }else {
-//                if (mPoint >= total_amt) {
-//                    use_my_point = mPoint - total_amt;
-//                } else {
-//                    use_my_point = mPoint;
-//                }
-//                my_point.setText("0원 보유");
-//                use_point.setText(String.valueOf(use_my_point) + "원");
-//                total_amt -= use_my_point;
-//                mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결재하기");
-//            }
-//        }
-//
-//        return false;
-//    }
-
-
     @Override
     public void onClick(View v) {
         Intent intent;

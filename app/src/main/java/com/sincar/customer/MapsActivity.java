@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
@@ -290,8 +291,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (requestCode == MAP_REQ_CODE) {
             if (resultCode == RESULT_OK) {
-                currentTextView.setText(data.getStringExtra("search_result"));
-                ConvertGPS(data.getStringExtra("search_result"));
+                if(!TextUtils.isEmpty(data.getStringExtra("search_result"))) {
+                    cAddress = data.getStringExtra("search_result");
+                    currentTextView.setText(cAddress);
+                    ConvertGPS(cAddress);
+                }else{
+                    Toast.makeText(MapsActivity.this, "주소 검색을 다시 해주세요", Toast.LENGTH_SHORT).show();
+                }
 //                Toast.makeText(MapsActivity.this, "Result: " + data.getStringExtra("search_result"), Toast.LENGTH_SHORT).show();
             } else {   // RESULT_CANCEL
 //                Toast.makeText(MapsActivity.this, "Failed", Toast.LENGTH_SHORT).show();

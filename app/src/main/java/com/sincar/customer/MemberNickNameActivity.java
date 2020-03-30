@@ -6,11 +6,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -36,6 +39,30 @@ public class MemberNickNameActivity extends Activity implements View.OnClickList
         findViewById(R.id.login_join_btn).setOnClickListener(this);
 
         nick_user_name = (EditText) findViewById(R.id.nick_user_name);
+
+        //닉네임 입력 후 완료시
+        nick_user_name.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    // 유효성 체크 요청
+                    if(!TextUtils.isEmpty(nick_user_name.getText().toString().trim()))
+                    {
+                        //추천인 코드로 이동
+                        Intent intent = new Intent(MemberNickNameActivity.this, com.sincar.customer.MemberRecomActivity.class);
+                        intent.putExtra("phone_number", phone_number);
+                        intent.putExtra("password", password);
+                        intent.putExtra("nickname", nick_user_name.getText().toString().trim());
+                        startActivity(intent);
+                        // 최초 생성 후 이동 시 제거
+                        //finish();
+                    }else{
+                        Toast.makeText(MemberNickNameActivity.this, "본인 실명을 입력 해주세요.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     /**

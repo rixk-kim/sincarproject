@@ -32,8 +32,13 @@ public class PointContent {
         ITEM_MAP.put(item.id, item);
     }
 
-    private static PointItem createDummyItem(int position) {
-        return new PointItem(position, String.valueOf(position), "김민정","스팀세차", "20.03.01", "+100");
+//    private static PointItem createDummyItem(int position) {
+//        return new PointItem(position, String.valueOf(position), "김민정","스팀세차", "20.03.01", "+100");
+//    }
+
+    public static void clearItem() {
+        ITEMS.clear();// .add(item);
+        ITEM_MAP.clear();   // .put(item.id, item);
     }
 
 //    private static PointItem makeDetails(int position) {

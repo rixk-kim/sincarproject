@@ -7,10 +7,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -35,6 +40,9 @@ import static com.sincar.customer.common.Constants.MEMBER_WITHRAW_REQUEST;
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
     private Context mContext;
     private Switch mSwitch1, mSwitch2;
+    private LinearLayout sLinearLayout; //setting_btnPrev_layout
+    private TextView mTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +56,22 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
      * 화면 초기화
      */
     private void init() {
-        findViewById(R.id.setting_btnPrev).setOnClickListener(this);
-        //       findViewById(R.id.myinfo_btnNext).setOnClickListener(this);
+        sLinearLayout = (LinearLayout) findViewById(R.id.setting_btnPrev_layout);
+        sLinearLayout.setOnClickListener(this);
+        //findViewById(R.id.setting_btnPrev).setOnClickListener(this);
+
+        mTextView = (TextView) findViewById(R.id.setting_version_info); //버전정보
+
+        PackageInfo pi = null;
+        try{
+            pi = getPackageManager().getPackageInfo(getPackageName(),0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        if(!TextUtils.isEmpty(pi.versionName))
+        {
+            mTextView.setText("v." + pi.versionName);  //v.1.0.0
+        }
 
         //약관 및 정책
         findViewById(R.id.setting_clause).setOnClickListener(this);
@@ -67,10 +89,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 // 스위치 버튼이 체크되었는지 검사하여 텍스트뷰에 각 경우에 맞게 출력합니다.
                 if (isChecked){
                     requestSetting(1, "Y");
- //                   Toast.makeText(mContext, "활성화", Toast.LENGTH_SHORT).show();
                 }else{
                     requestSetting(1, "N");
-//                    Toast.makeText(mContext, "비활성화", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -83,15 +103,11 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 // 스위치 버튼이 체크되었는지 검사하여 텍스트뷰에 각 경우에 맞게 출력합니다.
                 if (isChecked){
                     requestSetting(2, "Y");
-//                    Toast.makeText(mContext, "활성화", Toast.LENGTH_SHORT).show();
                 }else{
                     requestSetting(2, "N");
-//                    Toast.makeText(mContext, "비활성화", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
-
     }
 
     /**
@@ -154,7 +170,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         Intent intent;
 
         switch (v.getId()) {
-            case R.id.setting_btnPrev:
+            case R.id.setting_btnPrev_layout:
                 //  내정보
                 intent = new Intent(this, MyProfileSettingsActivity.class);
                 startActivity(intent);
@@ -163,7 +179,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
             case R.id.setting_clause:
                 // TODO - 약관 및 정책
-                Toast.makeText(this, "약관 및 정책으로 이동", Toast.LENGTH_SHORT).show();
+ //               Toast.makeText(this, "약관 및 정책으로 이동", Toast.LENGTH_SHORT).show();
 
                 intent = new Intent(this, UseTermsActivity.class);
                 startActivity(intent);

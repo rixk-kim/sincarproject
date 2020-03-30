@@ -6,9 +6,12 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -45,6 +48,24 @@ public class MemberJoinActivity extends Activity implements View.OnClickListener
         login_join_btn.setOnClickListener(this);
 
         join_user_phone = (EditText) findViewById(R.id.join_user_phone);
+
+        // 핸드폰 번호 입력 후 확인 버튼 클릭 시
+        join_user_phone.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    // 서버에 인증번호 발송 요청 이동
+                    if (join_user_phone != null || join_user_phone.getText().toString().trim().length() != 0) {
+                        if (join_user_phone.getText().toString().trim().length() == 0) {
+                            showErrorAlert("4");
+                        }else{
+                            requestAuthCode();
+                        }
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     /**

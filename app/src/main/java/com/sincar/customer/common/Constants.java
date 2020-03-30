@@ -44,17 +44,11 @@ public class Constants {
 
     public static final String MEMBER_WITHRAW_REQUEST       = REAL_SERVER + "/IF_SINCAR_AGENT_020.asp?";   //회원탈퇴
 
-    public static final String POINT_LIST_REQUEST           = REAL_SERVER + "/IF_SINCAR_AGENT_022.asp?";        //포인트 리스트 요청
-
+    public static final String POINT_LIST_REQUEST           = REAL_SERVER + "/IF_SINCAR_AGENT_022.asp?";   //포인트 리스트 요청
+    public static final String ADDSERVICE_LIST_REQUEST      = REAL_SERVER + "/IF_SINCAR_AGENT_023.asp?";   //최근세차정보 및 대리점 부가서비스 정보 요청
     public static final String SEARCH_WORD_REQUEST          = REAL_SERVER + "/IF_SINCAR_AGENT_024.asp?";   //단어 검색 요청
-
-
-    //리스트 요청
-    public static final String FREIGHT_LIST_REQUEST = REAL_SERVER + "/freight_list.php?";
-
-     // 에러 업로드
-    public static final String ERROR_UPLOAD_URL = REAL_SERVER + "/Begin/MTD/MtdErrorCode.do?";
-
-    ////
+    public static final String AGENT_LIST_REQUEST           = REAL_SERVER + "/IF_SINCAR_AGENT_025.asp?";   //대리점 정보 조회 요청
+    public static final String MEMBER_JOIN_REQUEST          = REAL_SERVER + "/IF_SINCAR_AGENT_026.asp?";   //회원가입
+    public static final String CAR_DELETE_REQUEST           = REAL_SERVER + "/IF_SINCAR_AGENT_027.asp?";   //등록차량 삭제
 
 }

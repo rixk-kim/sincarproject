@@ -191,17 +191,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     }
                 }
 
-                //startLogin("sss");
-
                 // 로그인 요청
                 requestLogin();
-/*
-                // 메인 이동
-                Intent intent1 = new Intent(LoginActivity.this, com.sincar.customer.MainActivity.class);
-                startActivity(intent1);
-                // 최초 생성 후 이동 시 제거
-                finish();
-*/
          }
     }
 

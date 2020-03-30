@@ -40,7 +40,7 @@ public class NoticeDetailActivity extends AppCompatActivity implements View.OnCl
      * 화면 초기화
      */
     private void init() {
-        findViewById(R.id.notice_detail_btnPrev).setOnClickListener(this);
+        findViewById(R.id.notice_detail_btnPrev_layout).setOnClickListener(this);
         //       findViewById(R.id.myinfo_btnNext).setOnClickListener(this);
         nTitle = (TextView) findViewById(R.id.notice_title);
         nTitle.setText(noti_title);
@@ -57,7 +57,7 @@ public class NoticeDetailActivity extends AppCompatActivity implements View.OnCl
         Intent intent;
 
         switch (v.getId()) {
-            case R.id.notice_detail_btnPrev:
+            case R.id.notice_detail_btnPrev_layout:
                 //  TODO - 내정보
                 intent = new Intent(this, NoticeActivity.class);
                 startActivity(intent);

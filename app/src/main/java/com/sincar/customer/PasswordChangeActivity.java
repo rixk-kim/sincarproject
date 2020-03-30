@@ -9,7 +9,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -73,9 +75,17 @@ public class PasswordChangeActivity extends AppCompatActivity implements View.On
             new_password2.setHint(R.string.hint_password2);
         }
 
-//        Map<String, String> params = null;
-//
-//        VolleyNetwork.getInstance(this).serverDataRequest("url", params, onResponseListener);
+        // 비밀번호 입력 후 확인 버튼 클릭 시
+        new_password2.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    // 유효성 체크 요청
+                    validCheck();
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -90,69 +100,69 @@ public class PasswordChangeActivity extends AppCompatActivity implements View.On
                 finish();
                 break;
 
-            // 비밀번호 변경
-            // 새 비밀번호, 새 비밀번호 확인 입력값 유효성 확인 및 값 비교
-            // 서버 통신 후 결과값 확인. 비밀번호 변경 후 로직 변경 필요
-
-            // commonAlert에 listener 필요해서 확인 눌렀을때 해야할 일 처리 필요할꺼 같은데요.
             case R.id.btnPassword:
-                String tmp_password1 = new_password1.getText().toString().trim();
-                String tmp_password2 = new_password2.getText().toString().trim();
-
-                //비밀번호 유효성
-                if(TextUtils.isEmpty(tmp_password1))
-                {
-                    Toast.makeText(PasswordChangeActivity.this,"비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if(!Pattern.matches("^(?=.*[0-9]+)[a-zA-Z][a-zA-Z0-9]{7,29}$", tmp_password1))
-                {
-                    Toast.makeText(PasswordChangeActivity.this,"비밀번호 형식을 지켜주세요.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if(tmp_password1.length() < 8)
-                {
-                    Toast.makeText(PasswordChangeActivity.this,"비밀번호 길이를 지켜주세요.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if(TextUtils.isEmpty(tmp_password2))
-                {
-                    Toast.makeText(PasswordChangeActivity.this,"비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if(!Pattern.matches("^(?=.*[0-9]+)[a-zA-Z][a-zA-Z0-9]{7,29}$", tmp_password2))
-                {
-                    Toast.makeText(PasswordChangeActivity.this,"비밀번호 형식을 지켜주세요.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if(tmp_password2.length() < 8)
-                {
-                    Toast.makeText(PasswordChangeActivity.this,"비밀번호 길이를 지켜주세요.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if(!tmp_password1.equals(tmp_password2))
-                {
-                    Toast.makeText(PasswordChangeActivity.this,"비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if(!"join".equals(path)) {
-                    //비밀번호 재설정
-                    changePassword(tmp_password1);
-                }else{
-                    //본인 실명 입력 페이지 이동
-                    intent = new Intent(this, MemberNickNameActivity.class);
-                    intent.putExtra("phone_number", phone_number);
-                    intent.putExtra("password", tmp_password1);
-                    startActivity(intent);
-                }
+                validCheck();
                 break;
+        }
+    }
+
+    private void validCheck()
+    {
+        String tmp_password1 = new_password1.getText().toString().trim();
+        String tmp_password2 = new_password2.getText().toString().trim();
+
+        //비밀번호 유효성
+        if(TextUtils.isEmpty(tmp_password1))
+        {
+            Toast.makeText(PasswordChangeActivity.this,"비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(!Pattern.matches("^(?=.*[0-9]+)[a-zA-Z][a-zA-Z0-9]{7,29}$", tmp_password1))
+        {
+            Toast.makeText(PasswordChangeActivity.this,"비밀번호 형식을 지켜주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(tmp_password1.length() < 8)
+        {
+            Toast.makeText(PasswordChangeActivity.this,"비밀번호 길이를 지켜주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(TextUtils.isEmpty(tmp_password2))
+        {
+            Toast.makeText(PasswordChangeActivity.this,"비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(!Pattern.matches("^(?=.*[0-9]+)[a-zA-Z][a-zA-Z0-9]{7,29}$", tmp_password2))
+        {
+            Toast.makeText(PasswordChangeActivity.this,"비밀번호 형식을 지켜주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(tmp_password2.length() < 8)
+        {
+            Toast.makeText(PasswordChangeActivity.this,"비밀번호 길이를 지켜주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(!tmp_password1.equals(tmp_password2))
+        {
+            Toast.makeText(PasswordChangeActivity.this,"비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(!"join".equals(path)) {
+            //비밀번호 재설정
+            changePassword(tmp_password1);
+        }else{
+            //본인 실명 입력 페이지 이동
+            Intent intent = new Intent(this, MemberNickNameActivity.class);
+            intent.putExtra("phone_number", phone_number);
+            intent.putExtra("password", tmp_password1);
+            startActivity(intent);
         }
     }
 

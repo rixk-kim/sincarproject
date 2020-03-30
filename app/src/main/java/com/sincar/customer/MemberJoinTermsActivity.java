@@ -21,12 +21,14 @@ import com.google.gson.Gson;
 import com.sincar.customer.item.AuthResult;
 import com.sincar.customer.item.JoinResult;
 import com.sincar.customer.network.VolleyNetwork;
+import com.sincar.customer.util.Util;
 
 import java.util.HashMap;
 
 import static com.sincar.customer.HWApplication.joinResult;
 import static com.sincar.customer.HWApplication.voJoinItem;
 import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
+import static com.sincar.customer.common.Constants.MEMBER_JOIN_REQUEST;
 
 /**
  * 2020.03.24 spirit
@@ -263,8 +265,8 @@ public class MemberJoinTermsActivity extends Activity implements View.OnClickLis
                 if(confirm_status)
                 {
                     //로그인 페이지로 이동
-                    // requestMemberJoin();
-                    Toast.makeText(MemberJoinTermsActivity.this, "로그인 페이지로 이동", Toast.LENGTH_SHORT).show();
+                    requestMemberJoin();
+                    //Toast.makeText(MemberJoinTermsActivity.this, "로그인 페이지로 이동", Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(MemberJoinTermsActivity.this, "필수 동의를 해주세요", Toast.LENGTH_SHORT).show();
                 }
@@ -304,32 +306,40 @@ public class MemberJoinTermsActivity extends Activity implements View.OnClickLis
             postParams.put("TERMS_4", "N");                 // 이용약관 동의
         }
 
+        //프로그래스바 시작
+        Util.showDialog(this);
+
         //인증번호 요청
-        VolleyNetwork.getInstance(this).serverDataRequest(LOGIN_REQUEST, postParams, onMemberJoinResponseListener);
+        VolleyNetwork.getInstance(this).serverDataRequest(MEMBER_JOIN_REQUEST, postParams, onMemberJoinResponseListener);
     }
 
     VolleyNetwork.OnResponseListener onMemberJoinResponseListener = new VolleyNetwork.OnResponseListener() {
         @Override
         public void onResponseSuccessListener(String it) {
-            it = " {\"join_result\": {\"JOIN_RESULT\":\"0\",\"CAUSE\":\"\"}}";
+            //{"join_result":{"JOIN_RESULT":"0","CAUSE":"회원가입 완료"}}
+
             Gson gSon = new Gson();
-            //LoginResult loginResult = gSon.fromJson(it, LoginResult.class);
             joinResult = gSon.fromJson(it, JoinResult.class);
 
             voJoinItem.JOIN_RESULT      = joinResult.join_result.JOIN_RESULT;
 
+            //프로그래스바 종료
+            Util.dismiss();
+
             if("0".equals(voJoinItem.JOIN_RESULT)) {
+                Toast.makeText(MemberJoinTermsActivity.this, "회원 가입 되었습니다. 로그인 페이지로 이동합니다.", Toast.LENGTH_SHORT).show();
+
                 Intent intent = new Intent(MemberJoinTermsActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }else{
-                Toast.makeText(MemberJoinTermsActivity.this, "서버 보내기에 실패하였습니다. 재시도 해주세요.", Toast.LENGTH_LONG).show();
+                Toast.makeText(MemberJoinTermsActivity.this, "네트워크 오류입니다. 재시도 해주세요.", Toast.LENGTH_LONG).show();
             }
         }
 
         @Override
         public void onResponseFailListener(VolleyError it) {
-            Toast.makeText(MemberJoinTermsActivity.this, "서버 보내기에 실패하였습니다. 재시도 해주세요.", Toast.LENGTH_LONG).show();
+            Toast.makeText(MemberJoinTermsActivity.this, "서버 전송에 실패하였습니다. 재시도 해주세요.", Toast.LENGTH_LONG).show();
         }
     };
 }
