@@ -34,6 +34,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:fontFamily="@font/nanumsquarebold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
@@ -43,6 +44,7 @@
                 android:text="@string/recommender_system_title" />
 
             <TextView
+                android:fontFamily="@font/nanumsquarebold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
@@ -52,6 +54,7 @@
                 android:text="@string/q1_str" />
 
             <TextView
+                android:fontFamily="@font/nanumsquareregular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
@@ -62,6 +65,7 @@
                 android:text="@string/a1_str" />
 
             <TextView
+                android:fontFamily="@font/nanumsquarebold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
@@ -71,6 +75,7 @@
                 android:text="@string/q2_str" />
 
             <TextView
+                android:fontFamily="@font/nanumsquareregular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
@@ -81,6 +86,7 @@
                 android:text="@string/a2_str" />
 
             <TextView
+                android:fontFamily="@font/nanumsquarebold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
@@ -90,6 +96,7 @@
                 android:text="@string/q3_str" />
 
             <TextView
+                android:fontFamily="@font/nanumsquareregular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
@@ -100,6 +107,7 @@
                 android:text="@string/a3_str" />
 
             <TextView
+                android:fontFamily="@font/nanumsquarebold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
@@ -109,6 +117,7 @@
                 android:text="@string/q4_str" />
 
             <TextView
+                android:fontFamily="@font/nanumsquareregular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
@@ -119,6 +128,7 @@
                 android:text="@string/a4_str" />
 
             <TextView
+                android:fontFamily="@font/nanumsquarebold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
@@ -128,6 +138,7 @@
                 android:text="@string/q5_str" />
 
             <TextView
+                android:fontFamily="@font/nanumsquareregular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
@@ -136,8 +147,9 @@
                 android:lineSpacingExtra="5sp"
                 android:layout_marginTop="16dp"
                 android:text="@string/a5_str" />
-
+<!--
             <TextView
+                android:fontFamily="@font/nanumsquarebold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
@@ -147,6 +159,7 @@
                 android:text="@string/q6_str" />
 
             <TextView
+                android:fontFamily="@font/nanumsquareregular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
@@ -157,6 +170,7 @@
                 android:text="@string/a6_str" />
 
             <TextView
+                android:fontFamily="@font/nanumsquarebold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
@@ -166,6 +180,7 @@
                 android:text="@string/q7_str" />
 
             <TextView
+                android:fontFamily="@font/nanumsquareregular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
@@ -176,6 +191,7 @@
                 android:text="@string/a7_str" />
 
             <TextView
+                android:fontFamily="@font/nanumsquarebold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
@@ -185,6 +201,7 @@
                 android:text="@string/q8_str" />
 
             <TextView
+                android:fontFamily="@font/nanumsquareregular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
@@ -195,6 +212,7 @@
                 android:text="@string/a8_str" />
 
             <TextView
+                android:fontFamily="@font/nanumsquarebold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
@@ -204,6 +222,7 @@
                 android:text="@string/q9_str" />
 
             <TextView
+                android:fontFamily="@font/nanumsquareregular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
@@ -213,6 +232,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="52dp"
                 android:text="@string/a9_str" />
+-->
         </LinearLayout>
     </ScrollView>
 

@@ -27,6 +27,7 @@
 
         <TextView
             android:id="@+id/myinfo_title_activity"
+            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center|center_horizontal"
@@ -75,6 +76,7 @@
 
             <TextView
                 android:id="@+id/car_select_colume1"
+                android:fontFamily="@font/nanumsquareregular"
                 android:layout_width="296dp"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|center_horizontal"
@@ -117,6 +119,7 @@
 
             <TextView
                 android:id="@+id/car_select_colume2"
+                android:fontFamily="@font/nanumsquareregular"
                 android:layout_width="296dp"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|center_horizontal"
@@ -159,6 +162,7 @@
 
             <TextView
                 android:layout_width="match_parent"
+                android:fontFamily="@font/nanumsquareregular"
                 android:layout_height="20dp"
                 android:gravity="center|center_vertical|center_horizontal"
                 android:background="@null"
@@ -176,6 +180,7 @@
 
                 <EditText
                     android:id="@+id/car_select_colume3"
+                    android:fontFamily="@font/nanumsquareregular"
                     android:layout_width="167dp"
                     android:layout_height="20dp"
                     android:layout_marginTop="20dp"
@@ -233,6 +238,7 @@
 
             <Button
                 android:id="@+id/car_reg_btn"
+                android:fontFamily="@font/nanumsquarebold"
                 android:layout_width="296dp"
                 android:layout_height="52dp"
                 android:layout_gravity="bottom|center"

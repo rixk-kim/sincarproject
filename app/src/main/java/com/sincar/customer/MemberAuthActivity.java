@@ -45,8 +45,6 @@ public class MemberAuthActivity extends Activity implements View.OnClickListener
     private Context AContext;
 
     private TextView auth_time_counter; //시간을 보여주는 TextView
- //   EditText emailAuth_number; //인증 번호를 입력 하는 칸
- //   Button emailAuth_btn; // 인증버튼
     CountDownTimer countDownTimer;
     private final int MILLISINFUTURE = 120 * 1000; //총 시간 (120초 = 2분)
     private final int COUNT_DOWN_INTERVAL = 1000; //onTick 메소드를 호출할 간격 (1초)
@@ -61,6 +59,7 @@ public class MemberAuthActivity extends Activity implements View.OnClickListener
         Intent intent = getIntent(); /*데이터 수신*/
         phone_number  = intent.getExtras().getString("phone_number");       /*String형*/
 
+        findViewById(R.id.auth_btnPrev).setOnClickListener(this);
         join_auth_btn = (Button) findViewById(R.id.join_auth_btn);
         join_auth_btn.setOnClickListener(this);
 
@@ -102,12 +101,6 @@ public class MemberAuthActivity extends Activity implements View.OnClickListener
 
         auth_time_counter = (TextView) findViewById(R.id.auth_time_counter);            //줄어드는 시간을 나타내는 TextView
 
-//        emailAuth_number = (EditText) dialogLayout.findViewById(R.id.emailAuth_number);
-        //사용자 인증 번호 입력창
-//        emailAuth_btn = (Button) dialogLayout.findViewById(R.id.emailAuth_btn);
-        //인증하기 버튼
-
-
         countDownTimer = new CountDownTimer(MILLISINFUTURE, COUNT_DOWN_INTERVAL) {
             @Override
             public void onTick(long millisUntilFinished) { //(300초에서 1초 마다 계속 줄어듬)
@@ -130,12 +123,11 @@ public class MemberAuthActivity extends Activity implements View.OnClickListener
 
             @Override
             public void onFinish() { //시간이 다 되면 다이얼로그 종료
-
  //               authDialog.cancel();
-
+                Toast.makeText(MemberAuthActivity.this, "시간이 초과 되었습니다.", Toast.LENGTH_LONG).show();
+                finish();
             }
         }.start();
-
 //        emailAuth_btn.setOnClickListener(this);
     }
 
@@ -158,7 +150,9 @@ public class MemberAuthActivity extends Activity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
+            case R.id.auth_btnPrev:
+                finish();
+                break;
             case R.id.join_auth_btn:
                 // 비밀번호 입력으로 이동
                 if(TextUtils.isEmpty(join_user_auth.getText().toString().trim()))

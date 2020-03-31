@@ -150,6 +150,11 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
             // Set the adapter - 이용내역 리스트 설정
             if(CarContent.ITEMS.size() > 0) {
                 View view = findViewById(R.id.carManageList);
+                LinearLayout view1 = findViewById(R.id.carManage_empty);
+
+                view.setVisibility(View.VISIBLE);
+                view1.setVisibility(View.GONE);
+
                 if (view instanceof RecyclerView) {
                     Context context = view.getContext();
                     RecyclerView recyclerView = (RecyclerView) view;
@@ -194,9 +199,12 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
                     });
                 }
             }else{
-                // TODO - 등록차량 없을 때 화면 UI 추가
-//                LinearLayout view = findViewById(R.id.use_history_empty);
-//                view.setVisibility(View.VISIBLE);
+                // 등록차량 없을 때 화면 UI 추가
+                View view = findViewById(R.id.carManageList);
+                LinearLayout view1 = findViewById(R.id.carManage_empty);
+
+                view.setVisibility(View.GONE);
+                view1.setVisibility(View.VISIBLE);
             }
         }
 
@@ -213,7 +221,7 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
         switch (v.getId()) {
             case R.id.car_manage_btnPrev_layout:
             case R.id.car_manage_reg_btn:
-                //  TODO - 내정보
+                // 내정보
                 if("main".equals(path)) {
                     intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
@@ -234,7 +242,7 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
                 }
                 break;
             case R.id.car_manage_btnNext_layout:
-                //  TODO - 차량등록
+                //  차량등록
                 intent = new Intent(this, CarRegisterActivity.class);
                 intent.putExtra("path", path);
                 startActivity(intent);

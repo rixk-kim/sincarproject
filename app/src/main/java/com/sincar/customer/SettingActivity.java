@@ -178,8 +178,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case R.id.setting_clause:
-                // TODO - 약관 및 정책
- //               Toast.makeText(this, "약관 및 정책으로 이동", Toast.LENGTH_SHORT).show();
+                // 약관 및 정책
 
                 intent = new Intent(this, UseTermsActivity.class);
                 startActivity(intent);
@@ -239,16 +238,14 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
      */
     private void showWithdrawAlertDialog(final Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//        builder.setTitle(context.getString(R.string.notice));
-        builder.setMessage("한번 탈퇴한 계정은 다시 \n" +
-                "복구가 불가능합니다.\n" +
+        builder.setTitle(context.getString(R.string.notice));
+        builder.setMessage("한번 탈퇴한 계정은 다시 복구가 불가능합니다.\n" +
                 "그래도 탈퇴하시겠습니까?");
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // TODO - 회원탈퇴 (서버 연동)
+                // 회원탈퇴 (서버 연동)
                 requestWithdraw();
-                //Toast.makeText(context, "회원 탈퇴 되었습니다.", Toast.LENGTH_SHORT).show();
             }
         });
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {

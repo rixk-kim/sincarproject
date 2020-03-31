@@ -31,6 +31,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fontFamily="@font/nanumsquareextrabold"
             android:layout_gravity="center"
             android:gravity="center|center_horizontal|center_vertical"
             android:textColor="#3e3e3e"
@@ -47,6 +48,7 @@
         android:orientation="vertical">
         <TextView
             android:id="@+id/login_text"
+            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
@@ -71,6 +73,7 @@
 
         <Button
             android:id="@+id/login_btn"
+            android:fontFamily="@font/nanumsquarebold"
             android:layout_width="248dp"
             android:layout_height="52dp"
             android:layout_gravity="center|center_horizontal|center_vertical"
@@ -99,6 +102,7 @@
 
         <Button
             android:id="@+id/memberjoin_btn"
+            android:fontFamily="@font/nanumsquarebold"
             android:layout_width="248dp"
             android:layout_height="52dp"
             android:layout_gravity="center|center_horizontal|center_vertical"

@@ -19,6 +19,7 @@
 
         <TextView
             android:id="@+id/time_enable_text"
+            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textSize="15sp"
@@ -38,6 +39,7 @@
 
         <TextView
             android:id="@+id/time_disable_text"
+            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textSize="15sp"

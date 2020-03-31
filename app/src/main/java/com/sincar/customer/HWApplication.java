@@ -71,6 +71,7 @@ import com.sincar.customer.item.WithdrawItem;
 import com.sincar.customer.item.WithdrawResult;
 import com.sincar.customer.preference.PreferenceManager;
 import com.sincar.customer.util.LoadingProgress;
+import com.tsengvn.typekit.Typekit;
 
 import java.util.ArrayList;
 
@@ -241,6 +242,7 @@ public class HWApplication extends MultiDexApplication {
         voPointItem     = new PointItem();
         voSearchWordItem= new SearchWordItem();
         voCarDeleteItem = new CarDeleteItem();
+
     }
 
     public static HWApplication getInstance() {

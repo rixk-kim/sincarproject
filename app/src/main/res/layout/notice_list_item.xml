@@ -15,6 +15,7 @@
 
         <TextView
             android:id="@+id/notice_column1"
+            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#3e3e3e"
@@ -25,6 +26,7 @@
             android:text="공지 제목11111111111122222222222223344"/>
         <TextView
             android:id="@+id/notice_column2"
+            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#3e3e3e"

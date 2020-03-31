@@ -65,7 +65,6 @@ public class ReservationCalendarActivity extends AppCompatActivity implements Vi
         Calendar todayCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Seoul"));
 //        todayCalendar.add(Calendar.DATE, 1);    //1일후부터 예약가능하게 변경
         calendar.setMinDate(todayCalendar.getTimeInMillis());
-
         Calendar maxCalendar = todayCalendar;
         maxCalendar.set(maxCalendar.get(Calendar.YEAR),
                 maxCalendar.get(Calendar.MONTH) + GET_CALENDAR_AFTER_MONTH_VALUE,

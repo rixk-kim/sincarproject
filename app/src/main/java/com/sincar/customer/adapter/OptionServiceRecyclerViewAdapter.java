@@ -38,7 +38,7 @@ public class OptionServiceRecyclerViewAdapter extends RecyclerView.Adapter<Optio
 
         holder.mChecked.setChecked(mValues.get(position).checked);
         holder.mOptionName.setText(mValues.get(position).option_name);
-        holder.mOptionPay.setText(setAddMoneyDot(mValues.get(position).option_pay) + "원");
+        holder.mOptionPay.setText("+" + setAddMoneyDot(mValues.get(position).option_pay) + "원");
         tmpPosition = position;
         holder.mChecked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

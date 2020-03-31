@@ -151,6 +151,11 @@ public class CouponeActivity extends AppCompatActivity implements View.OnClickLi
             // Set the adapter - 이용내역 리스트 설정
             if(CouponeContent.ITEMS.size() > 0) {
                 View view = findViewById(R.id.couponeHistoryList);
+                LinearLayout view1 = findViewById(R.id.coupone_list_empty);
+
+                view.setVisibility(View.VISIBLE);
+                view1.setVisibility(View.GONE);
+
                 if (view instanceof RecyclerView) {
                     Context context = view.getContext();
                     RecyclerView recyclerView = (RecyclerView) view;
@@ -194,9 +199,12 @@ public class CouponeActivity extends AppCompatActivity implements View.OnClickLi
                     });
                 }
             }else{
-                // TODO - 쿠폰 없을 때 화면 UI 추가
-//                LinearLayout view = findViewById(R.id.use_history_empty);
-//                view.setVisibility(View.VISIBLE);
+                // 쿠폰 없을 때 화면 UI
+                View view = findViewById(R.id.couponeHistoryList);
+                LinearLayout view1 = findViewById(R.id.coupone_list_empty);
+
+                view.setVisibility(View.GONE);
+                view1.setVisibility(View.VISIBLE);
             }
         }
 

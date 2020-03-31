@@ -34,6 +34,7 @@
 
         <TextView
             android:id="@+id/card_title_activity"
+            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center|center_horizontal"
@@ -75,7 +76,34 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/car_manage_include" />
+        app:layout_constraintTop_toBottomOf="@+id/car_manage_include"
+        android:visibility="visible"/>
+
+    <!-- 리스트가 없을때 -->
+    <LinearLayout
+        android:id="@+id/carManage_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="140dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:fontFamily="@font/nanumsquareregular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="43dp"
+            android:gravity="center|center_horizontal|center_vertical"
+            android:text="차량을 등록해주세요."
+            android:textSize="16sp"
+            android:textColor="#3e3e3e"
+            />
+
+        />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/car_confirm_layout"
@@ -85,6 +113,7 @@
 
         <Button
             android:id="@+id/car_manage_reg_btn"
+            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="312dp"
             android:layout_height="52dp"
             android:layout_gravity="bottom|center"

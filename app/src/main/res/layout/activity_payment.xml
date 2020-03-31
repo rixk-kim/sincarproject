@@ -43,18 +43,19 @@
                 <!-- 대리점 -->
                 <TextView
                     android:id="@+id/branch_name_title"
+                    android:fontFamily="@font/nanumsquarebold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:textSize="16sp"
                     android:textColor="#3e3e3e"
-                    android:textStyle="bold"
                     android:text="@string/branch_name_title"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/branch_name"
+                    android:fontFamily="@font/nanumsquareregular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -78,18 +79,19 @@
                 <!-- 세차 장소 -->
                 <TextView
                     android:id="@+id/wash_address_title"
+                    android:fontFamily="@font/nanumsquarebold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:textSize="16sp"
                     android:textColor="#3e3e3e"
-                    android:textStyle="bold"
                     android:text="@string/wash_address_title"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/divider_1" />
 
                 <TextView
                     android:id="@+id/wash_address"
+                    android:fontFamily="@font/nanumsquareregular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -114,18 +116,19 @@
                 <!-- 예약 시간 -->
                 <TextView
                     android:id="@+id/reservation_time_title"
+                    android:fontFamily="@font/nanumsquarebold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:textSize="16sp"
                     android:textColor="#3e3e3e"
-                    android:textStyle="bold"
                     android:text="@string/reservation_time_title"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/divider_2" />
 
                 <TextView
                     android:id="@+id/reservation_time"
+                    android:fontFamily="@font/nanumsquareregular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -156,11 +159,11 @@
                 <!-- 요금 -->
                 <TextView
                     android:id="@+id/amount_title"
+                    android:fontFamily="@font/nanumsquarebold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
                     android:textColor="#3e3e3e"
-                    android:textStyle="bold"
                     android:text="@string/amount_title"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -189,12 +192,12 @@
                 <!-- 할인 수단 -->
                 <TextView
                     android:id="@+id/discount_title"
+                    android:fontFamily="@font/nanumsquarebold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:textSize="16sp"
                     android:textColor="#3e3e3e"
-                    android:textStyle="bold"
                     android:text="@string/discount_title"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/divider_3" />
@@ -202,6 +205,7 @@
                 <!-- 할인 쿠폰 등록 -->
                 <TextView
                     android:id="@+id/btnCouponRegister"
+                    android:fontFamily="@font/nanumsquareregular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
@@ -215,6 +219,7 @@
                 <!-- 쿠폰 -->
                 <TextView
                     android:id="@+id/discount_coupon"
+                    android:fontFamily="@font/nanumsquareregular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
@@ -229,6 +234,7 @@
                 <!-- 쿠폰 할인 금액 -->
                 <TextView
                     android:id="@+id/coupon_amount"
+                    android:fontFamily="@font/nanumsquarebold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
@@ -253,12 +259,12 @@
                 <!-- 포인트 타이틀 -->
                 <TextView
                     android:id="@+id/discount_point"
+                    android:fontFamily="@font/nanumsquarebold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:textSize="16sp"
                     android:textColor="#3e3e3e"
-                    android:textStyle="bold"
                     android:text="@string/discount_point"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/divider_4" />
@@ -266,6 +272,7 @@
                 <!-- 포인트 전액사용 -->
                 <TextView
                     android:id="@+id/btnPointUse"
+                    android:fontFamily="@font/nanumsquareregular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
@@ -279,6 +286,7 @@
                 <!-- 쿠폰 -->
                 <TextView
                     android:id="@+id/my_point"
+                    android:fontFamily="@font/nanumsquareregular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="29dp"
@@ -293,6 +301,7 @@
                 <!-- 포인트 사용 금액 EditBox style change -->
                 <EditText
                     android:id="@+id/use_point"
+                    android:fontFamily="@font/nanumsquarebold"
                     android:layout_width="120dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="18dp"
@@ -333,11 +342,11 @@
 
                 <TextView
                     android:id="@+id/payment_type_title"
+                    android:fontFamily="@font/nanumsquarebold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
                     android:textColor="#3e3e3e"
-                    android:textStyle="bold"
                     android:text="@string/payment_type_title"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -357,6 +366,7 @@
 -->
                 <TextView
                     android:id="@+id/pay"
+                    android:fontFamily="@font/nanumsquareregular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
@@ -388,17 +398,18 @@
                 <!-- 결제수단 타이틀 -->
                 <TextView
                     android:id="@+id/cancel_policy_title"
+                    android:fontFamily="@font/nanumsquarebold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
                     android:textColor="#3e3e3e"
-                    android:textStyle="bold"
                     android:text="@string/cancel_policy_title"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <!-- 결제수단 변경 -->
                 <TextView
+                    android:fontFamily="@font/nanumsquareregular"
                     android:id="@+id/btnCancelDesc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -410,6 +421,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:fontFamily="@font/nanumsquareregular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
@@ -451,6 +463,7 @@
                 <!-- 결제수단 타이틀 -->
                 <TextView
                     android:id="@+id/clause_title"
+                    android:fontFamily="@font/nanumsquareregular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -586,6 +599,7 @@
 
         <Button
             android:id="@+id/reserve_confirm_btn"
+            android:fontFamily="@font/nanumsquarebold"
             android:layout_width="312dp"
             android:layout_height="52dp"
             android:background="@drawable/default_button_type_1"

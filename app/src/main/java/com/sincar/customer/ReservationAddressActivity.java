@@ -3,9 +3,12 @@ package com.sincar.customer;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -66,25 +69,25 @@ public class ReservationAddressActivity extends AppCompatActivity implements Vie
         findViewById(R.id.btnSearchAddress).setOnClickListener(this);
 
         mSearchAddressKeyword = findViewById(R.id.searchAddressKeyword);
-
-//        View view = findViewById(R.id.searchAddressList);
-//        view.setVisibility(View.GONE);
-//
-//        LinearLayout view1 = findViewById(R.id.search_history_empty);
-//        view1.setVisibility(View.VISIBLE);
+        mSearchAddressKeyword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    // 검색 시작
+                    if(mSearchAddressKeyword.getText().toString().trim().length() > 1) {
+                        AddressContent.clearItem(); //초기화
+                        requestSearchWord();
+                    }else{
+                        Toast.makeText(ReservationAddressActivity.this, "검색어 입력시 최소 2자이상 해주세요.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                return false;
+            }
+        });
 
         // TODO - 서버 연동 후 AddressContent.ITEMS에 리스 항목추가 작업
         AddressContent.clearItem(); //초기화
-        requestCurrentWord();
-        // Set the adapter - 포인트 리스트 설정
-//        View view = findViewById(R.id.searchAddressList);
-//        if (view instanceof RecyclerView) {
-//            Context context = view.getContext();
-//            RecyclerView recyclerView = (RecyclerView) view;
-//
-//            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-//            recyclerView.setAdapter(new AddressContentRecyclerViewAdapter(AddressContent.ITEMS));
-//        }
+        requestCurrentWord();       //최근 검색 단어 요청
     }
 
     /**
@@ -234,6 +237,8 @@ public class ReservationAddressActivity extends AppCompatActivity implements Vie
 
                     recyclerView.setLayoutManager(new LinearLayoutManager(context));
                     recyclerView.setAdapter(new AddressContentRecyclerViewAdapter(AddressContent.ITEMS));
+
+                    //recyclerView.scrollToPosition(mAdapter.getItemCount()-1);
 
                     recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                         @Override

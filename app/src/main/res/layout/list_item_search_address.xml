@@ -33,6 +33,7 @@
 
         <TextView
             android:id="@+id/address_title"
+            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="0dp"
             android:layout_height="18dp"
             android:layout_marginTop="12dp"
@@ -47,6 +48,7 @@
 
         <TextView
             android:id="@+id/address_desc"
+            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="0dp"
             android:layout_height="16dp"
             android:layout_marginStart="12dp"

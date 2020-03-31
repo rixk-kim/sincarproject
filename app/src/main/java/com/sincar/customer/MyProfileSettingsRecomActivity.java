@@ -9,8 +9,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -31,7 +35,7 @@ import static com.sincar.customer.HWApplication.recommandResult;
 import static com.sincar.customer.common.Constants.RECOMMEND_REGISTER_REQUEST;
 
 public class MyProfileSettingsRecomActivity extends AppCompatActivity implements View.OnClickListener {
-    private TextView recomTextView, chuTextView;
+    private TextView recomTextView, chuTextView, myinfo_visit_01, myinfo_visit_02;
     private EditText chu_code;
     private String recom_code;
     private LinearLayout myinfo_linearLayout13;
@@ -55,6 +59,8 @@ public class MyProfileSettingsRecomActivity extends AppCompatActivity implements
     private void init() {
         findViewById(R.id.myinfo_recom_btnPrev_layout).setOnClickListener(this);
         findViewById(R.id.recom_code_copy_btn).setOnClickListener(this);
+        findViewById(R.id.myinfo_user_title81).setOnClickListener(this);
+
 
         recomTextView = (TextView) findViewById(R.id.recom_code);
         recomTextView.setText(recom_code);
@@ -65,6 +71,18 @@ public class MyProfileSettingsRecomActivity extends AppCompatActivity implements
 
         chu_code = (EditText) findViewById(R.id.recom_code14);
         findViewById(R.id.chu_code_btn).setOnClickListener(this);
+
+
+        myinfo_visit_01 = (TextView) findViewById(R.id.myinfo_visit_01);
+        SpannableStringBuilder ssb = new SpannableStringBuilder(myinfo_visit_01.getText()); //내가 초대한 친구가 서비스\n이용할 때 마다 포인트
+        ssb.setSpan(new ForegroundColorSpan(Color.parseColor("#ff4b5b")), 15, 24, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        myinfo_visit_01.setText(ssb);
+
+        myinfo_visit_02 = (TextView) findViewById(R.id.myinfo_visit_02);
+        SpannableStringBuilder ssb2 = new SpannableStringBuilder(myinfo_visit_02.getText()); //추천 코드를 등록하면 즉시 이용\n가능한 5천원 할인쿠폰 발급!
+        ssb2.setSpan(new ForegroundColorSpan(Color.parseColor("#ff4b5b")), 22, 25, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        myinfo_visit_02.setText(ssb2);
+
 
         if(!TextUtils.isEmpty(voLoginItem.REGISTER_RECOM_CODE)) {
             myinfo_linearLayout13.setVisibility(View.VISIBLE);
@@ -110,6 +128,12 @@ public class MyProfileSettingsRecomActivity extends AppCompatActivity implements
                 //서버전송
                 requestRecomRegister();
  //               Toast.makeText(this, "전송완료", Toast.LENGTH_LONG).show();
+                break;
+
+            case R.id.myinfo_user_title81:
+                //포인트의 info   => PointInfoActivity
+                intent = new Intent(this, PointInfoActivity.class);
+                startActivity(intent);
                 break;
         }
     }

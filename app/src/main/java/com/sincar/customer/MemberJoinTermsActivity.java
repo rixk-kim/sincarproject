@@ -233,35 +233,35 @@ public class MemberJoinTermsActivity extends Activity implements View.OnClickLis
                 break;
 
             case R.id.terms_view_1:
-                // TODO - 이용약관 동의 페이지로
+                // 이용약관 동의 페이지로
                 intent = new Intent(this, UseTerms1Activity.class);
                 intent.putExtra("path", "5");
                 startActivity(intent);
                 break;
 
             case R.id.terms_view_2:
-                // TODO - 개인정보 보호정책 동의 페이지로
+                // 개인정보 보호정책 동의 페이지로
                 intent = new Intent(this, UseTerms1Activity.class);
                 intent.putExtra("path", "6");
                 startActivity(intent);
                 break;
 
             case R.id.terms_view_3:
-                // TODO - 위치기반서비스 이용 동의 페이지로
+                // 위치기반서비스 이용 동의 페이지로
                 intent = new Intent(this, UseTerms1Activity.class);
                 intent.putExtra("path", "7");
                 startActivity(intent);
                 break;
 
             case R.id.terms_view_4:
-                // TODO - 이용약관 동의 페이지로
+                // 이용약관 동의 페이지로
                 intent = new Intent(this, UseTerms1Activity.class);
                 intent.putExtra("path", "8");
                 startActivity(intent);
                 break;
 
             case R.id.terms_join_btn:
-                // TODO - 회원 가입하고 성공시 로그인 페이지로 이동
+                // 회원 가입하고 성공시 로그인 페이지로 이동
                 if(confirm_status)
                 {
                     //로그인 페이지로 이동
@@ -333,7 +333,12 @@ public class MemberJoinTermsActivity extends Activity implements View.OnClickLis
                 startActivity(intent);
                 finish();
             }else{
-                Toast.makeText(MemberJoinTermsActivity.this, "네트워크 오류입니다. 재시도 해주세요.", Toast.LENGTH_LONG).show();
+                //{"join_result":{"JOIN_RESULT":"1","CAUSE":"등록된 폰번호가 있습니다."}}
+                Toast.makeText(MemberJoinTermsActivity.this, voJoinItem.CAUSE, Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(MemberJoinTermsActivity.this, LoginActivityPre.class);
+                startActivity(intent);
+                finish();
             }
         }
 

@@ -25,4 +25,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include" />
+
+    <!-- 리스트가 없을때 -->
+    <LinearLayout
+        android:id="@+id/agent_history_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="140dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/use_divider"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_vertical|center_horizontal"
+            android:src="@drawable/empty_use"/>
+
+        <TextView
+            android:fontFamily="@font/nanumsquareregular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="43dp"
+            android:gravity="center|center_horizontal|center_vertical"
+            android:text="대리점 정보가 없습니다."
+            android:textSize="16sp"
+            android:textColor="#3e3e3e"
+            />
+
+        />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

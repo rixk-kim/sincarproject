@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -172,48 +173,6 @@ public class ReservationTimeActivity extends AppCompatActivity
             Util.dismiss();
 
             callAgentRecyclerViewAdapter();
-
-            // TODO - 서버 연동 후 AgentTimeContent.ITEMS에 리스 항목 추가 작업
-            // Set the adapter - 포인트 리스트 설정
-//            if(AgentContent.ITEMS.size() > 0) {
-//                View view = findViewById(R.id.agentList);
-//                if (view instanceof RecyclerView) {
-//                    Context context = view.getContext();
-//                    RecyclerView recyclerView = (RecyclerView) view;
-//
-//                    recyclerView.setLayoutManager(new LinearLayoutManager(context));
-//                    mAgentRecyclerViewAdapter = new AgentRecyclerViewAdapter(AgentContent.ITEMS, this, reContext);
-//                    recyclerView.setAdapter(mAgentRecyclerViewAdapter);
-//                }
-//            }else{
-//                // TODO - 대리점 정보 없을 때 화면 UI 추가
-////                LinearLayout view = findViewById(R.id.use_history_empty);
-////                view.setVisibility(View.VISIBLE);
-//            }
-
-
-//            Gson gSon = new Gson();
-//            agentResult = gSon.fromJson(serverData, AgentResult.class);
-//
-//            voAgentDataItem     = agentResult.agent_list;
-//
-//            List<AgentContent.AgentItem> ITEMS = new ArrayList<AgentContent.AgentItem>();
-//            AgentContent.clearItem(); //초기화
-////            for(int i = 0; i < voAgentDataItem.DATA.size(); i++) {
-////                AgentContent.addItem(new AgentContent.AgentItem(
-////                        i,
-////                        voAgentDataItem.DATA.get(i).SEQ,
-////                        voAgentDataItem.DATA.get(i).NAME,
-////                        voAgentDataItem.DATA.get(i).AGENT_NAME,
-////                        voAgentDataItem.DATA.get(i).WASH_AREA,
-////                        voAgentDataItem.DATA.get(i).TIME_INFO
-////                ));
-////            }
-//
-//            //프로그래스바 종료
-//            Util.dismiss();
-//
-//            callAgentRecyclerViewAdapter();
         }
 
         @Override
@@ -230,6 +189,11 @@ public class ReservationTimeActivity extends AppCompatActivity
             if (view instanceof RecyclerView) {
                 Context context = view.getContext();
                 RecyclerView recyclerView = (RecyclerView) view;
+
+                LinearLayout view1 = findViewById(R.id.agent_history_empty);
+
+                view.setVisibility(View.VISIBLE);
+                view1.setVisibility(View.GONE);
 
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
                 mAgentRecyclerViewAdapter = new AgentRecyclerViewAdapter(AgentContent.ITEMS, this, reContext);
@@ -270,9 +234,12 @@ public class ReservationTimeActivity extends AppCompatActivity
                 });
             }
         }else{
-            // TODO - 대리점 정보 없을 때 화면 UI 추가
-//                LinearLayout view = findViewById(R.id.use_history_empty);
-//                view.setVisibility(View.VISIBLE);
+            //대리점 정보 없을 때 화면 UI 추가
+            View view = findViewById(R.id.agentList);
+            view.setVisibility(View.GONE);
+
+            LinearLayout view1 = findViewById(R.id.agent_history_empty);
+            view1.setVisibility(View.VISIBLE);
             Toast.makeText(this, "대리점 정보가 없습니다.", Toast.LENGTH_SHORT).show();
         }
     }

@@ -34,6 +34,7 @@
 
         <TextView
             android:id="@+id/myinfo_title_activity"
+            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center|center_horizontal"
@@ -54,6 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginTop="24dp"
         android:layout_marginStart="31dp"
         android:layout_marginEnd="28dp"
         app:layout_constraintTop_toBottomOf="@id/notice_include"
@@ -74,6 +76,7 @@
 
                 <TextView
                     android:id="@+id/notice_title"
+                    android:fontFamily="@font/nanumsquarebold"
                     android:layout_width="match_parent"
                     android:layout_height="22dp"
                     android:layout_gravity="left|center_horizontal|center_vertical"
@@ -100,6 +103,7 @@
 
                 <TextView
                     android:id="@+id/notice_date"
+                    android:fontFamily="@font/nanumsquareregular"
                     android:layout_width="match_parent"
                     android:layout_height="16dp"
                     android:layout_gravity="left|center_horizontal|center_vertical"
@@ -126,10 +130,12 @@
 
                 <TextView
                     android:id="@+id/notice_contents"
+                    android:fontFamily="@font/nanumsquareregular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left|center_horizontal|center_vertical"
                     android:letterSpacing="0.05"
+                    android:lineSpacingExtra="7sp"
                     android:text="내용"
                     android:textColor="@color/textColorPrimary"
                     android:textSize="14sp" />

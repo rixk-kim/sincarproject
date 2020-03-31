@@ -59,14 +59,14 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:fontFamily="@font/nanumsquarebold"
                     android:layout_width="match_parent"
                     android:layout_height="22dp"
                     android:layout_gravity="left|center_horizontal|center_vertical"
                     android:letterSpacing="0.05"
                     android:text="일정변경과 취소수수료 정책"
                     android:textColor="@color/textColorPrimary"
-                    android:textSize="16sp"
-                    android:textStyle="bold"/>
+                    android:textSize="16sp"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -86,6 +86,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:fontFamily="@font/nanumsquareregular"
                     android:layout_width="wrap_content"
                     android:layout_height="362dp"
                     android:textSize="14sp"
@@ -131,11 +132,13 @@
 
 
                 <TextView
+                    android:fontFamily="@font/nanumsquareregular"
                     android:layout_width="match_parent"
-                    android:layout_height="18dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:gravity="right"
                     android:text="확인 및 동의합니다"
+                    android:textSize="14sp"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:letterSpacing="0.05"/>
             </LinearLayout>
@@ -156,6 +159,7 @@
 
         <Button
             android:id="@+id/reserve_delete_btn"
+            android:fontFamily="@font/nanumsquarebold"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_gravity="center"

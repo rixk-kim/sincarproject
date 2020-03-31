@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.sincar.customer.util.Util;
+
 public class UseDeleteSettleActivity extends AppCompatActivity implements View.OnClickListener {
     private String settle_reserve_status;  //예약상태
     private String settle_common_pay;      //일반요금
@@ -74,11 +76,11 @@ public class UseDeleteSettleActivity extends AppCompatActivity implements View.O
 
         //일반요금
         textView_settle_common_pay = (TextView) findViewById(R.id.settle_common_pay);
-        textView_settle_common_pay.setText(settle_common_pay);
+        textView_settle_common_pay.setText(Util.setAddMoneyDot(settle_common_pay) + "원");
 
         //쿠폰요금
         textView_settle_coupone_pay = (TextView) findViewById(R.id.settle_coupone_pay);
-        textView_settle_coupone_pay.setText(settle_coupone_pay);
+        textView_settle_coupone_pay.setText(Util.setAddMoneyDot(settle_coupone_pay) + "원");
 
         //결재정보
         textView_settle_approve_info = (TextView) findViewById(R.id.settle_approve_info);
@@ -86,7 +88,7 @@ public class UseDeleteSettleActivity extends AppCompatActivity implements View.O
 
         //결재요금
         textView_settle_use_pay = (TextView) findViewById(R.id.settle_use_pay);
-        textView_settle_use_pay.setText(settle_use_pay);
+        textView_settle_use_pay.setText(Util.setAddMoneyDot(settle_use_pay) + "원");
 
         //예약시간
         textView_settle_reserve_time = (TextView) findViewById(R.id.settle_reserve_time);

@@ -56,6 +56,7 @@
 
                 <TextView
                     android:id="@+id/customerName"
+                    android:fontFamily="@font/nanumsquareregular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="67dp"
@@ -70,6 +71,7 @@
 
                 <TextView
                     android:id="@+id/customerPoint"
+                    android:fontFamily="@font/nanumsquareextrabold"
                     android:layout_width="wrap_content"
                     android:layout_height="24dp"
                     android:layout_marginStart="67dp"
@@ -97,13 +99,13 @@
             <!-- 스팀세차 버튼 -->
             <Button
                 android:id="@+id/btnMainMenu1"
+                android:fontFamily="@font/nanumsquareregular"
                 style="@style/main_menu_button_style"
                 android:layout_width="0dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:drawableTop="@drawable/group_13"
                 android:text="@string/main_menu_1"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/btnMainMenu2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnCustomerPoint" />
@@ -111,6 +113,7 @@
             <!-- 대리운 버튼 -->
             <Button
                 android:id="@+id/btnMainMenu2"
+                android:fontFamily="@font/nanumsquareregular"
                 style="@style/main_menu_button_style"
                 android:layout_width="0dp"
                 android:layout_marginStart="16dp"
@@ -125,6 +128,7 @@
             <!-- 카페어링 버튼 -->
             <Button
                 android:id="@+id/btnMainMenu3"
+                android:fontFamily="@font/nanumsquareregular"
                 style="@style/main_menu_button_style"
                 android:layout_width="0dp"
                 android:layout_marginStart="24dp"
@@ -138,6 +142,7 @@
             <!-- 카쉐어링 버튼 -->
             <Button
                 android:id="@+id/btnMainMenu4"
+                android:fontFamily="@font/nanumsquareregular"
                 style="@style/main_menu_button_style"
                 android:layout_width="0dp"
                 android:layout_marginStart="16dp"
@@ -152,6 +157,7 @@
             <!-- 퀵,탁송 버튼 -->
             <Button
                 android:id="@+id/btnMainMenu5"
+                android:fontFamily="@font/nanumsquareregular"
                 style="@style/main_menu_button_style"
                 android:layout_width="0dp"
                 android:layout_marginStart="24dp"
@@ -165,6 +171,7 @@
             <!-- 배달라이더 버튼 -->
             <Button
                 android:id="@+id/btnMainMenu6"
+                android:fontFamily="@font/nanumsquareregular"
                 style="@style/main_menu_button_style"
                 android:layout_width="0dp"
                 android:layout_marginStart="16dp"
@@ -230,6 +237,7 @@
 
                 <TextView
                     android:id="@+id/registerTitle"
+                    android:fontFamily="@font/nanumsquarebold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -238,12 +246,14 @@
                     android:text="@string/car_register_banner_title"
                     android:textColor="#3e3e3e"
                     android:textSize="15sp"
+                    android:letterSpacing="0.03"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="@string/car_register_banner_title" />
 
                 <TextView
                     android:id="@+id/registerDescription"
+                    android:fontFamily="@font/nanumsquareregular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -252,6 +262,7 @@
                     android:text="@string/car_register_banner_description"
                     android:textColor="#3e3e3e"
                     android:textSize="13.5sp"
+                    android:letterSpacing="0.01"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/registerTitle"
                     tools:text="@string/car_register_banner_description" />
@@ -281,6 +292,7 @@
 
                 <Button
                     android:id="@+id/btnCarRegister"
+                    android:fontFamily="@font/nanumsquareregular"
                     android:layout_width="86dp"
                     android:layout_height="24dp"
                     android:layout_marginStart="4dp"
@@ -314,6 +326,7 @@
     <!-- bottom navi -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNav"
+            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:gravity="bottom"

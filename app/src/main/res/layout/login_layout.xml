@@ -111,6 +111,7 @@
 
         <EditText
             android:id="@+id/user_id_et"
+            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="216dp"
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"
@@ -123,7 +124,7 @@
             android:maxLength="20"
             android:nextFocusDown="@+id/user_pwd_et"
             android:textColor="#3E3E3E"
-            android:textSize="14sp"
+            android:textSize="15sp"
             android:imeOptions="actionNext" >
 
             <requestFocus />
@@ -156,6 +157,7 @@
 
         <EditText
             android:id="@+id/user_pwd_et"
+            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="216dp"
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"
@@ -163,15 +165,16 @@
             android:background="@null"
             android:ems="10"
             android:hint="@string/hint_password_title"
-            android:inputType="textPassword"
+            android:inputType="textVisiblePassword"
             android:imeOptions="actionDone"
             android:maxLines="1"
             android:textColor="#3E3E3E"
-            android:textSize="14sp" />
+            android:textSize="15sp" />
     </LinearLayout>
 
     <Button
         android:id="@+id/login_btn"
+        android:fontFamily="@font/nanumsquareregular"
         android:layout_width="280dp"
         android:layout_height="52dp"
         android:layout_gravity="center"

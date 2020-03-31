@@ -34,6 +34,7 @@
 
         <TextView
             android:id="@+id/agent_name"
+            android:fontFamily="@font/nanumsquarebold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="17dp"
@@ -47,6 +48,7 @@
 
         <TextView
             android:id="@+id/branch_name"
+            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="19dp"
@@ -60,12 +62,12 @@
 
         <TextView
             android:id="@+id/wash_area_title"
+            android:fontFamily="@font/nanumsquarebold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:textSize="14sp"
             android:textColor="#3e3e3e"
-            android:textStyle="bold"
             android:text="@string/wash_area_title"
             tools:text="세차 가능 지역"
             app:layout_constraintStart_toStartOf="parent"
@@ -73,6 +75,7 @@
 
         <TextView
             android:id="@+id/wash_area"
+            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"

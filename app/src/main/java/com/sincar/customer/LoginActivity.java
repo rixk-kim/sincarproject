@@ -6,6 +6,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 
 import android.os.Handler;
@@ -32,6 +35,7 @@ import com.sincar.customer.network.VolleyNetwork;
 import com.sincar.customer.util.DataParser;
 import com.sincar.customer.util.LoadingProgress;
 import com.sincar.customer.util.Util;
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -107,12 +111,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         pwEt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                // 로그인 요청
-                requestLogin();
-                //startLogin("sss");
-            }
-            return false;
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    // 로그인 요청
+                    requestLogin();
+                    //startLogin("sss");
+                }
+                return false;
             }
         });
     }
@@ -287,19 +291,64 @@ it =>  {"login": [{"REGISTER":"1","CAUSE":"비밀번호 오류","MEMBER_NO":"123
         //프로그래스바 종료
         Util.dismiss();
         //Util.hideProgress();
-
-        if("0".equals(voLoginItem.REGISTER) && !TextUtils.isEmpty(voLoginItem.MEMBER_NO)) {
-            try {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            } catch (Exception e) {
-                e.toString();
+        //버전비교
+        PackageInfo pi = null;
+        try{
+            pi = getPackageManager().getPackageInfo(getPackageName(),0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        if(!TextUtils.isEmpty(pi.versionName)) {
+            if(pi.versionName.equals(voLoginItem.VERSION)) {
+                if ("0".equals(voLoginItem.REGISTER) && !TextUtils.isEmpty(voLoginItem.MEMBER_NO)) {
+                    try {
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } catch (Exception e) {
+                        e.toString();
+                    }
+                } else if ("2".equals(voLoginItem.REGISTER) && !TextUtils.isEmpty(voLoginItem.MEMBER_NO)) {
+                    Toast.makeText(this, "회원 가입 후 이용해주세요.", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(this, "로그인에 실패하였습니다. 재시도 해주세요.", Toast.LENGTH_LONG).show();
+                }
+            }else{
+                //버전 업데이트 진행.
+                appUpdate();
             }
         }else{
             Toast.makeText(this, "로그인에 실패하였습니다. 재시도 해주세요.", Toast.LENGTH_LONG).show();
         }
     }
 
+    private void appUpdate()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+        builder.setTitle(getString(R.string.notice));
+        builder.setMessage(getString(R.string.new_update_file_install_msg));
+        // 필수
+        builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // 전송 받은 다운로드 파일 URL
+  //              updateApp(updateUrl);
+                dialog.dismiss();
 
+                //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.sincar.co.kr/design/newcar.asp"));    //voLoginItem.APK_URL
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(voLoginItem.APK_URL));
+                startActivity(intent);
+
+                finish();
+            }
+        });
+        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // 앱 종료
+                finish();
+            }
+        });
+        builder.show();
+    }
 }

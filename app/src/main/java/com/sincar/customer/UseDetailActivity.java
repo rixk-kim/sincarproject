@@ -97,11 +97,11 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
 
         //일반요금
         textView_common_pay = (TextView) findViewById(R.id.use_common_pay);
-        textView_common_pay.setText(common_pay);
+        textView_common_pay.setText(Util.setAddMoneyDot(common_pay) + "원");
 
         //쿠폰요금
         textView_coupone_pay = (TextView) findViewById(R.id.use_coupone_pay);
-        textView_coupone_pay.setText(coupone_pay);
+        textView_coupone_pay.setText(Util.setAddMoneyDot(coupone_pay) + "원");
 
         //결재정보
         textView_approve_info = (TextView) findViewById(R.id.use_approve_info);
@@ -109,7 +109,7 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
 
         //결재요금
         textView_use_pay = (TextView) findViewById(R.id.use_use_pay);
-        textView_use_pay.setText(use_pay);
+        textView_use_pay.setText(Util.setAddMoneyDot(use_pay) + "원");
 
         //예약시간
         textView_reserve_time = (TextView) findViewById(R.id.use_reserve_time);

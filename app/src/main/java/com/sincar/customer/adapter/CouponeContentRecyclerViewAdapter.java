@@ -46,30 +46,13 @@ public class CouponeContentRecyclerViewAdapter extends RecyclerView.Adapter<com.
         holder.mView.setOnClickListener(this);
 
         setViewLayout(holder, position);
-
-//        holder.mItem = mValues.get(position);
-//
-//        holder.mCouponeSeq = Integer.parseInt(mValues.get(position).seq);
-//        holder.mCouponeTitle.setText(mValues.get(position).title);
-//        holder.mCouponeDate.setText(mValues.get(position).date);
-//        holder.mCouponeContent.setText(mValues.get(position).contents);
-//        holder.mCouponeUseYn  = mValues.get(position).coupone_yn;
-//
-//        coupone_pos = String.valueOf(position);
-//
-//        holder.mView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // 리스트 선택 없음. 이벤트 핸들러 추가 필요하면 여기에서 해주기
-//            }
-//        });
     }
 
     private void setViewLayout(final ViewHolder holder, final int position) {
         holder.mCouponeSeq = Integer.parseInt(mValues.get(position).seq);
         holder.mCouponePay.setText(mValues.get(position).pay);
         holder.mCouponeTitle.setText(mValues.get(position).title);
-        holder.mCouponeDate.setText(mValues.get(position).date);
+        holder.mCouponeDate.setText("~" + mValues.get(position).date);
         holder.mCouponeContent.setText(mValues.get(position).contents);
         holder.mCouponeUseYn  = mValues.get(position).coupone_yn;
 

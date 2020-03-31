@@ -34,6 +34,7 @@
 
         <TextView
             android:id="@+id/myinfo_title_activity"
+            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center|center_horizontal"
@@ -58,6 +59,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/coupone_include" />
+
+    <!-- 리스트가 없을때 -->
+    <LinearLayout
+        android:id="@+id/coupone_list_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="140dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:fontFamily="@font/nanumsquareregular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="43dp"
+            android:gravity="center|center_horizontal|center_vertical"
+            android:text="등록된 쿠폰이 없습니다."
+            android:textSize="16sp"
+            android:textColor="#3e3e3e"
+            />
+
+        />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/coupone_confirm_layout"

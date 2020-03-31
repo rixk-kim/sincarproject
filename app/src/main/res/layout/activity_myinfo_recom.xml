@@ -34,6 +34,7 @@
 
         <TextView
             android:id="@+id/myinfo_title_activity"
+            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center|center_horizontal"
@@ -85,11 +86,13 @@
 
                         <TextView
                             android:id="@+id/myinfo_user_title"
+                            android:fontFamily="@font/nanumsquarebold"
                             android:layout_width="29dp"
                             android:layout_height="26dp"
                             android:layout_gravity="center|center_horizontal|center_vertical"
                             android:letterSpacing="0.05"
                             android:text="01"
+                            android:textStyle="bold"
                             android:textColor="#ff4b5b"
                             android:textSize="20sp" />
                     </LinearLayout>
@@ -111,13 +114,13 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:fontFamily="@font/nanumsquareextrabold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|center_horizontal|center_vertical"
                             android:letterSpacing="0.05"
                             android:textColor="@color/textColorPrimary"
                             android:textSize="20sp"
-                            android:textStyle="bold"
                             android:text="초대자 혜택" />
                     </LinearLayout>
                 </LinearLayout>
@@ -137,6 +140,8 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/myinfo_visit_01"
+                            android:fontFamily="@font/nanumsquareregular"
                             android:layout_width="wrap_content"
                             android:layout_height="38dp"
                             android:layout_gravity="center|center_horizontal|center_vertical"
@@ -186,6 +191,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:fontFamily="@font/nanumsquareregular"
                             android:layout_width="wrap_content"
                             android:layout_height="17dp"
                             android:layout_gravity="center|center_horizontal|center_vertical"
@@ -215,6 +221,7 @@
 
                         <TextView
                             android:id="@+id/recom_code"
+                            android:fontFamily="@font/nanumsquareextrabold"
                             android:layout_width="176dp"
                             android:layout_height="match_parent"
                             android:background="@null"
@@ -238,6 +245,7 @@
 
                         <Button
                             android:id="@+id/recom_code_copy_btn"
+                            android:fontFamily="@font/nanumsquareregular"
                             android:layout_width="match_parent"
                             android:layout_height="52dp"
                             android:gravity="center"
@@ -281,13 +289,16 @@
 
                         <TextView
                             android:id="@+id/myinfo_user_title821"
+                            android:fontFamily="@font/nanumsquarebold"
                             android:layout_width="29dp"
                             android:layout_height="26dp"
+                            android:layout_marginTop="60dp"
                             android:layout_gravity="center|center_horizontal|center_vertical"
                             android:letterSpacing="0.05"
                             android:text="02"
                             android:textColor="#ff4b5b"
-                            android:textSize="20sp" />
+                            android:textSize="20sp"
+                            android:textStyle="bold"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -309,6 +320,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:fontFamily="@font/nanumsquareextrabold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|center_horizontal|center_vertical"
@@ -337,6 +349,8 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/myinfo_visit_02"
+                            android:fontFamily="@font/nanumsquareregular"
                             android:layout_width="wrap_content"
                             android:layout_height="38dp"
                             android:layout_gravity="center|center_horizontal|center_vertical"
@@ -437,6 +451,7 @@
 
                         <TextView
                             android:id="@+id/recom_code1"
+                            android:fontFamily="@font/nanumsquareextrabold"
                             android:layout_width="176dp"
                             android:layout_height="match_parent"
                             android:background="@null"
@@ -468,6 +483,7 @@
 
                         <EditText
                             android:id="@+id/recom_code14"
+                            android:fontFamily="@font/nanumsquareextrabold"
                             android:layout_width="176dp"
                             android:layout_height="match_parent"
                             android:background="@null"
@@ -476,7 +492,6 @@
                             android:textColor="#3E3E3E"
                             android:gravity="center"
                             android:textSize="15sp"
-                            android:textStyle="bold"
                             android:inputType="text"
                             android:imeOptions="actionDone"
                             />
@@ -494,6 +509,7 @@
 
                         <Button
                             android:id="@+id/chu_code_btn"
+                            android:fontFamily="@font/nanumsquareregular"
                             android:layout_width="match_parent"
                             android:layout_height="52dp"
                             android:gravity="center"
@@ -534,6 +550,7 @@
 
                         <TextView
                             android:id="@+id/myinfo_user_title8"
+                            android:fontFamily="@font/nanumsquareextrabold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="left|center_horizontal|center_vertical"
@@ -561,6 +578,7 @@
 
                         <TextView
                             android:layout_width="wrap_content"
+                            android:fontFamily="@font/nanumsquareextrabold"
                             android:layout_height="24dp"
                             android:layout_gravity="center|center_horizontal|center_vertical"
                             android:letterSpacing="0.05"
@@ -586,6 +604,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:fontFamily="@font/nanumsquareregular"
                             android:layout_width="wrap_content"
                             android:layout_height="66dp"
                             android:layout_gravity="left|center_horizontal|center_vertical"
@@ -615,6 +634,7 @@
 
                         <TextView
                             android:id="@+id/myinfo_user_title81"
+                            android:fontFamily="@font/nanumsquareregular"
                             android:layout_width="wrap_content"
                             android:layout_height="26dp"
                             android:layout_gravity="left|center_horizontal|center_vertical"
@@ -640,6 +660,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:fontFamily="@font/nanumsquareextrabold"
                             android:layout_width="wrap_content"
                             android:layout_height="17dp"
                             android:layout_gravity="left|center_horizontal|center_vertical"
@@ -666,6 +687,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:fontFamily="@font/nanumsquareregular"
                             android:layout_width="wrap_content"
                             android:layout_height="17dp"
                             android:layout_gravity="left|center_horizontal|center_vertical"
@@ -685,6 +707,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:fontFamily="@font/nanumsquareregular"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="left|center_horizontal|center_vertical"
@@ -704,6 +727,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:fontFamily="@font/nanumsquareregular"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="left|center_horizontal|center_vertical"
@@ -723,6 +747,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:fontFamily="@font/nanumsquareregular"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="left|center_horizontal|center_vertical"
@@ -743,6 +768,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:fontFamily="@font/nanumsquareregular"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="left|center_horizontal|center_vertical"

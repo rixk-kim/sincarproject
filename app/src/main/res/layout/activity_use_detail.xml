@@ -33,6 +33,7 @@
         </LinearLayout>
         <TextView
             android:id="@+id/myinfo_title_activity"
+            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center|center_horizontal"
@@ -105,6 +106,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:fontFamily="@font/nanumsquarebold"
                     android:layout_width="match_parent"
                     android:layout_height="22dp"
                     android:layout_gravity="left|center_horizontal|center_vertical"
@@ -139,6 +141,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:fontFamily="@font/nanumsquareregular"
                     android:layout_width="match_parent"
                     android:layout_height="18dp"
                     android:layout_gravity="left|center_horizontal|center_vertical"
@@ -157,6 +160,7 @@
 
                 <TextView
                     android:id="@+id/use_common_pay"
+                    android:fontFamily="@font/nanumsquarebold"
                     android:layout_width="match_parent"
                     android:layout_height="18dp"
                     android:gravity="right"
@@ -184,6 +188,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:fontFamily="@font/nanumsquareregular"
                     android:layout_width="match_parent"
                     android:layout_height="18dp"
                     android:layout_gravity="left|center_horizontal|center_vertical"
@@ -202,6 +207,7 @@
 
                 <TextView
                     android:id="@+id/use_coupone_pay"
+                    android:fontFamily="@font/nanumsquarebold"
                     android:layout_width="match_parent"
                     android:layout_height="18dp"
                     android:gravity="right"
@@ -236,6 +242,7 @@
 
                 <TextView
                     android:id="@+id/use_approve_info"
+                    android:fontFamily="@font/nanumsquareregular"
                     android:layout_width="match_parent"
                     android:layout_height="18dp"
                     android:layout_gravity="left|center_horizontal|center_vertical"
@@ -254,6 +261,7 @@
 
                 <TextView
                     android:id="@+id/use_use_pay"
+                    android:fontFamily="@font/nanumsquareextrabold"
                     android:layout_width="match_parent"
                     android:layout_height="18dp"
                     android:gravity="right"
@@ -286,6 +294,7 @@
 
                 <TextView
                     android:id="@+id/use_column1"
+                    android:fontFamily="@font/nanumsquarebold"
                     android:layout_width="match_parent"
                     android:layout_height="22dp"
                     android:gravity="left|center_horizontal|center_vertical"
@@ -309,6 +318,7 @@
 
                     <TextView
                         android:id="@+id/use_column2"
+                        android:fontFamily="@font/nanumsquareregular"
                         android:layout_width="56dp"
                         android:layout_height="18dp"
                         android:gravity="left|center_horizontal|center_vertical"
@@ -325,6 +335,7 @@
 
                     <TextView
                         android:id="@+id/use_reserve_time"
+                        android:fontFamily="@font/nanumsquareregular"
                         android:layout_width="match_parent"
                         android:layout_height="18dp"
                         android:gravity="left|center_horizontal|center_vertical"
@@ -349,6 +360,7 @@
 
                     <TextView
                         android:id="@+id/use_column4"
+                        android:fontFamily="@font/nanumsquareregular"
                         android:layout_width="56dp"
                         android:layout_height="18dp"
                         android:gravity="left|center_horizontal|center_vertical"
@@ -365,6 +377,7 @@
 
                     <TextView
                         android:id="@+id/use_wash_address"
+                        android:fontFamily="@font/nanumsquareregular"
                         android:layout_width="match_parent"
                         android:layout_height="18dp"
                         android:gravity="left|center_horizontal|center_vertical"
@@ -389,6 +402,7 @@
 
                     <TextView
                         android:id="@+id/use_column6"
+                        android:fontFamily="@font/nanumsquareregular"
                         android:layout_width="56dp"
                         android:layout_height="18dp"
                         android:gravity="left|center_horizontal|center_vertical"
@@ -405,6 +419,7 @@
 
                     <TextView
                         android:id="@+id/use_wash_agent"
+                        android:fontFamily="@font/nanumsquareregular"
                         android:layout_width="match_parent"
                         android:layout_height="18dp"
                         android:gravity="left|center_horizontal|center_vertical"
@@ -422,8 +437,9 @@
 
                     <TextView
                         android:id="@+id/use_use_column8"
+                        android:fontFamily="@font/nanumsquareregular"
                         android:layout_width="match_parent"
-                        android:layout_height="18dp"
+                        android:layout_height="wrap_content"
                         android:gravity="center|center_horizontal|center_vertical"
                         android:text="전화걸기"
                         android:textColor="#007aff"
@@ -446,6 +462,7 @@
 
                     <TextView
                         android:id="@+id/use_column9"
+                        android:fontFamily="@font/nanumsquareregular"
                         android:layout_width="56dp"
                         android:layout_height="18dp"
                         android:gravity="left|center_horizontal|center_vertical"
@@ -462,6 +479,7 @@
 
                     <TextView
                         android:id="@+id/use_car_info"
+                        android:fontFamily="@font/nanumsquareregular"
                         android:layout_width="match_parent"
                         android:layout_height="18dp"
                         android:gravity="left|center_horizontal|center_vertical"
@@ -484,6 +502,7 @@
 
                     <TextView
                         android:id="@+id/use_car_number"
+                        android:fontFamily="@font/nanumsquareregular"
                         android:layout_width="match_parent"
                         android:layout_height="18dp"
                         android:gravity="left|center_horizontal|center_vertical"
@@ -505,6 +524,7 @@
 
             <Button
                 android:id="@+id/reserve_cancel_btn"
+                android:fontFamily="@font/nanumsquarebold"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:layout_gravity="center"

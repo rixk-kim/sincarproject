@@ -6,10 +6,13 @@
 
     <TextView
         android:id="@+id/textCarView1"
+        android:fontFamily="@font/nanumsquareregular"
         android:layout_width="94dp"
         android:layout_height="50dp"
+        android:layout_gravity="center|center_vertical|center_horizontal"
         android:gravity="center|center_vertical|center_horizontal"
         android:textColor="@color/textColorPrimary"
+        android:textSize="14sp"
         />
 
 </LinearLayout>

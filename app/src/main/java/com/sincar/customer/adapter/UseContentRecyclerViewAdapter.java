@@ -20,9 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.sincar.customer.R;
 import com.sincar.customer.UseDetailActivity;
 import com.sincar.customer.adapter.content.UseContent;
+import com.sincar.customer.util.Util;
 
 import java.util.List;
 
+import static com.sincar.customer.util.Util.setAddMoneyDot;
 import static java.security.AccessController.getContext;
 
 public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sincar.customer.adapter.UseContentRecyclerViewAdapter.ViewHolder> {
@@ -70,7 +72,7 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
         holder.wash_agent.setText(mValues.get(position).wash_agent);
         send_wash_agent = mValues.get(position).wash_agent;
 
-        holder.use_pay.setText(mValues.get(position).use_pay);
+        holder.use_pay.setText(Util.setAddMoneyDot(mValues.get(position).use_pay) + "원");
         send_use_pay = mValues.get(position).use_pay;
 
         holder.agent_mobile = mValues.get(position).agent_mobile;

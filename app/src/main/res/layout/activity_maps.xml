@@ -67,6 +67,7 @@
 
         <TextView
             android:id="@+id/current_address"
+            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -92,6 +93,7 @@
 
         <TextView
             android:id="@+id/reserve_title"
+            android:fontFamily="@font/nanumsquarebold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -104,6 +106,7 @@
 
         <TextView
             android:id="@+id/reserve_date"
+            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="21dp"
@@ -137,6 +140,7 @@
 
         <Button
             android:id="@+id/btnNext"
+            android:fontFamily="@font/nanumsquarebold"
             android:layout_width="0dp"
             android:layout_height="52dp"
             android:layout_marginStart="24dp"

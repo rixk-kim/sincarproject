@@ -22,7 +22,7 @@
     <string name="camera_fails_msg">카메라 사용을 허용하지 않아 사진을 찍을 수 없습니다.</string>
     <string name="read_write_fails_content_msg">어플리케이션 설정으로 이동하여 카메라 사용을 허용하시겠습니까?\n허용하지 않으면 사진을 찍을 수 없습니다.</string>
     <string name="read_write_fails_msg">카메라 사용을 허용하지 않아 사진을 찍을 수 없습니다.</string>
-
+    <string name="new_update_file_install_msg">신규 버전으로 업데이트가 필요합니다.\n업데이트를 진행하시겠습니까?</string>
     <!-- splash -->
     <string name="splash_title">신차로</string>
     <string name="copy_right_msg">COPYRIGHT 2020, SINCHARO, MOBILE SOLUTION\nALL RIGHT RESERVED.</string>
@@ -307,9 +307,9 @@
     <string name="q3_str">Q. 추천인 제도는 무엇인가요?</string>
     <string name="a3_str">1촌 혹은 2촌 사용자가 서비스 이용할 때 마다, 이용 요금의 일정 금액을 포인트로 페이백 받을 수 있는 제도입니다.</string>
     <string name="q4_str">Q. 1촌과 2촌의 차이점은 무엇인가요?</string>
-    <string name="a4_str">1촌 사용자와 2촌 사용자가 세차, 대리 등 서비스를 이용를 이용할 때 마다 포인트가 본인에게 적립되는건 동일하지만 1촌 사용자가 서비스 이용 시에 조금 더 높은 비율의 포인트가 적립됩니다.</string>
+    <string name="a4_str">1촌 사용자와 2촌 사용자가 세차, 대리 등 서비스를 이용할 때 마다 포인트가 본인에게 적립되는건 동일하지만 1촌 사용자가 서비스 이용 시에 조금 더 높은 비율의 포인트가 적립됩니다.</string>
     <string name="q5_str">Q.포인트는 어떻게 사용할 수 있나요?</string>
-    <string name="a5_str">포인트는 10,000원 단위로 출금 신청할 수 있으며, 출금 뿐만 아니라 서비스 이용시 할인 수단으로도 사용 가능합니다.</string>
+    <string name="a5_str">포인트는 10,000원 단위로 출금 신청할 수 있으며(향후 추가예정), 출금 뿐만 아니라 서비스 이용시 할인 수단으로도 사용 가능합니다.</string>
     <string name="q6_str">Q. ‘친구의 친구’란 무엇인가요?</string>
     <string name="a6_str">내가 초대한 친구가 초대한(친구를 추천인으로 등록한) 유저를 의미합니다. ‘초대한 친구’가 늘어날수록 ‘친구의 친구’는 기하급수적으로 늘어나겠죠??</string>
     <string name="q7_str">Q. 추천인 제도는 무엇인가요?</string>

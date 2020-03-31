@@ -19,6 +19,7 @@
 
     <TextView
         android:id="@+id/reserve_approve_text1"
+        android:fontFamily="@font/nanumsquareregular"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="63dp"
@@ -28,11 +29,11 @@
         android:text="예약완료"
         android:textColor="#ff4d4d"
         android:textSize="16sp"
-        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/reserve_approve_image"/>
 
     <TextView
         android:id="@+id/reserve_approve_text2"
+        android:fontFamily="@font/nanumsquareregular"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -58,6 +59,7 @@
 
         <Button
             android:id="@+id/reserve_approve_btn"
+            android:fontFamily="@font/nanumsquarebold"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_gravity="center"

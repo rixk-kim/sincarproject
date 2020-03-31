@@ -16,6 +16,7 @@
         <!-- ActionBar : Title / Info -->
         <TextView
             android:id="@+id/use_history_title"
+            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center|center_horizontal"
@@ -68,6 +69,7 @@
             android:src="@drawable/empty_use"/>
 
         <TextView
+            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="43dp"
@@ -78,6 +80,7 @@
             />
 
         <TextView
+            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
