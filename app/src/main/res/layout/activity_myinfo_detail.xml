@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"
             android:text="@string/title_profile"
-            android:textColor="#3e3e3e"
+            android:textColor="#803e3e3e"
             android:textSize="14sp"
             tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -121,7 +121,7 @@
                     android:layout_marginTop="8dp"
                     android:text="김태현"
                     android:textSize="13sp"
-                    android:textColor="#3e3e3e"
+                    android:textColor="#993e3e3e"
                     android:letterSpacing="0.05" />
             </LinearLayout>
         </LinearLayout>
@@ -173,7 +173,7 @@
                         android:layout_marginTop="8dp"
                         android:text="010.6778.1916"
                         android:textSize="13sp"
-                        android:textColor="#3e3e3e"
+                        android:textColor="#b33e3e3e"
                         android:letterSpacing="0.05" />
                 </LinearLayout>
             </LinearLayout>
@@ -225,7 +225,7 @@
                         android:layout_marginTop="8dp"
                         android:letterSpacing="0.05"
                         android:text="@string/myinfo_detail_password_content"
-                        android:textColor="#3e3e3e"
+                        android:textColor="#b33e3e3e"
                         android:textSize="13sp" />
                 </LinearLayout>
 
@@ -240,7 +240,7 @@
                         android:fontFamily="@font/nanumsquareregular"
                         android:layout_width="wrap_content"
                         android:layout_height="24dp"
-                        android:layout_marginRight="0dp"
+                        android:layout_marginRight="5dp"
                         android:gravity="right|clip_horizontal|center_vertical"
                         android:text="변경"
                         android:textColor="#ff4d4d"

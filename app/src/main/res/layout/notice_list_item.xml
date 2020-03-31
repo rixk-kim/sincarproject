@@ -29,7 +29,7 @@
             android:fontFamily="@font/nanumsquareregular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#3e3e3e"
+            android:textColor="#b33e3e3e"
             android:textSize="13sp"
             android:layout_weight="1"
             android:gravity="left|center_horizontal|center_vertical"

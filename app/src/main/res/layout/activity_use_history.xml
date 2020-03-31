@@ -87,7 +87,7 @@
             android:gravity="center|center_horizontal|center_vertical"
             android:text="지금 바로 스팀세차를 이용하고 포인트를 모아보세요 !"
             android:textSize="14sp"
-            android:textColor="#3e3e3e"
+            android:textColor="#993e3e3e"
             />
     </LinearLayout>
 

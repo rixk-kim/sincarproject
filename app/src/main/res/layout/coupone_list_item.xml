@@ -47,7 +47,7 @@
             android:layout_marginTop="13dp"
             android:gravity="left|center_horizontal|center_vertical"
             android:text="~2020.12.30"
-            android:textColor="#3e3e3e"
+            android:textColor="#b33e3e3e"
             android:textSize="12sp" />
 
         <TextView
@@ -59,7 +59,7 @@
             android:layout_marginTop="6dp"
             android:gravity="left|center_horizontal|center_vertical"
             android:text="회원 가입을 축하해요!"
-            android:textColor="#3e3e3e"
+            android:textColor="#b33e3e3e"
             android:textSize="12sp" />
         <!--
         <LinearLayout

@@ -146,7 +146,7 @@
                             android:layout_height="19dp"
                             android:layout_gravity="center|center_horizontal|center_vertical"
                             android:letterSpacing="0.05"
-                            android:textColor="@color/textColorPrimary"
+                            android:textColor="#993e3e3e"
                             android:textSize="13sp"
                             android:text="v.1.0.0" />
                     </LinearLayout>
@@ -255,8 +255,8 @@
                             android:gravity="left"
                             android:letterSpacing="0.05"
                             android:text="예약완료, 기사매칭 등"
-                            android:textColor="@color/textColorPrimary"
-                            android:textSize="13sp" />
+                            android:textColor="#993E3E3E"
+                            android:textSize="13sp"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -319,7 +319,7 @@
                             android:gravity="left"
                             android:letterSpacing="0.05"
                             android:text="쿠폰, 이벤트 등"
-                            android:textColor="@color/textColorPrimary"
+                            android:textColor="#993E3E3E"
                             android:textSize="13sp" />
                     </LinearLayout>
 

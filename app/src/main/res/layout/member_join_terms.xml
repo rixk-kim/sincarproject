@@ -86,7 +86,8 @@
                 android:gravity="right"
                 android:text="전체 동의"
                 android:layout_gravity="center_horizontal|center_vertical"
-                android:textSize="15dp"/>
+                android:textSize="15dp"
+                android:textColor="#3e3e3e" />
         </LinearLayout>
 
         <!-- 이용약관 동의 -->

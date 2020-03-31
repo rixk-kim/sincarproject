@@ -149,7 +149,7 @@
                     android:layout_gravity="left|center_horizontal|center_vertical"
                     android:letterSpacing="0.05"
                     android:text="기본 세차"
-                    android:textColor="@color/textColorPrimary"
+                    android:textColor="#b33e3e3e"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -196,7 +196,7 @@
                     android:layout_gravity="left|center_horizontal|center_vertical"
                     android:letterSpacing="0.05"
                     android:text="쿠폰"
-                    android:textColor="@color/textColorPrimary"
+                    android:textColor="#b33e3e3e"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -244,7 +244,7 @@
 
                 <TextView
                     android:id="@+id/settle_approve_info"
-                    android:fontFamily="@font/nanumsquareregular"
+                    android:fontFamily="@font/nanumsquarebold"
                     android:layout_width="match_parent"
                     android:layout_height="18dp"
                     android:layout_gravity="left|center_horizontal|center_vertical"
@@ -323,7 +323,7 @@
                         android:layout_height="18dp"
                         android:gravity="left|center_horizontal|center_vertical"
                         android:text="예약 시간"
-                        android:textColor="#3e3e3e"
+                        android:textColor="#993e3e3e"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -364,7 +364,7 @@
                         android:layout_height="18dp"
                         android:gravity="left|center_horizontal|center_vertical"
                         android:text="세차 장소"
-                        android:textColor="#3e3e3e"
+                        android:textColor="#993e3e3e"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -405,7 +405,7 @@
                         android:layout_height="18dp"
                         android:gravity="left|center_horizontal|center_vertical"
                         android:text="대리점"
-                        android:textColor="#3e3e3e"
+                        android:textColor="#993e3e3e"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -447,7 +447,7 @@
                         android:layout_height="18dp"
                         android:gravity="left|center_horizontal|center_vertical"
                         android:text="차량 정보"
-                        android:textColor="#3e3e3e"
+                        android:textColor="#993e3e3e"
                         android:textSize="14sp" />
                 </LinearLayout>
 

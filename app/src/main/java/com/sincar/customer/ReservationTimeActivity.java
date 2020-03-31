@@ -100,8 +100,8 @@ public class ReservationTimeActivity extends AppCompatActivity
 
         HashMap<String, String> postParams = new HashMap<String, String>();
         postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);              // 회원번호
-        //postParams.put("ADDRESS", reserve_address);                      // 검색 주소
-        postParams.put("ADDRESS", "관악구");                      // 검색 주소
+        postParams.put("ADDRESS", reserve_address);                      // 검색 주소
+//        postParams.put("ADDRESS", "관악구");                      // 검색 주소
         postParams.put("REQUEST_DATE", reserve_date);                    // 날짜
         postParams.put("REQUEST_PAGE", String.valueOf(request_page));   // 요청페이지
         postParams.put("REQUEST_NUM", String.valueOf(request_offset));  // 요청갯수
@@ -240,7 +240,7 @@ public class ReservationTimeActivity extends AppCompatActivity
 
             LinearLayout view1 = findViewById(R.id.agent_history_empty);
             view1.setVisibility(View.VISIBLE);
-            Toast.makeText(this, "대리점 정보가 없습니다.", Toast.LENGTH_SHORT).show();
+ //           Toast.makeText(this, "대리점 정보가 없습니다.", Toast.LENGTH_SHORT).show();
         }
     }
 
