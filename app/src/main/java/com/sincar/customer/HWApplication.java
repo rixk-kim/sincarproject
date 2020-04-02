@@ -10,6 +10,7 @@ import android.os.Looper;
 
 import androidx.multidex.MultiDexApplication;
 
+import com.sincar.customer.database.DBAdapter;
 import com.sincar.customer.entity.LoginDataEntity;
 import com.sincar.customer.item.AddressDataItem;
 import com.sincar.customer.item.AddressItem;
@@ -195,6 +196,8 @@ public class HWApplication extends MultiDexApplication {
     public static CarDeleteResult carDeleteResult;
     public static CarDeleteItem voCarDeleteItem;
 
+    public static DBAdapter dbConnect;
+
     AppStatus mAppStatus;
     @Override
     public void onCreate() {
@@ -242,6 +245,9 @@ public class HWApplication extends MultiDexApplication {
         voPointItem     = new PointItem();
         voSearchWordItem= new SearchWordItem();
         voCarDeleteItem = new CarDeleteItem();
+
+//        dbConnect = new DBAdapter(context);
+//        dbConnect.openTransjection();
 
     }
 

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sincar.customer.R;
 import com.sincar.customer.adapter.content.PointContent;
+import com.sincar.customer.util.Util;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class PointContentRecyclerViewAdapter extends RecyclerView.Adapter<PointC
         holder.mUsername.setText(mValues.get(position).username);
         holder.mServiceType.setText(mValues.get(position).service_type);
         holder.mDate.setText(mValues.get(position).date);
-        holder.mPoint.setText(mValues.get(position).point);
+        holder.mPoint.setText("+" + Util.setAddMoneyDot(mValues.get(position).point));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

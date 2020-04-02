@@ -13,6 +13,7 @@
         android:layout_height="154dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:background="#fff7f7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,6 +43,7 @@
                 android:fontFamily="@font/nanumsquareregular"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 android:layout_marginLeft="8dp"
                 android:text="010.4343.8585"
                 android:textSize="14sp"
@@ -57,7 +59,7 @@
             android:contentDescription="@string/actionbar_prev_icon_description"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@color/customColorPrimary1"
+            android:background="#fff7f7"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"
             app:srcCompat="@drawable/filled_copy" />
     </LinearLayout>
@@ -107,7 +109,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/textColorPrimary" />
+            android:background="#1a3e3e3e" />
 
         <LinearLayout
             android:id="@+id/menu_2"
@@ -140,7 +142,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/textColorPrimary" />
+            android:background="#1a3e3e3e" />
 
         <LinearLayout
             android:id="@+id/menu_3"
@@ -207,7 +209,7 @@
         <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/textColorPrimary" />
+        android:background="#1a3e3e3e" />
 
         <LinearLayout
             android:id="@+id/menu_5"
@@ -240,7 +242,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/textColorPrimary" />
+            android:background="#1a3e3e3e" />
 
         <LinearLayout
             android:id="@+id/menu_6"

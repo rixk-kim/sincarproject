@@ -11,15 +11,20 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import static com.sincar.customer.HWApplication.voLoginItem;
 
 public class MyProfileSettingsActivity extends AppCompatActivity implements View.OnClickListener {
     private MenuItem prevBottomNavigation;
     private Context mContext;
     private BottomNavigationView bottomNavigationView;
+    private TextView user_name, user_mobile;
 
     public MyProfileSettingsActivity() {
     }
@@ -88,6 +93,15 @@ public class MyProfileSettingsActivity extends AppCompatActivity implements View
         findViewById(R.id.menu_4).setOnClickListener(this);
         findViewById(R.id.menu_5).setOnClickListener(this);
         findViewById(R.id.menu_6).setOnClickListener(this);
+
+        user_name = (TextView) findViewById(R.id.user_name);
+        user_name.setText(voLoginItem.MEMBER_NAME);
+
+        user_mobile = (TextView) findViewById(R.id.user_mobile);
+        if (TextUtils.isEmpty(voLoginItem.MEMBER_PHONE) && voLoginItem.MEMBER_PHONE.length() > 10) {
+            user_mobile.setText(voLoginItem.MEMBER_PHONE.substring(0, 3) + "." + voLoginItem.MEMBER_PHONE.substring(3, 7) + "." + voLoginItem.MEMBER_PHONE.substring(7, 11));
+
+        }
     }
 
     @Override

@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,11 +39,13 @@ public class PointHistoryActivity extends AppCompatActivity implements View.OnCl
     //페이지 처리
     private int request_page = 1;                           // 페이징변수. 초기 값은 0 이다.
     private final int request_offset = 20;                  // 한 페이지마다 로드할 데이터 갯수.
+    private Context pContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_point_history);
+        pContext = this;
 
         // 화면 초기화
         init();
@@ -223,7 +226,10 @@ public class PointHistoryActivity extends AppCompatActivity implements View.OnCl
 
         @Override
         public void onResponseFailListener(VolleyError it) {
+            //프로그래스바 종료
+            Util.dismiss();
 
+            Toast.makeText(pContext, "네트웍 설정을 확인한 후 다시 시도하세요.", Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -236,7 +242,7 @@ public class PointHistoryActivity extends AppCompatActivity implements View.OnCl
                 finish();
                 break;
             case R.id.btnNext:
-                // TODO - 포인트 보기
+                // 포인트 보기
                 intent = new Intent(this, PointInfoActivity.class);
                 startActivity(intent);
                 break;

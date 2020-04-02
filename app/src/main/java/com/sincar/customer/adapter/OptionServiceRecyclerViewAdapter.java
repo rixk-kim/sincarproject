@@ -7,6 +7,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -50,10 +51,25 @@ public class OptionServiceRecyclerViewAdapter extends RecyclerView.Adapter<Optio
 
             }
         });
+        holder.mOptionName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 리스트 선택 시 이벤트 핸들러 추가 필요하면 여기에서 해주기
+                if(holder.mItem.checked) {
+                    holder.mItem.checked = false;
+                    holder.mChecked.setChecked(false);
+                }else{
+                    holder.mItem.checked = true;
+                    holder.mChecked.setChecked(true);
+                }
+            }
+        });
+
         holder.mInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO - 리스트 선택 시 이벤트 핸들러 추가 필요하면 여기에서 해주기
+                // 리스트 선택 시 이벤트 핸들러 추가 필요하면 여기에서 해주기
+                Toast.makeText(v.getContext(), mValues.get(position).option_info, Toast.LENGTH_LONG).show();
             }
         });
     }

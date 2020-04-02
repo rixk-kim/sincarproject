@@ -32,6 +32,7 @@ import com.sincar.customer.item.LoginResult;
 import com.sincar.customer.network.DataObject;
 import com.sincar.customer.network.JsonParser;
 import com.sincar.customer.network.VolleyNetwork;
+import com.sincar.customer.preference.PreferenceManager;
 import com.sincar.customer.util.DataParser;
 import com.sincar.customer.util.LoadingProgress;
 import com.sincar.customer.util.Util;
@@ -75,7 +76,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     // 업데이트 URL
     private String updateUrl = "";
 
-    //public static Activity loginActivity;
+    // 자동 로그인 체크 값
+    private boolean isLoginCheck;
 
 
 
@@ -106,6 +108,21 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         idEt = (EditText) findViewById(R.id.user_id_et);
         // 비밀번호 입력
         pwEt = (EditText) findViewById(R.id.user_pwd_et);
+
+        // 자동 로그인 확인
+        isLoginCheck = PreferenceManager.getInstance().getCheckLogin();
+
+        if (isLoginCheck) {
+            // 아이디 셋팅
+            idEt.setText(PreferenceManager.getInstance().getUserId());
+            // 패스워드 셋팅
+            pwEt.setText(PreferenceManager.getInstance().getUserPwd());
+
+            if(!TextUtils.isEmpty(PreferenceManager.getInstance().getUserId()) && !TextUtils.isEmpty(PreferenceManager.getInstance().getUserPwd()))
+            {
+                requestLogin();
+            }
+        }
 
         // 비밀번호 입력 후 확인 버튼 클릭 시
         pwEt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -302,6 +319,12 @@ it =>  {"login": [{"REGISTER":"1","CAUSE":"비밀번호 오류","MEMBER_NO":"123
             if(pi.versionName.equals(voLoginItem.VERSION)) {
                 if ("0".equals(voLoginItem.REGISTER) && !TextUtils.isEmpty(voLoginItem.MEMBER_NO)) {
                     try {
+                        PreferenceManager.getInstance().setCheckLogin(true);
+                        // 아이디 셋팅
+                        PreferenceManager.getInstance().setUserId(idEt.getText().toString().trim());
+                        // 패스워드 셋팅
+                        PreferenceManager.getInstance().setUserPwd(pwEt.getText().toString().trim());
+
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();

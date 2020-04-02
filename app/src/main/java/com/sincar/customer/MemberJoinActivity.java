@@ -38,10 +38,13 @@ public class MemberJoinActivity extends Activity implements View.OnClickListener
     private EditText join_user_phone;
     //===================== 뷰 =====================
 
+    public static MemberJoinActivity _memberJoinActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.member_join_phone);
+        _memberJoinActivity = MemberJoinActivity.this;
 
         findViewById(R.id.btnPrev).setOnClickListener(this);
         login_join_btn = (Button) findViewById(R.id.login_join_btn);

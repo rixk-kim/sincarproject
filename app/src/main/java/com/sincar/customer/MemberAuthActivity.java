@@ -49,12 +49,14 @@ public class MemberAuthActivity extends Activity implements View.OnClickListener
     private final int MILLISINFUTURE = 120 * 1000; //총 시간 (120초 = 2분)
     private final int COUNT_DOWN_INTERVAL = 1000; //onTick 메소드를 호출할 간격 (1초)
     //===================== 뷰 =====================
+    public static MemberAuthActivity _memberAuthActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.member_join_auth);
         AContext = this;
+        _memberAuthActivity = MemberAuthActivity.this;
 
         Intent intent = getIntent(); /*데이터 수신*/
         phone_number  = intent.getExtras().getString("phone_number");       /*String형*/

@@ -119,7 +119,7 @@ public class MyProfileSettingsRecomActivity extends AppCompatActivity implements
             case R.id.chu_code_btn:
                 //  TODO - 추천 코드 전송하기
                 if (chu_code != null || chu_code.getText().toString().trim().length() != 0) {
-                    if (chu_code.getText().toString().trim().length() == 0) {
+                    if (chu_code.getText().toString().trim().length() != 6) {
                         showAlert();
                         return;
                     }
@@ -190,7 +190,7 @@ public class MyProfileSettingsRecomActivity extends AppCompatActivity implements
     private void showAlert() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // 메세지
-        String errorMsg = "코드를 입력해주세요";
+        String errorMsg = "코드 6자리를 입력해주세요";
         builder.setTitle(getString(R.string.notice));
         builder.setMessage(errorMsg);
         builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {

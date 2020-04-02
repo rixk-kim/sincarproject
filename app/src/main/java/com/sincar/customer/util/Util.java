@@ -9,6 +9,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
@@ -17,6 +19,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.sincar.customer.R;
 
@@ -36,6 +39,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * 2020. 02. 17 박정기
@@ -73,6 +78,11 @@ public class Util {
 
     //progress
     public static LoadingProgress mProgress;
+    private static Timer timer;
+
+    public static final int TYPE_WIFI = 1;
+    public static final int TYPE_MOBILE = 2;
+    public static final int TYPE_NOT_CONNECTED = 3;
 
     /**
      * 현재 년도 리턴
@@ -195,6 +205,36 @@ public class Util {
     }
 
     /**
+     * 현재 년월일분초 리턴
+     *
+     * @param
+     * @param
+     */
+    public static String getYearMonthDay1() {
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat mFormat = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
+
+        String tmp_hour = mFormat.format(currentTime);
+
+        return tmp_hour;
+    }
+
+    /**
+     * 현재 년월일 리턴
+     *
+     * @param
+     * @param
+     */
+    public static String getYearMonthDay2() {
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat mFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+
+        String tmp_hour = mFormat.format(currentTime);
+
+        return tmp_hour;
+    }
+
+    /**
      * 버전 정보 리턴
      *
      * @return
@@ -215,7 +255,7 @@ public class Util {
      * @return
      */
     public static String makeDirectory() {
-        String path = Environment.getExternalStorageDirectory() + "/DANO/";
+        String path = Environment.getExternalStorageDirectory() + "/sincar/";
         File file = new File(path);
         if (!file.exists())
             file.mkdirs();
@@ -479,37 +519,35 @@ public class Util {
     /**
      * 프로그래스 다이얼로그 보여주기
      */
-    public static void showDialog(Context mContext) {
-//        try {
-//            if (mProgressDialog != null) {
-//                mProgressDialog.dismiss();
-//                mProgressDialog = null;
-//            }
-//            mProgressDialog = new ProgressDialog(mContext);
-//            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//           // mProgressDialog.setMessage(mContext.getString(R.string.connect_server_msg));
-//            mProgressDialog.setCancelable(false);
-//            mProgressDialog.show();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+    public static void showDialog(final Context mContext) {
         //네트웍 연결상태 체크하여 연결된 네트웍이 있을때만 진행.
-//        String acc_type = DAPPreference.get(this,Constants.PREFERENCE_ACC_TYPE,"");
-//        if(!TextUtils.isEmpty(acc_type) && !"Unknown".equals(acc_type)) {
-//        if (mProgress == null) {
-        mProgress =null;
-        mProgress = new LoadingProgress(mContext);
-//        }
+        if(getConnectivityStatus(mContext) < 3) {
+            mProgress = null;
+            mProgress = new LoadingProgress(mContext);
 
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    mProgress.show();
 
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                mProgress.show();
-            }
-        });
-        //       }
+                    TimerTask task = new TimerTask() {
+                        @Override
+                        public void run() {
+                            dismiss();
+                        }
+                    };
+
+                    //Timer timer = new Timer();
+                    timer = new Timer();
+                    timer.schedule(task, 60000);
+
+                    //timer.cancel();
+                }
+            });
+        }else{
+            Toast.makeText(mContext, "네트웍 설정을 확인한 후 다시 시도하세요.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -527,6 +565,10 @@ public class Util {
         if(mProgress!=null){
             mProgress.dismiss();
             mProgress = null;
+        }
+
+        if(timer!=null) {
+            timer.cancel();
         }
     }
 
@@ -559,5 +601,20 @@ public class Util {
         if(mProgress!=null){
             mProgress.dismiss();
         }
+    }
+
+    public static int getConnectivityStatus(Context context){ //해당 context의 서비스를 사용하기위해서 context객체를 받는다.
+        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+        if(networkInfo != null){
+            int type = networkInfo.getType();
+            if(type == ConnectivityManager.TYPE_MOBILE){//쓰리지나 LTE로 연결된것(모바일을 뜻한다.)
+                return TYPE_MOBILE;
+            }else if(type == ConnectivityManager.TYPE_WIFI){//와이파이 연결된것
+                return TYPE_WIFI;
+            }
+        }
+        return TYPE_NOT_CONNECTED;  //연결이 되지않은 상태
     }
 }

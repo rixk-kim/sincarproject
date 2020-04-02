@@ -32,36 +32,6 @@ public class PreferenceManager {
         preferenceData = PreferenceData.newInstance(mContext);
     }
 
-    // uuid
-    public void setDeviceUUID(String uuid) {
-        preferenceData.putString("UUID", uuid);
-    }
-
-    // uuid
-    public String getDeviceUUID() {
-        return preferenceData.getString("UUID", "");
-    }
-
-    // 업체 코드 셋팅
-    public void setCompanyCode(String code) {
-        preferenceData.putString("COMPANY_CODE", code);
-    }
-
-    // 업체 코드 확인
-    public String getCompanyCode() {
-        return preferenceData.getString("COMPANY_CODE", "");
-    }
-
-    // 업체 명 셋팅
-    public void setCompanyName(String name) {
-        preferenceData.putString("COMPANY_NAME", name);
-    }
-
-    // 업체 명 확인
-    public String getCompanyName() {
-        return preferenceData.getString("COMPANY_NAME", "");
-    }
-
     // 자동 로그인 셋팅
     public void setCheckLogin(boolean isAutoLogin) {
         preferenceData.putBoolean("AUTO_LOGIN", isAutoLogin);
@@ -91,54 +61,6 @@ public class PreferenceManager {
     public String getUserPwd() {
         return preferenceData.getString("USER_PWD", "");
     }
-
-//    // 화면 꺼짐 셋팅
-//    public void setDisplayMode(Boolean display_mode) {
-//        preferenceData.putBoolean("DISPLAY_MODE", display_mode);
-//    }
-//
-//    // 화면 꺼짐 확인
-//    public Boolean getDisplayMode() {
-//        return preferenceData.getBoolean("DISPLAY_MODE", false);
-//    }
-//
-//    // 주야간 모드 셋팅
-//    public void setSunsetMode(Boolean mode) {
-//        preferenceData.putBoolean("SUNSET_MODE", mode);
-//    }
-//
-//    // 주야간 모드 확인
-//    public Boolean getSunsetMode() {
-//        return preferenceData.getBoolean("SUNSET_MODE", false);
-//    }
-//
-//
-//    // 폰트 크기 셋팅
-//    public void setFont(String font_level) {
-//        preferenceData.putString("FONT_LEVEL", font_level);
-//    }
-//
-//    // 폰트 크기 확인
-//    public String getFont() {
-//        String value = preferenceData.getString("FONT_LEVEL", "");
-//        if (TextUtils.isEmpty(value)) {
-//            return "1";
-//        }else {
-//            return value;
-//        }
-//    }
-//
-//    // 자동 수신 셋팅
-//    public void setAutoReceive (String auto_time ) {
-//        preferenceData.putString("AUTO_RECEIVE" , auto_time);
-//    }
-//
-//    // 자동 수신 확인
-//    public String getAutoReceive () {
-//        return preferenceData.getString("AUTO_RECEIVE", "");
-//    }
-
-
 
     // 사용자 고유키
     public void setUid(String uid) {

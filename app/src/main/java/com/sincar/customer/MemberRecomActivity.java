@@ -25,11 +25,13 @@ public class MemberRecomActivity extends Activity implements View.OnClickListene
     private Button login_join_btn;
     private EditText recom_code;
     private String phone_number, password, nickname;
+    public static MemberRecomActivity _memberRecomActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.member_join_recom);
+        _memberRecomActivity = MemberRecomActivity.this;
 
         Intent intent = getIntent(); /*데이터 수신*/
         phone_number    = intent.getExtras().getString("phone_number");   /*String형*/
@@ -48,10 +50,9 @@ public class MemberRecomActivity extends Activity implements View.OnClickListene
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     // 유효성 체크 요청
-                    if(!TextUtils.isEmpty(recom_code.getText().toString().trim()))
+                    if(!TextUtils.isEmpty(recom_code.getText().toString().trim()) && recom_code.getText().toString().trim().length() == 6)
                     {
                         //약관페이지로 이동
-                        //추천인 코드로 이동
                         Intent intent = new Intent(MemberRecomActivity.this, com.sincar.customer.MemberJoinTermsActivity.class);
                         intent.putExtra("phone_number", phone_number);
                         intent.putExtra("password", password);
@@ -59,7 +60,7 @@ public class MemberRecomActivity extends Activity implements View.OnClickListene
                         intent.putExtra("recommand", recom_code.getText().toString().trim());   // 추천인 코드
                         startActivity(intent);
                     }else{
-                        Toast.makeText(MemberRecomActivity.this, "추천인 코드를 입력 해주세요.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MemberRecomActivity.this, "추천인 코드 6자리를 입력 해주세요.", Toast.LENGTH_SHORT).show();
                     }
                 }
                 return false;
@@ -76,7 +77,7 @@ public class MemberRecomActivity extends Activity implements View.OnClickListene
                 break;
 
             case R.id.recom_join_btn:
-                if(!TextUtils.isEmpty(recom_code.getText().toString().trim()))
+                if(!TextUtils.isEmpty(recom_code.getText().toString().trim()) && recom_code.getText().toString().trim().length() == 6)
                 {
                     //약관페이지로 이동
                     //추천인 코드로 이동
@@ -87,7 +88,7 @@ public class MemberRecomActivity extends Activity implements View.OnClickListene
                     intent.putExtra("recommand", recom_code.getText().toString().trim());   // 추천인 코드
                     startActivity(intent);
                 }else{
-                    Toast.makeText(MemberRecomActivity.this, "추천인 코드를 입력 해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MemberRecomActivity.this, "추천인 코드 6자리를 입력 해주세요.", Toast.LENGTH_SHORT).show();
                 }
                 break;
 

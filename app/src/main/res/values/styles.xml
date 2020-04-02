@@ -22,7 +22,7 @@
     <style name="main_menu_button_style">
         <item name="android:layout_width">148dp</item>
         <item name="android:layout_height">96dp</item>
-        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingTop">6dp</item>
         <item name="android:textSize">13.5sp</item>
         <item name="android:textColor">#3e3e3e</item>
         <item name="android:lineSpacingExtra">12.5sp</item>

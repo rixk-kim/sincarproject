@@ -138,7 +138,11 @@ public class ReservationTimeActivity extends AppCompatActivity
                     if(!TextUtils.isEmpty(item.RESERVE_TIME)) {
                         int cTime = Util.getHour();
                         String sTime = item.RESERVE_TIME.substring(0,2);
-                        if (cTime < Integer.parseInt(sTime)) {
+
+                        int compare = Util.getYearMonthDay2().compareTo(reserve_year+reserve_month+reserve_day);
+                        //if(Integer.parseInt(reserve_year) >= Util.getYear() && Integer.parseInt(reserve_month) >= Util.getMonth() && Integer.parseInt(reserve_day) >= Util.getDay()){
+             //           if (cTime < Integer.parseInt(sTime)) {
+                        if(compare < 0){
                             reserve_info.add(new TimeContent.TimeItem(
                                     i,
                                     j++,
@@ -147,13 +151,24 @@ public class ReservationTimeActivity extends AppCompatActivity
                                     false
                             ));
                         } else {
-                            reserve_info.add(new TimeContent.TimeItem(
-                                    i,
-                                    j++,
-                                    item.RESERVE_TIME,
-                                    "N",
-                                    false
-                            ));
+                            if( cTime < Integer.parseInt(sTime))
+                            {
+                                reserve_info.add(new TimeContent.TimeItem(
+                                        i,
+                                        j++,
+                                        item.RESERVE_TIME,
+                                        item.RESERVE_STATUS,
+                                        false
+                                ));
+                            }else {
+                                reserve_info.add(new TimeContent.TimeItem(
+                                        i,
+                                        j++,
+                                        item.RESERVE_TIME,
+                                        "N",
+                                        false
+                                ));
+                            }
                         }
                     }
                 }

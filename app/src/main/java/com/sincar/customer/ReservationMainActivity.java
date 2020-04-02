@@ -129,83 +129,8 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
         findViewById(R.id.btnCarModify).setOnClickListener(this);
         findViewById(R.id.btnCarRegister).setOnClickListener(this);
 
-        // TODO - 서버 연동 후 PointContent.ITEMS에 리스 항목 추가 작업
+        // 서버 연동 후 PointContent.ITEMS에 리스 항목 추가 작업
         requestNoticeList();
-        // Set the adapter - 포인트 리스트 설정
-//        String serverData = "{\"add_service\": [{\"CAR_SEQ\":\"\",\"CAR_COMPANY\":\"\",\"CAR_MODEL\":\"\",\"CAR_NUMBER\":\"\",\"CAR_PAY\":\"\"}],\n" +
-//                "\"DATA\":[{\"SERVICE_NAME\":\"가니쉬 코팅\",\"SERVICE_DETAIL\":\"가니쉬란 어쩌구 저쩌구\",\"USE_PAY\":\"6000\"},{\"SERVICE_NAME\":\"에머랄드 코팅\",\"SERVICE_DETAIL\":\"가니쉬란 어쩌구 저쩌구\",\"USE_PAY\":\"5000\"},{\"SERVICE_NAME\":\"엔진룸 세척\",\"SERVICE_DETAIL\":\"가니쉬란 어쩌구 저쩌구\",\"USE_PAY\":\"6000\"}]}";
-
-//        String serverData = "{\"add_service\": [{\"CAR_SEQ\":\"\",\"CAR_COMPANY\":\"\",\"CAR_MODEL\":\"\",\"CAR_NUMBER\":\"\",\"CAR_PAY\":\"\"}],\n" +
-//                "\"DATA\":[]}";
-
-
-//        Gson gSon = new Gson();
-//        optionResult = gSon.fromJson(serverData, OptionResult.class);
-//
-//        voOptionItem.CAR_SEQ              = optionResult.add_service.get(0).CAR_SEQ;
-//        voOptionItem.CAR_COMPANY          = optionResult.add_service.get(0).CAR_COMPANY;
-//        voOptionItem.CAR_MODEL            = optionResult.add_service.get(0).CAR_MODEL;
-//        voOptionItem.CAR_NUMBER           = optionResult.add_service.get(0).CAR_NUMBER;
-//        voOptionItem.CAR_PAY              = optionResult.add_service.get(0).CAR_PAY;
-//
-//        car_name_str.setText(voOptionItem.CAR_COMPANY + voOptionItem.CAR_MODEL);
-//        car_number_str.setText(voOptionItem.CAR_NUMBER);
-//
-//        // TODO - 등록된 차량 정보 확인하여 필요한 레이아웃 visible 및 이벤트 핸들러 추가하기
-//        boolean isCarRegistered = false;
-//
-//        if(TextUtils.isEmpty(voOptionItem.CAR_COMPANY) || TextUtils.isEmpty(voOptionItem.CAR_MODEL))
-//        {
-//            isCarRegistered = true;
-//        }
-//
-//        if (!isCarRegistered) {
-//            findViewById(R.id.car_register_layout).setVisibility(View.GONE);
-//            findViewById(R.id.car_modify_layout).setVisibility(View.VISIBLE);
-//
-////            ((TextView)findViewById(R.id.car_name_str)).setText("");
-////            ((TextView)findViewById(R.id.car_number_str)).setText("");
-//
-//            findViewById(R.id.btnCarModify).setOnClickListener(this);
-//        } else {
-//            findViewById(R.id.car_register_layout).setVisibility(View.VISIBLE);
-//            findViewById(R.id.car_modify_layout).setVisibility(View.GONE);
-//
-//            findViewById(R.id.btnCarRegister).setOnClickListener(this);
-//        }
-//
-//        voOptionDataItem     = optionResult.DATA;
-//
-//        List<OptionContent.OptionItem> ITEMS = new ArrayList<OptionContent.OptionItem>();
-//
-//        for(int i = 0; i < voOptionDataItem.size(); i++) {
-//            OptionContent.addItem(new OptionContent.OptionItem(
-//                    i,
-//                    voOptionDataItem.get(i).SEQ,
-//                    voOptionDataItem.get(i).SERVICE_NAME,
-//                    voOptionDataItem.get(i).SERVICE_DETAIL,
-//                    voOptionDataItem.get(i).USE_PAY,
-//                    false
-//            ));
-//        }
-//
-//        View view = findViewById(R.id.optionServiceList);
-//        if(voOptionDataItem.size() > 0) {
-//
-//            view.setVisibility(View.VISIBLE);
-//            emptyView.setVisibility(View.GONE);
-//
-//            if (view instanceof RecyclerView) {
-//                Context context = view.getContext();
-//                RecyclerView recyclerView = (RecyclerView) view;
-//
-//                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-//                recyclerView.setAdapter(new OptionServiceRecyclerViewAdapter(OptionContent.ITEMS));
-//            }
-//        }else{
-//            view.setVisibility(View.GONE);
-//            emptyView.setVisibility(View.VISIBLE);
-//        }
     }
 
     /**
@@ -250,7 +175,7 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
             if(!TextUtils.isEmpty(voOptionItem.CAR_NUMBER)) reserve_carnumber   = voOptionItem.CAR_NUMBER;    //차번호
             if(!TextUtils.isEmpty(voOptionItem.CAR_PAY)) car_wash_pay        = voOptionItem.CAR_PAY;       //기본세차비용
 
-            // TODO - 등록된 차량 정보 확인하여 필요한 레이아웃 visible 및 이벤트 핸들러 추가하기
+            // 등록된 차량 정보 확인하여 필요한 레이아웃 visible 및 이벤트 핸들러 추가하기
             boolean isCarRegistered = false;
 
             if(TextUtils.isEmpty(voOptionItem.CAR_COMPANY) || TextUtils.isEmpty(voOptionItem.CAR_MODEL))
@@ -302,7 +227,7 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
                     recyclerView.setAdapter(new OptionServiceRecyclerViewAdapter(OptionContent.ITEMS));
                 }
             }else{
-                // TODO - 데이타 없을 때 화면 UI 추가
+                // 데이타 없을 때 화면 UI 추가
 //                LinearLayout view = findViewById(R.id.use_history_empty);
 //                view.setVisibility(View.VISIBLE);
                 view.setVisibility(View.GONE);

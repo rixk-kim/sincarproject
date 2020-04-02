@@ -48,6 +48,9 @@ public class ReservationCalendarActivity extends AppCompatActivity implements Vi
         reserve_year    = String.valueOf(today.year);
         reserve_month   = String.valueOf(today.month + 1);
         reserve_day     = String.valueOf(today.monthDay);
+
+        if(reserve_month.length() < 2) reserve_month = "0" + reserve_month;
+        if(reserve_day.length() < 2) reserve_day = "0" + reserve_day;
     }
 
     /**
@@ -77,6 +80,9 @@ public class ReservationCalendarActivity extends AppCompatActivity implements Vi
                 reserve_year    = String.valueOf(year);
                 reserve_month   = String.valueOf(month + 1);
                 reserve_day     = String.valueOf(dayOfMonth);
+
+                if(reserve_month.length() < 2) reserve_month = "0" + reserve_month;
+                if(reserve_day.length() < 2) reserve_day = "0" + reserve_day;
 
 //                Toast.makeText(calContext, "" + year + "/" +
 //                        (month + 1) + "/" + dayOfMonth, Toast.LENGTH_LONG).show();

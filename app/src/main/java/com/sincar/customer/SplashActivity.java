@@ -64,16 +64,16 @@ public class SplashActivity extends Activity {
         String uuid = "";
 
         try {
-            uuid = PreferenceManager.getInstance().getDeviceUUID();
-
-            // 생성한 UUID 가 존재 하지 않을 경우 신규 생성
-            if (uuid == null || uuid.trim().toString().length() == 0) {
-                // UUID 신규 생성
-                uuid = createUuid();
-            }
-
-            // 생성된 UUID 저장
-            PreferenceManager.getInstance().setDeviceUUID(uuid);
+//            uuid = PreferenceManager.getInstance().getDeviceUUID();
+//
+//            // 생성한 UUID 가 존재 하지 않을 경우 신규 생성
+//            if (uuid == null || uuid.trim().toString().length() == 0) {
+//                // UUID 신규 생성
+//                uuid = createUuid();
+//            }
+//
+//            // 생성된 UUID 저장
+//            PreferenceManager.getInstance().setDeviceUUID(uuid);
 
             // 기본 체크
             //checkApp(uuid);
@@ -94,38 +94,38 @@ public class SplashActivity extends Activity {
      * UUID 신규 생성
      * @return uuid
      */
-    private String createUuid() {
-        final String id = (PreferenceManager.getInstance().getDeviceUUID() == null ? "" : PreferenceManager.getInstance().getDeviceUUID());
-        UUID uuid = null;
-        if (id == "") {
-            final String androidId = Settings.Secure.getString(SplashActivity.this.getContentResolver(), Settings.Secure.ANDROID_ID);
-            try {
-                if (!"9774d56d682e549c".equals(androidId)) {
-                    uuid = UUID.nameUUIDFromBytes(androidId.getBytes("utf8"));
-                } else {
-                    //final String deviceId = ((TelephonyManager) SplashActivity.this.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
-                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-                        // TODO: Consider calling
-                        //    ActivityCompat#requestPermissions
-                        // here to request the missing permissions, and then overriding
-                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                        //                                          int[] grantResults)
-                        // to handle the case where the user grants the permission. See the documentation
-                        // for ActivityCompat#requestPermissions for more details.
-                        return null;
-                    }
-                    final String deviceId = ((TelephonyManager) SplashActivity.this.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
-                    uuid = deviceId != null ? UUID.nameUUIDFromBytes(deviceId.getBytes("utf8")) : UUID.randomUUID();
-                }
-            } catch (UnsupportedEncodingException e) {
-                throw new RuntimeException(e);
-            }
-            PreferenceManager.getInstance().setDeviceUUID(uuid.toString());
-        } else {
-            return id;
-        }
-        return uuid.toString();
-    }
+//    private String createUuid() {
+//        final String id = (PreferenceManager.getInstance().getDeviceUUID() == null ? "" : PreferenceManager.getInstance().getDeviceUUID());
+//        UUID uuid = null;
+//        if (id == "") {
+//            final String androidId = Settings.Secure.getString(SplashActivity.this.getContentResolver(), Settings.Secure.ANDROID_ID);
+//            try {
+//                if (!"9774d56d682e549c".equals(androidId)) {
+//                    uuid = UUID.nameUUIDFromBytes(androidId.getBytes("utf8"));
+//                } else {
+//                    //final String deviceId = ((TelephonyManager) SplashActivity.this.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+//                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+//                        // TODO: Consider calling
+//                        //    ActivityCompat#requestPermissions
+//                        // here to request the missing permissions, and then overriding
+//                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//                        //                                          int[] grantResults)
+//                        // to handle the case where the user grants the permission. See the documentation
+//                        // for ActivityCompat#requestPermissions for more details.
+//                        return null;
+//                    }
+//                    final String deviceId = ((TelephonyManager) SplashActivity.this.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+//                    uuid = deviceId != null ? UUID.nameUUIDFromBytes(deviceId.getBytes("utf8")) : UUID.randomUUID();
+//                }
+//            } catch (UnsupportedEncodingException e) {
+//                throw new RuntimeException(e);
+//            }
+//            PreferenceManager.getInstance().setDeviceUUID(uuid.toString());
+//        } else {
+//            return id;
+//        }
+//        return uuid.toString();
+//    }
 
     /**
      * 앱 종료

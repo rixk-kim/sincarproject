@@ -40,11 +40,14 @@ public class PasswordChangeActivity extends AppCompatActivity implements View.On
     private Context pContext;
     private String path;
     private String phone_number;
+    public static PasswordChangeActivity _passwordChangeActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_change);
         pContext = this;
+        _passwordChangeActivity = PasswordChangeActivity.this;
 
         Intent intent = getIntent(); /*데이터 수신*/
         path  = intent.getExtras().getString("path");       /*String형*/

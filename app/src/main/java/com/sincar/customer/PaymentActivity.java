@@ -54,11 +54,12 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     private String car_number = "";      //차번호
     private String car_wash_pay = "";    //차량 기본 세차 금액
 
-    private int total_amt = 0;      //세차비용
+    private int total_amt = 0;          //세차비용
     private int use_coupone_seq = 0;    //사용 쿠폰
     private int use_coupone_pay = 0;    //쿠폰 비용
     private int use_my_point = 0;       //사용 포인트
     private String car_wash_option = ""; //옵션
+    private int car_wash_option_pay = 0;    //옵션비용
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +117,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         clause_agree = (CheckBox) findViewById(R.id.clause_agree);
         mButton = (Button) findViewById(R.id.reserve_confirm_btn);
         mButton.setOnClickListener(this);
-        mButton.setText("결재하기");
+        mButton.setText("결제하기");
 
         //포인트
         my_point = (TextView) findViewById(R.id.my_point);
@@ -131,30 +132,62 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     // 확인 버튼 눌렀을 때
                     String value = use_point.getText().toString().trim();
+                    //특정 문자열 제거(, / 원)
+                    value = value.replaceAll(",","");
+                    value = value.replaceAll("원","");
+                    if(!TextUtils.isEmpty(value))
+                    {
+                        int mPoint = Integer.parseInt(voLoginItem.MY_POINT);    //내 포인트
+                        int input_point = Integer.parseInt(value);              //사용 포인트
 
-                    int mPoint = Integer.parseInt(voLoginItem.MY_POINT);    //내 포인트
-                    int input_point = Integer.parseInt(value);
+                        //car_wash_pay  -> 기본 세차비용
+                        //use_coupone_pay -> 쿠폰 비용
 
-                    if (input_point <= mPoint) {
-                        if (input_point >= total_amt) {
-                            use_my_point = input_point - total_amt;
-                        } else {
-                            use_my_point = input_point;
+                        if(input_point > mPoint)
+                        {
+                            //보유 포인트보다 크게 입력한 상태
+                            Toast.makeText(PaymentActivity.this, "보유 포인트보다 초과 입력하였습니다.", Toast.LENGTH_LONG).show();
+                            use_point.setText("0원");
+                            mButton.setText(setAddMoneyDot(String.valueOf(Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay)) + "원 결재하기");
+                        }else{
+                            if(input_point > (Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay))
+                            {
+                                //입력 포인트가 기본 비용보다 클경우
+                                int pay_result = input_point - (Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay);
+                                use_point.setText(setAddMoneyDot(String.valueOf(Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay)) + "원");
+                                mButton.setText("0원 결제하기");
+                            }else{
+                                int pay_result = (Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay) - input_point;
+                                use_point.setText(setAddMoneyDot(String.valueOf(input_point)) + "원");
+                                mButton.setText(setAddMoneyDot(String.valueOf(pay_result)) + "원 결재하기");
+                            }
                         }
-//                        my_point.setText(setAddMoneyDot(String.valueOf(mPoint-input_point)) + "원 보유");
-                        use_point.setText(setAddMoneyDot(String.valueOf(use_my_point)) + "원");
-                        use_point.setSelection(use_point.getText().toString().trim().length()); //커서를 끝에 위치!
-                        total_amt -= use_my_point;
-                        mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결재하기");
-                    } else {
-                        Toast.makeText(PaymentActivity.this, "포인트를 초과 사용하였습니다.", Toast.LENGTH_LONG).show();
                     }
+
+
+//                    int mPoint = Integer.parseInt(voLoginItem.MY_POINT);    //내 포인트
+//                    int input_point = Integer.parseInt(value);
+//
+//                    if (input_point <= mPoint) {
+//                        if (input_point >= total_amt) {
+//                            use_my_point = input_point - total_amt;
+//                        } else {
+//                            use_my_point = input_point;
+//                        }
+////                        my_point.setText(setAddMoneyDot(String.valueOf(mPoint-input_point)) + "원 보유");
+//                        use_point.setText(setAddMoneyDot(String.valueOf(use_my_point)) + "원");
+//                        use_point.setSelection(use_point.getText().toString().trim().length()); //커서를 끝에 위치!
+//                        total_amt -= use_my_point;
+//                        mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결재하기");
+//                    } else {
+//                        Toast.makeText(PaymentActivity.this, "포인트를 초과 사용하였습니다.", Toast.LENGTH_LONG).show();
+//                    }
                 }
                 return false;
             }
         });
 
-        // TODO - 서버 연동 후 PointContent.ITEMS에 리스 항목 추가 작업
+        // 서버 연동 후 PointContent.ITEMS에 리스 항목 추가 작업
         ChargeContent.clearItem(); //초기화
 
        //ChargeItem(0,"스팀세차 내부/외부 (소형)", "50,000원");
@@ -165,6 +198,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
             if(OptionContent.ITEMS.get(i).checked) {
                 ChargeContent.addItem(new ChargeContent.ChargeItem(i+1, OptionContent.ITEMS.get(i).option_name, OptionContent.ITEMS.get(i).option_pay));
                 total_amt += Integer.parseInt(OptionContent.ITEMS.get(i).option_pay);
+                car_wash_option_pay += Integer.parseInt(OptionContent.ITEMS.get(i).option_pay);
 
                 if(i+1 >= OptionContent.ITEMS.size()) {
                     car_wash_option += OptionContent.ITEMS.get(i).option_name;
@@ -186,7 +220,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
             recyclerView.setAdapter(new ChargeContentRecyclerViewAdapter(ChargeContent.ITEMS));
         }
 
-        mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결재하기");
+        mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결제하기");
     }
 
     @Override
@@ -207,7 +241,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                     coupone_seq = "";
 
                     amount_TextView.setText(String.valueOf(use_coupone_pay) + "원");
-                    mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결재하기");
+                    mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결제하기");
                     Toast.makeText(PaymentActivity.this, "쿠폰 금액 조정", Toast.LENGTH_SHORT).show();
                 }
 
@@ -237,7 +271,21 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 //                    bundle.putString("car_wash_pay", car_wash_pay);         //차량 기본 세차 금액
                     bundle.putString("use_my_point", String.valueOf(use_my_point));         //사용 포인트
                     bundle.putString("use_coupone_seq", coupone_seq);                       //사용 쿠폰 seq
-                    bundle.putString("total_amt", String.valueOf(total_amt));               //총 결제 금액
+
+                    //car_wash_option_pay => 부가서비스 비용
+                    String tmp_value = use_point.getText().toString().trim();
+                    int input_point = 0;
+                    //특정 문자열 제거(, / 원)
+                    tmp_value = tmp_value.replaceAll(",","");
+                    tmp_value = tmp_value.replaceAll("원","");
+                    if(!TextUtils.isEmpty(tmp_value)) {
+                        input_point = Integer.parseInt(tmp_value);              //사용 포인트
+                    }
+
+                    int reserve_pay = Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay - input_point;
+                    if(reserve_pay < 0) reserve_pay = 0;
+
+                    bundle.putString("total_amt", String.valueOf(reserve_pay));               //총 결제 금액
 
                     //부가서비스
                     intent.putExtras(bundle);
@@ -247,24 +295,34 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                 }
 
                 break;
-            case R.id.btnPointUse:
-                //포인트 전액 사용하기
-                //my_point.setText(Util.setAddMoneyDot(voLoginItem.MY_POINT) + "원 보유");
-                //total_amt -= Integer.parseInt(data.getStringExtra("coupone_pay"));
-                int mPoint = Integer.parseInt(voLoginItem.MY_POINT);
-                if(use_my_point < mPoint) {
-                    if (mPoint >= total_amt) {
-                        use_my_point = mPoint - total_amt;
-                    } else {
-                        use_my_point = mPoint;
-                    }
-                    my_point.setText("0원 보유");
-                    use_point.setText(String.valueOf(use_my_point) + "원");
-                    total_amt -= use_my_point;
-                    mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결재하기");
+            case R.id.btnPointUse:  //포인트 전액 사용하기
+                int mPoint = Integer.parseInt(voLoginItem.MY_POINT);    //내포인트
+
+                if(mPoint > (Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay))
+                {
+                    //내 포인트가 기본 비용보다 클경우
+                    int pay_result = mPoint - (Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay);
+                    use_point.setText(setAddMoneyDot(String.valueOf(Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay)) + "원");
+                    mButton.setText("0원 결재하기");
                 }else{
-                    Toast.makeText(PaymentActivity.this, "포인트 전액 사용하였습니다.", Toast.LENGTH_LONG).show();
+                    int pay_result = (Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay) - mPoint;
+                    use_point.setText(setAddMoneyDot(String.valueOf(mPoint)) + "원");
+                    mButton.setText(setAddMoneyDot(String.valueOf(pay_result)) + "원 결제하기");
                 }
+
+//                if(use_my_point < mPoint) {
+//                    if (mPoint >= total_amt) {
+//                        use_my_point = mPoint - total_amt;
+//                    } else {
+//                        use_my_point = mPoint;
+//                    }
+//                    my_point.setText("0원 보유");
+//                    use_point.setText(String.valueOf(use_my_point) + "원");
+//                    total_amt -= use_my_point;
+//                    mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결재하기");
+//                }else{
+//                    Toast.makeText(PaymentActivity.this, "포인트 전액 사용하였습니다.", Toast.LENGTH_LONG).show();
+//                }
                 break;
 
             case R.id.btnCancelDesc:
@@ -296,15 +354,15 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                             int input_point = Integer.parseInt(value);
 
                             if (input_point <= mPoint) {
-                                if (input_point >= total_amt) {
-                                    use_my_point = input_point - total_amt;
+                                if (input_point >= (Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay)) {
+                                    use_my_point = input_point - (Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay);
                                 } else {
                                     use_my_point = input_point;
                                 }
                                 my_point.setText(String.valueOf(mPoint-input_point) + "원 보유");
                                 use_point.setText(String.valueOf(use_my_point) + "원");
                                 total_amt -= use_my_point;
-                                mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결재하기");
+                                mButton.setText(setAddMoneyDot(String.valueOf((Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay))) + "원 결재하기");
                             } else {
                                 Toast.makeText(PaymentActivity.this, "포인트를 초과 사용하였습니다.", Toast.LENGTH_LONG).show();
                             }
@@ -353,12 +411,37 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         if (requestCode == PAYMENT_REQ_CODE) {
             if (resultCode == RESULT_OK) {
                 if(!TextUtils.isEmpty(data.getStringExtra("coupone_pay"))) {
-                    use_coupone_pay = Integer.parseInt(data.getStringExtra("coupone_pay"));
-                    amount_TextView.setText(String.valueOf(use_coupone_pay) + "원");
-                    coupone_seq = data.getStringExtra("coupone_seq");
+                    String value = use_point.getText().toString().trim();
+                    int input_point = 0;
+                    //특정 문자열 제거(, / 원)
+                    value = value.replaceAll(",","");
+                    value = value.replaceAll("원","");
+                    if(!TextUtils.isEmpty(value))
+                    {
+                        input_point = Integer.parseInt(value);              //사용 포인트
+                    }
 
-                    total_amt -= Integer.parseInt(data.getStringExtra("coupone_pay"));
-                    mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결재하기");
+                    use_coupone_pay = Integer.parseInt(data.getStringExtra("coupone_pay"));
+
+                    if((input_point + use_coupone_pay) > (Integer.parseInt(car_wash_pay) + car_wash_option_pay))
+                    {
+                        amount_TextView.setText(String.valueOf(use_coupone_pay) + "원");
+                        coupone_seq = data.getStringExtra("coupone_seq");
+
+                        mButton.setText("0원 결제하기");
+                    }else{
+                        amount_TextView.setText(String.valueOf(use_coupone_pay) + "원");
+                        coupone_seq = data.getStringExtra("coupone_seq");
+                        int total_amount = (Integer.parseInt(car_wash_pay) + car_wash_option_pay) - (input_point + use_coupone_pay);
+                        mButton.setText(setAddMoneyDot(String.valueOf(total_amount)) + "원 결제하기");
+
+                        //mButton.setText(setAddMoneyDot(String.valueOf(Integer.parseInt(car_wash_pay) - (input_point + use_coupone_pay))) + "원 결제하기");
+                    }
+
+
+
+                    //total_amt -= Integer.parseInt(data.getStringExtra("coupone_pay"));
+                    //mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결재하기");
 //                    Toast.makeText(PaymentActivity.this, "Result: " + data.getStringExtra("coupone_seq"), Toast.LENGTH_SHORT).show();
                 }
             } else {   // RESULT_CANCEL

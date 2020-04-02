@@ -329,6 +329,22 @@ public class MemberJoinTermsActivity extends Activity implements View.OnClickLis
             if("0".equals(voJoinItem.JOIN_RESULT)) {
                 Toast.makeText(MemberJoinTermsActivity.this, "회원 가입 되었습니다. 로그인 페이지로 이동합니다.", Toast.LENGTH_SHORT).show();
 
+                //이전 Activity 종료.
+                MemberJoinActivity memberJoinActivity = (MemberJoinActivity)MemberJoinActivity._memberJoinActivity;
+                memberJoinActivity.finish();
+
+                MemberAuthActivity memberAuthActivity = (MemberAuthActivity)MemberAuthActivity._memberAuthActivity;
+                memberAuthActivity.finish();
+
+                PasswordChangeActivity passwordChangeActivity = (PasswordChangeActivity)PasswordChangeActivity._passwordChangeActivity;
+                passwordChangeActivity.finish();
+
+                MemberNickNameActivity memberNickNameActivity = (MemberNickNameActivity)MemberNickNameActivity._memberNickNameActivity;
+                memberNickNameActivity.finish();
+
+                MemberRecomActivity memberRecomActivity = (MemberRecomActivity)MemberRecomActivity._memberRecomActivity;
+                memberRecomActivity.finish();
+
                 Intent intent = new Intent(MemberJoinTermsActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();

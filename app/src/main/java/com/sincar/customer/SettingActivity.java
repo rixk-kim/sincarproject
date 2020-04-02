@@ -24,6 +24,7 @@ import com.sincar.customer.item.AuthResult;
 import com.sincar.customer.item.SettingResult;
 import com.sincar.customer.item.WithdrawResult;
 import com.sincar.customer.network.VolleyNetwork;
+import com.sincar.customer.preference.PreferenceManager;
 import com.sincar.customer.util.Util;
 
 import java.util.HashMap;
@@ -218,6 +219,13 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
+                PreferenceManager.getInstance().setCheckLogin(false);
+                // 아이디 셋팅
+                PreferenceManager.getInstance().setUserId("");
+                // 패스워드 셋팅
+                PreferenceManager.getInstance().setUserPwd("");
+
                 Intent intent = new Intent(mContext, LoginActivityPre.class);
                 startActivity(intent);
 
@@ -291,6 +299,12 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
             if("0".equals(voWithdrawItem.WITHRAW_RESULT)) {
                 Toast.makeText(mContext, "회원 탈퇴 되었습니다.", Toast.LENGTH_SHORT).show();
+
+                PreferenceManager.getInstance().setCheckLogin(false);
+                // 아이디 셋팅
+                PreferenceManager.getInstance().setUserId("");
+                // 패스워드 셋팅
+                PreferenceManager.getInstance().setUserPwd("");
 
                 Intent intent = new Intent(mContext, LoginActivityPre.class);
                 startActivity(intent);

@@ -56,6 +56,7 @@ import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.sincar.customer.adapter.OptionServiceRecyclerViewAdapter;
 import com.sincar.customer.adapter.content.OptionContent;
+import com.sincar.customer.database.DBAdapter;
 import com.sincar.customer.item.OptionResult;
 import com.sincar.customer.item.ReserveResult;
 import com.sincar.customer.network.VolleyNetwork;
@@ -65,6 +66,7 @@ import com.sincar.customer.util.Utility;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static com.sincar.customer.HWApplication.dbConnect;
 import static com.sincar.customer.HWApplication.reserveResult;
 import static com.sincar.customer.HWApplication.voLoginItem;
 import static com.sincar.customer.HWApplication.voOptionDataItem;
@@ -105,7 +107,11 @@ public class PayApproveActivity extends Activity {
     private String use_coupone_pay;    //쿠폰 비용
     private String use_my_point;       //사용 포인트
 
+    private String approve_number;      //예약번호
+
     private static final int LAUNCHED_ACTIVITY = 0;
+    private DBAdapter cInstance;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,9 +197,24 @@ public class PayApproveActivity extends Activity {
         CookieManager cookieManager = CookieManager.Z();
         cookieManager.setAcceptCookie(true);
         */
+        approve_number = voLoginItem.MEMBER_NO + Util.getYearMonthDay1();
 
         String postParams = "MEMBER_NO=" + voLoginItem.MEMBER_NO;
         postParams += "&AMOUNT="+total_amt;
+        postParams += "&APPROVE_NUMBER="+approve_number;
+
+
+        //DB 저장..................test
+//        DBAdapter.getInstance(this);
+//        cInstance = DBAdapter.getInstance(this);
+//        cInstance.open();
+//
+//        cInstance.setDataServerSend(approve_number, voLoginItem.MEMBER_NO, reserve_address , reserve_year, reserve_month, reserve_day, agent_seq
+//                , agent_company, agent_time, wash_area, car_wash_option, car_company, car_name, car_number, use_my_point
+//                , use_coupone_seq, total_amt);
+//
+//        cInstance.close();
+        /////////////////////////////////
 
  //       mWeb.postUrl(MERCHANT_URL, EncodingUtils.getBytes(postParams, "EUC-KR"));
 
@@ -655,6 +676,7 @@ public class PayApproveActivity extends Activity {
     private void requestReserveInfo() {
         HashMap<String, String> postParams = new HashMap<String, String>();
         //PHONE_NEMBER
+        postParams.put("APPROVE_NUMBER", approve_number);           // 예약번호
         postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);         // 회원번호
         postParams.put("RESERVE_ADDRESS", reserve_address);         // 예약주소
         postParams.put("RESERVE_YEAR", reserve_year);               // 년
@@ -671,7 +693,6 @@ public class PayApproveActivity extends Activity {
         postParams.put("POINT_USE", use_my_point);                  // 사용 포인트
         postParams.put("COUPONE_SEQ", use_coupone_seq);             // 사용 쿠폰번호
         postParams.put("CHARGE_PAY", total_amt);                    // 총 결재 요금
-
 
         //프로그래스바 시작
         Util.showDialog(this);
@@ -723,13 +744,25 @@ public class PayApproveActivity extends Activity {
      * 회원탈퇴 알럿 다이얼로그
      */
     private void saveFailShowAlertDialog() {
+        //DB 저장
+//        dbConnect = new DBAdapter(pContext);
+//        dbConnect.openTransjection();
+//        dbConnect.setDataServerSend(approve_number, voLoginItem.MEMBER_NO, reserve_address , reserve_year, reserve_month, reserve_day, agent_seq
+//                , agent_company, agent_time, wash_area, car_wash_option, car_company, car_name, car_number, use_my_point
+//                , use_coupone_seq, total_amt);
+//        dbConnect.Close();
+        //DB 저장
+        (DBAdapter.getInstance(pContext)).setDataServerSend(approve_number, voLoginItem.MEMBER_NO, reserve_address , reserve_year, reserve_month, reserve_day, agent_seq
+                , agent_company, agent_time, wash_area, car_wash_option, car_company, car_name, car_number, use_my_point
+                , use_coupone_seq, total_amt);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 //        builder.setTitle(context.getString(R.string.notice));
         builder.setMessage(R.string.payment_save_fail);
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //Toast.makeText(context, "회원 탈퇴 되었습니다.", Toast.LENGTH_SHORT).show();
+                dialog.cancel();
             }
         });
     }

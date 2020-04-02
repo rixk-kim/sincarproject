@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // Banner 선택 시 필요한 동작 추가
                 // voAdvertiseItem.get(i).AD_LINK_URL ==> 웹뷰 띄워주자.
                 if(position <= 0) position = 0;
-                System.out.println("[spirit] advertise pos => " + position);
+
                 if(!TextUtils.isEmpty(voAdvertiseItem.get(position).AD_LINK_URL)) {
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     Uri u = Uri.parse(voAdvertiseItem.get(position).AD_LINK_URL);

@@ -128,7 +128,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/textColorPrimary"/>
+            android:background="#1a3e3e3e"/>
 
         <LinearLayout
             android:id="@+id/myinfo_linearLayout2"
@@ -182,7 +182,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/textColorPrimary" />
+            android:background="#1a3e3e3e" />
 
         <LinearLayout
             android:id="@+id/myinfo_linearLayout3"
@@ -252,7 +252,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/textColorPrimary" />
+            android:background="#1a3e3e3e" />
     </LinearLayout>
 
 

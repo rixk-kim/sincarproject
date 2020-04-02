@@ -25,11 +25,13 @@ public class MemberNickNameActivity extends Activity implements View.OnClickList
     private Button login_join_btn;
     private EditText nick_user_name;
     private String phone_number, password;
+    public static MemberNickNameActivity _memberNickNameActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.member_join_nickname);
+        _memberNickNameActivity = MemberNickNameActivity.this;
 
         Intent intent = getIntent(); /*데이터 수신*/
         phone_number    = intent.getExtras().getString("phone_number");       /*String형*/

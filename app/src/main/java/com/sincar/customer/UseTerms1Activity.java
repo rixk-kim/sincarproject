@@ -62,8 +62,8 @@ public class UseTerms1Activity extends AppCompatActivity implements View.OnClick
 
         set.setUseWideViewPort(true);		// Wide viewport를 사용하도록 설정
         set.setJavaScriptEnabled(true); 	// 자바스크립트를 실행할 수 있도록 설정
-        set.setDisplayZoomControls(false);	// zoom 컨트롤이 안보이게
-        set.setLoadWithOverviewMode(true);	// 페이지가 크더라도 전체가 보이게 하기
+        set.setDisplayZoomControls(true);	// zoom 컨트롤이 안보이게
+        set.setLoadWithOverviewMode(false);	// 페이지가 크더라도 전체가 보이게 하기
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {// https 이미지.
