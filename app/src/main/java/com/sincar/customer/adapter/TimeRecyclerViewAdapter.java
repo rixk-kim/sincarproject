@@ -1,5 +1,6 @@
 package com.sincar.customer.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,17 +24,19 @@ public class TimeRecyclerViewAdapter extends RecyclerView.Adapter<TimeRecyclerVi
     private final List<TimeItem> mValues;
     private OnTimeListInteractionListener mListener;
     private Context trContext;
+    private String agent_status;
 
 //    private int prePosition;
 
     public TimeRecyclerViewAdapter(int agentPosition, List<TimeItem> items,
-                                   OnTimeListInteractionListener listener, Context context) {
+                                   OnTimeListInteractionListener listener, Context context, String agent_status) {
         this.agentPosition = agentPosition;
         mValues = items;
         if (listener != null && listener instanceof OnTimeListInteractionListener) {
             mListener = listener;
         }
         this.trContext = context;
+        this.agent_status = agent_status;
 //        prePosition = -1;
     }
 
@@ -63,20 +66,24 @@ public class TimeRecyclerViewAdapter extends RecyclerView.Adapter<TimeRecyclerVi
 
     @Override
     public void onClick(View v) {
-        TimeItem item = (TimeItem)v.getTag();
+        if("Y".equals(agent_status)) {
+            TimeItem item = (TimeItem) v.getTag();
 
-        Log.d("시간선택", "changedViewLayout()::position = " + item.position);
+            Log.d("시간선택", "changedViewLayout()::position = " + item.position);
 
-        for (TimeItem timeItem : mValues) {
-            timeItem.selected = false;
-        }
+            for (TimeItem timeItem : mValues) {
+                timeItem.selected = false;
+            }
 
-        mValues.get(item.position).selected = true;
-        mValues.get(item.position).agentPosition = agentPosition;
-        notifyDataSetChanged();
+            mValues.get(item.position).selected = true;
+            mValues.get(item.position).agentPosition = agentPosition;
+            notifyDataSetChanged();
 
-        if (mListener != null) {
-            mListener.onTimeListInteraction(item);
+            if (mListener != null) {
+                mListener.onTimeListInteraction(item);
+            }
+        }else{
+            Toast.makeText(trContext, "비활동지역 대리점입니다.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -107,6 +114,7 @@ public class TimeRecyclerViewAdapter extends RecyclerView.Adapter<TimeRecyclerVi
         }
     }
 
+    @SuppressLint("ResourceAsColor")
     private void setViewLayout(final ViewHolder holder, final int position) {
         if ("Y".equals(holder.mItem.reservation_status)) {
             holder.mTimeEnableLayout.setVisibility(View.VISIBLE);
@@ -119,13 +127,26 @@ public class TimeRecyclerViewAdapter extends RecyclerView.Adapter<TimeRecyclerVi
             }
 
             holder.mTimeEnableText.setText(mValues.get(position).reservation_time);
+
+            if("N".equals(agent_status))
+            {
+                holder.mTimeEnableText.setTextColor(R.color.agent_color_1);
+            }
         } else {
             holder.mTimeEnableLayout.setVisibility(View.GONE);
             holder.mTimeDisableLayout.setVisibility(View.VISIBLE);
 
             holder.mTimeDisableLayout.setBackgroundResource(R.drawable.time_button_background_normal);
             holder.mTimeDisableText.setText(mValues.get(position).reservation_time);
+
+            if("N".equals(agent_status))
+            {
+                holder.mTimeDisableText.setTextColor(R.color.agent_color_1);
+            }
         }
+
+
+
     }
 
     public interface OnTimeListInteractionListener {

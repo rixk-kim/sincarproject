@@ -38,6 +38,7 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
     private String agent_mobile;    //대리점 전화번호
     private String car_info;        //차량정보
     private String car_number;      //차량번호
+    private String point_pay;       //사용포인트
 
     private TextView textView_common_pay;
     private TextView textView_coupone_pay;
@@ -50,6 +51,7 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
     private TextView textView_wash_agent;
     private TextView textView_car_info;
     private TextView textView_car_number;
+    private TextView textView_point_pay;
 
     private LinearLayout useLinearLayout;
     private LinearLayout reserve_cancel_area;
@@ -67,19 +69,20 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
         useActivity.finish();
 
         Intent intent = getIntent(); /*데이터 수신*/
-        reserve_seq     = intent.getExtras().getString("reserve_seq");       /*String형*/
-        reserve_status  = intent.getExtras().getString("reserve_status");       /*String형*/
+        reserve_seq     = intent.getExtras().getString("reserve_seq");      /*String형*/
+        reserve_status  = intent.getExtras().getString("reserve_status");   /*String형*/
         common_pay      = intent.getExtras().getString("common_pay");       /*String형*/
         coupone_pay     = intent.getExtras().getString("coupone_pay");      /*String형*/
         approve_info    = intent.getExtras().getString("approve_info");     /*String형*/
         use_pay         = intent.getExtras().getString("use_pay");          /*String형*/
         reserve_time    = intent.getExtras().getString("reserve_time");     /*String형*/
-        cancel_time     = intent.getExtras().getString("cancel_time");     /*String형*/
+        cancel_time     = intent.getExtras().getString("cancel_time");      /*String형*/
         wash_address    = intent.getExtras().getString("wash_address");     /*String형*/
         wash_agent      = intent.getExtras().getString("wash_agent");       /*String형*/
         agent_mobile    = intent.getExtras().getString("agent_mobile");     /*String형*/
         car_info        = intent.getExtras().getString("car_info");         /*String형*/
-        car_number  = intent.getExtras().getString("car_number");           /*String형*/
+        car_number      = intent.getExtras().getString("car_number");       /*String형*/
+        point_pay       = intent.getExtras().getString("point_pay");        /*String형*/
 
         // 화면 초기화
         init();
@@ -102,6 +105,10 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
         //쿠폰요금
         textView_coupone_pay = (TextView) findViewById(R.id.use_coupone_pay);
         textView_coupone_pay.setText(Util.setAddMoneyDot(coupone_pay) + "원");
+
+        //포인트요금
+        textView_point_pay = (TextView) findViewById(R.id.use_point_pay);
+        textView_point_pay.setText(Util.setAddMoneyDot(point_pay) + "원");
 
         //결재정보
         textView_approve_info = (TextView) findViewById(R.id.use_approve_info);
@@ -206,6 +213,7 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
                 intent.putExtra("agent_mobile", agent_mobile);
                 intent.putExtra("car_info", car_info);
                 intent.putExtra("car_number", car_number);
+                intent.putExtra("point_pay", point_pay);
                 startActivity(intent);
  //               finish();
                 break;

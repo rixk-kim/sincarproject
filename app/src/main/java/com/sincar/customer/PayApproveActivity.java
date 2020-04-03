@@ -217,8 +217,13 @@ public class PayApproveActivity extends Activity {
         /////////////////////////////////
 
  //       mWeb.postUrl(MERCHANT_URL, EncodingUtils.getBytes(postParams, "EUC-KR"));
-
-        mWeb.loadUrl(MERCHANT_URL + "?" + postParams); // 테스트URL을 넣어주세요
+        if(Integer.parseInt(total_amt) <= 0)
+        {
+            //결재금액 0원
+            requestReserveInfo();
+        }else {
+            mWeb.loadUrl(MERCHANT_URL + "?" + postParams); // 테스트URL을 넣어주세요
+        }
     }
 
     class MyWebChromeClient extends WebChromeClient {

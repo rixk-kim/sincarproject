@@ -77,11 +77,12 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
 
         holder.agent_mobile = mValues.get(position).agent_mobile;
 
-        holder.common_pay = mValues.get(position).common_pay;       //기본요금
-        holder.coupone_pay = mValues.get(position).coupone_pay;       //할인요금
+        holder.common_pay   = mValues.get(position).common_pay;         //기본요금
+        holder.coupone_pay  = mValues.get(position).coupone_pay;        //할인요금
         holder.approve_info = mValues.get(position).approve_info;       //결재정보
-        holder.car_info = mValues.get(position).car_info;       //차량정보
-        holder.car_number = mValues.get(position).car_number;       //차량번호
+        holder.car_info     = mValues.get(position).car_info;           //차량정보
+        holder.car_number   = mValues.get(position).car_number;         //차량번호
+        holder.point_pay    = mValues.get(position).point_pay;          //사용포인트
 
         //0: 예약중, 1:완료 , 2: 예약취소
         if("0".equals(holder.reserve_status)) {
@@ -139,6 +140,7 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
                 intent.putExtra("agent_mobile", holder.agent_mobile);
                 intent.putExtra("car_info", holder.car_info);
                 intent.putExtra("car_number", holder.car_number);
+                intent.putExtra("point_pay", holder.point_pay);
                 mContext.startActivity(intent);
 
 //                Toast.makeText(mContext, "상세보기 요청", Toast.LENGTH_SHORT).show();
@@ -175,6 +177,7 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
         public String approve_info;     //결재정보
         public String car_info;         //차량정보
         public String car_number;       //차량번호
+        public String point_pay;        //포인트요금
 
 
         public final TextView reserve_view;

@@ -309,20 +309,6 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                     use_point.setText(setAddMoneyDot(String.valueOf(mPoint)) + "원");
                     mButton.setText(setAddMoneyDot(String.valueOf(pay_result)) + "원 결제하기");
                 }
-
-//                if(use_my_point < mPoint) {
-//                    if (mPoint >= total_amt) {
-//                        use_my_point = mPoint - total_amt;
-//                    } else {
-//                        use_my_point = mPoint;
-//                    }
-//                    my_point.setText("0원 보유");
-//                    use_point.setText(String.valueOf(use_my_point) + "원");
-//                    total_amt -= use_my_point;
-//                    mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결재하기");
-//                }else{
-//                    Toast.makeText(PaymentActivity.this, "포인트 전액 사용하였습니다.", Toast.LENGTH_LONG).show();
-//                }
                 break;
 
             case R.id.btnCancelDesc:

@@ -219,6 +219,53 @@
             </LinearLayout>
         </LinearLayout>
 
+        <!-- 포인트 요금 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16.5dp"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center|center_horizontal|center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:fontFamily="@font/nanumsquareregular"
+                    android:layout_width="match_parent"
+                    android:layout_height="18dp"
+                    android:layout_gravity="left|center_horizontal|center_vertical"
+                    android:letterSpacing="0.05"
+                    android:text="포인트"
+                    android:textColor="#b33e3e3e"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center|center_horizontal|center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/use_point_pay"
+                    android:fontFamily="@font/nanumsquarebold"
+                    android:layout_width="match_parent"
+                    android:layout_height="18dp"
+                    android:gravity="right"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:letterSpacing="0.05"
+                    android:text="2,000원"
+                    android:textColor="@color/textColorPrimary"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"

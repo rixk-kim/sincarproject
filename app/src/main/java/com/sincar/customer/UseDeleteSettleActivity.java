@@ -24,6 +24,7 @@ public class UseDeleteSettleActivity extends AppCompatActivity implements View.O
     private String settle_agent_mobile;    //대리점 전화번호
     private String settle_car_info;        //차량정보
     private String settle_car_number;      //차량번호
+    private String settle_point_pay;       //사용포인트
 
     private TextView textView_settle_common_pay;
     private TextView textView_settle_coupone_pay;
@@ -36,6 +37,7 @@ public class UseDeleteSettleActivity extends AppCompatActivity implements View.O
     private TextView textView_settle_wash_agent;
     private TextView textView_settle_car_info;
     private TextView textView_settle_car_number;
+    private TextView textView_settle_point_pay;
 
     private LinearLayout useLinearLayout;
     private LinearLayout reserve_cancel_area;
@@ -51,18 +53,19 @@ public class UseDeleteSettleActivity extends AppCompatActivity implements View.O
         useActivity.finish();
 
         Intent intent = getIntent(); /*데이터 수신*/
-        settle_reserve_status  = intent.getExtras().getString("reserve_status");       /*String형*/
-        settle_common_pay      = intent.getExtras().getString("common_pay");       /*String형*/
-        settle_coupone_pay     = intent.getExtras().getString("coupone_pay");      /*String형*/
-        settle_approve_info    = intent.getExtras().getString("approve_info");     /*String형*/
-        settle_use_pay         = intent.getExtras().getString("use_pay");          /*String형*/
-        settle_reserve_time    = intent.getExtras().getString("reserve_time");     /*String형*/
-        settle_cancel_time     = intent.getExtras().getString("cancel_time");     /*String형*/
-        settle_wash_address    = intent.getExtras().getString("wash_address");     /*String형*/
-        settle_wash_agent      = intent.getExtras().getString("wash_agent");       /*String형*/
-        settle_agent_mobile    = intent.getExtras().getString("agent_mobile");     /*String형*/
-        settle_car_info        = intent.getExtras().getString("car_info");         /*String형*/
-        settle_car_number  = intent.getExtras().getString("car_number");           /*String형*/
+        settle_reserve_status   = intent.getExtras().getString("reserve_status");   /*String형*/
+        settle_common_pay       = intent.getExtras().getString("common_pay");       /*String형*/
+        settle_coupone_pay      = intent.getExtras().getString("coupone_pay");      /*String형*/
+        settle_approve_info     = intent.getExtras().getString("approve_info");     /*String형*/
+        settle_use_pay          = intent.getExtras().getString("use_pay");          /*String형*/
+        settle_reserve_time     = intent.getExtras().getString("reserve_time");     /*String형*/
+        settle_cancel_time      = intent.getExtras().getString("cancel_time");      /*String형*/
+        settle_wash_address     = intent.getExtras().getString("wash_address");     /*String형*/
+        settle_wash_agent       = intent.getExtras().getString("wash_agent");       /*String형*/
+        settle_agent_mobile     = intent.getExtras().getString("agent_mobile");     /*String형*/
+        settle_car_info         = intent.getExtras().getString("car_info");         /*String형*/
+        settle_car_number       = intent.getExtras().getString("car_number");       /*String형*/
+        settle_point_pay        = intent.getExtras().getString("point_pay");        /*String형*/
 
         // 화면 초기화
         init();
@@ -81,6 +84,10 @@ public class UseDeleteSettleActivity extends AppCompatActivity implements View.O
         //쿠폰요금
         textView_settle_coupone_pay = (TextView) findViewById(R.id.settle_coupone_pay);
         textView_settle_coupone_pay.setText(Util.setAddMoneyDot(settle_coupone_pay) + "원");
+
+        //포인트요금
+        textView_settle_point_pay = (TextView) findViewById(R.id.settle_point_pay);
+        textView_settle_point_pay.setText(Util.setAddMoneyDot(settle_point_pay) + "원");
 
         //결재정보
         textView_settle_approve_info = (TextView) findViewById(R.id.settle_approve_info);

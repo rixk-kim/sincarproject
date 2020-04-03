@@ -1,5 +1,7 @@
 package com.sincar.customer.adapter.content;
 
+import android.text.TextUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -74,9 +76,10 @@ public class UseContent {
         public final String approve_info;
         public final String car_info;
         public final String car_number;
+        public final String point_pay;
 
 
-        public UseItem(int id, String seq, String reserve_status, String reserve_time, String cancel_time, String wash_address, String wash_agent, String use_pay, String agent_mobile, String reserve_name, String common_pay, String coupone_pay, String approve_info, String car_info, String car_number ) {
+        public UseItem(int id, String seq, String reserve_status, String reserve_time, String cancel_time, String wash_address, String wash_agent, String use_pay, String agent_mobile, String reserve_name, String common_pay, String coupone_pay, String approve_info, String car_info, String car_number, String point_pay) {
             this.id = id;
             this.seq = seq;
             this.reserve_status = reserve_status;
@@ -93,6 +96,13 @@ public class UseContent {
             this.approve_info   = approve_info;     //결재정보
             this.car_info       = car_info;         //차량정보
             this.car_number     = car_number;       //차량번호
+            //TODO - point 연동되면 추가
+            if(TextUtils.isEmpty(point_pay))
+            {
+                this.point_pay = "0";
+            }else {
+                this.point_pay = point_pay;        //포인트요금
+            }
         }
     }
 }

@@ -16,6 +16,8 @@ public class AgentDataItem {
     public String NAME;
     public String AGENT_NAME;
     public String WASH_AREA;
+    public String AGENT_STAUS;
+    public String AGENT_ORDER;
 
     public ArrayList<TimeItem> TIME_INFO = new ArrayList();
 
@@ -26,6 +28,8 @@ public class AgentDataItem {
                 ", NAME='" + NAME + '\'' +
                 ", AGENT_NAME='" + AGENT_NAME + '\'' +
                 ", WASH_AREA='" + WASH_AREA + '\'' +
+                ", AGENT_STAUS='" + AGENT_STAUS + '\'' +
+                ", AGENT_ORDER='" + AGENT_ORDER + '\'' +
                 ", TIME_INFO=" + TIME_INFO +
                 '}';
     }

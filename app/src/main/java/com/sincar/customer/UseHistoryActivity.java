@@ -184,7 +184,8 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
                         voUseDataItem.get(i).COUPONE,
                         voUseDataItem.get(i).CHARGE_INFO,
                         voUseDataItem.get(i).CAR_MODEL,
-                        voUseDataItem.get(i).CAR_NUMBER
+                        voUseDataItem.get(i).CAR_NUMBER,
+                        voUseDataItem.get(i).POINT_PAY
                 ));
             }
 

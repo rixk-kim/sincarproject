@@ -58,22 +58,21 @@ public class AgentContent {
         public final String agent_name;
         public final String branch_area;
         public final String wash_area;
+        public final String agent_staus;
+        public final String agent_order;
 //        public final ArrayList<TimeItem> reserve_info;
         public final ArrayList<TimeContent.TimeItem> reserve_info;
 
-        public AgentItem(int id,
-                              String agent_photo,
-                              String agent_name,
-                              String branch_area,
-                            String wash_area,
-//                         ArrayList<TimeItem> reserve_info) {
-                            ArrayList<TimeContent.TimeItem> reserve_info) {
-            this.id = id;
-            this.agent_photo = agent_photo;
-            this.agent_name = agent_name;
-            this.branch_area = branch_area;
-            this.wash_area = wash_area;
-            this.reserve_info = reserve_info;
+        public AgentItem(int id, String agent_photo, String agent_name, String branch_area, String wash_area, String agent_staus, String agent_order, ArrayList<TimeContent.TimeItem> reserve_info)
+        {
+            this.id             = id;
+            this.agent_photo    = agent_photo;
+            this.agent_name     = agent_name;
+            this.branch_area    = branch_area;
+            this.wash_area      = wash_area;
+            this.agent_staus    = agent_staus;
+            this.agent_order    = agent_order;
+            this.reserve_info   = reserve_info;
         }
     }
 }

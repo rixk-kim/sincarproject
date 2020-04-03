@@ -17,6 +17,7 @@ public class UseDataItem {
     public String CHARGE_INFO;
     public String CAR_MODEL;
     public String CAR_NUMBER;
+    public String POINT_PAY;
 
     @Override
     public String toString() {
@@ -35,6 +36,7 @@ public class UseDataItem {
                 ", CHARGE_INFO='" + CHARGE_INFO + '\'' +
                 ", CAR_MODEL='" + CAR_MODEL + '\'' +
                 ", CAR_NUMBER='" + CAR_NUMBER + '\'' +
+                ", POINT_PAY='" + POINT_PAY + '\'' +
                 "}";
     }
 }

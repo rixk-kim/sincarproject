@@ -21,6 +21,7 @@ import com.sincar.customer.network.VolleyNetwork;
 import com.sincar.customer.util.Util;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -125,6 +126,11 @@ public class ReservationTimeActivity extends AppCompatActivity
 
             voAgentDataItem     = agentResult.DATA;
 
+//            // 내림차순 정렬
+//            Descending descending = new Descending();
+//            Collections.sort(voAgentDataItem, descending);
+
+
             List<AgentContent.AgentItem> ITEMS = new ArrayList<AgentContent.AgentItem>();
 
 //        for(int i = 0; i < voAgentDataItem.DATA.size(); i++) {
@@ -143,16 +149,7 @@ public class ReservationTimeActivity extends AppCompatActivity
                         //if(Integer.parseInt(reserve_year) >= Util.getYear() && Integer.parseInt(reserve_month) >= Util.getMonth() && Integer.parseInt(reserve_day) >= Util.getDay()){
              //           if (cTime < Integer.parseInt(sTime)) {
                         if(compare < 0){
-                            reserve_info.add(new TimeContent.TimeItem(
-                                    i,
-                                    j++,
-                                    item.RESERVE_TIME,
-                                    item.RESERVE_STATUS,
-                                    false
-                            ));
-                        } else {
-                            if( cTime < Integer.parseInt(sTime))
-                            {
+                            if("Y".equals(item.RESERVE_STATUS)) {
                                 reserve_info.add(new TimeContent.TimeItem(
                                         i,
                                         j++,
@@ -160,14 +157,27 @@ public class ReservationTimeActivity extends AppCompatActivity
                                         item.RESERVE_STATUS,
                                         false
                                 ));
+                            }
+                        } else {
+                            if( cTime < Integer.parseInt(sTime))
+                            {
+                                if("Y".equals(item.RESERVE_STATUS)) {
+                                    reserve_info.add(new TimeContent.TimeItem(
+                                            i,
+                                            j++,
+                                            item.RESERVE_TIME,
+                                            item.RESERVE_STATUS,
+                                            false
+                                    ));
+                                }
                             }else {
-                                reserve_info.add(new TimeContent.TimeItem(
-                                        i,
-                                        j++,
-                                        item.RESERVE_TIME,
-                                        "N",
-                                        false
-                                ));
+//                                reserve_info.add(new TimeContent.TimeItem(
+//                                        i,
+//                                        j++,
+//                                        item.RESERVE_TIME,
+//                                        "N",
+//                                        false
+//                                ));
                             }
                         }
                     }
@@ -179,6 +189,8 @@ public class ReservationTimeActivity extends AppCompatActivity
                         voAgentDataItem.get(i).NAME,
                         voAgentDataItem.get(i).AGENT_NAME,
                         voAgentDataItem.get(i).WASH_AREA,
+                        voAgentDataItem.get(i).AGENT_STAUS,
+                        voAgentDataItem.get(i).AGENT_ORDER,
                         //agentItem.TIME_INFO
                         reserve_info
                 ));
@@ -294,4 +306,26 @@ public class ReservationTimeActivity extends AppCompatActivity
             Toast.makeText(this, "예약 완료된 시간입니다. 다른 시간을 선택해주세요", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 }
+
+//    // 내림차순
+//    class Descending implements Comparator<integer> {
+//
+//        @Override
+//        public int compare(Integer o1, Integer o2) {
+//            return o2.compareTo(o1);
+//        }
+//
+//    }
+//
+//    // 오름차순
+//    class Ascending implements Comparator<integer> {
+//
+//        @Override
+//        public int compare(Integer o1, Integer o2) {
+//            return o1.compareTo(o2);
+//        }
+//
+//    }

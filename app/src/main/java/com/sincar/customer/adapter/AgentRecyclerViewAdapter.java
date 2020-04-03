@@ -1,6 +1,8 @@
 package com.sincar.customer.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,19 +53,10 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item_agent, parent, false);
 
-//        // Time List 만들기
-//        View subView = view.findViewById(R.id.reservationTimeList);
-//        if (subView instanceof RecyclerView) {
-//            Context context = view.getContext();
-//            RecyclerView recyclerView = (RecyclerView) subView;
-//
-//            recyclerView.setLayoutManager(new GridLayoutManager(context, timeSpanCount));
-//            recyclerView.setAdapter(new TimeRecyclerViewAdapter(TimeContent.ITEMS, this));
-//        }
-
         return new ViewHolder(view);
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
@@ -73,21 +66,24 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
         holder.mAgentName.setText(mValues.get(position).agent_name);
         holder.mBranchName.setText(mValues.get(position).branch_area);
         holder.mWashArea.setText(mValues.get(position).wash_area);
+        if(TextUtils.isEmpty(mValues.get(position).agent_staus))
+        {
+            holder.agent_status = "Y";
+        }else {
+            holder.agent_status = mValues.get(position).agent_staus;
+        }
+//        holder.agent_status = "N";
+
+        if("N".equals(holder.agent_status))
+        {
+            holder.mAgentName.setTextColor(R.color.agent_color_1);
+            holder.mBranchName.setTextColor(R.color.agent_color_1);
+            holder.mWashAreaTitle.setTextColor(R.color.agent_color_1);
+            holder.mWashArea.setTextColor(R.color.agent_color_1);
+        }
 
         List<TimeContent.TimeItem> ITEMS = new ArrayList<TimeItem>();
-        //TIMEITEMS = new ArrayList<TimeItem>();
 
-//        for(int i = 0; i < holder.mItem.reserve_info.size(); i++) {
-//        int i=0;
-//        for(com.sincar.customer.item.TimeItem item: holder.mItem.reserve_info) {
-//            ITEMS.add(new TimeContent.TimeItem(
-//                    position,
-//                    i++,
-//                    item.RESERVE_TIME,
-//                    item.RESERVE_STATUS,
-//                    false
-//            ));
-//        }
 
         // Time List 만들기
         View subView = holder.mView.findViewById(R.id.reservationTimeList);
@@ -97,7 +93,7 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
 
             recyclerView.setLayoutManager(new GridLayoutManager(context, timeSpanCount));
 //            recyclerView.setAdapter(new TimeRecyclerViewAdapter(position, ITEMS, this));
-            recyclerView.setAdapter(new TimeRecyclerViewAdapter(position, holder.mItem.reserve_info, this, arContext));
+            recyclerView.setAdapter(new TimeRecyclerViewAdapter(position, holder.mItem.reserve_info, this, arContext,  holder.agent_status));
         }
     }
 
@@ -158,6 +154,8 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
         public final TextView mAgentName;
         public final TextView mBranchName;
         public final TextView mWashArea;
+        public String agent_status;
+        public final TextView mWashAreaTitle;
 
         public AgentContent.AgentItem mItem;
 
@@ -165,10 +163,12 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
             super(view);
             mView = view;
 
-            mAgentPhoto = view.findViewById(R.id.agent_photo);
-            mAgentName = view.findViewById(R.id.agent_name);
-            mBranchName = view.findViewById(R.id.branch_name);
-            mWashArea = view.findViewById(R.id.wash_area);
+            mAgentPhoto     = view.findViewById(R.id.agent_photo);
+            mAgentName      = view.findViewById(R.id.agent_name);
+            mBranchName     = view.findViewById(R.id.branch_name);
+            mWashArea       = view.findViewById(R.id.wash_area);
+            mWashAreaTitle  = view.findViewById(R.id.wash_area_title);
+            agent_status    = "";
         }
     }
 
