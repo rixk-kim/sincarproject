@@ -297,7 +297,7 @@
                     android:layout_height="24dp"
                     android:layout_marginStart="4dp"
                     android:layout_marginBottom="15dp"
-                    android:background="@drawable/button_color_selector1"
+                    android:background="@drawable/default_background_type_2"
                     android:drawableEnd="@drawable/chevron_left_24_px"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"

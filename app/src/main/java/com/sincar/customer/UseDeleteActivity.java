@@ -205,6 +205,9 @@ public class UseDeleteActivity extends AppCompatActivity implements View.OnClick
 
         @Override
         public void onResponseFailListener(VolleyError it) {
+            //프로그래스바 종료
+            Util.dismiss();
+
             Toast.makeText(dContext, "예약 변경 실패하였습니다. 재시도 해주세요.", Toast.LENGTH_LONG).show();
         }
     };

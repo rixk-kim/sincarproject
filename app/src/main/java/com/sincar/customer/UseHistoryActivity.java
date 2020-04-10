@@ -256,7 +256,8 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
 
         @Override
         public void onResponseFailListener(VolleyError it) {
-
+            //프로그래스바 종료
+            Util.dismiss();
         }
     };
 

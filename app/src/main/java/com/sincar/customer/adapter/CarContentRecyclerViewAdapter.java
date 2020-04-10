@@ -1,38 +1,37 @@
 package com.sincar.customer.adapter;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sincar.customer.CarManageActivity;
 import com.sincar.customer.R;
 import com.sincar.customer.adapter.content.CarContent;
-import com.sincar.customer.adapter.content.TimeContent;
 
 import java.util.List;
 
+/**
+ * 2020.04.09 spirit
+ * 차량정보 class
+ */
 public class CarContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sincar.customer.adapter.CarContentRecyclerViewAdapter.ViewHolder>
         implements View.OnClickListener {
 
     private final List<CarContent.CarItem> mValues;
     private Context mContext;
     private LinearLayout mLayout;
-    private String carTitle;
-    private String carName;
-    private String carNumber;
-    private String carPay;
-    private String path;
-
+    private String carTitle;    //제조사
+    private String carName;     //차량이름
+    private String carNumber;   //차량번호
+    private String carPay;      //차량
+    private String path;        //진입경로 구분분
     public CarContentRecyclerViewAdapter(Context context, List<CarContent.CarItem> items, String path) {
         mContext    = context;
         mValues     = items;
@@ -90,10 +89,6 @@ public class CarContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
         for (CarContent.CarItem carItem : mValues) {
             carItem.car_selected = false;
         }
-//        if (prePosition >= 0 && prePosition < mValues.size()) {
-//            mValues.get(prePosition).selected = false;
-//        }
-//        prePosition = item.id;
 
         if("reserve".equals(path))
         {
@@ -108,23 +103,33 @@ public class CarContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
         notifyDataSetChanged();
     }
 
-    //차 제조사
+    /**
+     * @return 차량 제조사
+     */
     public String getItemCompanyName()
     {
         return carTitle;
     }
 
-    //차이름
+    /**
+     * @return 차량 이름
+     */
     public String getItemcarName()
     {
         return carName;
     }
 
+    /**
+     * @return 차량 번호
+     */
     public String getItemcarNumber()
     {
         return carNumber;
     }
 
+    /**
+     * @return 차량 기본 세차비용
+     */
     public String getItemcarPay()
     {
         return carPay;

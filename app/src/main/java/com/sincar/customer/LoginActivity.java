@@ -3,7 +3,6 @@ package com.sincar.customer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -11,14 +10,10 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
-import android.os.Handler;
-import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,18 +22,12 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
-import com.sincar.customer.item.LoginDataItem;
 import com.sincar.customer.item.LoginResult;
-import com.sincar.customer.network.DataObject;
-import com.sincar.customer.network.JsonParser;
 import com.sincar.customer.network.VolleyNetwork;
 import com.sincar.customer.preference.PreferenceManager;
-import com.sincar.customer.util.DataParser;
 import com.sincar.customer.util.LoadingProgress;
 import com.sincar.customer.util.Util;
-import com.tsengvn.typekit.TypekitContextWrapper;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.sincar.customer.HWApplication.voAdvertiseItem;
@@ -46,11 +35,9 @@ import static com.sincar.customer.HWApplication.voCompanyListDataItem;
 import static com.sincar.customer.HWApplication.voCarListDataItem;
 import static com.sincar.customer.HWApplication.voLoginItem;
 import static com.sincar.customer.HWApplication.voLoginDataItem;
-import static com.sincar.customer.HWApplication.voLoginAdvertiseItem;
 import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
 import static com.sincar.customer.HWApplication.loginResult;
 
-//import static com.sincar.customer.item.LoginDataItem;
 
 /**
  * 2020.02.17 spirit
@@ -59,12 +46,8 @@ import static com.sincar.customer.HWApplication.loginResult;
  * 2. 로그인 서버 통신 확인. 성공여부. (앱 버전 체크 및 업그레이드 진행)
  */
 public class LoginActivity extends Activity implements View.OnClickListener {
-    private static final String TAG = LoginActivity.class.getSimpleName();
-    //===================== 뷰 =====================
     private EditText idEt, pwEt;
     private Button login_btn;
-//    private Button call_btn;
-    //===================== 뷰 =====================
 
     // 업데이트 시 프로그래스 바
     private ProgressDialog updateProgress;
@@ -100,6 +83,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private void init() {
 
         findViewById(R.id.btnPrev).setOnClickListener(this);
+        findViewById(R.id.password_search).setOnClickListener(this);
 
         login_btn = (Button) findViewById(R.id.login_btn);
         login_btn.setOnClickListener(this);
@@ -214,6 +198,15 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
                 // 로그인 요청
                 requestLogin();
+                break;
+
+            case R.id.password_search:
+                //비밀번호 찾기
+                intent = new Intent(this, MemberJoinActivity.class);
+                intent.putExtra("path", "password_search");
+                startActivity(intent);
+                finish();
+                break;
          }
     }
 
@@ -309,14 +302,14 @@ it =>  {"login": [{"REGISTER":"1","CAUSE":"비밀번호 오류","MEMBER_NO":"123
         Util.dismiss();
         //Util.hideProgress();
         //버전비교
-        PackageInfo pi = null;
-        try{
-            pi = getPackageManager().getPackageInfo(getPackageName(),0);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        if(!TextUtils.isEmpty(pi.versionName)) {
-            if(pi.versionName.equals(voLoginItem.VERSION)) {
+//        PackageInfo pi = null;
+//        try{
+//            pi = getPackageManager().getPackageInfo(getPackageName(),0);
+//        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        if(!TextUtils.isEmpty(pi.versionName)) {
+//            if(pi.versionName.equals(voLoginItem.VERSION)) {
                 if ("0".equals(voLoginItem.REGISTER) && !TextUtils.isEmpty(voLoginItem.MEMBER_NO)) {
                     try {
                         PreferenceManager.getInstance().setCheckLogin(true);
@@ -334,44 +327,44 @@ it =>  {"login": [{"REGISTER":"1","CAUSE":"비밀번호 오류","MEMBER_NO":"123
                 } else if ("2".equals(voLoginItem.REGISTER) && !TextUtils.isEmpty(voLoginItem.MEMBER_NO)) {
                     Toast.makeText(this, "회원 가입 후 이용해주세요.", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(this, "로그인에 실패하였습니다. 재시도 해주세요.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, voLoginItem.CAUSE, Toast.LENGTH_LONG).show();
                 }
-            }else{
-                //버전 업데이트 진행.
-                appUpdate();
-            }
-        }else{
-            Toast.makeText(this, "로그인에 실패하였습니다. 재시도 해주세요.", Toast.LENGTH_LONG).show();
-        }
+//            }else{
+//                //버전 업데이트 진행.
+//                appUpdate();
+//            }
+//        }else{
+//            Toast.makeText(this, "로그인에 실패하였습니다. 재시도 해주세요.", Toast.LENGTH_LONG).show();
+//        }
     }
 
-    private void appUpdate()
-    {
-        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-        builder.setTitle(getString(R.string.notice));
-        builder.setMessage(getString(R.string.new_update_file_install_msg));
-        // 필수
-        builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // 전송 받은 다운로드 파일 URL
-  //              updateApp(updateUrl);
-                dialog.dismiss();
-
-                //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.sincar.co.kr/design/newcar.asp"));    //voLoginItem.APK_URL
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(voLoginItem.APK_URL));
-                startActivity(intent);
-
-                finish();
-            }
-        });
-        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // 앱 종료
-                finish();
-            }
-        });
-        builder.show();
-    }
+//    private void appUpdate()
+//    {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+//        builder.setTitle(getString(R.string.notice));
+//        builder.setMessage(getString(R.string.new_update_file_install_msg));
+//        // 필수
+//        builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                // 전송 받은 다운로드 파일 URL
+//  //              updateApp(updateUrl);
+//                dialog.dismiss();
+//
+//                //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.sincar.co.kr/design/newcar.asp"));    //voLoginItem.APK_URL
+//                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(voLoginItem.APK_URL));
+//                startActivity(intent);
+//
+//                finish();
+//            }
+//        });
+//        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                // 앱 종료
+//                finish();
+//            }
+//        });
+//        builder.show();
+//    }
 }

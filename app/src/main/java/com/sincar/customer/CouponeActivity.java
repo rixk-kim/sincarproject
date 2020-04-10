@@ -11,18 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.sincar.customer.adapter.CouponeContentRecyclerViewAdapter;
-import com.sincar.customer.adapter.NoticeContentRecyclerViewAdapter;
 import com.sincar.customer.adapter.content.CouponeContent;
-import com.sincar.customer.adapter.content.NoticeContent;
 import com.sincar.customer.item.CouponeResult;
-import com.sincar.customer.item.NoticeResult;
 import com.sincar.customer.network.VolleyNetwork;
 import com.sincar.customer.util.Util;
 
@@ -35,10 +31,12 @@ import static com.sincar.customer.HWApplication.voCouponeItem;
 import static com.sincar.customer.HWApplication.voCouponeDataItem;
 
 import static com.sincar.customer.HWApplication.voLoginItem;
-import static com.sincar.customer.HWApplication.voNoticeItem;
 import static com.sincar.customer.common.Constants.COUPONE_LIST_REQUEST;
-import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
 
+/**
+ * 202.04.09 spirit
+ * 쿠폰 리스트 class
+ */
 public class CouponeActivity extends AppCompatActivity implements View.OnClickListener {
     private Context cContext;
     private String path;
@@ -66,7 +64,6 @@ public class CouponeActivity extends AppCompatActivity implements View.OnClickLi
      * 화면 초기화
      */
     private void init() {
-        //findViewById(R.id.coupone_btnPrev).setOnClickListener(this);
         findViewById(R.id.coupone_btnPrev_layout).setOnClickListener(this);
 
         findViewById(R.id.coupone_confirm_btn).setOnClickListener(this);
@@ -128,8 +125,6 @@ public class CouponeActivity extends AppCompatActivity implements View.OnClickLi
             voCouponeDataItem     = couponeResult.data;
 
             List<CouponeContent.CouponeItem> ITEMS = new ArrayList<CouponeContent.CouponeItem>();
-
-
 
             for(int i = 0; i < voCouponeDataItem.size(); i++) {
                 CouponeContent.addItem(new CouponeContent.CouponeItem(
@@ -210,7 +205,8 @@ public class CouponeActivity extends AppCompatActivity implements View.OnClickLi
 
         @Override
         public void onResponseFailListener(VolleyError it) {
-
+            //프로그래스바 종료
+            Util.dismiss();
         }
     };
 
@@ -256,5 +252,3 @@ public class CouponeActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 }
-
-

@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -18,43 +16,36 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
-import com.sincar.customer.adapter.CarContentRecyclerViewAdapter;
-import com.sincar.customer.adapter.content.CarContent;
 import com.sincar.customer.item.CarRegisterResult;
-import com.sincar.customer.item.CarResult;
 import com.sincar.customer.network.VolleyNetwork;
 import com.sincar.customer.util.Util;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import static com.sincar.customer.HWApplication.carRegisterResult;
-import static com.sincar.customer.HWApplication.carResult;
-import static com.sincar.customer.HWApplication.voCarDataItem;
-import static com.sincar.customer.HWApplication.voCarItem;
 import static com.sincar.customer.HWApplication.voCarListDataItem;
 import static com.sincar.customer.HWApplication.voCarRegisterItem;
 import static com.sincar.customer.HWApplication.voCompanyListDataItem;
 import static com.sincar.customer.HWApplication.voLoginItem;
 import static com.sincar.customer.common.Constants.CAR_REGISTER_REQUEST;
-import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
 
+/**
+ * 202.04.09 spirit
+ * 차량 등록 class
+ */
 public class CarRegisterActivity extends AppCompatActivity implements View.OnClickListener {
     private Context cContext;
-    private TextView car_select_colume1, car_select_colume2;
-    private EditText car_select_colume3;
-    private String car_wash_pay;
-    private String car_reg_path;
-
-    private String car_company_code = "";
-    private String car_code_m = "";
+    private TextView car_select_colume1, car_select_colume2;    //제조사, 차량 선택
+    private EditText car_select_colume3;                        //차량 번호 입력
+    private String car_wash_pay;                                //차량 기본 세차 금액
+    private String car_reg_path;                                //진입경로
+    private String car_company_code = "";                       //제조사 코드
+    private String car_code_m = "";                             //차량모델 코드
 
 /*
     final String company_name[] = {
@@ -78,6 +69,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
 
     };
 */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,9 +88,9 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
      */
     @SuppressLint("ResourceAsColor")
     private void init() {
-        findViewById(R.id.car_reg_btnPrev).setOnClickListener(this);        //이전
-        findViewById(R.id.car_company).setOnClickListener(this);           //제조사 선택
-        findViewById(R.id.car_name).setOnClickListener(this);                   //차량 선택
+        findViewById(R.id.car_reg_btnPrev).setOnClickListener(this);    //이전
+        findViewById(R.id.car_company).setOnClickListener(this);        //제조사 선택
+        findViewById(R.id.car_name).setOnClickListener(this);           //차량 선택
         findViewById(R.id.car_reg_btn).setOnClickListener(this);        //확인
 
         // 서버 연동하여 제조사, 모델명, 차량 번호 값 가지고 와서 설정해주기.
@@ -148,7 +140,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
         Intent intent;
         if ("reserveMain".equals(car_reg_path))
         {
-            boolean check_Stratus = inputTextCheck();
+            boolean check_Stratus = inputTextCheck();   //유효성체크
             if(check_Stratus && !TextUtils.isEmpty(voCarRegisterItem.CAR_PAY)) {
                 intent = new Intent(this, ReservationMainActivity.class);
                 intent.putExtra("reserve_companyname", car_select_colume1.getText().toString());
@@ -177,6 +169,10 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
         finish();
     }
 
+    /**
+     * 유효성체크
+     * @return
+     */
     private boolean inputTextCheck()
     {
         if (car_select_colume1 != null || car_select_colume1.getText().toString().trim().length() != 0) {
@@ -221,6 +217,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
 
         //프로그래스바 시작
         Util.showDialog(this);
+
         //사용내역 요청
         VolleyNetwork.getInstance(this).serverDataRequest(CAR_REGISTER_REQUEST, postParams, onCarRegisterResponseListener);
     }
@@ -275,8 +272,6 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
             //프로그래스바 종료
             Util.dismiss();
 
-
-
             if("0".equals(voCarRegisterItem.REGISTER_RESULT)) {
                 Toast.makeText(cContext, "차량이 등록 되었습니다.", Toast.LENGTH_SHORT).show();
                 Intent intent;
@@ -304,6 +299,9 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
 
         @Override
         public void onResponseFailListener(VolleyError it) {
+            //프로그래스바 종료
+            Util.dismiss();
+
             Toast.makeText(cContext, "차량 등록에 실패하였습니다.", Toast.LENGTH_SHORT).show();
         }
     };
@@ -347,14 +345,11 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
         // GridView 아이템을 클릭하면 상단 텍스트뷰에 position 출력
         gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                //tv.setText("position : " + position);
-                //if(car_select_colume1 != null) {
-                    car_select_colume1.setText(company_name_1[position]);
-                    car_select_colume2.setText(""); //차량 초기화
-                    car_company_code = company_code[position];
-                //}
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                car_select_colume1.setText(company_name_1[position]);
+                car_select_colume2.setText(""); //차량 초기화
+                car_company_code = company_code[position];
+
                 ad.dismiss();
             }
         });
@@ -428,7 +423,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
 
         String[] car_company_code   = new String[data_size];
         final String[] car_name     = new String[data_size];
-        final String[] car_code           = new String[data_size];
+        final String[] car_code     = new String[data_size];
         String[] car_wash_pay       = new String[data_size];
 
         int tmp_k = 0;
@@ -465,16 +460,10 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
-                    //tv.setText("position : " + position);
-                    //if (car_select_colume2 != null) {
                     car_select_colume2.setText(car_name[position]);
                     car_code_m = car_code[position];
-                        //                    car_select_colume2.setSelection(car_select_colume2.getText().toString().trim().length()); //커서를 끝에 위치!
-                    //}
-                    //                Toast.makeText(cContext, "position : " + adapter.getCount(), Toast.LENGTH_SHORT).show();
 
                     ad.dismiss();
-                    ;
                 }
             });
             ad.show();//보여줌!
@@ -521,5 +510,3 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
         }
     }
 }
-
-

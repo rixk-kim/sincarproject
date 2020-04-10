@@ -20,10 +20,12 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.sincar.customer.util.GPSInfo;
+import com.sincar.customer.util.Util;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -54,18 +56,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private double my_longitude;   //내위치 경도
 
     public final static int MAP_REQ_CODE = 1003;
+    public final static int CALENDA_REQ_CODE = 2003;
 
     private TextView currentTextView, reserve_date;
     private String main_path;
+    private String search_keyword = "";
 
     //시연용 코드
     private ConstraintLayout mConstraintLayout, mbtnReserveAddress;
+
+    private String reserve_year, reserve_month, reserve_day;
+    public static MapsActivity _mMapsActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         gContext = this;
+        _mMapsActivity = MapsActivity.this;
 
         Intent intent = getIntent(); /*데이터 수신*/
         main_path    = intent.getExtras().getString("menu");    /*String형*/
@@ -152,14 +160,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.getDefault());
 
         String weekDay = weekdayFormat.format(currentTime);
-        String year = yearFormat.format(currentTime);
-        String month = monthFormat.format(currentTime);
-        String day = dayFormat.format(currentTime);
+        reserve_year = yearFormat.format(currentTime);
+        reserve_month = monthFormat.format(currentTime);
+        reserve_day = dayFormat.format(currentTime);
 
-        reserve_date.setText(month + "/ " + day + " (" + weekDay + ")"); //9/15 (화)
+        reserve_date.setText(reserve_month + "/ " + reserve_day + " (" + weekDay + ")"); //9/15 (화)
 
         getAddress();
+
+//        mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+//            @Override
+//            public void onCameraChange(CameraPosition arg0) {
+//                LatLng location_center = arg0.target;
+//
+//                mMap.getCameraPosition();
+//                latitude    = arg0.target.latitude;
+//                longitude   = arg0.target.longitude;
+//
+//                getAddress();   //주소 갱신해 줌 ( cAddress )
+//            }
+//        });
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (!gps.isGetLocation()) {
+            gps.showSettingsAlert();
+        }
+    }
+
 
     /**
      * 현 위치 호출시 주소 갱신
@@ -212,6 +243,46 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             case R.id.btnCurrent:
                 // 지도 current button => 하단 버튼과 기능 중복됨
+                mMap.clear();
+
+                // GPS 정보
+                gps = new GPSInfo(gContext);
+                latitude = gps.getLatitude();
+                longitude = gps.getLongitude();
+
+                my_latitude = latitude;
+                my_longitude = longitude;
+
+                if (gps.isGetLocation()) {
+
+                    myPos = new LatLng(my_latitude, my_longitude);
+
+                    markerOptions.position(myPos);
+                    markerOptions.title("내 위치");
+                    markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.group_7));
+                    markerOptions.draggable(false);
+                    mMap.addMarker(markerOptions);
+
+                    seoul = new LatLng(my_latitude, my_longitude);
+
+                    markerOptions.position(seoul);
+                    markerOptions.title("위치 변경");
+                    markerOptions.snippet("검색 위치");
+                    markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.current_icon));
+                    markerOptions.draggable(true);
+                    mMap.addMarker(markerOptions);
+
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(seoul));
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
+
+                    //주소 갱신
+                    getAddress();
+                    currentTextView.setText(cAddress);
+
+                } else {
+                    // GPS 를 사용할수 없으므로
+                    gps.showSettingsAlert();
+                }
                 break;
 
             case R.id.btnReserveAddress:
@@ -223,58 +294,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             case R.id.btnReserveDate:
                 // "예약일자" 설정
-                intent = new Intent(this, ReservationCalendarActivity.class);
-                intent.putExtra("reserve_address", cAddress);
-                startActivity(intent);
+//                intent = new Intent(this, ReservationCalendarActivity.class);
+//                intent.putExtra("reserve_address", cAddress);
+//                intent.putExtra("search_keyword", search_keyword);
+//                startActivity(intent);
 
-                //startActivity(new Intent(this, ReservationCalendarActivity.class));
+                // "예약일자" 설정
+                intent = new Intent(this, ReservationCalendarActivity.class);
+                startActivityForResult(intent, CALENDA_REQ_CODE);
                 break;
             case R.id.btnNext:
                 // "이 위치로 부름" 작업(시나리오 확인) => 현 위치로 이동
-                if("steam".equals(main_path)) {
-                    mMap.clear();
+                if (gps.isGetLocation()) {
 
-
-                    // GPS 정보
-                    gps = new GPSInfo(gContext);
-                    latitude = gps.getLatitude();
-                    longitude = gps.getLongitude();
-
-                    my_latitude = latitude;
-                    my_longitude = longitude;
-
-                    if (gps.isGetLocation()) {
-
-                        myPos = new LatLng(my_latitude, my_longitude);
-
-                        markerOptions.position(myPos);
-                        markerOptions.title("내 위치");
-                        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.group_7));
-                        markerOptions.draggable(false);
-                        mMap.addMarker(markerOptions);
-
-                        seoul = new LatLng(my_latitude, my_longitude);
-
-                        markerOptions.position(seoul);
-                        markerOptions.title("위치 변경");
-                        markerOptions.snippet("검색 위치");
-                        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.current_icon));
-                        markerOptions.draggable(true);
-                        mMap.addMarker(markerOptions);
-
-                        mMap.moveCamera(CameraUpdateFactory.newLatLng(seoul));
-                        mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
-
-                        //주소 갱신
-                        getAddress();
-                        currentTextView.setText(cAddress);
-
+                    if ("steam".equals(main_path)) {
+                        //시간선택으로 바로가기
+                        intent = new Intent(this, ReservationTimeActivity.class);
+                        intent.putExtra("reserve_address", cAddress);
+                        if (TextUtils.isEmpty(search_keyword)) search_keyword = cAddress;
+                        intent.putExtra("search_keyword", search_keyword);
+                        intent.putExtra("reserve_year", reserve_year);
+                        intent.putExtra("reserve_month", reserve_month);
+                        intent.putExtra("reserve_day", reserve_day);
+                        startActivity(intent);
                     } else {
-                        // GPS 를 사용할수 없으므로
-                        gps.showSettingsAlert();
+                        Toast.makeText(this, "서비스 준비중입니다.", Toast.LENGTH_LONG).show();
                     }
                 }else{
-                    Toast.makeText(this, "서비스 준비중입니다.", Toast.LENGTH_LONG).show();
+                    gps.showSettingsAlert();
                 }
                 //ConvertGPS("서울 송파구 석촌호수로 274");
 //                Toast.makeText(this, cAddress + "로 부르셨습니다. 정보 갱신중..", Toast.LENGTH_LONG).show();
@@ -293,6 +340,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             if (resultCode == RESULT_OK) {
                 if(!TextUtils.isEmpty(data.getStringExtra("search_result"))) {
                     cAddress = data.getStringExtra("search_result");
+                    search_keyword = data.getStringExtra("search_keyword");
                     currentTextView.setText(cAddress);
                     ConvertGPS(cAddress);
                 }else{
@@ -303,6 +351,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                Toast.makeText(MapsActivity.this, "Failed", Toast.LENGTH_SHORT).show();
             }
 
+        }else if(requestCode == CALENDA_REQ_CODE){
+            if (resultCode == RESULT_OK) {
+                if(!TextUtils.isEmpty(data.getStringExtra("reserve_year"))) {
+                    String dayofday = "";
+                    reserve_year = data.getStringExtra("reserve_year");
+                    reserve_month = data.getStringExtra("reserve_month");
+                    reserve_day = data.getStringExtra("reserve_day");
+                    try {
+                        dayofday = Util.getDateDay(reserve_year+reserve_month+reserve_day);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    reserve_date.setText(reserve_month + "/ " + reserve_day + " (" + dayofday + ")"); //9/15 (화)
+                }else{
+                    Toast.makeText(MapsActivity.this, "날짜를 다시 해주세요", Toast.LENGTH_SHORT).show();
+                }
+//                Toast.makeText(MapsActivity.this, "Result: " + data.getStringExtra("search_result"), Toast.LENGTH_SHORT).show();
+            } else {   // RESULT_CANCEL
+//                Toast.makeText(MapsActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

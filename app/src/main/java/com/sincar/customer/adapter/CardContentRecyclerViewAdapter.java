@@ -15,6 +15,10 @@ import com.sincar.customer.R;
 import com.sincar.customer.adapter.content.CardContent;
 import java.util.List;
 
+/**
+ * 202.04.09 spirit
+ * 카드 정보 class : 사용 안함.
+ */
 public class CardContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sincar.customer.adapter.CardContentRecyclerViewAdapter.ViewHolder> {
 
     private final List<CardContent.CardItem> mValues;
@@ -37,7 +41,6 @@ public class CardContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sin
 
         return new com.sincar.customer.adapter.CardContentRecyclerViewAdapter.ViewHolder(view);
     }
-
 
     @Override
     public void onBindViewHolder(final com.sincar.customer.adapter.CardContentRecyclerViewAdapter.ViewHolder holder, int position) {

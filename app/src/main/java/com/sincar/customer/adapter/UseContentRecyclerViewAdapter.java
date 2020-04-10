@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -24,19 +23,22 @@ import com.sincar.customer.util.Util;
 
 import java.util.List;
 
-import static com.sincar.customer.util.Util.setAddMoneyDot;
-import static java.security.AccessController.getContext;
-
-public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sincar.customer.adapter.UseContentRecyclerViewAdapter.ViewHolder> {
-
+/**
+ * 2020.04.09 spirit
+ * 이용내역 class
+ */
+public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sincar.customer.adapter.UseContentRecyclerViewAdapter.ViewHolder>
+{
     private final List<UseContent.UseItem> mValues;
-    private Context mContext;
-    private String use_pos;
-    private LinearLayout mLayout;
-    private int itemCount = 0;
+
     private Activity useActivity;
+    private Context mContext;
+
+    private String use_pos;
+    private int itemCount = 0;
+
+    private LinearLayout mLayout;
     private LinearLayout useLinearLayout;
-    private String send_reserve_time, send_use_pay, send_wash_address, send_wash_agent;
 
     public UseContentRecyclerViewAdapter(Context context, List<UseContent.UseItem> items, Activity uActivity) {
         mContext    = context;
@@ -59,21 +61,23 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
     public void onBindViewHolder(final com.sincar.customer.adapter.UseContentRecyclerViewAdapter.ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
 
+//        holder.mView.setTag(holder.mItem);
+
         holder.mUseSeq = mValues.get(position).seq;
         holder.reserve_status = mValues.get(position).reserve_status;
 
         holder.reserve_time.setText(mValues.get(position).reserve_time);
-        send_reserve_time = mValues.get(position).reserve_time;
+        holder.send_reserve_time = mValues.get(position).reserve_time;
 
         holder.cancel_time = mValues.get(position).cancel_time;
         holder.wash_address.setText(mValues.get(position).wash_address);
-        send_wash_address = mValues.get(position).wash_address;
+        holder.send_wash_address = mValues.get(position).wash_address;
 
         holder.wash_agent.setText(mValues.get(position).wash_agent);
-        send_wash_agent = mValues.get(position).wash_agent;
+        holder.send_wash_agent = mValues.get(position).wash_agent;
 
         holder.use_pay.setText(Util.setAddMoneyDot(mValues.get(position).use_pay) + "원");
-        send_use_pay = mValues.get(position).use_pay;
+        holder.send_use_pay = mValues.get(position).use_pay;
 
         holder.agent_mobile = mValues.get(position).agent_mobile;
 
@@ -86,11 +90,11 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
 
         //0: 예약중, 1:완료 , 2: 예약취소
         if("0".equals(holder.reserve_status)) {
-            holder.reserve_view.setText("예약 건");
+            holder.reserve_view.setText("예약완료");
         }else if("1".equals(holder.reserve_status)) {
-            holder.reserve_view.setText("완료 건");
+            holder.reserve_view.setText("예약취소");
         }else if("2".equals(holder.reserve_status)) {
-            holder.reserve_view.setText("예약취소 건");
+            holder.reserve_view.setText("세차완료");
         }
 
         use_pos = String.valueOf(position);
@@ -131,20 +135,18 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
                 intent.putExtra("common_pay", holder.common_pay);
                 intent.putExtra("coupone_pay", holder.coupone_pay);
                 intent.putExtra("approve_info", holder.approve_info);
-                intent.putExtra("use_pay", send_use_pay);
-                intent.putExtra("reserve_time", send_reserve_time);
+                intent.putExtra("use_pay", holder.send_use_pay);
+                intent.putExtra("reserve_time", holder.send_reserve_time);
 
                 intent.putExtra("cencel_time", holder.cancel_time);
-                intent.putExtra("wash_address", send_wash_address);
-                intent.putExtra("wash_agent", send_wash_agent);
+                intent.putExtra("wash_address", holder.send_wash_address);
+                intent.putExtra("wash_agent", holder.send_wash_agent);
                 intent.putExtra("agent_mobile", holder.agent_mobile);
                 intent.putExtra("car_info", holder.car_info);
                 intent.putExtra("car_number", holder.car_number);
                 intent.putExtra("point_pay", holder.point_pay);
+
                 mContext.startActivity(intent);
-
-//                Toast.makeText(mContext, "상세보기 요청", Toast.LENGTH_SHORT).show();
-
             }
         });
     }
@@ -179,6 +181,8 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
         public String car_number;       //차량번호
         public String point_pay;        //포인트요금
 
+        private String send_reserve_time, send_use_pay, send_wash_address, send_wash_agent;
+
 
         public final TextView reserve_view;
         public final TextView call_view;
@@ -206,6 +210,11 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
             car_info        = "";       //차량정보
             car_number      = "";       //차량번호
             useLinearLayout = view.findViewById(R.id.use_layout);
+
+            send_reserve_time   = "";
+            send_use_pay        = "";
+            send_wash_address   = "";
+            send_wash_agent     = "";
         }
     }
 }

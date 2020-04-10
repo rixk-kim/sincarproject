@@ -162,6 +162,10 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
         @Override
         public void onResponseFailListener(VolleyError it) {
+
+            //프로그래스바 종료
+            Util.dismiss();
+
             Toast.makeText(mContext, "변경에 실패하였습니다.", Toast.LENGTH_SHORT).show();
         }
     };
@@ -316,6 +320,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
         @Override
         public void onResponseFailListener(VolleyError it) {
+            //프로그래스바 종료
+            Util.dismiss();
+
             Toast.makeText(mContext, "회원 탈퇴에 실패하였습니다.", Toast.LENGTH_SHORT).show();
         }
     };

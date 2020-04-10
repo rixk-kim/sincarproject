@@ -52,6 +52,8 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.splash_layout);
         mActivity = this;
 
+        PreferenceManager.getInstance().setVersionCheck(false);   //버전체크 초기화
+
         // 마시멜로 체크 및 알림
         checkPermission();
     }

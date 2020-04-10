@@ -22,22 +22,24 @@ import com.sincar.customer.adapter.content.TimeContent.TimeItem;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.sincar.customer.HWApplication.voAgentDataItem;
 import static com.sincar.customer.adapter.content.AgentContent.ITEMS;
 
-public class AgentRecyclerViewAdapter extends RecyclerView.Adapter<AgentRecyclerViewAdapter.ViewHolder>
-implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
+/**
+ * 2020.04.09 spirit
+ * 대리점주 정보 class
+ */
+public class AgentRecyclerViewAdapter extends RecyclerView.Adapter<AgentRecyclerViewAdapter.ViewHolder> implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
 
-    private final int timeSpanCount = 4;
+    private final int timeSpanCount = 4;        //시간 가로 갯수 설정.
     private OnAgentListInteractionListener mListener;
     private final List<AgentContent.AgentItem> mValues;
-    //private List<TimeContent.TimeItem> TIMEITEMS;
 
-    private int prevAgentPosition = -1;
-    private int prevTimePosition = -1;
+    private int prevAgentPosition = -1;     //이전 선택 대리점주 position.
+    private int prevTimePosition = -1;      //이전 선택 시간 position.
 
-    private String reserveTime;
-    private String reserveStatus;
+    private String reserveSeq;              //예약 SEQ
+    private String reserveTime;             //예약 시간
+    private String reserveStatus;           //예약 상태
     private Context arContext;
 
     public AgentRecyclerViewAdapter(List<AgentContent.AgentItem> items, OnAgentListInteractionListener listener, Context context) {
@@ -108,6 +110,7 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
         Log.d("대리점주", "selected = " + timeItem.selected);
         Log.d("대리점주", "agentPosition = " + timeItem.agentPosition);
         Log.d("대리점주", "num = " + mValues.get(timeItem.agentPosition).reserve_info.get(0));
+        Log.d("대리점주", "seq = " + mValues.get(timeItem.agentPosition).agent_seq);
 //        mValues.set(timeItem.agentPosition, TimeContent.TimeItem("","","","",false);    // get(timeItem.selected);
 
         if (prevAgentPosition != -1
@@ -122,6 +125,8 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
 
         reserveTime = mValues.get(timeItem.agentPosition).reserve_info.get(timeItem.position).reservation_time; //예약시간
         reserveStatus = mValues.get(timeItem.agentPosition).reserve_info.get(timeItem.position).reservation_status; //예약여부
+        reserveSeq = mValues.get(timeItem.agentPosition).agent_seq; //대리점 번호
+
         Log.d("포지션", "prevAgentPosition = " + prevAgentPosition);
         Log.d("포지션", "prevTimePosition = " + prevTimePosition);
 
@@ -145,6 +150,10 @@ implements TimeRecyclerViewAdapter.OnTimeListInteractionListener {
     public String getStatusPosition()
     {
         return reserveStatus;
+    }
+
+    public String getAgentSeq() {
+        return reserveSeq;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

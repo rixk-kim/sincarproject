@@ -10,19 +10,22 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.sincar.customer.R;
 import com.sincar.customer.adapter.content.CouponeContent;
-import com.sincar.customer.adapter.content.OptionContent;
 
 import java.util.List;
 
+/**
+ * 2020.04.09 spirit
+ * 쿠폰 class
+ */
 public class CouponeContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sincar.customer.adapter.CouponeContentRecyclerViewAdapter.ViewHolder>
         implements View.OnClickListener{
 
     private final List<CouponeContent.CouponeItem> mValues;
-    private Context mContext;
-    private String coupone_pos;
     private LinearLayout mLayout;
-    private String coupone_seq;
-    private String coupone_pay;
+    private Context mContext;
+
+    private String coupone_seq;     //쿠폰 SEQ
+    private String coupone_pay;     //쿠폰 이용요금
     private String path;
     private int pre_position = -1;
 

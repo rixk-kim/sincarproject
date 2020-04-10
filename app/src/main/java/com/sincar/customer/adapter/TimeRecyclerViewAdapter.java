@@ -18,15 +18,17 @@ import com.sincar.customer.adapter.content.TimeContent.TimeItem;
 
 import java.util.List;
 
+/**
+ * 2020.04.09 spirit
+ * 대리점주 예약 시간 class
+ */
 public class TimeRecyclerViewAdapter extends RecyclerView.Adapter<TimeRecyclerViewAdapter.ViewHolder> implements View.OnClickListener {
 
     private int agentPosition;
     private final List<TimeItem> mValues;
     private OnTimeListInteractionListener mListener;
     private Context trContext;
-    private String agent_status;
-
-//    private int prePosition;
+    private String agent_status;    //활동지역 구분
 
     public TimeRecyclerViewAdapter(int agentPosition, List<TimeItem> items,
                                    OnTimeListInteractionListener listener, Context context, String agent_status) {
@@ -37,7 +39,6 @@ public class TimeRecyclerViewAdapter extends RecyclerView.Adapter<TimeRecyclerVi
         }
         this.trContext = context;
         this.agent_status = agent_status;
-//        prePosition = -1;
     }
 
     @Override
@@ -144,9 +145,6 @@ public class TimeRecyclerViewAdapter extends RecyclerView.Adapter<TimeRecyclerVi
                 holder.mTimeDisableText.setTextColor(R.color.agent_color_1);
             }
         }
-
-
-
     }
 
     public interface OnTimeListInteractionListener {

@@ -13,6 +13,10 @@ import com.sincar.customer.R;
 import com.sincar.customer.adapter.content.NoticeContent;
 import java.util.List;
 
+/**
+ * 2020.04.09 spirit
+ * 공지사항 class
+ */
 public class NoticeContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sincar.customer.adapter.NoticeContentRecyclerViewAdapter.ViewHolder> {
 
     private final List<NoticeContent.NoticeItem> mValues;

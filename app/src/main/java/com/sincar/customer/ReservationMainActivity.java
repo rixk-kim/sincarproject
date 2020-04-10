@@ -63,12 +63,14 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
 
     private RadioGroup rRadioGroup;
     private Context rContext;
+    public static ReservationMainActivity _reservationMainActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation_main);
         rContext = this;
+        _reservationMainActivity = ReservationMainActivity.this;
 
         Intent intent = getIntent(); /*데이터 수신*/
         reserve_address     = intent.getExtras().getString("reserve_address");  /*String형*/
@@ -130,6 +132,7 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
         findViewById(R.id.btnCarRegister).setOnClickListener(this);
 
         // 서버 연동 후 PointContent.ITEMS에 리스 항목 추가 작업
+        OptionContent.clearItem(); //초기화
         requestNoticeList();
     }
 
@@ -237,7 +240,8 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
 
         @Override
         public void onResponseFailListener(VolleyError it) {
-
+            //프로그래스바 종료
+            Util.dismiss();
         }
     };
 
@@ -282,8 +286,16 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
                     bundle.putString("agent_seq", agent_seq);               //예약 대리점주 seq
                     bundle.putString("agent_company", agent_company);       //예약 대리점주
                     bundle.putString("agent_time", agent_time);             //예약시간
+
                     if(TextUtils.isEmpty(wash_area)) wash_area = "실내";
+                    if("실내".equals(wash_area.trim()))
+                    {
+                        wash_area = "0";
+                    }else{
+                        wash_area = "1";
+                    }
                     bundle.putString("wash_area", wash_area);               //세차장소
+
                     bundle.putString("car_company", reserve_companyname);   //제조사
                     bundle.putString("car_name", reserve_carname);          //차량 이름
                     bundle.putString("car_number", reserve_carnumber);      //차번호

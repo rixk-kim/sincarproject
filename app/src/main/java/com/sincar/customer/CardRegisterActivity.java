@@ -14,6 +14,10 @@ import android.widget.Toast;
 import com.sincar.customer.adapter.CardContentRecyclerViewAdapter;
 import com.sincar.customer.adapter.content.CardContent;
 
+/**
+ * 2020.04.09
+ * 사용안함(카드등록)
+ */
 public class CardRegisterActivity extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -183,6 +183,9 @@ public class MyProfileSettingsRecomActivity extends AppCompatActivity implements
 
         @Override
         public void onResponseFailListener(VolleyError it) {
+            //프로그래스바 종료
+            Util.dismiss();
+
             Toast.makeText(rContext, "추천인 코드 등록 실패하였습니다. 재시도 해주세요.", Toast.LENGTH_LONG).show();
         }
     };

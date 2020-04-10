@@ -215,7 +215,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list_title" />
+        app:layout_constraintTop_toBottomOf="@+id/list_title"/>
 
     <!-- 리스트가 없을때 -->
     <LinearLayout
@@ -223,23 +223,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="140dp"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:orientation="vertical"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/use_divider"
-        android:orientation="vertical"
-        android:visibility="gone">
+        app:layout_constraintTop_toBottomOf="@+id/list_title">
 
         <TextView
-            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="43dp"
+            android:fontFamily="@font/nanumsquareregular"
             android:gravity="center|center_horizontal|center_vertical"
             android:text="포인트 이용 내역이 없습니다."
-            android:textSize="16sp"
             android:textColor="#993e3e3e"
-            />
+            android:textSize="16sp" />
 
         />
     </LinearLayout>

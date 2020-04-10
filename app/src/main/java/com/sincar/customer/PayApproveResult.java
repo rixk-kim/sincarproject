@@ -31,7 +31,24 @@ public class PayApproveResult extends AppCompatActivity implements View.OnClickL
     private void init() {
         findViewById(R.id.reserve_approve_btn).setOnClickListener(this);
 
+        //기존 activity 종료
+        MapsActivity mapActivity = (MapsActivity)MapsActivity._mMapsActivity;
+        mapActivity.finish();
 
+        ReservationCalendarActivity reservationCalendarActivity = (ReservationCalendarActivity)ReservationCalendarActivity._reservationCalendarActivity;
+        reservationCalendarActivity.finish();
+
+        ReservationTimeActivity reservationTimeActivity = (ReservationTimeActivity)ReservationTimeActivity._reservationTimeActivity;
+        reservationTimeActivity.finish();
+
+        ReservationMainActivity reservationMainActivity = (ReservationMainActivity)ReservationMainActivity._reservationMainActivity;
+        reservationMainActivity.finish();
+
+        PaymentActivity paymentActivity = (PaymentActivity)PaymentActivity._paymentActivity;
+        paymentActivity.finish();
+
+        PayApproveActivity payApproveActivity = (PayApproveActivity)PayApproveActivity._payApproveActivity;
+        payApproveActivity.finish();
     }
 
     @Override

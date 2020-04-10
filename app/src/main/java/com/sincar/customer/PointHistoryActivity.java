@@ -78,11 +78,14 @@ public class PointHistoryActivity extends AppCompatActivity implements View.OnCl
 
         //누적 포인트
         TextView point = findViewById(R.id.total_point);
-        if(TextUtils.isEmpty(voLoginItem.ACCUM_POINT)) {
-            point.setText("0");
-        }else{
-            point.setText(Util.setAddMoneyDot(voLoginItem.ACCUM_POINT));
-        }
+        point.setText(Util.setAddMoneyDot(voLoginItem.MY_POINT));
+//        if(TextUtils.isEmpty(voLoginItem.ACCUM_POINT)) {
+//            point.setText("0");
+//        }else{
+//            point.setText(Util.setAddMoneyDot(voLoginItem.ACCUM_POINT));
+//        }
+
+
 
         // 서버 연동 후 PointContent.ITEMS에 리스 항목 추가 작업
         PointContent.clearItem();

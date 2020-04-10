@@ -20,9 +20,12 @@ public class ReservationCalendarActivity extends AppCompatActivity implements Vi
     private Context calContext;
 
     private String reserve_address; //예약주소
+    private String search_keyword;  //검색어
     private String reserve_year;    //예약년도
     private String reserve_month;   //예약월
     private String reserve_day;     //예약일
+
+    public static ReservationCalendarActivity _reservationCalendarActivity;
 
 
     @Override
@@ -30,10 +33,11 @@ public class ReservationCalendarActivity extends AppCompatActivity implements Vi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation_calendar);
         calContext = this;
+        _reservationCalendarActivity = ReservationCalendarActivity.this;
 
-        Intent intent = getIntent(); /*데이터 수신*/
-        reserve_address    = intent.getExtras().getString("reserve_address");    /*String형*/
-
+//        Intent intent = getIntent(); /*데이터 수신*/
+//        reserve_address    = intent.getExtras().getString("reserve_address");    /*String형*/
+//        search_keyword     = intent.getExtras().getString("search_keyword");    /*String형*/
         // 화면 초기화
         init();
 
@@ -99,12 +103,20 @@ public class ReservationCalendarActivity extends AppCompatActivity implements Vi
                 finish();
                 break;
             case R.id.btnNext:
-                intent = new Intent(this, ReservationTimeActivity.class);
-                intent.putExtra("reserve_address", reserve_address);
+//                intent = new Intent(this, ReservationTimeActivity.class);
+//                intent.putExtra("reserve_address", reserve_address);
+//                intent.putExtra("search_keyword", search_keyword);
+//                intent.putExtra("reserve_year", reserve_year);
+//                intent.putExtra("reserve_month", reserve_month);
+//                intent.putExtra("reserve_day", reserve_day);
+//                startActivity(intent);
+
+                intent = new Intent(this, MapsActivity.class);
                 intent.putExtra("reserve_year", reserve_year);
                 intent.putExtra("reserve_month", reserve_month);
                 intent.putExtra("reserve_day", reserve_day);
-                startActivity(intent);
+                setResult(RESULT_OK, intent);
+                finish();
                 break;
         }
     }

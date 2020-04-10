@@ -5,8 +5,6 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 
 import androidx.multidex.MultiDexApplication;
 
@@ -41,6 +39,8 @@ import com.sincar.customer.item.LoginAdvertiseItem;
 import com.sincar.customer.item.LoginDataItem;
 import com.sincar.customer.item.LoginItem;
 import com.sincar.customer.item.LoginResult;
+import com.sincar.customer.item.MemberItem;
+import com.sincar.customer.item.MemberResult;
 import com.sincar.customer.item.NoticeDataItem;
 import com.sincar.customer.item.NoticeItem;
 import com.sincar.customer.item.NoticeResult;
@@ -71,13 +71,11 @@ import com.sincar.customer.item.UseResult;
 import com.sincar.customer.item.WithdrawItem;
 import com.sincar.customer.item.WithdrawResult;
 import com.sincar.customer.preference.PreferenceManager;
-import com.sincar.customer.util.LoadingProgress;
-import com.tsengvn.typekit.Typekit;
 
 import java.util.ArrayList;
 
 /**
- * Created by spirit on 2019-10-26 <p/>
+ * 2020.04.09. spirit
  */
 public class HWApplication extends MultiDexApplication {
 
@@ -196,6 +194,10 @@ public class HWApplication extends MultiDexApplication {
     public static CarDeleteResult carDeleteResult;
     public static CarDeleteItem voCarDeleteItem;
 
+    //버전 요청
+    public static MemberResult memberResult;
+    public static MemberItem voMemberItem;
+
     public static DBAdapter dbConnect;
 
     AppStatus mAppStatus;
@@ -245,6 +247,7 @@ public class HWApplication extends MultiDexApplication {
         voPointItem     = new PointItem();
         voSearchWordItem= new SearchWordItem();
         voCarDeleteItem = new CarDeleteItem();
+        voMemberItem    = new MemberItem();
 
 //        dbConnect = new DBAdapter(context);
 //        dbConnect.openTransjection();

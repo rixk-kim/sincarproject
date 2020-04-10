@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import ss.com.bannerslider.adapters.SliderAdapter;
 import ss.com.bannerslider.viewholder.ImageSlideViewHolder;
 
+/**
+ * 2020.04.09 spirit
+ * 배너 class.
+ */
 public class MainBannerSliderAdapter extends SliderAdapter {
 
     ArrayList<String> imageUrls = new ArrayList<String>();

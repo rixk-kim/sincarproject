@@ -166,7 +166,8 @@ public class ReservationAddressActivity extends AppCompatActivity implements Vie
 
         @Override
         public void onResponseFailListener(VolleyError it) {
-
+            //프로그래스바 종료
+            Util.dismiss();
         }
     };
 
@@ -286,7 +287,8 @@ public class ReservationAddressActivity extends AppCompatActivity implements Vie
 
         @Override
         public void onResponseFailListener(VolleyError it) {
-
+            //프로그래스바 종료
+            Util.dismiss();
         }
     };
 

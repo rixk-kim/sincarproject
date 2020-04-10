@@ -51,9 +51,9 @@ public class PasswordChangeActivity extends AppCompatActivity implements View.On
 
         Intent intent = getIntent(); /*데이터 수신*/
         path  = intent.getExtras().getString("path");       /*String형*/
-        if("join".equals(path)) {
+        //if("member_join".equals(path)) {
             phone_number = intent.getExtras().getString("phone_number");       /*String형*/
-        }
+        //}
 
         init();
     }
@@ -96,7 +96,7 @@ public class PasswordChangeActivity extends AppCompatActivity implements View.On
         Intent intent;
         switch (v.getId()) {
             case R.id.change_btnPrev:
-                if(!"join".equals(path)) {
+                if(!"member_join".equals(path) && !"password_search".equals(path)) {
                     intent = new Intent(this, MyProfileSettingsDetailActivity.class);
                     startActivity(intent);
                 }
@@ -157,7 +157,7 @@ public class PasswordChangeActivity extends AppCompatActivity implements View.On
             return;
         }
 
-        if(!"join".equals(path)) {
+        if(!"member_join".equals(path)) {
             //비밀번호 재설정
             changePassword(tmp_password1);
         }else{
@@ -173,7 +173,7 @@ public class PasswordChangeActivity extends AppCompatActivity implements View.On
 
         HashMap<String, String> postParams = new HashMap<String, String>();
         postParams.put("NEW_PASSWORD", password);               // 새 비밀번호
-        postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);     // 회원번호
+        postParams.put("PHONE_NUMBER", phone_number);     // 폰번호
 
         //프로그래스바 시작
         Util.showDialog(this);
@@ -228,6 +228,15 @@ public class PasswordChangeActivity extends AppCompatActivity implements View.On
                         // TODO Auto-generated method stub
                         dialog.dismiss();
 
+                        //이전 Activity 종료.
+                        if(MemberJoinActivity._memberJoinActivity != null) {
+                            MemberJoinActivity memberJoinActivity = (MemberJoinActivity) MemberJoinActivity._memberJoinActivity;
+                            memberJoinActivity.finish();
+                        }
+
+                        MemberAuthActivity memberAuthActivity = (MemberAuthActivity)MemberAuthActivity._memberAuthActivity;
+                        memberAuthActivity.finish();
+
                         Intent intent1 = new Intent(pContext, LoginActivity.class);
                         startActivity(intent1);
                         finish();
@@ -240,6 +249,9 @@ public class PasswordChangeActivity extends AppCompatActivity implements View.On
 
         @Override
         public void onResponseFailListener(VolleyError it) {
+            //프로그래스바 종료
+            Util.dismiss();
+
             Toast.makeText(PasswordChangeActivity.this, "비밀번호 변경 실패하였습니다. 재시도 해주세요.", Toast.LENGTH_LONG).show();
         }
     };

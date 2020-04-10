@@ -1,24 +1,21 @@
 package com.sincar.customer.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sincar.customer.R;
-import com.sincar.customer.adapter.content.ChargeContent;
 import com.sincar.customer.adapter.content.ChargeContent.ChargeItem;
-import com.sincar.customer.adapter.content.TimeContent.TimeItem;
-
 import java.util.List;
 
 import static com.sincar.customer.util.Util.setAddMoneyDot;
 
+/**
+ * 2020.04.09 spirit
+ * 이용요금 class (기본 요금, 부가서비스)
+ */
 public class ChargeContentRecyclerViewAdapter extends RecyclerView.Adapter<ChargeContentRecyclerViewAdapter.ViewHolder>  {
 
     private final List<ChargeItem> mValues;
@@ -70,5 +67,4 @@ public class ChargeContentRecyclerViewAdapter extends RecyclerView.Adapter<Charg
             mChargeAmount = view.findViewById(R.id.charge_amount);
         }
     }
-
 }

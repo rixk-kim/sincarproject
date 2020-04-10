@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
@@ -290,7 +291,6 @@ public class MemberJoinTermsActivity extends Activity implements View.OnClickLis
      * 회원가입
      */
     private void requestMemberJoin() {
-
         HashMap<String, String> postParams = new HashMap<String, String>();
         postParams.put("PHONE_NUMBER", phone_number);       // 사용자 전화번호
         postParams.put("PASSWORD", password);               // 사용자 비밀번호
@@ -322,6 +322,7 @@ public class MemberJoinTermsActivity extends Activity implements View.OnClickLis
             joinResult = gSon.fromJson(it, JoinResult.class);
 
             voJoinItem.JOIN_RESULT      = joinResult.join_result.JOIN_RESULT;
+            voJoinItem.CAUSE            = joinResult.join_result.CAUSE;
 
             //프로그래스바 종료
             Util.dismiss();
@@ -348,18 +349,60 @@ public class MemberJoinTermsActivity extends Activity implements View.OnClickLis
                 Intent intent = new Intent(MemberJoinTermsActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
+
+                // 2초간 멈추게 하고싶다면
+//                Handler handler = new Handler();
+//                handler.postDelayed(new Runnable() {
+//                    public void run() {
+//                        Intent intent = new Intent(MemberJoinTermsActivity.this, LoginActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                    }
+//                }, 2000);  // 2000은 2초를 의미합니다.
+
             }else{
                 //{"join_result":{"JOIN_RESULT":"1","CAUSE":"등록된 폰번호가 있습니다."}}
+                //Toast.makeText(MemberJoinTermsActivity.this, voJoinItem.CAUSE, Toast.LENGTH_SHORT).show();
                 Toast.makeText(MemberJoinTermsActivity.this, voJoinItem.CAUSE, Toast.LENGTH_LONG).show();
+
+                //이전 Activity 종료.
+                MemberJoinActivity memberJoinActivity = (MemberJoinActivity)MemberJoinActivity._memberJoinActivity;
+                memberJoinActivity.finish();
+
+                MemberAuthActivity memberAuthActivity = (MemberAuthActivity)MemberAuthActivity._memberAuthActivity;
+                memberAuthActivity.finish();
+
+                PasswordChangeActivity passwordChangeActivity = (PasswordChangeActivity)PasswordChangeActivity._passwordChangeActivity;
+                passwordChangeActivity.finish();
+
+                MemberNickNameActivity memberNickNameActivity = (MemberNickNameActivity)MemberNickNameActivity._memberNickNameActivity;
+                memberNickNameActivity.finish();
+
+                MemberRecomActivity memberRecomActivity = (MemberRecomActivity)MemberRecomActivity._memberRecomActivity;
+                memberRecomActivity.finish();
 
                 Intent intent = new Intent(MemberJoinTermsActivity.this, LoginActivityPre.class);
                 startActivity(intent);
                 finish();
+
+                // 2초간 멈추게 하고싶다면
+//                Handler handler = new Handler();
+//                handler.postDelayed(new Runnable() {
+//                    public void run() {
+//                        Intent intent = new Intent(MemberJoinTermsActivity.this, LoginActivityPre.class);
+//                        startActivity(intent);
+//                        finish();
+//                    }
+//                }, 2000);  // 2000은 2초를 의미합니다.
+
             }
         }
 
         @Override
         public void onResponseFailListener(VolleyError it) {
+            //프로그래스바 종료
+            Util.dismiss();
+
             Toast.makeText(MemberJoinTermsActivity.this, "서버 전송에 실패하였습니다. 재시도 해주세요.", Toast.LENGTH_LONG).show();
         }
     };

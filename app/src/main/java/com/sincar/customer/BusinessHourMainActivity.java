@@ -5,6 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+/**
+ * 2020.04.09
+ * 사용안함
+ */
 public class BusinessHourMainActivity extends AppCompatActivity {
 
     @Override

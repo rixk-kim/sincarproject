@@ -71,4 +71,13 @@ public class PreferenceManager {
         return preferenceData.getString("UID", "");
     }
 
+    // 버전체크 셋팅
+    public void setVersionCheck(boolean isVersionCheck) {
+        preferenceData.putBoolean("VERSION_CHECK", isVersionCheck);
+    }
+
+    // 자동 로그인 값 확인
+    public boolean getVersionCheck() {
+        return preferenceData.getBoolean("VERSION_CHECK", false);
+    }
 }

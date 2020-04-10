@@ -19,6 +19,7 @@ public class Constants {
 //    public static final String BASE_URL = "http://14.63.214.44:7060";
 
     public static final String BASE_URL = "http://sincar.co.kr/api";
+    public static final String PAY_BASE_URL = "http://sincar.co.kr/api";
 
 
     // 연결 서버 변경
@@ -50,5 +51,9 @@ public class Constants {
     public static final String AGENT_LIST_REQUEST           = REAL_SERVER + "/IF_SINCAR_AGENT_025.asp?";   //대리점 정보 조회 요청
     public static final String MEMBER_JOIN_REQUEST          = REAL_SERVER + "/IF_SINCAR_AGENT_026.asp?";   //회원가입
     public static final String CAR_DELETE_REQUEST           = REAL_SERVER + "/IF_SINCAR_AGENT_027.asp?";   //등록차량 삭제
+    public static final String PAYMEMNT_REQUEST             = PAY_BASE_URL + "/IF_SINCAR_AGENT_028.asp";   //결재 호출
+    public static final String APPVERSION_REQUEST           = REAL_SERVER + "/IF_SINCAR_AGENT_029.asp";   //버전체크
+
+    public static final String TEST_REQUEST                 = REAL_SERVER + "/IF_SINCAR_AGENT_099.asp";   //테스트
 
 }

@@ -45,6 +45,7 @@ public class ReservationTimeActivity extends AppCompatActivity
     private String reserve_year;    //예약년도
     private String reserve_month;   //예약월
     private String reserve_day;     //예약일
+    private String search_keyword;  //검색어
 
     private AgentRecyclerViewAdapter mAgentRecyclerViewAdapter;
 
@@ -52,14 +53,18 @@ public class ReservationTimeActivity extends AppCompatActivity
     private int request_page = 1;                           // 페이징변수. 초기 값은 0 이다.
     private final int request_offset = 20;                  // 한 페이지마다 로드할 데이터 갯수.
 
+    public static ReservationTimeActivity _reservationTimeActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation_time);
         reContext = this;
+        _reservationTimeActivity = ReservationTimeActivity.this;
 
         Intent intent = getIntent(); /*데이터 수신*/
         reserve_address     = intent.getExtras().getString("reserve_address");    /*String형*/
+        search_keyword      = intent.getExtras().getString("search_keyword");    /*String형*/
         reserve_year        = intent.getExtras().getString("reserve_year");    /*String형*/
         reserve_month       = intent.getExtras().getString("reserve_month");    /*String형*/
         reserve_day         = intent.getExtras().getString("reserve_day");    /*String형*/
@@ -100,12 +105,14 @@ public class ReservationTimeActivity extends AppCompatActivity
         }
 
         HashMap<String, String> postParams = new HashMap<String, String>();
-        postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);              // 회원번호
-        postParams.put("ADDRESS", reserve_address);                      // 검색 주소
-//        postParams.put("ADDRESS", "관악구");                      // 검색 주소
-        postParams.put("REQUEST_DATE", reserve_date);                    // 날짜
-        postParams.put("REQUEST_PAGE", String.valueOf(request_page));   // 요청페이지
-        postParams.put("REQUEST_NUM", String.valueOf(request_offset));  // 요청갯수
+        postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);                 // 회원번호
+        postParams.put("ADDRESS", reserve_address);                         // 검색 주소
+//        postParams.put("ADDRESS", "관악구");                                 // 검색 주소
+        postParams.put("REQUEST_DATE", reserve_date);                       // 날짜
+        postParams.put("REQUEST_PAGE", String.valueOf(request_page));       // 요청페이지
+        postParams.put("REQUEST_NUM", String.valueOf(request_offset));      // 요청갯수
+        postParams.put("SEARCH_WORD", String.valueOf(search_keyword));      // 검색어
+
 
         //프로그래스바 시작
         Util.showDialog(this);
@@ -139,45 +146,40 @@ public class ReservationTimeActivity extends AppCompatActivity
             for(int i = 0; i < voAgentDataItem.size(); i++) {
 
                 int j=0;
+                int count = 0;
                 ArrayList<TimeContent.TimeItem> reserve_info = new ArrayList<>();
-                for(com.sincar.customer.item.TimeItem item: voAgentDataItem.get(j).TIME_INFO) {
-                    if(!TextUtils.isEmpty(item.RESERVE_TIME)) {
+                //for(com.sincar.customer.item.TimeItem item: voAgentDataItem.get(j).TIME_INFO) {
+                for(j = 0; j < voAgentDataItem.get(i).TIME_INFO.size(); j++){
+                    //if(!TextUtils.isEmpty(item.RESERVE_TIME)) {
+                    if(!TextUtils.isEmpty(voAgentDataItem.get(i).TIME_INFO.get(j).RESERVE_TIME)) {
                         int cTime = Util.getHour();
-                        String sTime = item.RESERVE_TIME.substring(0,2);
+                        String sTime = voAgentDataItem.get(i).TIME_INFO.get(j).RESERVE_TIME.substring(0,2);
 
                         int compare = Util.getYearMonthDay2().compareTo(reserve_year+reserve_month+reserve_day);
                         //if(Integer.parseInt(reserve_year) >= Util.getYear() && Integer.parseInt(reserve_month) >= Util.getMonth() && Integer.parseInt(reserve_day) >= Util.getDay()){
              //           if (cTime < Integer.parseInt(sTime)) {
                         if(compare < 0){
-                            if("Y".equals(item.RESERVE_STATUS)) {
+                            if("Y".equals(voAgentDataItem.get(i).TIME_INFO.get(j).RESERVE_STATUS)) {
                                 reserve_info.add(new TimeContent.TimeItem(
                                         i,
-                                        j++,
-                                        item.RESERVE_TIME,
-                                        item.RESERVE_STATUS,
+                                        count++,
+                                        voAgentDataItem.get(i).TIME_INFO.get(j).RESERVE_TIME,
+                                        voAgentDataItem.get(i).TIME_INFO.get(j).RESERVE_STATUS,
                                         false
                                 ));
                             }
-                        } else {
+                        } else if(compare == 0){
                             if( cTime < Integer.parseInt(sTime))
                             {
-                                if("Y".equals(item.RESERVE_STATUS)) {
+                                if("Y".equals(voAgentDataItem.get(i).TIME_INFO.get(j).RESERVE_STATUS)) {
                                     reserve_info.add(new TimeContent.TimeItem(
                                             i,
-                                            j++,
-                                            item.RESERVE_TIME,
-                                            item.RESERVE_STATUS,
+                                            count++,
+                                            voAgentDataItem.get(i).TIME_INFO.get(j).RESERVE_TIME,
+                                            voAgentDataItem.get(i).TIME_INFO.get(j).RESERVE_STATUS,
                                             false
                                     ));
                                 }
-                            }else {
-//                                reserve_info.add(new TimeContent.TimeItem(
-//                                        i,
-//                                        j++,
-//                                        item.RESERVE_TIME,
-//                                        "N",
-//                                        false
-//                                ));
                             }
                         }
                     }
@@ -196,6 +198,8 @@ public class ReservationTimeActivity extends AppCompatActivity
                 ));
             }
 
+            int size = AgentContent.ITEMS.size();
+
             //프로그래스바 종료
             Util.dismiss();
 
@@ -204,7 +208,8 @@ public class ReservationTimeActivity extends AppCompatActivity
 
         @Override
         public void onResponseFailListener(VolleyError it) {
-
+            //프로그래스바 종료
+            Util.dismiss();
         }
     };
 
@@ -296,7 +301,7 @@ public class ReservationTimeActivity extends AppCompatActivity
             bundle.putString("reserve_year", reserve_year);         //년
             bundle.putString("reserve_month", reserve_month);       //월
             bundle.putString("reserve_day", reserve_day);           //일
-            bundle.putString("agent_seq", String.valueOf(agentItem.id));
+            bundle.putString("agent_seq", mAgentRecyclerViewAdapter.getAgentSeq());
             bundle.putString("agent_company", String.valueOf(agentItem.branch_area));    //예약 대리점주 지역
             bundle.putString("agent_time", mAgentRecyclerViewAdapter.getTimePosition());    // 예약시간
             intent.putExtras(bundle);

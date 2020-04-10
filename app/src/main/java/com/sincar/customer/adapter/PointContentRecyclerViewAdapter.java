@@ -13,6 +13,10 @@ import com.sincar.customer.util.Util;
 
 import java.util.List;
 
+/**
+ * 2020.04.09 spirit
+ * 포인트 리스트 class
+ */
 public class PointContentRecyclerViewAdapter extends RecyclerView.Adapter<PointContentRecyclerViewAdapter.ViewHolder> {
 
     private final List<PointContent.PointItem> mValues;

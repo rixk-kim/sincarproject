@@ -48,6 +48,7 @@
     <string name="auto_login_save_msg">로그인 유지가 저장 되었습니다.</string>
     <string name="auto_login_clear_msg">로그인 유지가 해제 되었습니다.</string>
     <string name="success_login_msg">로그인 되었습니다.</string>
+    <string name="password_search_msg">비밀번호를 잊으셨나요?</string>
     <string name="fail_Login_msg">로그인에 실패하였습니다.</string>
     <string name="title_activity_maps">Map</string>
 

@@ -38,14 +38,16 @@ import static com.sincar.customer.HWApplication.voCarDeleteItem;
 import static com.sincar.customer.HWApplication.voLoginItem;
 import static com.sincar.customer.common.Constants.CAR_DELETE_REQUEST;
 import static com.sincar.customer.common.Constants.CAR_LIST_REQUEST;
-import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
 
+/**
+ * 202.04.09 spirit
+ * 등록 차량 리스트 class
+ */
 public class CarManageActivity extends AppCompatActivity implements View.OnClickListener {
-    private String path;
     public static Context carContext;
-
     private LinearLayout carLayout;
     private CarContentRecyclerViewAdapter mCarContentRecyclerViewAdapter;
+    private String path;
 
     //페이지 처리
     private int request_page = 1;                           // 페이징변수. 초기 값은 0 이다.
@@ -210,7 +212,8 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
 
         @Override
         public void onResponseFailListener(VolleyError it) {
-
+            //프로그래스바 종료
+            Util.dismiss();
         }
     };
 

@@ -146,16 +146,16 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
 
         reserve_cancel_layout = (LinearLayout)findViewById(R.id.reserve_cancel_layout);
 
-        if("2".equals(reserve_status))  //
+        if("1".equals(reserve_status))  // 예약취소
         {
             reserve_cancel_area.setVisibility(View.VISIBLE);
 //            textView_reserve_cancel_time.setVisibility(View.VISIBLE);
             reserve_cancel_layout.setVisibility(View.GONE);
-        }else if("0".equals(reserve_status)){
+        }else if("0".equals(reserve_status)){   //예약완료
             reserve_cancel_area.setVisibility(View.GONE);
 //            textView_reserve_cancel_time.setVisibility(View.GONE);
             reserve_cancel_layout.setVisibility(View.VISIBLE);
-        }else{  //완료
+        }else{  //이용완료
             reserve_cancel_area.setVisibility(View.GONE);
             reserve_cancel_layout.setVisibility(View.GONE);
         }

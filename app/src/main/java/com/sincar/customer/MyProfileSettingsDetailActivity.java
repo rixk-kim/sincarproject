@@ -49,6 +49,7 @@ public class MyProfileSettingsDetailActivity extends AppCompatActivity implement
                 //  비밀번호변경
                 intent = new Intent(this, PasswordChangeActivity.class);
                 intent.putExtra("path", "change");
+                intent.putExtra("phone_number", voLoginItem.MEMBER_PHONE);
                 startActivity(intent);
 //                finish();
                 break;

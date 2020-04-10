@@ -5,6 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+/**
+ * 2020.04.09
+ * 사용안함
+ */
 public class ActiveAreaAddActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override

@@ -195,7 +195,7 @@ public class GPSInfo extends Service implements LocationListener{
 
     private void makeDialog(){
         AlertDialog.Builder alt_bld = new AlertDialog.Builder(mContext);
-        alt_bld.setMessage("GPS 사용이 필요합니다. \n설정창으로 가시겠습니까?").setCancelable(
+        alt_bld.setMessage("앱을 사용하기 위해서는 위치 서비스가 필요합니다. \n설정창으로 가시겠습니까?").setCancelable(
                 false).setPositiveButton("네",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -227,7 +227,7 @@ public class GPSInfo extends Service implements LocationListener{
         //alert.setIcon(R.drawable.check_dialog_64);
 
         // 대화창 배경 색 설정
-        alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(255,62,79,92)));
+        //alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(255,62,79,92)));
 
         alert.show();
     }

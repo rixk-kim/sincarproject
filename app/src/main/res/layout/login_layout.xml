@@ -111,7 +111,6 @@
 
         <EditText
             android:id="@+id/user_id_et"
-            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="216dp"
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"
@@ -157,7 +156,6 @@
 
         <EditText
             android:id="@+id/user_pwd_et"
-            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="216dp"
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"
@@ -165,7 +163,7 @@
             android:background="@null"
             android:ems="10"
             android:hint="@string/hint_password_title"
-            android:inputType="textVisiblePassword"
+            android:inputType="textPassword"
             android:imeOptions="actionDone"
             android:maxLines="1"
             android:textColor="#3E3E3E"
@@ -192,81 +190,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_password2" />
-    <!--
-    <RelativeLayout
-        android:layout_width="241dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/user_id_et"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/input_box_selector"
-            android:drawableLeft="@drawable/ic_login_user"
-            android:drawablePadding="5dp"
-            android:hint="이름"
-            android:imeOptions="actionNext"
-            android:inputType="text"
-            android:padding="10dp"
-            android:textColor="@color/default_text_color"
-            android:maxLines="1" />
-
-        <EditText
-            android:id="@+id/user_pwd_et"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/user_id_et"
-            android:layout_marginTop="6dp"
-            android:background="@drawable/input_box_selector"
-            android:drawableLeft="@drawable/ic_login_pass"
-            android:drawablePadding="5dp"
-            android:hint="비밀번호"
-            android:imeOptions="actionDone"
-            android:inputType="textPassword"
-            android:padding="10dp"
-            android:maxLines="1"
-            android:textColor="@color/default_text_color" />
-
-    </RelativeLayout>
 
     <LinearLayout
-        android:layout_width="241dp"
-        android:layout_height="55.5dp"
-        android:layout_gravity="center"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
-
-        <CheckBox
-            android:id="@+id/auto_login_cb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:text="로그인유지" />
-
-    </LinearLayout>
-
-    <LinearLayout
+        android:id="@+id/password_search"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <Button
-        android:id="@+id/login_btn"
-        android:layout_width="241dp"
-        android:layout_height="37.5dp"
-        android:background="@drawable/login_btn_selector"
-        android:gravity="center"
-        android:text="로그인"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-
+        android:layout_height="30dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="104dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <TextView
+            android:fontFamily="@font/nanumsquareregular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal|center_vertical"
+            android:lineSpacingExtra="4sp"
+            android:text="@string/password_search_msg"
+            android:textSize="15sp"
+            android:textColor="#3e3e3e"
+            />
     </LinearLayout>
--->
-
 </LinearLayout>

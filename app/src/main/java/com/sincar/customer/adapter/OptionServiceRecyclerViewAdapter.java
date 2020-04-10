@@ -8,16 +8,18 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sincar.customer.R;
 import com.sincar.customer.adapter.content.OptionContent.OptionItem;
-
-import java.util.List;
-
 import static com.sincar.customer.util.Util.setAddMoneyDot;
 
+/**
+ * 2020.04.09 spirit
+ * 부가 서비스 class
+ */
 public class OptionServiceRecyclerViewAdapter extends RecyclerView.Adapter<OptionServiceRecyclerViewAdapter.ViewHolder> {
 
     private final List<OptionItem> mValues;

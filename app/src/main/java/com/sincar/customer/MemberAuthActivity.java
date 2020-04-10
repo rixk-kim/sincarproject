@@ -42,6 +42,7 @@ public class MemberAuthActivity extends Activity implements View.OnClickListener
     private Button join_auth_btn;       //확인
     private EditText join_user_auth;    //인증코드 입력
     private String phone_number;
+    private String path;
     private Context AContext;
 
     private TextView auth_time_counter; //시간을 보여주는 TextView
@@ -60,6 +61,7 @@ public class MemberAuthActivity extends Activity implements View.OnClickListener
 
         Intent intent = getIntent(); /*데이터 수신*/
         phone_number  = intent.getExtras().getString("phone_number");       /*String형*/
+        path  = intent.getExtras().getString("path");       /*String형*/
 
         findViewById(R.id.auth_btnPrev).setOnClickListener(this);
         join_auth_btn = (Button) findViewById(R.id.join_auth_btn);
@@ -81,7 +83,9 @@ public class MemberAuthActivity extends Activity implements View.OnClickListener
                         {
                             //비밀번호 입력으로 이동
                             Intent intent = new Intent(AContext, PasswordChangeActivity.class);
-                            intent.putExtra("path", "join");
+                            //intent.putExtra("path", "join");
+
+                            intent.putExtra("path", path);
                             intent.putExtra("phone_number", phone_number);
                             startActivity(intent);
                         }else{
@@ -163,6 +167,7 @@ public class MemberAuthActivity extends Activity implements View.OnClickListener
                 }else {
                     if (voAuthItem.AUTH_NUMBER.equals(join_user_auth.getText().toString().trim()))
                     {
+                        countDownTimer.cancel();
                         //비밀번호 입력으로 이동
                         Intent intent = new Intent(this, PasswordChangeActivity.class);
                         intent.putExtra("path", "join");

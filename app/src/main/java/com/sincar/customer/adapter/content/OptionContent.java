@@ -32,6 +32,11 @@ public class OptionContent {
         ITEM_MAP.put(item.id, item);
     }
 
+    public static void clearItem() {
+        ITEMS.clear();// .add(item);
+        ITEM_MAP.clear();   // .put(item.id, item);
+    }
+
 //    private static OptionItem createDummyItem(int position) {
 //        return new OptionItem(position, "1", "가니쉬 코팅", "부가 서비스 정보", "6000", false);
 //    }

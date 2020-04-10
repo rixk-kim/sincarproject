@@ -39,12 +39,16 @@ public class MemberJoinActivity extends Activity implements View.OnClickListener
     //===================== 뷰 =====================
 
     public static MemberJoinActivity _memberJoinActivity;
+    private String path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.member_join_phone);
         _memberJoinActivity = MemberJoinActivity.this;
+
+        Intent intent = getIntent(); /*데이터 수신*/
+        path  = intent.getExtras().getString("path");       //회원가입 : member_join
 
         findViewById(R.id.btnPrev).setOnClickListener(this);
         login_join_btn = (Button) findViewById(R.id.login_join_btn);
@@ -123,10 +127,16 @@ public class MemberJoinActivity extends Activity implements View.OnClickListener
                 break;
 
             case R.id.btnPrev:
-                //인트로 이동
-                intent = new Intent(this, LoginActivityPre.class);
-                startActivity(intent);
-                finish();
+                if("member_join".equals(path)) {
+                    //인트로 이동
+                    intent = new Intent(this, LoginActivityPre.class);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
                 break;
 
         }
@@ -161,6 +171,7 @@ public class MemberJoinActivity extends Activity implements View.OnClickListener
             if("0".equals(voAuthItem.AUTH_RESULT)) {
                 Intent intent = new Intent(MemberJoinActivity.this, MemberAuthActivity.class);
                 intent.putExtra("phone_number", join_user_phone.getText().toString().trim());
+                intent.putExtra("path", path);
                 startActivity(intent);
             }else{
                 Toast.makeText(MemberJoinActivity.this, "인증 번호 보내기에 실패하였습니다. 재입력 해주세요.", Toast.LENGTH_LONG).show();
@@ -180,8 +191,19 @@ public class MemberJoinActivity extends Activity implements View.OnClickListener
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        Intent intent = new Intent(this, LoginActivityPre.class);
-        startActivity(intent);
-        finish();
+        Intent intent;
+        if("member_join".equals(path)) {
+            //인트로 이동
+            intent = new Intent(this, LoginActivityPre.class);
+            startActivity(intent);
+            finish();
+        }else{
+            intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+//        Intent intent = new Intent(this, LoginActivityPre.class);
+//        startActivity(intent);
+//        finish();
     }
 }

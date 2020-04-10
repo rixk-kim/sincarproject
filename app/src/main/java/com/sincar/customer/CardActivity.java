@@ -12,12 +12,8 @@ import android.view.View;
 
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
-import com.sincar.customer.adapter.CarContentRecyclerViewAdapter;
 import com.sincar.customer.adapter.CardContentRecyclerViewAdapter;
-import com.sincar.customer.adapter.content.CarContent;
 import com.sincar.customer.adapter.content.CardContent;
-import com.sincar.customer.adapter.content.NoticeContent;
-import com.sincar.customer.item.CarResult;
 import com.sincar.customer.item.CardResult;
 import com.sincar.customer.network.VolleyNetwork;
 import com.sincar.customer.util.Util;
@@ -32,6 +28,10 @@ import static com.sincar.customer.HWApplication.voCardItem;
 import static com.sincar.customer.HWApplication.voLoginItem;
 import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
 
+/**
+ * 2020.04.09
+ * 사용안함(등록 카드 리스트)
+ */
 public class CardActivity extends AppCompatActivity implements View.OnClickListener {
     private Context cardContext;
     @Override
@@ -137,7 +137,8 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         public void onResponseFailListener(VolleyError it) {
-
+            //프로그래스바 종료
+            Util.dismiss();
         }
     };
 
