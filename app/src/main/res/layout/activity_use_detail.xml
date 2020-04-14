@@ -93,7 +93,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/notice_linearLayout1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -568,7 +567,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="108dp"
-            android:gravity="center|center_horizontal|center_vertical">
+            android:gravity="center|center_horizontal|center_vertical"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/reserve_cancel_btn"
@@ -584,7 +584,24 @@
                 android:shadowRadius="7"
                 android:text="@string/btn_reserve_cancel"
                 android:textColor="#FFFFFF"
-                android:textSize="15sp" />
+                android:textSize="15sp"/>
+
+            <Button
+                android:id="@+id/reserve_btn"
+                android:fontFamily="@font/nanumsquarebold"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_gravity="center"
+                android:background="@drawable/default_button_type_1"
+                android:gravity="center|center_horizontal|center_vertical"
+                android:shadowColor="#C4C4C4"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="7"
+                android:text="@string/btn_reserve_next"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:visibility="gone"/>
         </LinearLayout>
 
     </LinearLayout>

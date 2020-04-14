@@ -260,6 +260,7 @@
     <string name="title_use_detail">상세 내역</string>
 
     <string name="btn_reserve_cancel">예약 취소</string>
+    <string name="btn_reserve_next">예약 하기</string>
     <string name="btn_reserve_cancel_text1">1. 기본 취소수수료 정책</string>
     <string name="btn_reserve_cancel_text2">- 예약 당일취소: 50% 수수료 부과</string>
     <string name="btn_reserve_cancel_text3">- 1~3일전 취소: 30% 수수료 부과</string>

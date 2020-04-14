@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Browser;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -80,7 +81,7 @@ import static com.sincar.customer.util.Utility.isPackageInstalled;
 
 public class PayApproveActivity extends Activity {
     private Context pContext;
-    final String MERCHANT_URL = PAYMEMNT_REQUEST;   //"https://sincar.co.kr/api/payment/index.asp"; //PAYMEMNT_REQUEST;   //"
+    final String MERCHANT_URL = TEST_REQUEST; //PAYMEMNT_REQUEST;   //"https://sincar.co.kr/api/payment/index.asp"; //PAYMEMNT_REQUEST;   //"
 
  //;   final String MERCHANT_URL = "http://sincar.co.kr/api";
 
@@ -112,6 +113,7 @@ public class PayApproveActivity extends Activity {
     private String use_my_point;       //사용 포인트
 
     private String approve_number;      //예약번호
+    private String seq_number = "";          //전달된 예약번호
 
     private static final int LAUNCHED_ACTIVITY = 0;
     private DBAdapter cInstance;
@@ -127,6 +129,10 @@ public class PayApproveActivity extends Activity {
         _payApproveActivity = PayApproveActivity.this;
 
         Intent intent = getIntent(); /*데이터 수신*/
+        if(intent.hasExtra("seq"))
+        {
+            seq_number = intent.getExtras().getString("seq");
+        }
         reserve_address     = intent.getExtras().getString("reserve_address");  /*String형*/
         reserve_year        = intent.getExtras().getString("reserve_year");     /*String형*/
         reserve_month       = intent.getExtras().getString("reserve_month");    /*String형*/
@@ -204,11 +210,33 @@ public class PayApproveActivity extends Activity {
         CookieManager cookieManager = CookieManager.Z();
         cookieManager.setAcceptCookie(true);
         */
+
         approve_number = voLoginItem.MEMBER_NO + Util.getYearMonthDay1();
 
-        String postParams = "MEMBER_NO=" + voLoginItem.MEMBER_NO;
-        postParams += "&AMOUNT="+total_amt;
-        postParams += "&APPROVE_NUMBER="+approve_number;
+
+
+//        String postParams = "MEMBER_NO=" + voLoginItem.MEMBER_NO;
+//        postParams += "&AMOUNT="+total_amt;
+//        postParams += "&APPROVE_NUMBER="+approve_number;
+
+        String postParams = "APPROVE_NUMBER=" + approve_number;
+        postParams += "&MEMBER_NO=" + voLoginItem.MEMBER_NO;
+        postParams += "&RESERVE_ADDRESS=" + reserve_address;
+        postParams += "&RESERVE_YEAR=" + reserve_year;
+        postParams += "&RESERVE_MONTH=" + reserve_month;
+        postParams += "&RESERVE_DAY=" + reserve_day;
+        postParams += "&AGENT_SEQ=" + agent_seq;
+        postParams += "&AGENT_COMPANY=" + agent_company;
+        postParams += "&AGENT_TIME=" + agent_time;
+        postParams += "&WASH_PLACE=" + wash_area;
+        postParams += "&ADD_SERVICE=" + car_wash_option;
+        postParams += "&CAR_COMPANY=" + car_company;
+        postParams += "&CAR_MODEL=" + car_name;
+        postParams += "&CAR_NUMBER=" + car_number;
+        postParams += "&POINT_USE=" + use_my_point;
+        postParams += "&COUPONE_SEQ=" + use_coupone_seq;
+        postParams += "&CHARGE_PAY=" + total_amt;
+        postParams += "&SEQ=" + seq_number;
 
 
         //DB 저장..................test
@@ -650,31 +678,61 @@ public class PayApproveActivity extends Activity {
 
     final class AndroidBridge {
         @JavascriptInterface //이게 있어야 웹에서 실행이 가능합니다.
-        public void payAndroid(String reponseData, String message) {
-//            Toast.makeText(getApplicationContext(), "웹에서 클릭했어요 => " + reponseData, Toast.LENGTH_SHORT).show();
+        public void payAndroid(String reponseData, String message, String MY_POINT) {
+
             System.out.println("[spirit] 웹에서 호출 reponseData =>" + reponseData);
 
             if("success".equals(reponseData))
             {
-                //완료 페이지 이동
-
                 //TODO - 데이타 서버 전송 후 예약완료 페이지로 이동. 포인트 사용했을 시 갱신해주기
-//                Intent intent = new Intent(pContext, PayApproveResult.class);
-//                startActivity(intent);
-//                finish();
+                if(!TextUtils.isEmpty(MY_POINT)) {
+                    voReserveItem.MY_POINT = MY_POINT;
+                }
 
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        runOnUiThread(new Runnable(){
-                            @Override
-                            public void run() {
-                                // 해당 작업을 처리함
-                                requestReserveInfo();
-                            }
-                        });
-                    }
-                }).start();
+                //완료 페이지 이동
+                Intent intent = new Intent(pContext, PayApproveResult.class);
+                startActivity(intent);
+                finish();
+//
+//
+//
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        runOnUiThread(new Runnable(){
+//                            @Override
+//                            public void run() {
+//                                // 해당 작업을 처리함
+//                                //requestReserveInfo();
+//                            }
+//                        });
+//                    }
+//                }).start();
+            }else{
+                Toast.makeText(pContext, message, Toast.LENGTH_SHORT).show();
+                //finish();
+                //메인으로
+                //기존 activity 종료
+                MapsActivity mapActivity = (MapsActivity)MapsActivity._mMapsActivity;
+                mapActivity.finish();
+
+                if(ReservationCalendarActivity._reservationCalendarActivity != null) {
+                    ReservationCalendarActivity reservationCalendarActivity = (ReservationCalendarActivity) ReservationCalendarActivity._reservationCalendarActivity;
+                    reservationCalendarActivity.finish();
+                }
+
+                ReservationTimeActivity reservationTimeActivity = (ReservationTimeActivity)ReservationTimeActivity._reservationTimeActivity;
+                reservationTimeActivity.finish();
+
+                ReservationMainActivity reservationMainActivity = (ReservationMainActivity)ReservationMainActivity._reservationMainActivity;
+                reservationMainActivity.finish();
+
+                PaymentActivity paymentActivity = (PaymentActivity)PaymentActivity._paymentActivity;
+                paymentActivity.finish();
+
+//                Intent intent = new Intent(pContext, MainActivity.class);
+//                startActivity(intent);
+                finish();
             }
         }
     }
@@ -705,6 +763,7 @@ public class PayApproveActivity extends Activity {
         postParams.put("POINT_USE", use_my_point);                  // 사용 포인트
         postParams.put("COUPONE_SEQ", use_coupone_seq);             // 사용 쿠폰번호
         postParams.put("CHARGE_PAY", total_amt);                    // 총 결재 요금
+        postParams.put("SEQ", seq_number);                          //
 
         //프로그래스바 시작
         Util.showDialog(this);

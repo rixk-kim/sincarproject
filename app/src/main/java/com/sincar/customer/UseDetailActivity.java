@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +41,12 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
     private String car_number;      //차량번호
     private String point_pay;       //사용포인트
 
+    private String coupone_seq;     //쿠폰 SEQ
+    private String agent_seq;       //대리점 SEQ
+    private String add_service;     //부가서비스
+    private String car_company;     //차량제조사
+    private String wash_place;      //세차장소
+
     private TextView textView_common_pay;
     private TextView textView_coupone_pay;
     private TextView textView_approve_info;
@@ -56,6 +63,8 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
     private LinearLayout useLinearLayout;
     private LinearLayout reserve_cancel_area;
     private LinearLayout reserve_cancel_layout;
+
+    private Button reserve_cancel_btn, reserve_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +93,12 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
         car_number      = intent.getExtras().getString("car_number");       /*String형*/
         point_pay       = intent.getExtras().getString("point_pay");        /*String형*/
 
+        coupone_seq     = intent.getExtras().getString("coupone_seq");      /*String형*/
+        agent_seq       = intent.getExtras().getString("agent_seq");        /*String형*/
+        add_service     = intent.getExtras().getString("add_service");      /*String형*/
+        car_company     = intent.getExtras().getString("car_company");      /*String형*/
+        wash_place      = intent.getExtras().getString("wash_place");      /*String형*/
+
         // 화면 초기화
         init();
     }
@@ -93,7 +108,11 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
      */
     private void init() {
         findViewById(R.id.use_detail_btnPrev_layout).setOnClickListener(this);
-        findViewById(R.id.reserve_cancel_btn).setOnClickListener(this);
+        reserve_cancel_btn = (Button )findViewById(R.id.reserve_cancel_btn);
+        reserve_cancel_btn.setOnClickListener(this);
+
+        reserve_btn = (Button )findViewById(R.id.reserve_btn);
+        reserve_btn.setOnClickListener(this);
 
         reserve_cancel_area = (LinearLayout) findViewById(R.id.reserve_cancel_area);
 
@@ -149,11 +168,16 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
         if("1".equals(reserve_status))  // 예약취소
         {
             reserve_cancel_area.setVisibility(View.VISIBLE);
-//            textView_reserve_cancel_time.setVisibility(View.VISIBLE);
+            reserve_cancel_btn.setVisibility(View.VISIBLE);     //예약취소
+            reserve_btn.setVisibility(View.GONE);
             reserve_cancel_layout.setVisibility(View.GONE);
-        }else if("0".equals(reserve_status)){   //예약완료
+        }else if("0".equals(reserve_status)) {   //예약완료
             reserve_cancel_area.setVisibility(View.GONE);
-//            textView_reserve_cancel_time.setVisibility(View.GONE);
+            reserve_cancel_layout.setVisibility(View.VISIBLE);
+        }else if("2".equals(reserve_status)) { // 예약대기
+            reserve_cancel_area.setVisibility(View.GONE);
+            reserve_cancel_btn.setVisibility(View.GONE);
+            reserve_btn.setVisibility(View.VISIBLE);            //예약하기
             reserve_cancel_layout.setVisibility(View.VISIBLE);
         }else{  //이용완료
             reserve_cancel_area.setVisibility(View.GONE);
@@ -216,6 +240,30 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
                 intent.putExtra("point_pay", point_pay);
                 startActivity(intent);
  //               finish();
+                break;
+
+            case R.id.reserve_btn:
+                //reserve_time => 2020-03-09 14:00
+                intent = new Intent(this, PayApproveActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("reserve_address", wash_address);                  //주소
+                bundle.putString("reserve_year", reserve_time.substring(0,4));      //년
+                bundle.putString("reserve_month", reserve_time.substring(5,7));     //월
+                bundle.putString("reserve_day", reserve_time.substring(8,10));      //일
+                bundle.putString("agent_seq", agent_seq);                           //예약 대리점주 seq
+                bundle.putString("agent_company", wash_agent);                      //예약 대리점주
+                bundle.putString("agent_time", reserve_time.substring(11,16));      //예약시간
+                bundle.putString("wash_area", wash_place);                          //세차장소(실내/실외)
+                bundle.putString("car_wash_option", add_service);                   //옵션(가니쉬코팅/에머랄드 코팅)
+                bundle.putString("car_company", car_company);                       //제조사
+                bundle.putString("car_name", car_info);                             //차량 이름
+                bundle.putString("car_number", car_number);                         //차번호
+                bundle.putString("use_my_point", point_pay);                        //사용 포인트
+                bundle.putString("use_coupone_seq", coupone_seq);                   //사용 쿠폰 seq
+                bundle.putString("total_amt", common_pay);                          //총 결제 금액
+                //부가서비스
+                intent.putExtras(bundle);
+                startActivity(intent);
                 break;
         }
     }

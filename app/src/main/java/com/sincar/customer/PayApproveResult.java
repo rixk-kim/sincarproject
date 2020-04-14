@@ -35,8 +35,10 @@ public class PayApproveResult extends AppCompatActivity implements View.OnClickL
         MapsActivity mapActivity = (MapsActivity)MapsActivity._mMapsActivity;
         mapActivity.finish();
 
-        ReservationCalendarActivity reservationCalendarActivity = (ReservationCalendarActivity)ReservationCalendarActivity._reservationCalendarActivity;
-        reservationCalendarActivity.finish();
+        if(ReservationCalendarActivity._reservationCalendarActivity != null) {
+            ReservationCalendarActivity reservationCalendarActivity = (ReservationCalendarActivity) ReservationCalendarActivity._reservationCalendarActivity;
+            reservationCalendarActivity.finish();
+        }
 
         ReservationTimeActivity reservationTimeActivity = (ReservationTimeActivity)ReservationTimeActivity._reservationTimeActivity;
         reservationTimeActivity.finish();
@@ -47,8 +49,10 @@ public class PayApproveResult extends AppCompatActivity implements View.OnClickL
         PaymentActivity paymentActivity = (PaymentActivity)PaymentActivity._paymentActivity;
         paymentActivity.finish();
 
-        PayApproveActivity payApproveActivity = (PayApproveActivity)PayApproveActivity._payApproveActivity;
-        payApproveActivity.finish();
+        if(PayApproveActivity._payApproveActivity != null) {
+            PayApproveActivity payApproveActivity = (PayApproveActivity) PayApproveActivity._payApproveActivity;
+            payApproveActivity.finish();
+        }
     }
 
     @Override
@@ -58,8 +62,8 @@ public class PayApproveResult extends AppCompatActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.reserve_approve_btn:
                 //  이용내역 상세으로
-                intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+//                intent = new Intent(this, MainActivity.class);
+//                startActivity(intent);
                 finish();
                 break;
         }
@@ -69,8 +73,8 @@ public class PayApproveResult extends AppCompatActivity implements View.OnClickL
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, MainActivity.class);
+//        startActivity(intent);
         finish();
     }
 }

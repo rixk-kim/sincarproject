@@ -52,8 +52,8 @@ public class Constants {
     public static final String MEMBER_JOIN_REQUEST          = REAL_SERVER + "/IF_SINCAR_AGENT_026.asp?";   //회원가입
     public static final String CAR_DELETE_REQUEST           = REAL_SERVER + "/IF_SINCAR_AGENT_027.asp?";   //등록차량 삭제
     public static final String PAYMEMNT_REQUEST             = PAY_BASE_URL + "/IF_SINCAR_AGENT_028.asp";   //결재 호출
-    public static final String APPVERSION_REQUEST           = REAL_SERVER + "/IF_SINCAR_AGENT_029.asp";   //버전체크
+    public static final String APPVERSION_REQUEST           = REAL_SERVER + "/IF_SINCAR_AGENT_029.asp";    //버전체크
 
-    public static final String TEST_REQUEST                 = REAL_SERVER + "/IF_SINCAR_AGENT_099.asp";   //테스트
+    public static final String TEST_REQUEST                 = PAY_BASE_URL + "/IF_SINCAR_AGENT_099.asp";   //테스트
 
 }

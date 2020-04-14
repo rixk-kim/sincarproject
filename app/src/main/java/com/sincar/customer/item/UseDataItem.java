@@ -18,6 +18,12 @@ public class UseDataItem {
     public String CAR_MODEL;
     public String CAR_NUMBER;
     public String POINT_PAY;
+    public String COUPONE_SEQ;
+    public String AGENT_SEQ;
+    public String ADD_SERVICE;
+    public String CAR_COMPANY;
+    public String WASH_PLACE;
+
 
     @Override
     public String toString() {
@@ -37,6 +43,11 @@ public class UseDataItem {
                 ", CAR_MODEL='" + CAR_MODEL + '\'' +
                 ", CAR_NUMBER='" + CAR_NUMBER + '\'' +
                 ", POINT_PAY='" + POINT_PAY + '\'' +
+                ", COUPONE_SEQ='" + COUPONE_SEQ + '\'' +
+                ", AGENT_SEQ='" + AGENT_SEQ + '\'' +
+                ", ADD_SERVICE='" + ADD_SERVICE + '\'' +
+                ", CAR_COMPANY='" + CAR_COMPANY + '\'' +
+                ", WASH_PLACE='" + WASH_PLACE + '\'' +
                 "}";
     }
 }

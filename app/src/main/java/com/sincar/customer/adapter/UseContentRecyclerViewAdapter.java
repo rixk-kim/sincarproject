@@ -88,6 +88,12 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
         holder.car_number   = mValues.get(position).car_number;         //차량번호
         holder.point_pay    = mValues.get(position).point_pay;          //사용포인트
 
+        holder.coupone_seq  = mValues.get(position).coupone_seq;        //쿠폰 seq
+        holder.agent_seq    = mValues.get(position).agent_seq;          //대리점 seq
+        holder.add_service  = mValues.get(position).add_service;        //부가서비스
+        holder.car_company  = mValues.get(position).car_company;        //차량 제조사
+        holder.wash_place   = mValues.get(position).wash_place;         //세차장소
+
         //0: 예약중, 1:완료 , 2: 예약취소
         if("0".equals(holder.reserve_status)) {
             holder.reserve_view.setText("예약완료");
@@ -95,6 +101,8 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
             holder.reserve_view.setText("예약취소");
         }else if("2".equals(holder.reserve_status)) {
             holder.reserve_view.setText("세차완료");
+        }else if("3".equals(holder.reserve_status)) {
+            holder.reserve_view.setText("결제대기");
         }
 
         use_pos = String.valueOf(position);
@@ -146,6 +154,12 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
                 intent.putExtra("car_number", holder.car_number);
                 intent.putExtra("point_pay", holder.point_pay);
 
+                intent.putExtra("coupone_seq", holder.coupone_seq);
+                intent.putExtra("agent_seq", holder.agent_seq);
+                intent.putExtra("add_service", holder.add_service);
+                intent.putExtra("car_company", holder.car_company);
+                intent.putExtra("wash_place", holder.wash_place);
+
                 mContext.startActivity(intent);
             }
         });
@@ -182,6 +196,7 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
         public String point_pay;        //포인트요금
 
         private String send_reserve_time, send_use_pay, send_wash_address, send_wash_agent;
+        private String coupone_seq, agent_seq, add_service, car_company, wash_place;
 
 
         public final TextView reserve_view;
@@ -215,6 +230,12 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
             send_use_pay        = "";
             send_wash_address   = "";
             send_wash_agent     = "";
+
+            coupone_seq     = "";
+            agent_seq       = "";
+            add_service     = "";
+            car_company     = "";
+            wash_place      = "";
         }
     }
 }
