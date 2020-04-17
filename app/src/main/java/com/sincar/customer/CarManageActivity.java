@@ -62,8 +62,7 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
         Intent intent = getIntent(); /*데이터 수신*/
         path    = intent.getExtras().getString("path");    /*String형*/
 
-        // 화면 초기화
-        init();
+
     }
 
     /**
@@ -92,6 +91,14 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
         CarContent.clearItem(); //초기화
 
         requestCarList();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // 화면 초기화
+        init();
     }
 
     /**
@@ -231,10 +238,12 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
                     finish();
                 }else if("reserve".equals(path)){
                     intent = new Intent(this, ReservationMainActivity.class);
-                    intent.putExtra("reserve_companyname", mCarContentRecyclerViewAdapter.getItemCompanyName());
-                    intent.putExtra("reserve_carname", mCarContentRecyclerViewAdapter.getItemcarName());
-                    intent.putExtra("reserve_carnumber", mCarContentRecyclerViewAdapter.getItemcarNumber());
-                    intent.putExtra("car_wash_pay", mCarContentRecyclerViewAdapter.getItemcarPay());
+                    if(mCarContentRecyclerViewAdapter != null) {
+                        intent.putExtra("reserve_companyname", mCarContentRecyclerViewAdapter.getItemCompanyName());
+                        intent.putExtra("reserve_carname", mCarContentRecyclerViewAdapter.getItemcarName());
+                        intent.putExtra("reserve_carnumber", mCarContentRecyclerViewAdapter.getItemcarNumber());
+                        intent.putExtra("car_wash_pay", mCarContentRecyclerViewAdapter.getItemcarPay());
+                    }
                     setResult(RESULT_OK, intent);
                     finish();
 
@@ -249,7 +258,7 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
                 intent = new Intent(this, CarRegisterActivity.class);
                 intent.putExtra("path", path);
                 startActivity(intent);
-                finish();
+ //               finish();
                 break;
         }
     }
@@ -265,10 +274,12 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
             startActivity(intent);
         }else if("reserve".equals(path)){
             intent = new Intent(this, ReservationMainActivity.class);
-            intent.putExtra("reserve_companyname", mCarContentRecyclerViewAdapter.getItemCompanyName());
-            intent.putExtra("reserve_carname", mCarContentRecyclerViewAdapter.getItemcarName());
-            intent.putExtra("reserve_carnumber", mCarContentRecyclerViewAdapter.getItemcarNumber());
-            intent.putExtra("car_wash_pay", mCarContentRecyclerViewAdapter.getItemcarPay());
+            if(mCarContentRecyclerViewAdapter != null) {
+                intent.putExtra("reserve_companyname", mCarContentRecyclerViewAdapter.getItemCompanyName());
+                intent.putExtra("reserve_carname", mCarContentRecyclerViewAdapter.getItemcarName());
+                intent.putExtra("reserve_carnumber", mCarContentRecyclerViewAdapter.getItemcarNumber());
+                intent.putExtra("car_wash_pay", mCarContentRecyclerViewAdapter.getItemcarPay());
+            }
             setResult(RESULT_OK, intent);
             finish();
         }else {

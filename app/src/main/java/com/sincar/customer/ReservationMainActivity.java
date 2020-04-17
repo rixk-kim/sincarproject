@@ -380,7 +380,7 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
 
 //                Toast.makeText(ReservationMainActivity.this, "차종: " + data.getStringExtra("reserve_carname") + " , 차번호 : " + data.getStringExtra("reserve_carnumber"), Toast.LENGTH_SHORT).show();
             } else {   // RESULT_CANCEL
-//                Toast.makeText(ReservationMainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ReservationMainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
             }
         }
     }

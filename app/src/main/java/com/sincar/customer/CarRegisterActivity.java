@@ -106,9 +106,9 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
         switch (v.getId()) {
             case R.id.car_reg_btnPrev:
                 //  내정보
-                intent = new Intent(this, CarManageActivity.class);
-                intent.putExtra("path", car_reg_path);
-                startActivity(intent);
+//                intent = new Intent(this, CarManageActivity.class);
+//                intent.putExtra("path", car_reg_path);
+//                startActivity(intent);
                 finish();
                 break;
 
@@ -162,11 +162,12 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
             }
         }else {
 
-            intent = new Intent(this, CarManageActivity.class);
-            intent.putExtra("path", car_reg_path);
-            startActivity(intent);
+//            intent = new Intent(this, CarManageActivity.class);
+//            intent.putExtra("path", car_reg_path);
+//            startActivity(intent);
+            finish();
         }
-        finish();
+
     }
 
     /**
@@ -286,11 +287,12 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                     //startActivity(intent);
                     finish();
                 } else {
-                    intent = new Intent(cContext, CarManageActivity.class);
-                    intent.putExtra("path", car_reg_path);
-                    startActivity(intent);
+//                    intent = new Intent(cContext, CarManageActivity.class);
+//                    intent.putExtra("path", car_reg_path);
+//                    startActivity(intent);
+                    finish();
                 }
-                finish();
+
             }else{
                 Toast.makeText(cContext, "차량 등록에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                 return;

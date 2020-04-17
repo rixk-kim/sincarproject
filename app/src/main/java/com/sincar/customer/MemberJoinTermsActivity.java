@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.sincar.customer.item.AuthResult;
 import com.sincar.customer.item.JoinResult;
 import com.sincar.customer.network.VolleyNetwork;
+import com.sincar.customer.preference.PreferenceManager;
 import com.sincar.customer.util.Util;
 
 import java.util.HashMap;
@@ -265,6 +266,10 @@ public class MemberJoinTermsActivity extends Activity implements View.OnClickLis
                 // 회원 가입하고 성공시 로그인 페이지로 이동
                 if(confirm_status)
                 {
+                    PreferenceManager.getInstance().setCheckLogin(false);   //자동로그인 여부
+                    PreferenceManager.getInstance().setUserId("");          // 아이디 셋팅
+                    PreferenceManager.getInstance().setUserPwd("");         // 패스워드 셋팅
+
                     //로그인 페이지로 이동
                     requestMemberJoin();
                     //Toast.makeText(MemberJoinTermsActivity.this, "로그인 페이지로 이동", Toast.LENGTH_SHORT).show();
