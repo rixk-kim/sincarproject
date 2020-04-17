@@ -75,7 +75,7 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
 
         //이전 Activity 종료.
         UseHistoryActivity useActivity = (UseHistoryActivity)UseHistoryActivity._useHistoryActivity;
-        useActivity.finish();
+        if(useActivity != null) useActivity.finish();
 
         Intent intent = getIntent(); /*데이터 수신*/
         reserve_seq     = intent.getExtras().getString("reserve_seq");      /*String형*/
@@ -174,7 +174,7 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
         }else if("0".equals(reserve_status)) {   //예약완료
             reserve_cancel_area.setVisibility(View.GONE);
             reserve_cancel_layout.setVisibility(View.VISIBLE);
-        }else if("2".equals(reserve_status)) { // 예약대기
+        }else if("3".equals(reserve_status)) { // 예약대기
             reserve_cancel_area.setVisibility(View.GONE);
             reserve_cancel_btn.setVisibility(View.GONE);
             reserve_btn.setVisibility(View.VISIBLE);            //예약하기
@@ -246,6 +246,8 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
                 //reserve_time => 2020-03-09 14:00
                 intent = new Intent(this, PayApproveActivity.class);
                 Bundle bundle = new Bundle();
+
+                bundle.putString("seq", reserve_seq);                               //SEQ
                 bundle.putString("reserve_address", wash_address);                  //주소
                 bundle.putString("reserve_year", reserve_time.substring(0,4));      //년
                 bundle.putString("reserve_month", reserve_time.substring(5,7));     //월
@@ -264,6 +266,7 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
                 //부가서비스
                 intent.putExtras(bundle);
                 startActivity(intent);
+                finish();
                 break;
         }
     }

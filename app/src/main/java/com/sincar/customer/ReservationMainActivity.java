@@ -271,39 +271,42 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
 
             case R.id.reserve_btn:
 
-                if(TextUtils.isEmpty(car_name_str.getText().toString().trim()) || TextUtils.isEmpty(car_number_str.getText().toString().trim()))
+                if(TextUtils.isEmpty(car_name_str.getText().toString().trim()) || TextUtils.isEmpty(car_number_str.getText().toString().trim()) || TextUtils.isEmpty(car_wash_pay))
                 {
                     Toast.makeText(ReservationMainActivity.this, "등록된 차량이 없습니다.", Toast.LENGTH_SHORT).show();
                 }else {
-
-                    intent = new Intent(this, PaymentActivity.class);
-
-                    Bundle bundle = new Bundle();
-                    bundle.putString("reserve_address", reserve_address);   //주소
-                    bundle.putString("reserve_year", reserve_year);         //년
-                    bundle.putString("reserve_month", reserve_month);       //월
-                    bundle.putString("reserve_day", reserve_day);           //일
-                    bundle.putString("agent_seq", agent_seq);               //예약 대리점주 seq
-                    bundle.putString("agent_company", agent_company);       //예약 대리점주
-                    bundle.putString("agent_time", agent_time);             //예약시간
-
-                    if(TextUtils.isEmpty(wash_area)) wash_area = "실내";
-                    if("실내".equals(wash_area.trim()))
+                    if("0".equals(car_wash_pay))
                     {
-                        wash_area = "0";
-                    }else{
-                        wash_area = "1";
+                        Toast.makeText(ReservationMainActivity.this, "등록 차량을 다시 선택하세요.", Toast.LENGTH_SHORT).show();
+                    }else {
+                        intent = new Intent(this, PaymentActivity.class);
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString("reserve_address", reserve_address);   //주소
+                        bundle.putString("reserve_year", reserve_year);         //년
+                        bundle.putString("reserve_month", reserve_month);       //월
+                        bundle.putString("reserve_day", reserve_day);           //일
+                        bundle.putString("agent_seq", agent_seq);               //예약 대리점주 seq
+                        bundle.putString("agent_company", agent_company);       //예약 대리점주
+                        bundle.putString("agent_time", agent_time);             //예약시간
+
+                        if (TextUtils.isEmpty(wash_area)) wash_area = "실내";
+                        if ("실내".equals(wash_area.trim())) {
+                            wash_area = "0";
+                        } else {
+                            wash_area = "1";
+                        }
+                        bundle.putString("wash_area", wash_area);               //세차장소
+
+                        bundle.putString("car_company", reserve_companyname);   //제조사
+                        bundle.putString("car_name", reserve_carname);          //차량 이름
+                        bundle.putString("car_number", reserve_carnumber);      //차번호
+                        bundle.putString("car_wash_pay", car_wash_pay);         //차량 기본 세차 금액
+                        //부가서비스
+                        intent.putExtras(bundle);
+
+                        startActivity(intent);
                     }
-                    bundle.putString("wash_area", wash_area);               //세차장소
-
-                    bundle.putString("car_company", reserve_companyname);   //제조사
-                    bundle.putString("car_name", reserve_carname);          //차량 이름
-                    bundle.putString("car_number", reserve_carnumber);      //차번호
-                    bundle.putString("car_wash_pay", car_wash_pay);         //차량 기본 세차 금액
-                    //부가서비스
-                    intent.putExtras(bundle);
-
-                    startActivity(intent);
                 }
                 break;
         }

@@ -36,12 +36,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private MenuItem prevBottomNavigation;
     private ConstraintLayout mConstraintLayout;
     private TextView mCustomerName, mCustomerPoint;
+    public static MainActivity _mMainActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        if(_mMainActivity == null) _mMainActivity = this;
         mContext = this;
 
         // 화면 초기화

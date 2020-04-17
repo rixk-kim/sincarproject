@@ -33,7 +33,7 @@ public class PayApproveResult extends AppCompatActivity implements View.OnClickL
 
         //기존 activity 종료
         MapsActivity mapActivity = (MapsActivity)MapsActivity._mMapsActivity;
-        mapActivity.finish();
+        if(mapActivity != null) mapActivity.finish();
 
         if(ReservationCalendarActivity._reservationCalendarActivity != null) {
             ReservationCalendarActivity reservationCalendarActivity = (ReservationCalendarActivity) ReservationCalendarActivity._reservationCalendarActivity;
@@ -41,13 +41,13 @@ public class PayApproveResult extends AppCompatActivity implements View.OnClickL
         }
 
         ReservationTimeActivity reservationTimeActivity = (ReservationTimeActivity)ReservationTimeActivity._reservationTimeActivity;
-        reservationTimeActivity.finish();
+        if(reservationTimeActivity != null) reservationTimeActivity.finish();
 
         ReservationMainActivity reservationMainActivity = (ReservationMainActivity)ReservationMainActivity._reservationMainActivity;
-        reservationMainActivity.finish();
+        if(reservationMainActivity != null) reservationMainActivity.finish();
 
         PaymentActivity paymentActivity = (PaymentActivity)PaymentActivity._paymentActivity;
-        paymentActivity.finish();
+        if(paymentActivity != null) paymentActivity.finish();
 
         if(PayApproveActivity._payApproveActivity != null) {
             PayApproveActivity payApproveActivity = (PayApproveActivity) PayApproveActivity._payApproveActivity;
@@ -64,6 +64,13 @@ public class PayApproveResult extends AppCompatActivity implements View.OnClickL
                 //  이용내역 상세으로
 //                intent = new Intent(this, MainActivity.class);
 //                startActivity(intent);
+                MainActivity mainActivity = (MainActivity)MainActivity._mMainActivity;
+                if(mainActivity != null)
+                {
+                    intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                }
+
                 finish();
                 break;
         }
@@ -75,6 +82,12 @@ public class PayApproveResult extends AppCompatActivity implements View.OnClickL
         //super.onBackPressed();
 //        Intent intent = new Intent(this, MainActivity.class);
 //        startActivity(intent);
+        MainActivity mainActivity = (MainActivity)MainActivity._mMainActivity;
+        if(mainActivity != null)
+        {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
         finish();
     }
 }

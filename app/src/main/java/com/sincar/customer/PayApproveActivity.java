@@ -33,55 +33,33 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.util.EncodingUtils;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLDecoder;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
-import com.sincar.customer.adapter.OptionServiceRecyclerViewAdapter;
-import com.sincar.customer.adapter.content.OptionContent;
 import com.sincar.customer.database.DBAdapter;
-import com.sincar.customer.item.OptionResult;
 import com.sincar.customer.item.ReserveResult;
 import com.sincar.customer.network.VolleyNetwork;
 import com.sincar.customer.util.Util;
-import com.sincar.customer.util.Utility;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import static com.sincar.customer.HWApplication.dbConnect;
 import static com.sincar.customer.HWApplication.reserveResult;
 import static com.sincar.customer.HWApplication.voLoginItem;
-import static com.sincar.customer.HWApplication.voOptionDataItem;
-import static com.sincar.customer.HWApplication.voOptionItem;
 import static com.sincar.customer.HWApplication.voReserveItem;
-import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
-import static com.sincar.customer.common.Constants.PAYMEMNT_REQUEST;
+import static com.sincar.customer.common.Constants.PAYMEMNT_REQUEST1;
 import static com.sincar.customer.common.Constants.PAY_APPROVE_REQUEST;
-import static com.sincar.customer.common.Constants.TEST_REQUEST;
 import static com.sincar.customer.util.Utility.isPackageInstalled;
 
 public class PayApproveActivity extends Activity {
     private Context pContext;
-    final String MERCHANT_URL = TEST_REQUEST; //PAYMEMNT_REQUEST;   //"https://sincar.co.kr/api/payment/index.asp"; //PAYMEMNT_REQUEST;   //"
+    final String MERCHANT_URL = PAYMEMNT_REQUEST1; //PAYMEMNT_REQUEST;   //"https://sincar.co.kr/api/payment/index.asp"; //PAYMEMNT_REQUEST;   //"
 
  //;   final String MERCHANT_URL = "http://sincar.co.kr/api";
 
@@ -714,7 +692,7 @@ public class PayApproveActivity extends Activity {
                 //메인으로
                 //기존 activity 종료
                 MapsActivity mapActivity = (MapsActivity)MapsActivity._mMapsActivity;
-                mapActivity.finish();
+                if(mapActivity != null) mapActivity.finish();
 
                 if(ReservationCalendarActivity._reservationCalendarActivity != null) {
                     ReservationCalendarActivity reservationCalendarActivity = (ReservationCalendarActivity) ReservationCalendarActivity._reservationCalendarActivity;
@@ -722,16 +700,22 @@ public class PayApproveActivity extends Activity {
                 }
 
                 ReservationTimeActivity reservationTimeActivity = (ReservationTimeActivity)ReservationTimeActivity._reservationTimeActivity;
-                reservationTimeActivity.finish();
+                if(reservationTimeActivity != null) reservationTimeActivity.finish();
 
                 ReservationMainActivity reservationMainActivity = (ReservationMainActivity)ReservationMainActivity._reservationMainActivity;
-                reservationMainActivity.finish();
+                if(reservationMainActivity != null) reservationMainActivity.finish();
 
                 PaymentActivity paymentActivity = (PaymentActivity)PaymentActivity._paymentActivity;
-                paymentActivity.finish();
+                if(paymentActivity != null) paymentActivity.finish();
 
 //                Intent intent = new Intent(pContext, MainActivity.class);
 //                startActivity(intent);
+                MainActivity mainActivity = (MainActivity)MainActivity._mMainActivity;
+                if(mainActivity != null)
+                {
+                    Intent intent = new Intent(pContext, MainActivity.class);
+                    startActivity(intent);
+                }
                 finish();
             }
         }
@@ -804,7 +788,9 @@ public class PayApproveActivity extends Activity {
                     startActivity(intent);
                     finish();
                 } else {
-                    Toast.makeText(pContext, "서버 저장에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(pContext, voReserveItem.CAUSE + "\n다시 예약 부탁 드립니다.", Toast.LENGTH_SHORT).show();
+
+                    finish();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -908,7 +894,7 @@ public class PayApproveActivity extends Activity {
 
             //기존 activity 종료
             MapsActivity mapActivity = (MapsActivity)MapsActivity._mMapsActivity;
-            mapActivity.finish();
+            if(mapActivity != null) mapActivity.finish();
 
             if(ReservationCalendarActivity._reservationCalendarActivity != null) {
                 ReservationCalendarActivity reservationCalendarActivity = (ReservationCalendarActivity) ReservationCalendarActivity._reservationCalendarActivity;
@@ -916,18 +902,26 @@ public class PayApproveActivity extends Activity {
             }
 
             ReservationTimeActivity reservationTimeActivity = (ReservationTimeActivity)ReservationTimeActivity._reservationTimeActivity;
-            reservationTimeActivity.finish();
+            if(reservationTimeActivity != null) reservationTimeActivity.finish();
 
             ReservationMainActivity reservationMainActivity = (ReservationMainActivity)ReservationMainActivity._reservationMainActivity;
-            reservationMainActivity.finish();
+            if(reservationMainActivity != null) reservationMainActivity.finish();
 
             PaymentActivity paymentActivity = (PaymentActivity)PaymentActivity._paymentActivity;
-            paymentActivity.finish();
+            if(paymentActivity != null) paymentActivity.finish();
 
             Toast.makeText(pContext, "예약 정보가 초기화 됩니다. 다시 진행 부탁 드립니다.", Toast.LENGTH_SHORT).show();
 
 //            Intent intent = new Intent(pContext, MainActivity.class);
 //            startActivity(intent);
+
+            MainActivity mainActivity = (MainActivity)MainActivity._mMainActivity;
+            if(mainActivity != null)
+            {
+                Intent intent = new Intent(pContext, MainActivity.class);
+                startActivity(intent);
+            }
+
             finish();
         }
     }

@@ -22,6 +22,7 @@ import com.sincar.customer.util.Util;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -120,6 +121,8 @@ public class ReservationTimeActivity extends AppCompatActivity
         VolleyNetwork.getInstance(this).serverDataRequest(AGENT_LIST_REQUEST, postParams, onAgentListResponseListener);
     }
 
+
+
     VolleyNetwork.OnResponseListener onAgentListResponseListener = new VolleyNetwork.OnResponseListener() {
         @Override
         public void onResponseSuccessListener(String serverData) {
@@ -133,9 +136,9 @@ public class ReservationTimeActivity extends AppCompatActivity
 
             voAgentDataItem     = agentResult.DATA;
 
-//            // 내림차순 정렬
-//            Descending descending = new Descending();
-//            Collections.sort(voAgentDataItem, descending);
+            // 내림차순 정렬
+            Collections.sort(voAgentDataItem, new AgentContentComparator());
+//            Collections.reverse(voAgentDataItem);
 
 
             List<AgentContent.AgentItem> ITEMS = new ArrayList<AgentContent.AgentItem>();
@@ -212,6 +215,18 @@ public class ReservationTimeActivity extends AppCompatActivity
             Util.dismiss();
         }
     };
+
+    /**
+     *  내림차순 정렬
+     */
+    class AgentContentComparator implements Comparator<AgentDataItem> {
+        @Override
+        public int compare(AgentDataItem o1, AgentDataItem o2) {
+            return o1.AGENT_ORDER.compareTo(o2.AGENT_ORDER);
+        }
+    }
+
+//  List<AgentContent.AgentItem> ITEMS = new ArrayList<AgentContent.AgentItem>();
 
     private void callAgentRecyclerViewAdapter(){
         // 서버 연동 후 AgentContent.ITEMS에 리스 항목 추가 작업 확인

@@ -139,10 +139,10 @@ public class LoginActivityPre extends Activity implements View.OnClickListener {
 
                     if(send_data.length > 0)
                     {
-                        login_btn.setEnabled(false);
-                        memberjoin_btn.setEnabled(false);
-
-                        requestReserveInfo();
+//                        login_btn.setEnabled(false);
+//                        memberjoin_btn.setEnabled(false);
+//
+//                        requestReserveInfo();
                     }
                 }else{
                     //버전 업데이트 진행.
