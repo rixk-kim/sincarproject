@@ -107,6 +107,10 @@ public class MemberAuthActivity extends Activity implements View.OnClickListener
 
         auth_time_counter = (TextView) findViewById(R.id.auth_time_counter);            //줄어드는 시간을 나타내는 TextView
 
+        if(countDownTimer != null){
+            countDownTimer.cancel();
+        }
+
         countDownTimer = new CountDownTimer(MILLISINFUTURE, COUNT_DOWN_INTERVAL) {
             @Override
             public void onTick(long millisUntilFinished) { //(300초에서 1초 마다 계속 줄어듬)
@@ -129,7 +133,7 @@ public class MemberAuthActivity extends Activity implements View.OnClickListener
 
             @Override
             public void onFinish() { //시간이 다 되면 다이얼로그 종료
- //               authDialog.cancel();
+//                authDialog.cancel();
                 Toast.makeText(MemberAuthActivity.this, "시간이 초과 되었습니다.", Toast.LENGTH_LONG).show();
                 finish();
             }
@@ -168,6 +172,7 @@ public class MemberAuthActivity extends Activity implements View.OnClickListener
                     if (voAuthItem.AUTH_NUMBER.equals(join_user_auth.getText().toString().trim()))
                     {
                         countDownTimer.cancel();
+
                         //비밀번호 입력으로 이동
                         Intent intent = new Intent(this, PasswordChangeActivity.class);
                         intent.putExtra("path", path);
@@ -227,5 +232,15 @@ public class MemberAuthActivity extends Activity implements View.OnClickListener
             Toast.makeText(MemberAuthActivity.this, "재전송에 실패하였습니다.", Toast.LENGTH_LONG).show();
         }
     };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //Log.d("onPostCreate", "onDestroy");
+        if(countDownTimer != null){
+            countDownTimer.cancel();
+        }
+    }
+
 }
 

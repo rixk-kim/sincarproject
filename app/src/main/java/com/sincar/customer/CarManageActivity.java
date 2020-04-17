@@ -321,14 +321,14 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
 
             if("0".equals(voCarDeleteItem.DELETE_RESULT))
             {
-                Toast.makeText(carContext, "삭제 하였습니다.", Toast.LENGTH_LONG).show();
+                Toast.makeText(carContext, "삭제 하였습니다.", Toast.LENGTH_SHORT).show();
 
                 // 서버 연동 후 CarContent.ITEMS에 리스 항목 추가 작업
                 CarContent.clearItem(); //초기화
                 request_page = 1;
                 requestCarList();
             }else{
-                Toast.makeText(carContext, "삭제에 실패하였습니다.", Toast.LENGTH_LONG).show();
+                Toast.makeText(carContext, "삭제에 실패하였습니다.", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -337,7 +337,7 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
             //프로그래스바 종료
             Util.dismiss();
 
-            Toast.makeText(carContext, "삭제에 실패하였습니다.", Toast.LENGTH_LONG).show();
+            Toast.makeText(carContext, "삭제에 실패하였습니다.", Toast.LENGTH_SHORT).show();
         }
     };
 }

@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.sincar.customer.item.AuthResult;
 import com.sincar.customer.item.PasswordResult;
 import com.sincar.customer.network.VolleyNetwork;
+import com.sincar.customer.preference.PreferenceManager;
 import com.sincar.customer.util.Util;
 
 import java.util.HashMap;
@@ -230,6 +231,12 @@ public class PasswordChangeActivity extends AppCompatActivity implements View.On
                     public void onClick(DialogInterface dialog, int which) {
                         // TODO Auto-generated method stub
                         dialog.dismiss();
+
+                        PreferenceManager.getInstance().setCheckLogin(false);
+                        // 아이디 셋팅
+                        PreferenceManager.getInstance().setUserId("");
+                        // 패스워드 셋팅
+                        PreferenceManager.getInstance().setUserPwd("");
 
                         //이전 Activity 종료.
                         if(_memberJoinActivity != null) {
