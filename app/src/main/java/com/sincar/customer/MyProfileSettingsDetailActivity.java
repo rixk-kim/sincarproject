@@ -11,10 +11,14 @@ import static com.sincar.customer.HWApplication.voLoginItem;
 
 
 public class MyProfileSettingsDetailActivity extends AppCompatActivity implements View.OnClickListener {
+    public static MyProfileSettingsDetailActivity _myProfileSettingsDetailActivity;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myinfo_detail);
+        _myProfileSettingsDetailActivity = this;
 
         // 화면 초기화
         init();

@@ -31,6 +31,9 @@ import static com.sincar.customer.HWApplication.passwordResult;
 import static com.sincar.customer.HWApplication.voAuthItem;
 import static com.sincar.customer.HWApplication.voLoginItem;
 import static com.sincar.customer.HWApplication.voPasswordItem;
+import static com.sincar.customer.MemberAuthActivity._memberAuthActivity;
+import static com.sincar.customer.MemberJoinActivity._memberJoinActivity;
+import static com.sincar.customer.MyProfileSettingsDetailActivity._myProfileSettingsDetailActivity;
 import static com.sincar.customer.common.Constants.AUTH_NUMBER_REQUEST;
 import static com.sincar.customer.common.Constants.CHANGE_PASSWORD;
 
@@ -229,13 +232,20 @@ public class PasswordChangeActivity extends AppCompatActivity implements View.On
                         dialog.dismiss();
 
                         //이전 Activity 종료.
-                        if(MemberJoinActivity._memberJoinActivity != null) {
-                            MemberJoinActivity memberJoinActivity = (MemberJoinActivity) MemberJoinActivity._memberJoinActivity;
+                        if(_memberJoinActivity != null) {
+                            MemberJoinActivity memberJoinActivity = (MemberJoinActivity) _memberJoinActivity;
                             memberJoinActivity.finish();
                         }
 
-                        MemberAuthActivity memberAuthActivity = (MemberAuthActivity)MemberAuthActivity._memberAuthActivity;
-                        memberAuthActivity.finish();
+                        if(_memberAuthActivity != null) {
+                            MemberAuthActivity memberAuthActivity = (MemberAuthActivity) _memberAuthActivity;
+                            memberAuthActivity.finish();
+                        }
+
+                        if(_myProfileSettingsDetailActivity != null) {
+                            MyProfileSettingsDetailActivity myProfileSettingsDetailActivity = (MyProfileSettingsDetailActivity) _myProfileSettingsDetailActivity;
+                            myProfileSettingsDetailActivity.finish();
+                        }
 
                         Intent intent1 = new Intent(pContext, LoginActivity.class);
                         startActivity(intent1);

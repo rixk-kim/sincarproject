@@ -170,7 +170,7 @@ public class MemberAuthActivity extends Activity implements View.OnClickListener
                         countDownTimer.cancel();
                         //비밀번호 입력으로 이동
                         Intent intent = new Intent(this, PasswordChangeActivity.class);
-                        intent.putExtra("path", "join");
+                        intent.putExtra("path", path);
                         intent.putExtra("phone_number", phone_number);
                         startActivity(intent);
                     }else{
