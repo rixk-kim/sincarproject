@@ -159,8 +159,8 @@
     <string name="car_btn_str_register">등록하기</string>
     <string name="car_btn_str_modify">변경하기</string>
 
-    <string name="car_name_str">현대산타페 (대형)</string>
-    <string name="car_number_str">35나 8733</string>
+    <string name="car_name_str"></string>
+    <string name="car_number_str"></string>
 
     <string name="wash_info_title">세차 장소</string>
     <string name="wash_indoor">실내</string>

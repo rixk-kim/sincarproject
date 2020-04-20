@@ -121,6 +121,10 @@ public class VolleyNetwork {
         };
 
         stringRequest.setShouldCache(false);
+//        stringRequest.setRetryPolicy(new com.android.volley.DefaultRetryPolicy(
+//                20000 ,
+//                com.android.volley.DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+//                com.android.volley.DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         // Access the RequestQueue through your singleton class.
         VolleyNetwork.getInstance(this.ctx).addToRequestQueue(stringRequest);

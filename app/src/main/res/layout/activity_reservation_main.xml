@@ -174,7 +174,6 @@
                     android:textColor="#3e3e3e"
                     android:lineSpacingExtra="2sp"
                     android:text="@string/car_name_str"
-                    tools:text="현대 싼타페 (대형)"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     />
@@ -189,7 +188,6 @@
                     android:textColor="#3e3e3e"
                     android:lineSpacingExtra="2sp"
                     android:text="@string/car_number_str"
-                    tools:text="35나 8743"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/car_name_str"
                     />

@@ -107,7 +107,12 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         branch_name.setText(agent_company); //지점명
 
         wash_address = (TextView)findViewById(R.id.wash_address);
-        wash_address.setText(reserve_address + "(" + wash_area + ")"); //세차장소
+        if("0".equals(wash_area))
+        {
+            wash_address.setText(reserve_address + "(실내)"); //세차장소
+        }else {
+            wash_address.setText(reserve_address + "(실외)"); //세차장소
+        }
 
         reservation_time = (TextView)findViewById(R.id.reservation_time);
         if(reserve_month.length() < 2) reserve_month = "0" + reserve_month;
