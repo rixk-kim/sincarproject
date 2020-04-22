@@ -132,7 +132,7 @@
                     android:textColor="#3e3e3e"
                     android:lineSpacingExtra="2sp"
                     android:text="@string/register_car_not_exist"
-                    tools:text="등록된 차량 없음"
+                    android:hint="등록된 차량 없음"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" />

@@ -133,7 +133,7 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
 
         // 서버 연동 후 PointContent.ITEMS에 리스 항목 추가 작업
         OptionContent.clearItem(); //초기화
-        requestNoticeList();
+        requestAddServiceList();
     }
 
     /**
@@ -142,7 +142,7 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
      * REQUESTT_PAGE    : 요청페이지
      * REQUEST_NUM      : 요청갯수
      */
-    private void requestNoticeList() {
+    private void requestAddServiceList() {
         HashMap<String, String> postParams = new HashMap<String, String>();
         postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);         // 회원번호
         postParams.put("AGENT_SEQ", agent_seq);                     // 대리점 SEQ
@@ -170,12 +170,19 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
             voOptionItem.CAR_NUMBER           = optionResult.add_service.get(0).CAR_NUMBER;
             voOptionItem.CAR_PAY              = optionResult.add_service.get(0).CAR_PAY;
 
-            car_name_str.setText(voOptionItem.CAR_COMPANY + " " + voOptionItem.CAR_MODEL);
-            car_number_str.setText(voOptionItem.CAR_NUMBER);
+//            car_name_str.setText(voOptionItem.CAR_COMPANY + " " + voOptionItem.CAR_MODEL);
+//            car_number_str.setText(voOptionItem.CAR_NUMBER);
 
             if(!TextUtils.isEmpty(voOptionItem.CAR_COMPANY)) reserve_companyname = voOptionItem.CAR_COMPANY;   //제조사
             if(!TextUtils.isEmpty(voOptionItem.CAR_MODEL)) reserve_carname     = voOptionItem.CAR_MODEL;     //차량 이름
+            if(reserve_companyname != null && reserve_carname != null){
+                car_name_str.setText(voOptionItem.CAR_COMPANY + " " + voOptionItem.CAR_MODEL);
+            }
+
             if(!TextUtils.isEmpty(voOptionItem.CAR_NUMBER)) reserve_carnumber   = voOptionItem.CAR_NUMBER;    //차번호
+            if(reserve_carnumber != null){
+                car_number_str.setText(voOptionItem.CAR_NUMBER);
+            }
             if(!TextUtils.isEmpty(voOptionItem.CAR_PAY)) car_wash_pay        = voOptionItem.CAR_PAY;       //기본세차비용
 
             // 등록된 차량 정보 확인하여 필요한 레이아웃 visible 및 이벤트 핸들러 추가하기
@@ -318,30 +325,34 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
 
         if (requestCode == CAR_MANAGE_REQ_CODE) {
             if (resultCode == RESULT_OK) {
-                findViewById(R.id.car_register_layout).setVisibility(View.GONE);
-                findViewById(R.id.car_modify_layout).setVisibility(View.VISIBLE);
-                findViewById(R.id.btnCarModify).setOnClickListener(this);
+                if(!TextUtils.isEmpty(data.getStringExtra("reserve_companyname")) && !TextUtils.isEmpty(data.getStringExtra("reserve_carname"))
+                        && !TextUtils.isEmpty(data.getStringExtra("reserve_carnumber")) ) {
+                    findViewById(R.id.car_register_layout).setVisibility(View.GONE);
+                    findViewById(R.id.car_modify_layout).setVisibility(View.VISIBLE);
+                    findViewById(R.id.btnCarModify).setOnClickListener(this);
 
-                if(!TextUtils.isEmpty(data.getStringExtra("reserve_companyname")))
-                {
-                    reserve_companyname = data.getStringExtra("reserve_companyname");
-                }
+                    if (!TextUtils.isEmpty(data.getStringExtra("reserve_companyname"))) {
+                        reserve_companyname = data.getStringExtra("reserve_companyname");
+                    }
 
-                if(!TextUtils.isEmpty(data.getStringExtra("reserve_carname")))
-                {
-                    reserve_carname = data.getStringExtra("reserve_carname");
-                }
-                car_name_str.setText(reserve_companyname + " " + reserve_carname);
+                    if (!TextUtils.isEmpty(data.getStringExtra("reserve_carname"))) {
+                        reserve_carname = data.getStringExtra("reserve_carname");
+                    }
 
-                if(!TextUtils.isEmpty(data.getStringExtra("reserve_carnumber")))
-                {
-                    reserve_carnumber = data.getStringExtra("reserve_carnumber");
-                    car_number_str.setText(reserve_carnumber);
-                }
+                    if (reserve_companyname != null && reserve_carname != null) {
+                        car_name_str.setText(reserve_companyname + " " + reserve_carname);
+                    }
 
-                if(!TextUtils.isEmpty(data.getStringExtra("car_wash_pay")))
-                {
-                    car_wash_pay = data.getStringExtra("car_wash_pay");
+                    if (!TextUtils.isEmpty(data.getStringExtra("reserve_carnumber"))) {
+                        reserve_carnumber = data.getStringExtra("reserve_carnumber");
+                        if (reserve_carnumber != null) {
+                            car_number_str.setText(reserve_carnumber);
+                        }
+                    }
+
+                    if (!TextUtils.isEmpty(data.getStringExtra("car_wash_pay"))) {
+                        car_wash_pay = data.getStringExtra("car_wash_pay");
+                    }
                 }
  //               Toast.makeText(ReservationMainActivity.this, "차종: " + data.getStringExtra("reserve_carname") + " , 차번호 : " + data.getStringExtra("reserve_carnumber"), Toast.LENGTH_SHORT).show();
             } else {   // RESULT_CANCEL
@@ -352,30 +363,34 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
             //차량 등록하고 리턴
             if (resultCode == RESULT_OK) {
 
-                findViewById(R.id.car_register_layout).setVisibility(View.GONE);
-                findViewById(R.id.car_modify_layout).setVisibility(View.VISIBLE);
-                findViewById(R.id.btnCarModify).setOnClickListener(this);
+                if(!TextUtils.isEmpty(data.getStringExtra("reserve_companyname")) && !TextUtils.isEmpty(data.getStringExtra("reserve_carname"))
+                        && !TextUtils.isEmpty(data.getStringExtra("reserve_carnumber")) ) {
+                    findViewById(R.id.car_register_layout).setVisibility(View.GONE);
+                    findViewById(R.id.car_modify_layout).setVisibility(View.VISIBLE);
+                    findViewById(R.id.btnCarModify).setOnClickListener(this);
 
-                if(!TextUtils.isEmpty(data.getStringExtra("reserve_companyname")))
-                {
-                    reserve_companyname = data.getStringExtra("reserve_companyname");
-                }
+                    if (!TextUtils.isEmpty(data.getStringExtra("reserve_companyname"))) {
+                        reserve_companyname = data.getStringExtra("reserve_companyname");
+                    }
 
-                if(!TextUtils.isEmpty(data.getStringExtra("reserve_carname")))
-                {
-                    reserve_carname = data.getStringExtra("reserve_carname");
-                }
-                car_name_str.setText(reserve_companyname + " " + reserve_carname);
+                    if (!TextUtils.isEmpty(data.getStringExtra("reserve_carname"))) {
+                        reserve_carname = data.getStringExtra("reserve_carname");
+                    }
 
-                if(!TextUtils.isEmpty(data.getStringExtra("reserve_carnumber")))
-                {
-                    reserve_carnumber = data.getStringExtra("reserve_carnumber");
-                    car_number_str.setText(reserve_carnumber);
-                }
+                    if (reserve_companyname != null && reserve_carname != null) {
+                        car_name_str.setText(reserve_companyname + " " + reserve_carname);
+                    }
 
-                if(!TextUtils.isEmpty(data.getStringExtra("car_wash_pay")))
-                {
-                    car_wash_pay = data.getStringExtra("car_wash_pay");
+                    if (!TextUtils.isEmpty(data.getStringExtra("reserve_carnumber"))) {
+                        reserve_carnumber = data.getStringExtra("reserve_carnumber");
+                        if (reserve_carnumber != null) {
+                            car_number_str.setText(reserve_carnumber);
+                        }
+                    }
+
+                    if (!TextUtils.isEmpty(data.getStringExtra("car_wash_pay"))) {
+                        car_wash_pay = data.getStringExtra("car_wash_pay");
+                    }
                 }
 
 //                Toast.makeText(ReservationMainActivity.this, "차종: " + data.getStringExtra("reserve_carname") + " , 차번호 : " + data.getStringExtra("reserve_carnumber"), Toast.LENGTH_SHORT).show();
