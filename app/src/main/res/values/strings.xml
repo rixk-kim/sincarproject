@@ -122,7 +122,7 @@
     <!-- 8. 포인트 내역 종료 -->
 
     <!-- 스팀 세차 예약 - 구글맵 시작 -->
-    <string name="current_address_str">남현동 1092-23</string>
+    <string name="current_address_str">서울 송파구 석촌호수로 274</string>
     <string name="reserve_date_title_str">예약일자</string>
     <string name="reserve_dummy_date_str">9/15 (화)</string>
     <string name="map_next_button_str">이 위치로 부름</string>

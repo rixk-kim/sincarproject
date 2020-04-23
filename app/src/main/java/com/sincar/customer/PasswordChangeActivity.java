@@ -238,24 +238,32 @@ public class PasswordChangeActivity extends AppCompatActivity implements View.On
                         // 패스워드 셋팅
                         PreferenceManager.getInstance().setUserPwd("");
 
-                        //이전 Activity 종료.
-                        if(_memberJoinActivity != null) {
-                            MemberJoinActivity memberJoinActivity = (MemberJoinActivity) _memberJoinActivity;
-                            memberJoinActivity.finish();
+
+
+
+
+                        if(!"change".equals(path))
+                        {
+                            //이전 Activity 종료.
+                            if(_memberJoinActivity != null) {
+                                MemberJoinActivity memberJoinActivity = (MemberJoinActivity) _memberJoinActivity;
+                                memberJoinActivity.finish();
+                            }
+
+                            if(_memberAuthActivity != null) {
+                                MemberAuthActivity memberAuthActivity = (MemberAuthActivity) _memberAuthActivity;
+                                memberAuthActivity.finish();
+                            }
+
+                            if(_myProfileSettingsDetailActivity != null) {
+                                MyProfileSettingsDetailActivity myProfileSettingsDetailActivity = (MyProfileSettingsDetailActivity) _myProfileSettingsDetailActivity;
+                                myProfileSettingsDetailActivity.finish();
+                            }
+
+                            Intent intent1 = new Intent(pContext, LoginActivity.class);
+                            startActivity(intent1);
                         }
 
-                        if(_memberAuthActivity != null) {
-                            MemberAuthActivity memberAuthActivity = (MemberAuthActivity) _memberAuthActivity;
-                            memberAuthActivity.finish();
-                        }
-
-                        if(_myProfileSettingsDetailActivity != null) {
-                            MyProfileSettingsDetailActivity myProfileSettingsDetailActivity = (MyProfileSettingsDetailActivity) _myProfileSettingsDetailActivity;
-                            myProfileSettingsDetailActivity.finish();
-                        }
-
-                        Intent intent1 = new Intent(pContext, LoginActivity.class);
-                        startActivity(intent1);
                         finish();
                     }
                 }).show();
