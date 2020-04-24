@@ -17,6 +17,7 @@ public class LoginItem {
     public String INVITE_NUM;       //초대한 친구 명수
     public String INVITE_FRI_NUM;   //친구의 친구 명수
     public String ACCUM_POINT;      //누적포인트
+    public String MEMBER_TYPE;      //회원타입
 
     @Override
     public String toString() {
@@ -37,6 +38,7 @@ public class LoginItem {
                 ", INVITE_NUM='" + INVITE_NUM + '\'' +
                 ", INVITE_FRI_NUM='" + INVITE_FRI_NUM + '\'' +
                 ", ACCUM_POINT='" + ACCUM_POINT + '\'' +
+                ", MEMBER_TYPE='" + MEMBER_TYPE + '\'' +
                 '}';
     }
 }

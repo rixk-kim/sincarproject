@@ -282,6 +282,7 @@ it =>  {"login": [{"REGISTER":"1","CAUSE":"비밀번호 오류","MEMBER_NO":"123
         voLoginItem.INVITE_NUM      = loginResult.login.get(0).INVITE_NUM;
         voLoginItem.INVITE_FRI_NUM  = loginResult.login.get(0).INVITE_FRI_NUM;
         voLoginItem.ACCUM_POINT     = loginResult.login.get(0).ACCUM_POINT;
+        voLoginItem.MEMBER_TYPE     = loginResult.login.get(0).MEMBER_TYPE;
 
         // LoginDataItem 에 넣어주고.
         voLoginDataItem = loginResult.DATA;

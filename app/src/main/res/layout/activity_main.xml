@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:descendantFocusability="blocksDescendants">
 
-    <androidx.core.widget.NestedScrollView
+        <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -28,7 +28,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
 
             <!-- 나의 포인트 -->
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -58,9 +59,10 @@
                     android:id="@+id/customerName"
                     android:fontFamily="@font/nanumsquareregular"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="24dp"
                     android:layout_marginStart="67dp"
                     android:layout_marginTop="16dp"
+                    android:gravity="center"
                     android:lineSpacingExtra="11sp"
                     android:text="@string/customer_name_str"
                     android:textColor="#ffffff"
@@ -74,6 +76,7 @@
                     android:fontFamily="@font/nanumsquareextrabold"
                     android:layout_width="wrap_content"
                     android:layout_height="24dp"
+                    android:gravity="center"
                     android:layout_marginStart="67dp"
                     android:layout_marginBottom="17dp"
                     android:lineSpacingExtra="7sp"
@@ -233,7 +236,8 @@
                 android:background="@drawable/layout_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/banner_slider_layout">
+                app:layout_constraintTop_toBottomOf="@+id/banner_slider_layout"
+                tools:ignore="NotSibling">
 
                 <TextView
                     android:id="@+id/registerTitle"
@@ -309,20 +313,21 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:orientation="vertical"
-        android:layout_height="2dp"
+        android:layout_height="0.5dp"
         android:layout_width="match_parent"
-        android:background="#e6e6e6"
-        android:layout_marginBottom="65dp"
+        android:background="#333e3e3e"
         app:layout_constraintBottom_toBottomOf="@+id/scroll_view"
         />
-    </FrameLayout>
 
+
+    </FrameLayout>
     <!-- bottom navi -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNav"

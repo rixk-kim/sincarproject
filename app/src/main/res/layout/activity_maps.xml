@@ -116,16 +116,21 @@
             app:layout_constraintStart_toEndOf="@+id/reserve_title"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
-
-        <ImageView
+        <LinearLayout
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginEnd="24dp"
-            android:src="@drawable/filled_copy"
-            android:contentDescription="@string/reserve_date_icon_desc_str"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent">
+            <ImageView
+                android:layout_width="9dp"
+                android:layout_height="16dp"
+                android:src="@drawable/filled_copy"
+                android:layout_gravity="center|center_vertical|center_horizontal"
+                android:contentDescription="@string/reserve_date_icon_desc_str"
+                 />
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- 이 위치로 부름 layout -->

@@ -230,6 +230,32 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
 
         switch (v.getId()) {
             case R.id.car_manage_btnPrev_layout:
+                // 내정보
+                if("main".equals(path)) {
+                    intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else if("reserve".equals(path)){
+                    intent = new Intent(this, ReservationMainActivity.class);
+                    if(mCarContentRecyclerViewAdapter != null) {
+//                        intent.putExtra("reserve_companyname", mCarContentRecyclerViewAdapter.getItemCompanyName());
+//                        intent.putExtra("reserve_carname", mCarContentRecyclerViewAdapter.getItemcarName());
+//                        intent.putExtra("reserve_carnumber", mCarContentRecyclerViewAdapter.getItemcarNumber());
+//                        intent.putExtra("car_wash_pay", mCarContentRecyclerViewAdapter.getItemcarPay());
+                        intent.putExtra("reserve_companyname", "");
+                        intent.putExtra("reserve_carname", "");
+                        intent.putExtra("reserve_carnumber", "");
+                        intent.putExtra("car_wash_pay", "");
+                    }
+                    setResult(RESULT_OK, intent);
+                    finish();
+
+                }else {
+                    intent = new Intent(this, MyProfileSettingsActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                break;
             case R.id.car_manage_reg_btn:
                 // 내정보
                 if("main".equals(path)) {
@@ -275,10 +301,14 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
         }else if("reserve".equals(path)){
             intent = new Intent(this, ReservationMainActivity.class);
             if(mCarContentRecyclerViewAdapter != null) {
-                intent.putExtra("reserve_companyname", mCarContentRecyclerViewAdapter.getItemCompanyName());
-                intent.putExtra("reserve_carname", mCarContentRecyclerViewAdapter.getItemcarName());
-                intent.putExtra("reserve_carnumber", mCarContentRecyclerViewAdapter.getItemcarNumber());
-                intent.putExtra("car_wash_pay", mCarContentRecyclerViewAdapter.getItemcarPay());
+//                intent.putExtra("reserve_companyname", mCarContentRecyclerViewAdapter.getItemCompanyName());
+//                intent.putExtra("reserve_carname", mCarContentRecyclerViewAdapter.getItemcarName());
+//                intent.putExtra("reserve_carnumber", mCarContentRecyclerViewAdapter.getItemcarNumber());
+//                intent.putExtra("car_wash_pay", mCarContentRecyclerViewAdapter.getItemcarPay());
+                intent.putExtra("reserve_companyname", "");
+                intent.putExtra("reserve_carname", "");
+                intent.putExtra("reserve_carnumber", "");
+                intent.putExtra("car_wash_pay", "");
             }
             setResult(RESULT_OK, intent);
             finish();

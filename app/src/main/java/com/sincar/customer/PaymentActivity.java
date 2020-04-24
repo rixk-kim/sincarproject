@@ -2,6 +2,8 @@ package com.sincar.customer;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,6 +41,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     private CheckBox clause_agree;
     private Context pContext;
     private Button mButton;
+    private ConstraintLayout clause_layout;
 
     private String reserve_address = ""; //예약주소
     private String reserve_year = "";    //예약년도
@@ -122,7 +125,20 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         findViewById(R.id.btnNext).setVisibility(View.INVISIBLE);
         findViewById(R.id.btnCouponRegister).setOnClickListener(this);
         amount_TextView = (TextView) findViewById(R.id.coupon_amount);
+
         clause_agree = (CheckBox) findViewById(R.id.clause_agree);
+        clause_layout = (ConstraintLayout) findViewById(R.id.clause_layout);
+        clause_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (clause_agree.isChecked()) {
+                    clause_agree.setChecked(false);
+                } else {
+                    clause_agree.setChecked(true);
+                }
+            }
+        });
+
         mButton = (Button) findViewById(R.id.reserve_confirm_btn);
         mButton.setOnClickListener(this);
         mButton.setText("결제하기");

@@ -193,6 +193,7 @@ public class ReservationTimeActivity extends AppCompatActivity
                         voAgentDataItem.get(i).SEQ,
                         voAgentDataItem.get(i).NAME,
                         voAgentDataItem.get(i).AGENT_NAME,
+                        voAgentDataItem.get(i).AGENT_IMG_URL,
                         voAgentDataItem.get(i).WASH_AREA,
                         voAgentDataItem.get(i).AGENT_STAUS,
                         voAgentDataItem.get(i).AGENT_ORDER,

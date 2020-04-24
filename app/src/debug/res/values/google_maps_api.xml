@@ -22,7 +22,7 @@
     test api key = > AIzaSyAzWYO13aaefTx3ZEwXwBnQvwvLBC28tZ4
     -->
     <!-- debug -->
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCHmr3kzeviiLwDIRBemjuRPnanSqdAiRU</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCh04Y7fnXaeOmDlC1njaHPE-tDdHwWYoU</string>
 
 
 </resources>

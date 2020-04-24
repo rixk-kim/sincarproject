@@ -21,7 +21,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
-        android:layout_marginBottom="54dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include"
@@ -311,7 +310,7 @@
                     android:inputType="number"
                     android:digits="0123456789"
                     android:maxLength="10"
-                    android:hint="@string/amount_default"
+                    android:text="@string/amount_default"
                     android:textSize="15sp"
                     android:textColor="@color/default_text_color"
                     android:imeOptions="actionDone"
@@ -435,28 +434,35 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- 약관 divider -->
+<!--
             <View
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
                 android:background="#1a3e3e3e" />
-
+-->
             <!-- 약관 영역 -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clause_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
                 android:layout_marginStart="28dp"
                 android:layout_marginEnd="28dp"
-                android:layout_marginBottom="104dp" >
+                android:layout_marginBottom="32dp"
+                android:layout_gravity="center|center_horizontal|center_vertical"
+                android:gravity="center|center_horizontal|center_vertical"
+                android:orientation="horizontal">
 
                 <CheckBox
                     android:id="@+id/clause_agree"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:background="@drawable/checkbox_selector"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/checkbox_selector_1"
                     android:button="@null"
+                    android:layout_gravity="center|center_horizontal|center_vertical"
+                    android:gravity="center|center_horizontal|center_vertical"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -464,13 +470,14 @@
                 <TextView
                     android:id="@+id/clause_title"
                     android:fontFamily="@font/nanumsquareregular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="21dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_gravity="center|center_horizontal|center_vertical"
+                    android:gravity="center|center_vertical|center_horizontal"
                     android:textSize="16sp"
                     android:textColor="#3e3e3e"
-                    android:textStyle="bold"
+                    android:letterSpacing="0.05"
                     android:text="@string/clause_title"
                     app:layout_constraintStart_toEndOf="@+id/clause_agree"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -585,34 +592,35 @@
 -->
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:gravity="bottom|center_horizontal|center_vertical"
+                app:layout_constraintTop_toBottomOf="@+id/payment_content">
+
+                <Button
+                    android:id="@+id/reserve_confirm_btn"
+                    android:fontFamily="@font/nanumsquarebold"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@drawable/default_button_type_1"
+                    android:shadowColor="#C4C4C4"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="7"
+                    android:text="결재하기"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    tools:ignore="MissingConstraints" />
+            </LinearLayout>
         </LinearLayout>
 
 
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom|center_horizontal|center_vertical"
-        app:layout_constraintTop_toBottomOf="@+id/payment_content"
-        tools:layout_editor_absoluteX="16dp">
 
-        <Button
-            android:id="@+id/reserve_confirm_btn"
-            android:fontFamily="@font/nanumsquarebold"
-            android:layout_width="312dp"
-            android:layout_height="52dp"
-            android:background="@drawable/default_button_type_1"
-            android:shadowColor="#C4C4C4"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="7"
-            android:text="결재하기"
-            android:textColor="#FFFFFF"
-            android:textSize="15sp"
-
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="-32dp" />
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

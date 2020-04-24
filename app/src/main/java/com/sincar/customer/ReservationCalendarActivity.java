@@ -78,6 +78,7 @@ public class ReservationCalendarActivity extends AppCompatActivity implements Vi
                 maxCalendar.get(Calendar.DAY_OF_MONTH));
         calendar.setMaxDate(maxCalendar.getTimeInMillis());
 
+
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             public void onSelectedDayChange(CalendarView view, int year,
                                             int month, int dayOfMonth) {
