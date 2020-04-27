@@ -66,6 +66,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
             android:textSize="14sp"
             android:textColor="#3e3e3e"
             android:text="@string/wash_area_title"

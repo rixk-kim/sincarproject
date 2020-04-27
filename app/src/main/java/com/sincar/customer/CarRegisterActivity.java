@@ -2,6 +2,7 @@ package com.sincar.customer;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,10 +13,13 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -119,7 +123,11 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
 
             case R.id.car_name:
                 //  차량 선택. 서버 요청 후 응답 받으면 setCarDialog() 호출.
-                setCarDialog(car_company_code);
+                if(car_select_colume1.getText().length() > 0) {
+                    setCarDialog(car_company_code);
+                }else{
+                    Toast.makeText(cContext, "제조사를 선택해주세요.", Toast.LENGTH_SHORT).show();
+                }
                 break;
 
             case R.id.car_reg_btn:
@@ -319,7 +327,14 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
 
         //R.layout.dialog는 xml 파일명이고  R.id.popup은 보여줄 레이아웃 아이디
         View layout = inflater.inflate(R.layout.select_company_dialog,(ViewGroup) findViewById(R.id.popup));
+
         AlertDialog.Builder aDialog = new AlertDialog.Builder(cContext);
+
+//        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+//        Dialog d = aDialog.setView(new View(this)).create();
+//        lp.copyFrom(d.getWindow().getAttributes());
+//        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+//        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
 
         // 커스텀 아답타 생성
         final String[] company_name_1 = new String[voCompanyListDataItem.size()];
@@ -356,7 +371,13 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
             }
         });
 
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(ad.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+
         ad.show();//보여줌!
+        ad.getWindow().setAttributes(lp);
     }
 
     class CompanyAdapter extends BaseAdapter {
@@ -468,7 +489,15 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                     ad.dismiss();
                 }
             });
+
+            WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+            lp.copyFrom(ad.getWindow().getAttributes());
+            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+            lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+
             ad.show();//보여줌!
+
+            ad.getWindow().setAttributes(lp);
         }
     }
 

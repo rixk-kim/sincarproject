@@ -79,10 +79,11 @@
                 android:fontFamily="@font/nanumsquareregular"
                 android:layout_width="296dp"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical|center_horizontal"
+                android:paddingLeft="55dp"
+                android:gravity="left|center_vertical|center_horizontal"
                 android:background="@null"
                 android:ems="10"
-                android:hint="제조사를 선택 하세요"
+                android:hint="제조사"
                 android:textColor="#3E3E3E"
                 android:textSize="15sp"/>
 
@@ -95,7 +96,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:background="@color/customColorPrimary1"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark"
-                app:srcCompat="@drawable/chevron_left_24_px" />
+                android:src="@drawable/arrow_right_red" />
         </LinearLayout>
 
 
@@ -122,10 +123,11 @@
                 android:fontFamily="@font/nanumsquareregular"
                 android:layout_width="296dp"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical|center_horizontal"
+                android:paddingLeft="55dp"
+                android:gravity="left|center_vertical|center_horizontal"
                 android:background="@null"
                 android:ems="10"
-                android:hint="차종을 선택 하세요"
+                android:hint="모델명"
                 android:textColor="#3E3E3E"
                 android:textSize="15sp"/>
 
@@ -139,7 +141,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:background="@color/customColorPrimary1"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark"
-                app:srcCompat="@drawable/chevron_left_24_px" />
+                android:src="@drawable/arrow_right_red" />
         </LinearLayout>
 
         <LinearLayout
@@ -164,7 +166,8 @@
                 android:layout_width="match_parent"
                 android:fontFamily="@font/nanumsquareregular"
                 android:layout_height="20dp"
-                android:gravity="center|center_vertical|center_horizontal"
+                android:layout_marginLeft="20dp"
+                android:gravity="left|center_vertical|center_horizontal"
                 android:background="@null"
                 android:ems="10"
                 android:hint="차량 번호"
