@@ -10,8 +10,8 @@
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
-        android:layout_height="154dp"
-        android:gravity="center_vertical"
+        android:layout_height="130dp"
+        android:gravity="center|center_vertical|center_horizontal"
         android:orientation="horizontal"
         android:background="#fff7f7"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,18 +61,17 @@
             app:layout_constraintTop_toTopOf="parent"
             android:background="#fff7f7"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"
-            app:srcCompat="@drawable/filled_copy" />
+            android:src="@drawable/arrow_right_red" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="172dp"
+        android:layout_marginTop="18dp"
         android:layout_marginEnd="28dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -273,6 +272,68 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/setting_divider_1"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#1a3e3e3e"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        android:orientation="horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/setting_divider_1"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:fontFamily="@font/nanumsquarebold"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="고객센터"
+            android:textSize="13sp"
+            android:textColor="#3e3e3e"
+            android:letterSpacing="0.05"/>
+
+        <TextView
+            android:fontFamily="@font/nanumsquareregular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="서비스 관련 모든 문의는 고객센터를 이용해주세요."
+            android:textSize="12sp"
+            android:textColor="#b33e3e3e"
+            android:letterSpacing="0.05" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:gravity="center|center_horizontal|center_vertical"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/callcenter_btn"
+                android:fontFamily="@font/nanumsquarebold"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_gravity="center"
+                android:background="@drawable/default_button_type_1"
+                android:gravity="center|center_horizontal|center_vertical"
+                android:shadowColor="#C4C4C4"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="7"
+                android:text="@string/call_center"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"/>
+        </LinearLayout>
+    </LinearLayout>
     <!-- bottom navi -->
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

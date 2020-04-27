@@ -15,6 +15,7 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -59,7 +60,7 @@ public class MyProfileSettingsRecomActivity extends AppCompatActivity implements
     private void init() {
         findViewById(R.id.myinfo_recom_btnPrev_layout).setOnClickListener(this);
         findViewById(R.id.recom_code_copy_btn).setOnClickListener(this);
-        findViewById(R.id.myinfo_user_title81).setOnClickListener(this);
+        findViewById(R.id.myinfo_linearLayout11).setOnClickListener(this);
 
 
         recomTextView = (TextView) findViewById(R.id.recom_code);
@@ -76,11 +77,13 @@ public class MyProfileSettingsRecomActivity extends AppCompatActivity implements
         myinfo_visit_01 = (TextView) findViewById(R.id.myinfo_visit_01);
         SpannableStringBuilder ssb = new SpannableStringBuilder(myinfo_visit_01.getText()); //내가 초대한 친구가 서비스\n이용할 때 마다 포인트
         ssb.setSpan(new ForegroundColorSpan(Color.parseColor("#ff4b5b")), 15, 24, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ssb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 15, 24,Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
         myinfo_visit_01.setText(ssb);
 
         myinfo_visit_02 = (TextView) findViewById(R.id.myinfo_visit_02);
         SpannableStringBuilder ssb2 = new SpannableStringBuilder(myinfo_visit_02.getText()); //추천 코드를 등록하면 즉시 이용\n가능한 5천원 할인쿠폰 발급!
         ssb2.setSpan(new ForegroundColorSpan(Color.parseColor("#ff4b5b")), 22, 25, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ssb2.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 22, 25,Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
         myinfo_visit_02.setText(ssb2);
 
 
@@ -130,7 +133,7 @@ public class MyProfileSettingsRecomActivity extends AppCompatActivity implements
  //               Toast.makeText(this, "전송완료", Toast.LENGTH_LONG).show();
                 break;
 
-            case R.id.myinfo_user_title81:
+            case R.id.myinfo_linearLayout11:
                 //포인트의 info   => PointInfoActivity
                 intent = new Intent(this, PointInfoActivity.class);
                 startActivity(intent);

@@ -155,7 +155,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#333e3e3e" />
+                    android:background="#e6e6e6" />
 
                 <LinearLayout
                     android:id="@+id/myinfo_linearLayout3"
@@ -189,12 +189,12 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#333e3e3e" />
+                    android:background="#e6e6e6" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="41dp"
+                    android:layout_marginTop="40dp"
                     android:layout_marginLeft="6dp"
                     android:orientation="vertical"
                     tools:ignore="MissingConstraints">
@@ -272,7 +272,6 @@
                             android:layout_height="24dp"
                             android:switchMinWidth="50dp"
                             android:layout_gravity="right|center_horizontal|center_vertical"
-                            android:layout_marginRight="32dp"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent" />
 
@@ -282,7 +281,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#333e3e3e" />
+                    android:background="#e6e6e6" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -336,7 +335,6 @@
                             android:layout_height="24dp"
                             android:switchMinWidth="50dp"
                             android:layout_gravity="right|center_horizontal|center_vertical"
-                            android:layout_marginRight="32dp"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent" />
 
@@ -346,12 +344,12 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#333e3e3e" />
+                    android:background="#e6e6e6" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="19dp"
-                    android:layout_marginTop="41dp"
+                    android:layout_marginTop="40dp"
                     android:layout_marginLeft="6dp"
                     android:orientation="vertical"
                     tools:ignore="MissingConstraints">
@@ -408,12 +406,11 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#333e3e3e" />
+                    android:background="#e6e6e6" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="72dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="6dp"
                     android:orientation="vertical"
                     android:gravity="center"
@@ -440,7 +437,10 @@
                     </LinearLayout>
                 </LinearLayout>
 
-
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#e6e6e6" />
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

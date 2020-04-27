@@ -1,5 +1,6 @@
 package com.sincar.customer;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -9,7 +10,11 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -86,13 +91,14 @@ public class MyProfileSettingsActivity extends AppCompatActivity implements View
     private void init() {
         hideActionBar();
 
-        findViewById(R.id.btnNext).setOnClickListener(this);
+        findViewById(R.id.linearLayout1).setOnClickListener(this);
         findViewById(R.id.menu_1).setOnClickListener(this);
         findViewById(R.id.menu_2).setOnClickListener(this);
         findViewById(R.id.menu_3).setOnClickListener(this);
         findViewById(R.id.menu_4).setOnClickListener(this);
         findViewById(R.id.menu_5).setOnClickListener(this);
         findViewById(R.id.menu_6).setOnClickListener(this);
+        findViewById(R.id.callcenter_btn).setOnClickListener(this);
 
         user_name = (TextView) findViewById(R.id.user_name);
         user_name.setText(voLoginItem.MEMBER_NAME);
@@ -108,7 +114,7 @@ public class MyProfileSettingsActivity extends AppCompatActivity implements View
         Intent intent;
 
         switch (v.getId()) {
-            case R.id.btnNext:   // 내정보 상세 정보
+            case R.id.linearLayout1:   // 내정보 상세 정보
                 intent = new Intent(this, MyProfileSettingsDetailActivity.class);
                 startActivity(intent);
                 finish();
@@ -145,6 +151,24 @@ public class MyProfileSettingsActivity extends AppCompatActivity implements View
                 intent = new Intent(this, SettingActivity.class);
                 startActivity(intent);
                 finish();
+                break;
+            case R.id.callcenter_btn:
+                //콜센터 연결
+                String call_number = "tel:18994299";
+                Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse(call_number));
+
+                //====권한체크부분====//
+                if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, 110);
+                    //권한을 허용하지 않는 경우
+                } else {
+                    //권한을 허용한 경우
+                    try {
+                        mContext.startActivity(callIntent);
+                    } catch(SecurityException e) {
+                        e.printStackTrace();
+                    }
+                }
                 break;
         }
     }

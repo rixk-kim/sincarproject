@@ -258,6 +258,7 @@
 
     <string name="title_use_history">이용 내역</string>
     <string name="title_use_detail">상세 내역</string>
+    <string name="call_center">고객센터 연결하기</string>
 
     <string name="btn_reserve_cancel">예약 취소</string>
     <string name="btn_reserve_next">예약 하기</string>
