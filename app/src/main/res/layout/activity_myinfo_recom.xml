@@ -225,7 +225,7 @@
                             android:layout_height="match_parent"
                             android:background="@null"
                             android:ems="10"
-                            android:hint="FCF81"
+                            android:hint="01076524299"
                             android:textColor="#3E3E3E"
                             android:gravity="center"
                             android:textSize="15sp"
@@ -454,7 +454,7 @@
                             android:layout_height="match_parent"
                             android:background="@null"
                             android:ems="10"
-                            android:hint="ADL281"
+                            android:hint="01076524299"
                             android:textColor="#3E3E3E"
                             android:gravity="center"
                             android:textSize="15sp" />
@@ -486,11 +486,13 @@
                             android:layout_height="match_parent"
                             android:background="@null"
                             android:ems="10"
-                            android:hint="FCF811"
+                            android:hint="01076524299"
                             android:textColor="#3E3E3E"
                             android:gravity="center"
                             android:textSize="15sp"
-                            android:inputType="text"
+                            android:inputType="number"
+                            android:digits="0123456789"
+                            android:maxLength="11"
                             android:imeOptions="actionDone"
                             />
                     </LinearLayout>

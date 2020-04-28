@@ -50,7 +50,7 @@ public class MemberRecomActivity extends Activity implements View.OnClickListene
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     // 유효성 체크 요청
-                    if(!TextUtils.isEmpty(recom_code.getText().toString().trim()) && recom_code.getText().toString().trim().length() == 6)
+                    if(!TextUtils.isEmpty(recom_code.getText().toString().trim()))
                     {
                         //약관페이지로 이동
                         Intent intent = new Intent(MemberRecomActivity.this, com.sincar.customer.MemberJoinTermsActivity.class);
@@ -60,7 +60,7 @@ public class MemberRecomActivity extends Activity implements View.OnClickListene
                         intent.putExtra("recommand", recom_code.getText().toString().trim());   // 추천인 코드
                         startActivity(intent);
                     }else{
-                        Toast.makeText(MemberRecomActivity.this, "추천인 코드 6자리를 입력 해주세요.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MemberRecomActivity.this, "추천인 코드(휴대폰번호)를 입력 해주세요.", Toast.LENGTH_SHORT).show();
                     }
                 }
                 return false;
@@ -77,7 +77,7 @@ public class MemberRecomActivity extends Activity implements View.OnClickListene
                 break;
 
             case R.id.recom_join_btn:
-                if(!TextUtils.isEmpty(recom_code.getText().toString().trim()) && recom_code.getText().toString().trim().length() == 6)
+                if(!TextUtils.isEmpty(recom_code.getText().toString().trim()))
                 {
                     //약관페이지로 이동
                     //추천인 코드로 이동
@@ -88,7 +88,7 @@ public class MemberRecomActivity extends Activity implements View.OnClickListene
                     intent.putExtra("recommand", recom_code.getText().toString().trim());   // 추천인 코드
                     startActivity(intent);
                 }else{
-                    Toast.makeText(MemberRecomActivity.this, "추천인 코드 6자리를 입력 해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MemberRecomActivity.this, "추천인 코드(휴대폰번호)를 입력 해주세요.", Toast.LENGTH_SHORT).show();
                 }
                 break;
 

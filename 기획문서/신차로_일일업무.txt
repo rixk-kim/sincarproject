@@ -707,3 +707,8 @@ https://play.google.com/store/apps/details?id=com.sincar.customer
 4. 설정화면 디바이더 컬러 변경.
 5. 설정화면 디바이더와 컨텐츠 간격 수정. 
 6. On/off 버튼 우측으로 이동.
+
+
+◆◆◆◆◆◆◆◆◆◆◆  2020년 4월 28일(화) ◆◆◆◆◆◆◆◆◆◆◆
+1. 추천인 코드 : 휴대폰 번호로 변경
+   {"recommend":{"RECOMMEND_RESULT":"1","CAUSE":"등록된 추천인 코드가 맞지않습니다."}}

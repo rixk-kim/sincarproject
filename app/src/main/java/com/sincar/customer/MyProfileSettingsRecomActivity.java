@@ -121,12 +121,18 @@ public class MyProfileSettingsRecomActivity extends AppCompatActivity implements
 
             case R.id.chu_code_btn:
                 //  TODO - 추천 코드 전송하기
-                if (chu_code != null || chu_code.getText().toString().trim().length() != 0) {
-                    if (chu_code.getText().toString().trim().length() != 6) {
-                        showAlert();
-                        return;
-                    }
+                if(chu_code == null || TextUtils.isEmpty(chu_code.getText().toString().trim()))
+                {
+                    showAlert();
+                    return;
                 }
+
+//                if (chu_code != null || chu_code.getText().toString().trim().length() != 0) {
+//                    if (chu_code.getText().toString().trim().length() != 6) {
+//                        showAlert();
+//                        return;
+//                    }
+//                }
 
                 //서버전송
                 requestRecomRegister();
