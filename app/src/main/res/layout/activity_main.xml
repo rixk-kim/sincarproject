@@ -211,19 +211,6 @@
                     app:slider_indicatorSize="5dp"
                     android:background="@drawable/layout_background" />
             </LinearLayout>
-<!--
-            <Button
-                android:id="@+id/mainBanner"
-                android:layout_width="0dp"
-                android:layout_height="120dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="24dp"
-                android:radius="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnMainMenu3" />
--->
 
             <!-- 차량 등록 -->
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -237,7 +224,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/banner_slider_layout"
-                tools:ignore="NotSibling">
+                tools:ignore="NotSibling" >
 
                 <TextView
                     android:id="@+id/registerTitle"
@@ -297,11 +284,11 @@
                 <Button
                     android:id="@+id/btnCarRegister"
                     android:fontFamily="@font/nanumsquareregular"
-                    android:layout_width="86dp"
+                    android:layout_width="96dp"
                     android:layout_height="24dp"
                     android:layout_marginStart="4dp"
                     android:layout_marginBottom="15dp"
-                    android:background="@drawable/default_background_type_2"
+                    android:background="@null"
                     android:drawableEnd="@drawable/chevron_left_24_px"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
@@ -315,20 +302,20 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:orientation="vertical"
-        android:layout_height="0.5dp"
-        android:layout_width="match_parent"
-        android:background="#333e3e3e"
-        app:layout_constraintBottom_toBottomOf="@+id/scroll_view"
-        />
-
-
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:orientation="vertical"
+            android:layout_height="0.5dp"
+            android:layout_width="match_parent"
+            android:background="#333e3e3e"
+            app:layout_constraintBottom_toBottomOf="@+id/scroll_view"
+            />
     </FrameLayout>
+
     <!-- bottom navi -->
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
         android:fontFamily="@font/nanumsquareregular"
@@ -342,7 +329,7 @@
         android:background="@drawable/default_background_type_3"
         app:itemBackground="@color/base_background_color"
         app:itemIconTint="@drawable/bottom_section_color"
-        app:itemTextColor="@color/default_text_color"
+        app:itemTextColor="@color/bottom_text_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>

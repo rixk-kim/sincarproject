@@ -29,6 +29,7 @@
     <color name="title_text_color">#263238</color>
     <color name="menu_text_color_1">#515c61</color>
     <color name="gradient_color">#c9d2d7</color>
+    <color name="bottom_text_color">#aaaaaa</color>
 
     <color name="select_input_box_bg">#FAE0D4</color>
     <color name="color_cyan">#FF00e5ff</color>

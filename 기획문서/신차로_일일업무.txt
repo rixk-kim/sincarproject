@@ -653,9 +653,8 @@ https://play.google.com/store/apps/details?id=com.sincar.customer
 2. 로그인, 회원가입 등 모든 박스 쉐도우 값 수정.
 
 [홈]
-1. 차량등록에서 등록하기 버튼 쉐도우 삭제.
-2. Bottom navigation 위에 구분선 수정.
-3. Bottom navigation 아이콘 크기 및 컬러 수정.
+1. Bottom navigation 위에 구분선 수정.
+
 
 [스팀세차 예약]
 1. 예약일자 박스 모양 수정.
@@ -669,8 +668,6 @@ https://play.google.com/store/apps/details?id=com.sincar.customer
 
 
 [내정보]
-1. 내정보 radius 값 수정.
-2. 프로필안에 디바이더 사이 간격 전체 수정.
 3. 추천인 관리에서 박스 쉐도우 값 수정.
 7. 유의사항 구분점 추가.
 
@@ -712,3 +709,18 @@ https://play.google.com/store/apps/details?id=com.sincar.customer
 ◆◆◆◆◆◆◆◆◆◆◆  2020년 4월 28일(화) ◆◆◆◆◆◆◆◆◆◆◆
 1. 추천인 코드 : 휴대폰 번호로 변경
    {"recommend":{"RECOMMEND_RESULT":"1","CAUSE":"등록된 추천인 코드가 맞지않습니다."}}
+2. 내정보 radius 값 수정.
+3. 프로필안에 디바이더 사이 간격 전체 수정.
+4. 차량등록에서 등록하기 버튼 쉐도우 삭제.
+5. Bottom navigation 아이콘 크기 및 컬러 수정.
+
+◆◆◆◆◆◆◆◆◆◆◆  2020년 5월 6일(수) ◆◆◆◆◆◆◆◆◆◆◆
+1. IF_SINCAR_AGENT_001 : MEMBER_TYPE (회원타입(0:일반회원, 1:매니져) 
+2. IF_SINCAR_AGENT_025 : AGENT_IMG_URL (대리점  담당자 프로필 이미지 URL)
+3. 차량 type 추가 : CAR_TYPE
+   - IF_SINCAR_AGENT_012
+   - IF_SINCAR_AGENT_001
+   - IF_SINCAR_AGENT_013
+   - IF_SINCAR_AGENT_023
+
+

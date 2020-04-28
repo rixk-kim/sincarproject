@@ -65,7 +65,7 @@
     <string name="customer_point_arrow_desc">사용자 포인트 화살표 아이콘</string>
     <string name="car_register_banner_title">지금 차량을 등록하세요!</string>
     <string name="car_register_banner_description">한번 등록으로 스팀세차 및 대리운전\n서비스를 바로 이용할 수 있어요!</string>
-    <string name="car_register">등록하기</string>
+    <string name="car_register">등록하기&#160;&#160;</string>
     <string name="car_register_desc">차량등록 아이콘</string>
     <!-- Main 메뉴 종료 -->
 
