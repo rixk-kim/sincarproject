@@ -2,14 +2,20 @@ package com.sincar.customer.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +28,9 @@ import com.sincar.customer.adapter.content.TimeContent.TimeItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bumptech.glide.Glide;
+
+import static com.sincar.customer.HWApplication.voLoginItem;
 import static com.sincar.customer.adapter.content.AgentContent.ITEMS;
 
 /**
@@ -40,6 +49,7 @@ public class AgentRecyclerViewAdapter extends RecyclerView.Adapter<AgentRecycler
     private String reserveSeq;              //예약 SEQ
     private String reserveTime;             //예약 시간
     private String reserveStatus;           //예약 상태
+    private String reservePhoto;            //프로필 이미지 URL
     private Context arContext;
 
     public AgentRecyclerViewAdapter(List<AgentContent.AgentItem> items, OnAgentListInteractionListener listener, Context context) {
@@ -58,13 +68,30 @@ public class AgentRecyclerViewAdapter extends RecyclerView.Adapter<AgentRecycler
         return new ViewHolder(view);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
 
         // TODO : 대리점주 사진 작업 하기
-        // holder.mAgentPhoto.setText(mValues.get(position).agent_photo);
+        //holder.mAgentPhoto.setText(mValues.get(position).agent_photo);
+        if(position == 0)
+        {
+
+            /*변경하고 싶은 레이아웃의 파라미터 값을 가져 옴*/
+            RecyclerView.LayoutParams plControl = (RecyclerView.LayoutParams) holder.agent_time_list_layout.getLayoutParams();
+            /*해당 margin값 변경*/
+            plControl.topMargin = 4;
+            holder.agent_time_list_layout.setLayoutParams(plControl);
+        }
+
+        if(!TextUtils.isEmpty(mValues.get(position).agent_img_url)) {
+            Glide.with(arContext).load(mValues.get(position).agent_img_url).into(holder.mAgentPhoto);
+            holder.mAgentPhoto.setBackground(new ShapeDrawable(new OvalShape()));
+            holder.mAgentPhoto.setClipToOutline(true);
+        }
+
         holder.mAgentName.setText(mValues.get(position).agent_name);
         holder.mBranchName.setText(mValues.get(position).branch_area);
         holder.mWashArea.setText(mValues.get(position).wash_area);
@@ -123,6 +150,7 @@ public class AgentRecyclerViewAdapter extends RecyclerView.Adapter<AgentRecycler
         prevAgentPosition = timeItem.agentPosition;
         prevTimePosition = timeItem.position;
 
+        reservePhoto = mValues.get(timeItem.agentPosition).agent_img_url;
         reserveTime = mValues.get(timeItem.agentPosition).reserve_info.get(timeItem.position).reservation_time; //예약시간
         reserveStatus = mValues.get(timeItem.agentPosition).reserve_info.get(timeItem.position).reservation_status; //예약여부
         reserveSeq = mValues.get(timeItem.agentPosition).agent_seq; //대리점 번호
@@ -135,6 +163,11 @@ public class AgentRecyclerViewAdapter extends RecyclerView.Adapter<AgentRecycler
         if (mListener != null) {
             mListener.onAgentListInteraction(mValues.get(timeItem.agentPosition));
         }
+    }
+
+    public String getAgentPhoto()
+    {
+        return reservePhoto;
     }
 
     public int getAgentPosition()
@@ -159,6 +192,7 @@ public class AgentRecyclerViewAdapter extends RecyclerView.Adapter<AgentRecycler
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
 
+        public final LinearLayout agent_time_list_layout;
         public final ImageView mAgentPhoto;
         public final TextView mAgentName;
         public final TextView mBranchName;
@@ -171,6 +205,8 @@ public class AgentRecyclerViewAdapter extends RecyclerView.Adapter<AgentRecycler
         public ViewHolder(View view) {
             super(view);
             mView = view;
+
+            agent_time_list_layout = view.findViewById(R.id.agent_time_list_layout);
 
             mAgentPhoto     = view.findViewById(R.id.agent_photo);
             mAgentName      = view.findViewById(R.id.agent_name);

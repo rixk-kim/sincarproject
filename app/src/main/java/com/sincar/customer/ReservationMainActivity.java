@@ -1,5 +1,6 @@
 package com.sincar.customer;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,14 +9,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.sincar.customer.adapter.CarContentRecyclerViewAdapter;
 import com.sincar.customer.adapter.OptionServiceRecyclerViewAdapter;
@@ -53,6 +59,7 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
     private String reserve_year;    //예약년도
     private String reserve_month;   //예약월
     private String reserve_day;     //예약일
+    private String agent_photo_url; //예약한 대리점주 프로필 URL
     private String agent_seq;       //예약한 대리점주 SEQ
     private String agent_company;   //대리점명
     private String agent_time;      //예약한 대리점주 시간
@@ -61,10 +68,13 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
 
     private String use_coupone_seq; //사용쿠폰 SEQ
 
+    private ImageView agent_photo;
+
     private RadioGroup rRadioGroup;
     private Context rContext;
     public static ReservationMainActivity _reservationMainActivity;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +87,7 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
         reserve_year        = intent.getExtras().getString("reserve_year");     /*String형*/
         reserve_month       = intent.getExtras().getString("reserve_month");    /*String형*/
         reserve_day         = intent.getExtras().getString("reserve_day");      /*String형*/
+        agent_photo_url     = intent.getExtras().getString("agent_photo_url");        /*String형*/
         agent_seq           = intent.getExtras().getString("agent_seq");        /*String형*/
         agent_company       = intent.getExtras().getString("agent_company");    /*String형*/
         agent_time          = intent.getExtras().getString("agent_time");       /*String형*/
@@ -92,7 +103,19 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
     /**
      * 화면 초기화
      */
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void init() throws Exception {
+        agent_photo  = (ImageView) findViewById(R.id.agent_photo);
+
+        http://www.kyeongin.com/mnt/file/201212/697830_279745_2957.jpg
+
+        //프로필 이미지 동그랗게 라운딩
+        if(!TextUtils.isEmpty(agent_photo_url)) {
+            Glide.with(this).load(agent_photo_url).into(agent_photo);
+            agent_photo.setBackground(new ShapeDrawable(new OvalShape()));
+            agent_photo.setClipToOutline(true);
+        }
+
         car_name_str = (TextView) findViewById(R.id.car_name_str);
         car_number_str = (TextView) findViewById(R.id.car_number_str);
         agent_branch   = (TextView) findViewById(R.id.branch_name);

@@ -30,6 +30,7 @@ public class Constants {
 
     // 로그인   http://droad.iptime.org:8080/login_check_mobile.php?id=test2019&pw=1234
     public static final String LOGIN_REQUEST                = REAL_SERVER + "/IF_SINCAR_AGENT_001.asp?";   //로그인
+//    public static final String LOGIN_REQUEST                = REAL_SERVER + "/IF_SINCAR_AGENT_991.asp?";   //로그인
     public static final String AUTH_NUMBER_REQUEST          = REAL_SERVER + "/IF_SINCAR_AGENT_002.asp?";   //인증번호 발송 요청
     public static final String CHANGE_PASSWORD              = REAL_SERVER + "/IF_SINCAR_AGENT_004.asp?";   //비밀번호 변경
     public static final String USE_HISTORY_REQUEST          = REAL_SERVER + "/IF_SINCAR_AGENT_005.asp?";   //이용내역 조회
@@ -55,6 +56,6 @@ public class Constants {
     public static final String APPVERSION_REQUEST           = REAL_SERVER + "/IF_SINCAR_AGENT_029.asp";    //버전체크
     public static final String PAYMEMNT_REQUEST1            = PAY_BASE_URL + "/IF_SINCAR_AGENT_030.asp";   //결재 호출
 
-    public static final String TEST_REQUEST                 = PAY_BASE_URL + "/IF_SINCAR_AGENT_099.asp";   //테스트
+    public static final String TEST_REQUEST                 = REAL_SERVER + "/IF_SINCAR_AGENT_925.asp?";   //테스트
 
 }

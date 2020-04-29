@@ -37,6 +37,7 @@ import static com.sincar.customer.HWApplication.voAgentItem;
 import static com.sincar.customer.HWApplication.voLoginItem;
 import static com.sincar.customer.common.Constants.AGENT_LIST_REQUEST;
 import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
+import static com.sincar.customer.common.Constants.TEST_REQUEST;
 import static com.sincar.customer.util.Util.getHour;
 
 public class ReservationTimeActivity extends AppCompatActivity
@@ -118,7 +119,8 @@ public class ReservationTimeActivity extends AppCompatActivity
         //프로그래스바 시작
         Util.showDialog(this);
         //사용내역 요청
-        VolleyNetwork.getInstance(this).serverDataRequest(AGENT_LIST_REQUEST, postParams, onAgentListResponseListener);
+//        VolleyNetwork.getInstance(this).serverDataRequest(AGENT_LIST_REQUEST, postParams, onAgentListResponseListener);
+        VolleyNetwork.getInstance(this).serverDataRequest(TEST_REQUEST, postParams, onAgentListResponseListener);
     }
 
 
@@ -317,6 +319,7 @@ public class ReservationTimeActivity extends AppCompatActivity
             bundle.putString("reserve_year", reserve_year);         //년
             bundle.putString("reserve_month", reserve_month);       //월
             bundle.putString("reserve_day", reserve_day);           //일
+            bundle.putString("agent_photo_url", mAgentRecyclerViewAdapter.getAgentPhoto()); //대리점 프로필 URL
             bundle.putString("agent_seq", mAgentRecyclerViewAdapter.getAgentSeq());
             bundle.putString("agent_company", String.valueOf(agentItem.branch_area));    //예약 대리점주 지역
             bundle.putString("agent_time", mAgentRecyclerViewAdapter.getTimePosition());    // 예약시간
