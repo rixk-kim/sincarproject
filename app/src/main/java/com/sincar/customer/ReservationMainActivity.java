@@ -192,6 +192,7 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
             voOptionItem.CAR_MODEL            = optionResult.add_service.get(0).CAR_MODEL;
             voOptionItem.CAR_NUMBER           = optionResult.add_service.get(0).CAR_NUMBER;
             voOptionItem.CAR_PAY              = optionResult.add_service.get(0).CAR_PAY;
+            voOptionItem.CAR_TYPE             = optionResult.add_service.get(0).CAR_TYPE;
 
 //            car_name_str.setText(voOptionItem.CAR_COMPANY + " " + voOptionItem.CAR_MODEL);
 //            car_number_str.setText(voOptionItem.CAR_NUMBER);

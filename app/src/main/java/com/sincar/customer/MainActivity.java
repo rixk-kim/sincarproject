@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.btnMainMenu2:
-                // TODO - 대리운전
+                // TODO - 렌트카
                 //Toast.makeText(getApplicationContext(), "대리운전 준비중입니다.", Toast.LENGTH_SHORT).show();
                 intent = new Intent(this, MapsActivity.class);
                 intent.putExtra("menu", "driver");

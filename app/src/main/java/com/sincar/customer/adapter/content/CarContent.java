@@ -53,8 +53,9 @@ public class CarContent {
 
         public boolean car_selected;
         public final String car_pay;
+        public final String car_type;
 
-        public CarItem(int id, String seq, String title,  String name, String car_number, boolean car_selected, String car_pay) {
+        public CarItem(int id, String seq, String title,  String name, String car_number, boolean car_selected, String car_pay, String car_type) {
             this.id = id;
 
             this.car_seq    = seq;
@@ -63,6 +64,7 @@ public class CarContent {
             this.car_number = car_number;
             this.car_selected = car_selected;
             this.car_pay    = car_pay;
+            this.car_type   = car_type;
         }
     }
 }

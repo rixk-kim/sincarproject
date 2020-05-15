@@ -119,8 +119,8 @@ public class ReservationTimeActivity extends AppCompatActivity
         //프로그래스바 시작
         Util.showDialog(this);
         //사용내역 요청
-//        VolleyNetwork.getInstance(this).serverDataRequest(AGENT_LIST_REQUEST, postParams, onAgentListResponseListener);
-        VolleyNetwork.getInstance(this).serverDataRequest(TEST_REQUEST, postParams, onAgentListResponseListener);
+        VolleyNetwork.getInstance(this).serverDataRequest(AGENT_LIST_REQUEST, postParams, onAgentListResponseListener);
+//        VolleyNetwork.getInstance(this).serverDataRequest(TEST_REQUEST, postParams, onAgentListResponseListener);
     }
 
 

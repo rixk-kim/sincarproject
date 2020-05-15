@@ -148,7 +148,8 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
                         voCarDataItem.get(i).CAR_MODEL,
                         voCarDataItem.get(i).CAR_NUMBER,
                         false,
-                        voCarDataItem.get(i).CAR_PAY
+                        voCarDataItem.get(i).CAR_PAY,
+                        voCarDataItem.get(i).CAR_TYPE
                 ));
             }
 

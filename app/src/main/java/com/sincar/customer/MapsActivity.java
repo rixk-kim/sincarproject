@@ -309,14 +309,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     if ("steam".equals(main_path)) {
                         //시간선택으로 바로가기
-                        intent = new Intent(this, ReservationTimeActivity.class);
-                        intent.putExtra("reserve_address", cAddress);
-                        if (TextUtils.isEmpty(search_keyword)) search_keyword = cAddress;
-                        intent.putExtra("search_keyword", search_keyword);
-                        intent.putExtra("reserve_year", reserve_year);
-                        intent.putExtra("reserve_month", reserve_month);
-                        intent.putExtra("reserve_day", reserve_day);
-                        startActivity(intent);
+                        if(!TextUtils.isEmpty(cAddress)) {
+                            intent = new Intent(this, ReservationTimeActivity.class);
+                            intent.putExtra("reserve_address", cAddress);
+                            if (TextUtils.isEmpty(search_keyword)) search_keyword = cAddress;
+                            intent.putExtra("search_keyword", search_keyword);
+                            intent.putExtra("reserve_year", reserve_year);
+                            intent.putExtra("reserve_month", reserve_month);
+                            intent.putExtra("reserve_day", reserve_day);
+                            startActivity(intent);
+                        }else{
+                            Toast.makeText(this, "주소를 가져오지 못했습니다. 다시 시도해주세요.", Toast.LENGTH_LONG).show();
+                        }
                     } else {
                         Toast.makeText(this, "서비스 준비중입니다.", Toast.LENGTH_LONG).show();
                     }

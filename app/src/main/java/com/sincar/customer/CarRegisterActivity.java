@@ -274,9 +274,10 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
             Gson gSon = new Gson();
             carRegisterResult = gSon.fromJson(serverData, CarRegisterResult.class);
 
-            voCarRegisterItem.REGISTER_RESULT    = carRegisterResult.car_register.get(0).REGISTER_RESULT;
+            voCarRegisterItem.REGISTER_RESULT   = carRegisterResult.car_register.get(0).REGISTER_RESULT;
             voCarRegisterItem.CAUSE             = carRegisterResult.car_register.get(0).CAUSE;
             voCarRegisterItem.CAR_PAY           = carRegisterResult.car_register.get(0).CAR_PAY;
+            voCarRegisterItem.CAR_TYPE          = carRegisterResult.car_register.get(0).CAR_TYPE;
 
             //프로그래스바 종료
             Util.dismiss();
@@ -448,6 +449,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
         final String[] car_name     = new String[data_size];
         final String[] car_code     = new String[data_size];
         String[] car_wash_pay       = new String[data_size];
+        String[] car_type           = new String[data_size];
 
         int tmp_k = 0;
         for(int i = 0; i < voCarListDataItem.size(); i++)
@@ -458,6 +460,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                 car_name[tmp_k]         = voCarListDataItem.get(i).CAR_NAME;
                 car_code[tmp_k]         = voCarListDataItem.get(i).CAR_CODE;
                 car_wash_pay[tmp_k]     = voCarListDataItem.get(i).CAR_WASH_PAY;
+                car_type[tmp_k]         = voCarListDataItem.get(i).CAR_TYPE;
 
                 tmp_k += 1;
             }

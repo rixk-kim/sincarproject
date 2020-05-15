@@ -104,8 +104,14 @@ public class MyProfileSettingsActivity extends AppCompatActivity implements View
         user_name.setText(voLoginItem.MEMBER_NAME);
 
         user_mobile = (TextView) findViewById(R.id.user_mobile);
-        if (!TextUtils.isEmpty(voLoginItem.MEMBER_PHONE) && voLoginItem.MEMBER_PHONE.length() > 10) {
-            user_mobile.setText(voLoginItem.MEMBER_PHONE.substring(0, 3) + "." + voLoginItem.MEMBER_PHONE.substring(3, 7) + "." + voLoginItem.MEMBER_PHONE.substring(7, 11));
+        if (!TextUtils.isEmpty(voLoginItem.MEMBER_PHONE)) {
+            if(voLoginItem.MEMBER_PHONE.length() == 11) {
+                user_mobile.setText(voLoginItem.MEMBER_PHONE.substring(0, 3) + "." + voLoginItem.MEMBER_PHONE.substring(3, 7) + "." + voLoginItem.MEMBER_PHONE.substring(7, 11));
+            }else if(voLoginItem.MEMBER_PHONE.length() == 8) {//12365478
+                user_mobile.setText(voLoginItem.MEMBER_PHONE.substring(0, 4) + "." + voLoginItem.MEMBER_PHONE.substring(4, 8));
+            }else{
+                user_mobile.setText(voLoginItem.MEMBER_PHONE);
+            }
         }
     }
 

@@ -32,6 +32,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.NetworkInterface;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
@@ -232,6 +234,45 @@ public class Util {
         String tmp_hour = mFormat.format(currentTime);
 
         return tmp_hour;
+    }
+
+    /**
+     * 현재 년월일 리턴
+     */
+    public static String getYearMonthDay3() {
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+        String tmp_time = mFormat.format(currentTime);
+
+        return tmp_time;
+    }
+
+    /**
+     * 몇달 후 리턴
+     */
+    public static String getAfterMonth(int after_value) {
+        String return_time = "";
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String tmp_time = mFormat.format(currentTime);
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        try{
+            Date date = df.parse(tmp_time);
+
+            //날짜 더하기
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            cal.add(Calendar.MONTH, after_value);
+
+            return_time = df.format(cal.getTime());
+
+        }catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return return_time;
     }
 
     /**
@@ -438,7 +479,7 @@ public class Util {
     }
 
     /**
-     * Bitmpa 파일 추가
+     * Bitmap 파일 추가
      * @param bitmap
      */
     public static void SaveBitmapToFileCache(Context mContext, Bitmap bitmap) {

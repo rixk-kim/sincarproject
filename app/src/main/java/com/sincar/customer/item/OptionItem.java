@@ -6,6 +6,7 @@ public class OptionItem {
     public String CAR_MODEL;
     public String CAR_NUMBER;
     public String CAR_PAY;
+    public String CAR_TYPE;
 
     @Override
     public String toString() {
@@ -15,6 +16,7 @@ public class OptionItem {
                 ", CAR_MODEL='" + CAR_MODEL + '\'' +
                 ", CAR_NUMBER='" + CAR_NUMBER + '\'' +
                 ", CAR_PAY='" + CAR_PAY + '\'' +
+                ", CAR_TYPE='" + CAR_TYPE + '\'' +
                 '}';
     }
 }
