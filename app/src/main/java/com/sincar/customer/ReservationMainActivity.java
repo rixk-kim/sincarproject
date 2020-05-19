@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -65,8 +66,11 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
     private String agent_time;      //예약한 대리점주 시간
     private String wash_area;       //세차장소
     private String car_wash_pay;    //기본세차비용
+    private String car_type;        //차량타입
 
     private String use_coupone_seq; //사용쿠폰 SEQ
+    private Button reserve_btn;     //확인/별도문의
+    private String agent_number;    //대리점주 번호
 
     private ImageView agent_photo;
 
@@ -91,6 +95,7 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
         agent_seq           = intent.getExtras().getString("agent_seq");        /*String형*/
         agent_company       = intent.getExtras().getString("agent_company");    /*String형*/
         agent_time          = intent.getExtras().getString("agent_time");       /*String형*/
+        agent_number        = intent.getExtras().getString("agent_number");       /*String형*/
 
         // 화면 초기화
         try {
@@ -130,7 +135,9 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
 
         findViewById(R.id.btnPrev_layout1).setOnClickListener(this);
         //예약하기
-        findViewById(R.id.reserve_btn).setOnClickListener(this);
+        //findViewById(R.id.reserve_btn).setOnClickListener(this);
+        reserve_btn = (Button) findViewById(R.id.reserve_btn);
+        reserve_btn.setOnClickListener(this);
 
         //리스트 없을 때
         emptyView = (TextView) findViewById(R.id.option_empty_view);
@@ -194,8 +201,12 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
             voOptionItem.CAR_PAY              = optionResult.add_service.get(0).CAR_PAY;
             voOptionItem.CAR_TYPE             = optionResult.add_service.get(0).CAR_TYPE;
 
-//            car_name_str.setText(voOptionItem.CAR_COMPANY + " " + voOptionItem.CAR_MODEL);
-//            car_number_str.setText(voOptionItem.CAR_NUMBER);
+
+//            if("99".equals(voOptionItem.CAR_TYPE )) {
+//                reserve_btn.setText("별도문의");
+//            }else{
+//                reserve_btn.setText("확인");
+//            }
 
             if(!TextUtils.isEmpty(voOptionItem.CAR_COMPANY)) reserve_companyname = voOptionItem.CAR_COMPANY;   //제조사
             if(!TextUtils.isEmpty(voOptionItem.CAR_MODEL)) reserve_carname     = voOptionItem.CAR_MODEL;     //차량 이름
@@ -207,7 +218,8 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
             if(reserve_carnumber != null){
                 car_number_str.setText(voOptionItem.CAR_NUMBER);
             }
-            if(!TextUtils.isEmpty(voOptionItem.CAR_PAY)) car_wash_pay        = voOptionItem.CAR_PAY;       //기본세차비용
+            if(!TextUtils.isEmpty(voOptionItem.CAR_PAY)) car_wash_pay = voOptionItem.CAR_PAY;       //기본세차비용
+            if(!TextUtils.isEmpty(voOptionItem.CAR_TYPE)) car_type = voOptionItem.CAR_TYPE;         //차량타입
 
             // 등록된 차량 정보 확인하여 필요한 레이아웃 visible 및 이벤트 핸들러 추가하기
             boolean isCarRegistered = false;
@@ -220,13 +232,10 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
             if (!isCarRegistered) {
                 findViewById(R.id.car_register_layout).setVisibility(View.GONE);
                 findViewById(R.id.car_modify_layout).setVisibility(View.VISIBLE);
-//                findViewById(R.id.btnCarModify).setOnClickListener(this);
             } else {
                 findViewById(R.id.car_register_layout).setVisibility(View.VISIBLE);
                 findViewById(R.id.car_modify_layout).setVisibility(View.GONE);
-//                findViewById(R.id.btnCarRegister).setOnClickListener(rContext);
             }
-
 
             voOptionDataItem     = optionResult.DATA;
 
@@ -310,33 +319,39 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
                     {
                         Toast.makeText(ReservationMainActivity.this, "등록 차량을 다시 선택하세요.", Toast.LENGTH_SHORT).show();
                     }else {
-                        intent = new Intent(this, PaymentActivity.class);
+//                        if("99".equals(car_type))
+//                        {
+                            //별도 문의
+                            //agent_number
+//                        }else {
+                            intent = new Intent(this, PaymentActivity.class);
 
-                        Bundle bundle = new Bundle();
-                        bundle.putString("reserve_address", reserve_address);   //주소
-                        bundle.putString("reserve_year", reserve_year);         //년
-                        bundle.putString("reserve_month", reserve_month);       //월
-                        bundle.putString("reserve_day", reserve_day);           //일
-                        bundle.putString("agent_seq", agent_seq);               //예약 대리점주 seq
-                        bundle.putString("agent_company", agent_company);       //예약 대리점주
-                        bundle.putString("agent_time", agent_time);             //예약시간
+                            Bundle bundle = new Bundle();
+                            bundle.putString("reserve_address", reserve_address);   //주소
+                            bundle.putString("reserve_year", reserve_year);         //년
+                            bundle.putString("reserve_month", reserve_month);       //월
+                            bundle.putString("reserve_day", reserve_day);           //일
+                            bundle.putString("agent_seq", agent_seq);               //예약 대리점주 seq
+                            bundle.putString("agent_company", agent_company);       //예약 대리점주
+                            bundle.putString("agent_time", agent_time);             //예약시간
 
-                        if (TextUtils.isEmpty(wash_area)) wash_area = "실내";
-                        if ("실내".equals(wash_area.trim())) {
-                            wash_area = "0";
-                        } else {
-                            wash_area = "1";
-                        }
-                        bundle.putString("wash_area", wash_area);               //세차장소
+                            if (TextUtils.isEmpty(wash_area)) wash_area = "실내";
+                            if ("실내".equals(wash_area.trim())) {
+                                wash_area = "0";
+                            } else {
+                                wash_area = "1";
+                            }
+                            bundle.putString("wash_area", wash_area);               //세차장소
 
-                        bundle.putString("car_company", reserve_companyname);   //제조사
-                        bundle.putString("car_name", reserve_carname);          //차량 이름
-                        bundle.putString("car_number", reserve_carnumber);      //차번호
-                        bundle.putString("car_wash_pay", car_wash_pay);         //차량 기본 세차 금액
-                        //부가서비스
-                        intent.putExtras(bundle);
+                            bundle.putString("car_company", reserve_companyname);   //제조사
+                            bundle.putString("car_name", reserve_carname);          //차량 이름
+                            bundle.putString("car_number", reserve_carnumber);      //차번호
+                            bundle.putString("car_wash_pay", car_wash_pay);         //차량 기본 세차 금액
+                            //부가서비스
+                            intent.putExtras(bundle);
 
-                        startActivity(intent);
+                            startActivity(intent);
+ //                       }
                     }
                 }
                 break;
@@ -377,6 +392,17 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
                     if (!TextUtils.isEmpty(data.getStringExtra("car_wash_pay"))) {
                         car_wash_pay = data.getStringExtra("car_wash_pay");
                     }
+
+                    if (!TextUtils.isEmpty(data.getStringExtra("car_type"))) {
+                        car_type = data.getStringExtra("car_type");
+                    }
+
+//                    if("99".equals(car_type)) {
+//                        reserve_btn.setText("별도문의");
+//                    }else{
+//                        reserve_btn.setText("확인");
+//                    }
+
                 }
  //               Toast.makeText(ReservationMainActivity.this, "차종: " + data.getStringExtra("reserve_carname") + " , 차번호 : " + data.getStringExtra("reserve_carnumber"), Toast.LENGTH_SHORT).show();
             } else {   // RESULT_CANCEL
@@ -415,6 +441,16 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
                     if (!TextUtils.isEmpty(data.getStringExtra("car_wash_pay"))) {
                         car_wash_pay = data.getStringExtra("car_wash_pay");
                     }
+
+                    if (!TextUtils.isEmpty(data.getStringExtra("car_type"))) {
+                        car_type = data.getStringExtra("car_type");
+                    }
+
+//                    if("99".equals(car_type)) {
+//                        reserve_btn.setText("별도문의");
+//                    }else{
+//                        reserve_btn.setText("확인");
+//                    }
                 }
 
 //                Toast.makeText(ReservationMainActivity.this, "차종: " + data.getStringExtra("reserve_carname") + " , 차번호 : " + data.getStringExtra("reserve_carnumber"), Toast.LENGTH_SHORT).show();

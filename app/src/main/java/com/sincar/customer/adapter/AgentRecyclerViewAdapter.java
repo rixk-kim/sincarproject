@@ -50,6 +50,7 @@ public class AgentRecyclerViewAdapter extends RecyclerView.Adapter<AgentRecycler
     private String reserveTime;             //예약 시간
     private String reserveStatus;           //예약 상태
     private String reservePhoto;            //프로필 이미지 URL
+    private String agentNumber;             //대리점 전화번호
     private Context arContext;
 
     public AgentRecyclerViewAdapter(List<AgentContent.AgentItem> items, OnAgentListInteractionListener listener, Context context) {
@@ -151,9 +152,12 @@ public class AgentRecyclerViewAdapter extends RecyclerView.Adapter<AgentRecycler
         prevTimePosition = timeItem.position;
 
         reservePhoto = mValues.get(timeItem.agentPosition).agent_img_url;
+
         reserveTime = mValues.get(timeItem.agentPosition).reserve_info.get(timeItem.position).reservation_time; //예약시간
         reserveStatus = mValues.get(timeItem.agentPosition).reserve_info.get(timeItem.position).reservation_status; //예약여부
         reserveSeq = mValues.get(timeItem.agentPosition).agent_seq; //대리점 번호
+
+        agentNumber = mValues.get(timeItem.agentPosition).agent_number; //대리점 전화번호
 
         Log.d("포지션", "prevAgentPosition = " + prevAgentPosition);
         Log.d("포지션", "prevTimePosition = " + prevTimePosition);
@@ -189,6 +193,10 @@ public class AgentRecyclerViewAdapter extends RecyclerView.Adapter<AgentRecycler
         return reserveSeq;
     }
 
+    public String getAgentNumber() {
+        return agentNumber;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
 
@@ -198,6 +206,7 @@ public class AgentRecyclerViewAdapter extends RecyclerView.Adapter<AgentRecycler
         public final TextView mBranchName;
         public final TextView mWashArea;
         public String agent_status;
+        public String agent_number;
         public final TextView mWashAreaTitle;
 
         public AgentContent.AgentItem mItem;
@@ -214,6 +223,7 @@ public class AgentRecyclerViewAdapter extends RecyclerView.Adapter<AgentRecycler
             mWashArea       = view.findViewById(R.id.wash_area);
             mWashAreaTitle  = view.findViewById(R.id.wash_area_title);
             agent_status    = "";
+            agent_number    = "";
         }
     }
 

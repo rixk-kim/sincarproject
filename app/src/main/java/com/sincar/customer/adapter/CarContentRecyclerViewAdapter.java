@@ -31,6 +31,7 @@ public class CarContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
     private String carName;     //차량이름
     private String carNumber;   //차량번호
     private String carPay;      //차량
+    private String carType;     //차량타입
     private String path;        //진입경로 구분분
     public CarContentRecyclerViewAdapter(Context context, List<CarContent.CarItem> items, String path) {
         mContext    = context;
@@ -98,6 +99,7 @@ public class CarContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
             carName     = mValues.get(item.id).car_name;    //차종
             carNumber   = mValues.get(item.id).car_number;  //차번호
             carPay      = mValues.get(item.id).car_pay;     //기본 세차비용
+            carType     = mValues.get(item.id).car_type;    //차량타입
         }
 
         notifyDataSetChanged();
@@ -133,6 +135,14 @@ public class CarContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
     public String getItemcarPay()
     {
         return carPay;
+    }
+
+    /**
+     * @return 차량 타입
+     */
+    public String getItemcarType()
+    {
+        return carType;
     }
 
     @Override

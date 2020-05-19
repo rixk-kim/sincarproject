@@ -247,6 +247,7 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
                         intent.putExtra("reserve_carname", "");
                         intent.putExtra("reserve_carnumber", "");
                         intent.putExtra("car_wash_pay", "");
+                        intent.putExtra("car_type", "");
                     }
                     setResult(RESULT_OK, intent);
                     finish();
@@ -270,6 +271,7 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
                         intent.putExtra("reserve_carname", mCarContentRecyclerViewAdapter.getItemcarName());
                         intent.putExtra("reserve_carnumber", mCarContentRecyclerViewAdapter.getItemcarNumber());
                         intent.putExtra("car_wash_pay", mCarContentRecyclerViewAdapter.getItemcarPay());
+                        intent.putExtra("car_type", mCarContentRecyclerViewAdapter.getItemcarType());
                     }
                     setResult(RESULT_OK, intent);
                     finish();
@@ -310,6 +312,7 @@ public class CarManageActivity extends AppCompatActivity implements View.OnClick
                 intent.putExtra("reserve_carname", "");
                 intent.putExtra("reserve_carnumber", "");
                 intent.putExtra("car_wash_pay", "");
+                intent.putExtra("car_type", "");
             }
             setResult(RESULT_OK, intent);
             finish();

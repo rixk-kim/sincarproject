@@ -65,7 +65,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btnCarRegister).setOnClickListener(this);
 
         mCustomerName = (TextView) findViewById(R.id.customerName);
-        mCustomerName.setText(voLoginItem.MEMBER_NAME + "님의 포인트");
+        if("1".equals(voLoginItem.MEMBER_TYPE))
+        {
+            mCustomerName.setText(voLoginItem.MEMBER_NAME + "(매니져)님의 포인트");
+        }else {
+            mCustomerName.setText(voLoginItem.MEMBER_NAME + "님의 포인트");
+        }
 
         mCustomerPoint = (TextView) findViewById(R.id.customerPoint);
         mCustomerPoint.setText(Util.setAddMoneyDot(voLoginItem.MY_POINT));

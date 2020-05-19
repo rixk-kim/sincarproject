@@ -199,6 +199,7 @@ public class ReservationTimeActivity extends AppCompatActivity
                         voAgentDataItem.get(i).WASH_AREA,
                         voAgentDataItem.get(i).AGENT_STAUS,
                         voAgentDataItem.get(i).AGENT_ORDER,
+                        voAgentDataItem.get(i).AGENT_NUMBER,
                         //agentItem.TIME_INFO
                         reserve_info
                 ));
@@ -323,6 +324,7 @@ public class ReservationTimeActivity extends AppCompatActivity
             bundle.putString("agent_seq", mAgentRecyclerViewAdapter.getAgentSeq());
             bundle.putString("agent_company", String.valueOf(agentItem.branch_area));    //예약 대리점주 지역
             bundle.putString("agent_time", mAgentRecyclerViewAdapter.getTimePosition());    // 예약시간
+            bundle.putString("agent_number", mAgentRecyclerViewAdapter.getAgentNumber());    //
             intent.putExtras(bundle);
             startActivity(intent);
             //finish();

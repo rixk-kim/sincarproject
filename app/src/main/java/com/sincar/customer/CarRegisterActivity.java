@@ -8,8 +8,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -155,6 +157,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                 intent.putExtra("reserve_carname", car_select_colume2.getText().toString());
                 intent.putExtra("reserve_carnumber", car_select_colume3.getText().toString());
                 intent.putExtra("car_wash_pay", voCarRegisterItem.CAR_PAY);
+                intent.putExtra("car_type", voCarRegisterItem.CAR_TYPE);
                 setResult(RESULT_OK, intent);
                 //startActivity(intent);
                 finish();
@@ -164,6 +167,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                 intent.putExtra("reserve_carname", "");
                 intent.putExtra("reserve_carnumber", "");
                 intent.putExtra("car_wash_pay", "");
+                intent.putExtra("car_type", "");
                 setResult(RESULT_OK, intent);
                 //startActivity(intent);
                 finish();
@@ -292,6 +296,7 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
                     intent.putExtra("reserve_carname", car_select_colume2.getText().toString());
                     intent.putExtra("reserve_carnumber", car_select_colume3.getText().toString());
                     intent.putExtra("car_wash_pay", voCarRegisterItem.CAR_PAY);
+                    intent.putExtra("car_type", voCarRegisterItem.CAR_TYPE);
                     setResult(RESULT_OK, intent);
                     //startActivity(intent);
                     finish();
@@ -427,7 +432,6 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
     private void setCarDialog(String tmp_company_code)
     {
 
-
         LayoutInflater inflater = (LayoutInflater) cContext.getSystemService(LAYOUT_INFLATER_SERVICE);
 
         //R.layout.dialog는 xml 파일명이고  R.id.popup은 보여줄 레이아웃 아이디
@@ -478,6 +482,9 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
             gv.setAdapter(adapter);  // 커스텀 아답타를 GridView 에 적용
 
             aDialog.setView(layout); //dialog.xml 파일을 뷰로 셋팅
+            aDialog.setCancelable(false);
+
+
             //팝업창 생성
             final AlertDialog ad = aDialog.create();
 
@@ -496,11 +503,20 @@ public class CarRegisterActivity extends AppCompatActivity implements View.OnCli
             WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
             lp.copyFrom(ad.getWindow().getAttributes());
             lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-            lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+            //lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+            lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+//            lp.gravity = Gravity.CENTER;
+//            lp.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+
 
             ad.show();//보여줌!
 
             ad.getWindow().setAttributes(lp);
+
+
+//            ad.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
         }
     }
 

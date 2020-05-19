@@ -61,10 +61,11 @@ public class AgentContent {
         public final String wash_area;
         public final String agent_staus;
         public final String agent_order;
+        public final String agent_number;
 //        public final ArrayList<TimeItem> reserve_info;
         public final ArrayList<TimeContent.TimeItem> reserve_info;
 
-        public AgentItem(int id, String agent_seq, String agent_name, String branch_area, String agent_img_url, String wash_area, String agent_staus, String agent_order, ArrayList<TimeContent.TimeItem> reserve_info)
+        public AgentItem(int id, String agent_seq, String agent_name, String branch_area, String agent_img_url, String wash_area, String agent_staus, String agent_order, String agent_number, ArrayList<TimeContent.TimeItem> reserve_info)
         {
             this.id             = id;
             this.agent_seq      = agent_seq;
@@ -74,6 +75,7 @@ public class AgentContent {
             this.wash_area      = wash_area;
             this.agent_staus    = agent_staus;
             this.agent_order    = agent_order;
+            this.agent_number   = agent_number;
             this.reserve_info   = reserve_info;
         }
     }
