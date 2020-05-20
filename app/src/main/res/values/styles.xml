@@ -63,4 +63,5 @@
     <style name="CalenderViewWeekCustomText" parent="android:TextAppearance.DeviceDefault.Small">
         <item name="android:textColor">#ff4d4d</item>
     </style>
+
 </resources>
