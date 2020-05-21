@@ -1,6 +1,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="true" android:drawable="@drawable/filled_red"/>
-    <item android:state_focused="true" android:drawable="@drawable/filled_red"/>
-    <item android:state_selected="true" android:drawable="@drawable/filled_red"/>
-    <item android:drawable="@drawable/filled_black"/>
+    <item android:state_pressed="true" android:drawable="@drawable/back_black"/>
+    <item android:state_focused="true" android:drawable="@drawable/back_black"/>
+    <item android:state_selected="true" android:drawable="@drawable/back_black"/>
+    <item android:drawable="@drawable/back_red"/>
 </selector>
+

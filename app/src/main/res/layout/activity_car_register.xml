@@ -16,8 +16,8 @@
         <!-- ActionBar : Back / Title / Info -->
         <ImageView
             android:id="@+id/car_reg_btnPrev"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_marginStart="32dp"
             android:contentDescription="@string/actionbar_prev_icon_description"
             app:layout_constraintBottom_toBottomOf="parent"

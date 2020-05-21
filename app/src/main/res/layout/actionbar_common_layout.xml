@@ -16,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/arrow_red_24_px" />
+        app:srcCompat="@drawable/prev_image_selector" />
 
     <TextView
         android:id="@+id/title_activity"

@@ -26,8 +26,8 @@
             app:layout_constraintTop_toTopOf="parent">
             <ImageView
                 android:id="@+id/myinfo_profile_btnPrev"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:contentDescription="@string/actionbar_prev_icon_description"
                 android:src="@drawable/prev_image_selector" />
         </LinearLayout>
