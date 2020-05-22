@@ -3,14 +3,19 @@ package com.sincar.customer;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -201,12 +206,11 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
             voOptionItem.CAR_PAY              = optionResult.add_service.get(0).CAR_PAY;
             voOptionItem.CAR_TYPE             = optionResult.add_service.get(0).CAR_TYPE;
 
-
-//            if("99".equals(voOptionItem.CAR_TYPE )) {
-//                reserve_btn.setText("별도문의");
-//            }else{
-//                reserve_btn.setText("확인");
-//            }
+             if("99".equals(voOptionItem.CAR_TYPE )) {
+                reserve_btn.setText("별도문의");
+            }else{
+                reserve_btn.setText("확인");
+            }
 
             if(!TextUtils.isEmpty(voOptionItem.CAR_COMPANY)) reserve_companyname = voOptionItem.CAR_COMPANY;   //제조사
             if(!TextUtils.isEmpty(voOptionItem.CAR_MODEL)) reserve_carname     = voOptionItem.CAR_MODEL;     //차량 이름
@@ -319,11 +323,33 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
                     {
                         Toast.makeText(ReservationMainActivity.this, "등록 차량을 다시 선택하세요.", Toast.LENGTH_SHORT).show();
                     }else {
-//                        if("99".equals(car_type))
-//                        {
+                        if("99".equals(car_type))
+                        {
                             //별도 문의
-                            //agent_number
-//                        }else {
+                            String call_number = "";
+                            if(TextUtils.isEmpty(agent_number))
+                            {
+                                call_number = "tel:18994299";   //콜센터 연결
+                            }else {
+                                call_number = "tel:" + agent_number;
+                            }
+                            Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse(call_number));
+
+                            //String call_number = "tel:18994299";
+
+                            //====권한체크부분====//
+                            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED) {
+                                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, 110);
+                                //권한을 허용하지 않는 경우
+                            } else {
+                                //권한을 허용한 경우
+                                try {
+                                    this.startActivity(callIntent);
+                                } catch(SecurityException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }else {
                             intent = new Intent(this, PaymentActivity.class);
 
                             Bundle bundle = new Bundle();
@@ -351,7 +377,7 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
                             intent.putExtras(bundle);
 
                             startActivity(intent);
- //                       }
+                        }
                     }
                 }
                 break;
@@ -397,11 +423,11 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
                         car_type = data.getStringExtra("car_type");
                     }
 
-//                    if("99".equals(car_type)) {
-//                        reserve_btn.setText("별도문의");
-//                    }else{
-//                        reserve_btn.setText("확인");
-//                    }
+                    if("99".equals(car_type)) {
+                        reserve_btn.setText("별도문의");
+                    }else{
+                        reserve_btn.setText("확인");
+                    }
 
                 }
  //               Toast.makeText(ReservationMainActivity.this, "차종: " + data.getStringExtra("reserve_carname") + " , 차번호 : " + data.getStringExtra("reserve_carnumber"), Toast.LENGTH_SHORT).show();
@@ -446,11 +472,11 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
                         car_type = data.getStringExtra("car_type");
                     }
 
-//                    if("99".equals(car_type)) {
-//                        reserve_btn.setText("별도문의");
-//                    }else{
-//                        reserve_btn.setText("확인");
-//                    }
+                    if("99".equals(car_type)) {
+                        reserve_btn.setText("별도문의");
+                    }else{
+                        reserve_btn.setText("확인");
+                    }
                 }
 
 //                Toast.makeText(ReservationMainActivity.this, "차종: " + data.getStringExtra("reserve_carname") + " , 차번호 : " + data.getStringExtra("reserve_carnumber"), Toast.LENGTH_SHORT).show();
