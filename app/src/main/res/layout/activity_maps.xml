@@ -2,21 +2,35 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/maps_constraintlayout"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MapsActivity">
 
-    <!-- google map layout -->
-    <fragment
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <!-- kakao map layout -->
+
+    <RelativeLayout
+        android:id="@+id/kMap"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context=".MapsActivity" />
+        tools:context = ".MapsActivity">
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/btnCurrent"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:contentDescription="@string/current_icon_desc_str"
+        android:src="@drawable/group_3_copy"
+        app:layout_constraintBottom_toTopOf="@+id/framelayout_maps_rentcar"
+        app:layout_constraintEnd_toEndOf="@+id/kMap" />
 
     <!-- TODO - group_5 이미지 이름이 같은 파일 3개 존재(main group-5, map group-5 두개) -->
 
@@ -32,18 +46,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- current button -->
-    <ImageView
-        android:id="@+id/btnCurrent"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:src="@drawable/group_3_copy"
-        android:contentDescription="@string/current_icon_desc_str"
-        app:layout_constraintBottom_toTopOf="@+id/btnReserveAddress"
-        app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- 현재 주소 layout -->
+    <ImageView
+        android:id="@+id/ivPin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/kMap"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/pin" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btnReserveAddress"
         android:layout_width="0dp"
@@ -160,5 +175,15 @@
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/framelayout_maps_rentcar"
+        android:layout_width="match_parent"
+        android:layout_height="278dp"
+
+        android:background="@drawable/default_background_type_2_round_top"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"></FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
