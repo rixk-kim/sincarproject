@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:background="#ffffff"
-    android:layout_marginTop="20dp"
+    android:layout_marginTop="28dp"
     android:orientation="horizontal">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,8 +19,8 @@
 
         <LinearLayout
             android:id="@+id/agentPhotoLayout"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical|center_horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -28,8 +28,8 @@
              <!-- TODO : 사진 배경 요청 및 여기에 위치 -->
             <ImageView
                 android:id="@+id/agent_photo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
                 android:background="@drawable/goto_map_icon"
                 app:srcCompat="@mipmap/ic_launcher_round"
                 android:contentDescription="@string/agent_photo_desc" />
@@ -108,7 +108,7 @@
             android:id="@+id/agent_time_list_item_divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="28dp"
             android:background="#1a3e3e3e"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/reservationTimeList"

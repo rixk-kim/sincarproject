@@ -75,17 +75,18 @@ public class AgentRecyclerViewAdapter extends RecyclerView.Adapter<AgentRecycler
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
 
+        System.out.println("[spirit] position => " + position);
         // TODO : 대리점주 사진 작업 하기
         //holder.mAgentPhoto.setText(mValues.get(position).agent_photo);
-        if(position == 0)
-        {
-
-            /*변경하고 싶은 레이아웃의 파라미터 값을 가져 옴*/
-            RecyclerView.LayoutParams plControl = (RecyclerView.LayoutParams) holder.agent_time_list_layout.getLayoutParams();
-            /*해당 margin값 변경*/
-            plControl.topMargin = 4;
-            holder.agent_time_list_layout.setLayoutParams(plControl);
-        }
+//        if(position == 0)
+//        {
+//
+//            /*변경하고 싶은 레이아웃의 파라미터 값을 가져 옴*/
+//            RecyclerView.LayoutParams plControl = (RecyclerView.LayoutParams) holder.agent_time_list_layout.getLayoutParams();
+//            /*해당 margin값 변경*/
+//            plControl.topMargin = 4;
+//            holder.agent_time_list_layout.setLayoutParams(plControl);
+//        }
 
         if(!TextUtils.isEmpty(mValues.get(position).agent_img_url)) {
             Glide.with(arContext).load(mValues.get(position).agent_img_url).into(holder.mAgentPhoto);

@@ -226,7 +226,18 @@ public class ReservationTimeActivity extends AppCompatActivity
     class AgentContentComparator implements Comparator<AgentDataItem> {
         @Override
         public int compare(AgentDataItem o1, AgentDataItem o2) {
-            return o1.AGENT_ORDER.compareTo(o2.AGENT_ORDER);
+//            return o1.AGENT_ORDER.compareTo(o2.AGENT_ORDER);
+            int value = 0;
+            if(Integer.parseInt(o1.AGENT_ORDER) < Integer.parseInt(o2.AGENT_ORDER))
+            {
+                value = -1;
+            }else if (Integer.parseInt(o1.AGENT_ORDER) == Integer.parseInt(o2.AGENT_ORDER)){
+                value = 0;
+            } else {
+			    value = 1; //이렇게 하면 내림 차순
+            }
+
+            return value;
         }
     }
 

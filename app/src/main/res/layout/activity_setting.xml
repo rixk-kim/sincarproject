@@ -19,7 +19,7 @@
             android:id="@+id/setting_btnPrev_layout"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="24dp"
             android:layout_gravity="center|center_horizontal|center_vertical"
             android:gravity="center|center_horizontal|center_vertical"
             app:layout_constraintBottom_toBottomOf="parent"
