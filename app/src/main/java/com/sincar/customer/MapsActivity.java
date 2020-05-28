@@ -192,15 +192,10 @@ public class MapsActivity extends FragmentActivity implements
             currentTextView = findViewById(R.id.current_address);
             reserve_date = findViewById(R.id.reserve_date);
             reserve_date.setText(reserve_month + "/ " + reserve_day + " (" + weekDay + ")"); //9/15 (화)
-            constraintSet.constrainHeight(R.id.kMap, pt.y - (int)((float)pt.y / 640 * 180));
-            constraintSet.applyTo(constraintLayout);
             constraintSet.connect(btnCurrent.getId(), constraintSet.BOTTOM, mbtnReserveAddress.getId(), ConstraintSet.TOP);
             constraintSet.applyTo(constraintLayout);
-            framelayout_maps_rentCar.setVisibility(View.GONE);
 
         } else { //sy
-            constraintSet.constrainHeight(R.id.kMap, pt.y - (int)((float)pt.y / 640 * 210));
-            constraintSet.applyTo(constraintLayout);
             constraintSet.connect(btnCurrent.getId(), constraintSet.BOTTOM, framelayout_maps_rentCar.getId(), ConstraintSet.TOP);
             constraintSet.applyTo(constraintLayout);
             mConstraintLayout.setVisibility(View.GONE);
@@ -286,6 +281,22 @@ public class MapsActivity extends FragmentActivity implements
                 break;
             default:
                 break;
+        }
+    }
+
+    //화면의 뷰가 그려질때 불러오는 메소드
+    //(화면이 그려지기 전에 getHeight가 0이 리턴 되기 때문에 mapview의 정확한 크기를 정할수 없었음)
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if ("steam".equals(main_path)) {
+            constraintSet.constrainHeight(R.id.kMap, pt.y - mbtnReserveAddress.getHeight()
+                    - mConstraintLayout.getHeight() - next_Layout.getHeight() + 20);
+            constraintSet.applyTo(constraintLayout);
+            framelayout_maps_rentCar.setVisibility(View.GONE);
+        } else {
+            constraintSet.constrainHeight(R.id.kMap, pt.y - framelayout_maps_rentCar.getHeight()+ 20);
+            constraintSet.applyTo(constraintLayout);
         }
     }
 
