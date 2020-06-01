@@ -95,6 +95,7 @@ public class MapsActivity extends FragmentActivity implements
     ConstraintSet constraintSet;
     Point pt;
     RelativeLayout reMap;
+    boolean mapCheck = false;
     //MapPOIItem marker;
     ///sy
 
@@ -190,6 +191,7 @@ public class MapsActivity extends FragmentActivity implements
             mConstraintLayout.setOnClickListener(this);
             findViewById(R.id.btnNext).setOnClickListener(this);
             currentTextView = findViewById(R.id.current_address);
+            currentTextView.setText("");
             reserve_date = findViewById(R.id.reserve_date);
             reserve_date.setText(reserve_month + "/ " + reserve_day + " (" + weekDay + ")"); //9/15 (화)
             constraintSet.connect(btnCurrent.getId(), constraintSet.BOTTOM, mbtnReserveAddress.getId(), ConstraintSet.TOP);
@@ -213,6 +215,8 @@ public class MapsActivity extends FragmentActivity implements
         final ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.kMap);
         mapViewContainer.addView(mapView);
         mapView.setMapViewEventListener(this);
+
+        getAddress();
 
         //터치 액션이 맵뷰의 영역 밖으로 나가면 액션 중지
         mapView.setOnTouchListener(new View.OnTouchListener() {
@@ -243,7 +247,6 @@ public class MapsActivity extends FragmentActivity implements
         });
 
         ///sy
-        getAddress();
     }
 
     //sy 렌터카 메인 화면 및 예약시간 프래그먼트를 표현하기 위한 메소드
@@ -326,14 +329,6 @@ public class MapsActivity extends FragmentActivity implements
 
                 String address = a.getAddressLine(0).substring(a.getAddressLine(0).indexOf("\"") + 1, a.getAddressLine(0).length()); // 주소
                 address = address.replace("대한민국 ", "");
-                if ("steam".equals(main_path))
-                    currentTextView.setText(cAddress);
-                    //sy
-                else
-                    bundle.putString("current_Address", address);
-                ///sy
-                Log.d("MapActivity", "address ==>" + address);
-
                 if (address != null && address.length() > 0) {
                     String[] splitStr = address.split(" ");
                     cAddress = address;
@@ -345,6 +340,15 @@ public class MapsActivity extends FragmentActivity implements
                     //주소를 가져오지 못했을 때 처리 추가.
                     //Toast.makeText(this,"주소 정보가 없습니다.", Toast.LENGTH_LONG).show();
                 }
+
+                if ("steam".equals(main_path))
+                    currentTextView.setText(cAddress);
+                    //sy
+                else
+                    bundle.putString("current_Address", cAddress);
+                ///sy
+                Log.d("MapActivity", "address ==>" + address);
+
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -455,12 +459,12 @@ public class MapsActivity extends FragmentActivity implements
                 if (!TextUtils.isEmpty(data.getStringExtra("search_result"))) {
                     cAddress = data.getStringExtra("search_result");
                     search_keyword = data.getStringExtra("search_keyword");
-                    if ("steam".equals(main_path))
-                        currentTextView.setText(cAddress);
-                        //sy
-                    else
-                        bundle.putString("current_address", cAddress);
-                    ///sy
+//                    if ("steam".equals(main_path))
+//                        currentTextView.setText(cAddress);
+//                        //sy
+//                    else
+//                        bundle.putString("current_address", cAddress);
+//                    ///sy
                     ConvertGPS(cAddress);
                 } else {
                     Toast.makeText(MapsActivity.this, "주소 검색을 다시 해주세요", Toast.LENGTH_SHORT).show();
@@ -522,6 +526,13 @@ public class MapsActivity extends FragmentActivity implements
 
                 //sy
                 mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(lat, lon), true);
+
+                if ("steam".equals(main_path))
+                    currentTextView.setText(cAddress);
+                    //sy
+                else
+                    bundle.putString("current_address", cAddress);
+                ///sy
                 ///sy
 
 //                String sss = String.format("geo:%f,%f", lat, lon);
@@ -532,7 +543,6 @@ public class MapsActivity extends FragmentActivity implements
 //                startActivity(intent);
             }
         }
-
     }
 
     //sy
@@ -587,7 +597,6 @@ public class MapsActivity extends FragmentActivity implements
     @Override
     public void onMapViewInitialized(@NotNull MapView mapView) {
         mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(my_latitude, my_longitude), true);
-
     }
 
     @Override
@@ -629,13 +638,14 @@ public class MapsActivity extends FragmentActivity implements
     public void onMapViewMoveFinished(MapView mapView, MapPoint mapPoint) {
         latitude = mapPoint.getMapPointGeoCoord().latitude;
         longitude = mapPoint.getMapPointGeoCoord().longitude;
-        if(mapView.getWindowVisibility() == View.VISIBLE) {
+        if (mapCheck) {
             getAddress();
             if (((Maps_rent_mainfrag) getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar)) != null)
                 ((Maps_rent_mainfrag) getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar)).AddressChange();
         }
-        //marker.setMapPoint(mapView.getMapCenterPoint());
+        mapCheck = true;
     }
+    //marker.setMapPoint(mapView.getMapCenterPoint());
 
     //키 인증 결과 이벤트 오버라이드
     @Override
