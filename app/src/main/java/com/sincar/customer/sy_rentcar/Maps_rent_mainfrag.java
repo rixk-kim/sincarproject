@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import com.sincar.customer.MapsActivity;
 import com.sincar.customer.R;
 import com.sincar.customer.ReservationAddressActivity;
-import com.sincar.customer.sy_rentcar.Rental_list;
 
 public class Maps_rent_mainfrag extends Fragment {
 
