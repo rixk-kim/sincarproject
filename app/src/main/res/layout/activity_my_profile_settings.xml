@@ -13,7 +13,7 @@
         android:layout_height="130dp"
         android:gravity="center|center_vertical|center_horizontal"
         android:orientation="horizontal"
-        android:background="#fff7f7"
+        android:background="@drawable/default_background_type_8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +22,9 @@
 
         <LinearLayout
             android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="38dp"
+            android:layout_marginBottom="32dp"
             android:layout_marginLeft="28dp"
             android:layout_weight="1"
             android:orientation="vertical">
@@ -31,7 +33,7 @@
                 android:id="@+id/user_name"
                 android:fontFamily="@font/nanumsquarebold"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="22dp"
                 android:layout_marginLeft="8dp"
                 android:text="김태현"
                 android:textSize="20sp"
@@ -42,7 +44,7 @@
                 android:id="@+id/user_mobile"
                 android:fontFamily="@font/nanumsquareregular"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="16dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginLeft="8dp"
                 android:text="010.4343.8585"
@@ -55,6 +57,7 @@
             android:id="@+id/btnNext"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_marginTop="6dp"
             android:layout_marginRight="32dp"
             android:contentDescription="@string/actionbar_prev_icon_description"
             app:layout_constraintStart_toStartOf="parent"
@@ -206,9 +209,9 @@
 
 
         <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#1a3e3e3e" />
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#1a3e3e3e" />
 
         <LinearLayout
             android:id="@+id/menu_5"
@@ -276,7 +279,7 @@
         android:id="@+id/setting_divider_1"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:background="#1a3e3e3e"
+        android:background="#f2f2f2"
         tools:ignore="MissingConstraints"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
         android:orientation="horizontal" />

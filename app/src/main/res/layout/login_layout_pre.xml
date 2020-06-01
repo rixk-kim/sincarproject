@@ -11,7 +11,7 @@
         android:id="@+id/linearlayout01"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="173dp"
+        android:layout_marginTop="149dp"
         android:gravity="center">
         <ImageView
             android:id="@+id/logo_img"
@@ -24,7 +24,7 @@
         android:id="@+id/linearlayout02"
         android:layout_width="match_parent"
         android:layout_height="24dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="36dp"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -116,81 +116,81 @@
 
     </LinearLayout>
 
-<!--
-    <RelativeLayout
-        android:layout_width="241dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:orientation="vertical">
+    <!--
+        <RelativeLayout
+            android:layout_width="241dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/user_id_et"
+            <EditText
+                android:id="@+id/user_id_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_box_selector"
+                android:drawableLeft="@drawable/ic_login_user"
+                android:drawablePadding="5dp"
+                android:hint="이름"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textColor="@color/default_text_color"
+                android:maxLines="1" />
+
+            <EditText
+                android:id="@+id/user_pwd_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_id_et"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/input_box_selector"
+                android:drawableLeft="@drawable/ic_login_pass"
+                android:drawablePadding="5dp"
+                android:hint="비밀번호"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:padding="10dp"
+                android:maxLines="1"
+                android:textColor="@color/default_text_color" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="241dp"
+            android:layout_height="55.5dp"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/auto_login_cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:text="로그인유지" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/input_box_selector"
-            android:drawableLeft="@drawable/ic_login_user"
-            android:drawablePadding="5dp"
-            android:hint="이름"
-            android:imeOptions="actionNext"
-            android:inputType="text"
-            android:padding="10dp"
-            android:textColor="@color/default_text_color"
-            android:maxLines="1" />
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/user_pwd_et"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/user_id_et"
-            android:layout_marginTop="6dp"
-            android:background="@drawable/input_box_selector"
-            android:drawableLeft="@drawable/ic_login_pass"
-            android:drawablePadding="5dp"
-            android:hint="비밀번호"
-            android:imeOptions="actionDone"
-            android:inputType="textPassword"
-            android:padding="10dp"
-            android:maxLines="1"
-            android:textColor="@color/default_text_color" />
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="241dp"
-        android:layout_height="55.5dp"
-        android:layout_gravity="center"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
-
-        <CheckBox
-            android:id="@+id/auto_login_cb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:text="로그인유지" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <Button
-        android:id="@+id/login_btn"
-        android:layout_width="241dp"
-        android:layout_height="37.5dp"
-        android:background="@drawable/login_btn_selector"
-        android:gravity="center"
-        android:text="로그인"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+            <Button
+            android:id="@+id/login_btn"
+            android:layout_width="241dp"
+            android:layout_height="37.5dp"
+            android:background="@drawable/login_btn_selector"
+            android:gravity="center"
+            android:text="로그인"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
 
-    </LinearLayout>
--->
+        </LinearLayout>
+    -->
 
 </LinearLayout>

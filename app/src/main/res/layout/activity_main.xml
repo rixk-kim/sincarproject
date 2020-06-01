@@ -20,288 +20,287 @@
         android:descendantFocusability="blocksDescendants">
 
         <androidx.core.widget.NestedScrollView
-        android:id="@+id/scroll_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/scroll_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp">
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-            <!-- 나의 포인트 -->
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btnCustomerPoint"
                 android:layout_width="match_parent"
-                android:layout_height="84dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
-                android:background="@drawable/default_button_type_1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp">
 
-                <ImageView
-                    android:id="@+id/myPointIcon"
-                    android:layout_width="27dp"
-                    android:layout_height="32dp"
-                    android:layout_marginStart="20dp"
-                    android:contentDescription="@string/customer_point_desc"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/red" />
-
-                <TextView
-                    android:id="@+id/customerName"
-                    android:fontFamily="@font/nanumsquareregular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="67dp"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center"
-                    android:lineSpacingExtra="11sp"
-                    android:text="@string/customer_name_str"
-                    android:textColor="#ffffff"
-                    android:textSize="15sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="@string/customer_name_str" />
-
-                <TextView
-                    android:id="@+id/customerPoint"
-                    android:fontFamily="@font/nanumsquareextrabold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="24dp"
-                    android:gravity="center"
-                    android:layout_marginStart="67dp"
-                    android:layout_marginBottom="17dp"
-                    android:lineSpacingExtra="7sp"
-                    android:text="@string/customer_point_str"
-                    android:textColor="#ffffff"
-                    android:textSize="19sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:text="@string/customer_point_str" />
-
-                <ImageView
-                    android:id="@+id/myPointArrowIcon"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="20dp"
-                    android:contentDescription="@string/customer_point_arrow_desc"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/filled" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- 출장스팀세차 버튼 -->
-            <Button
-                android:id="@+id/btnMainMenu1"
-                android:fontFamily="@font/nanumsquareregular"
-                style="@style/main_menu_button_style"
-                android:layout_width="0dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:drawableTop="@drawable/main_steam_image"
-                android:text="@string/main_menu_1"
-                app:layout_constraintEnd_toStartOf="@+id/btnMainMenu2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnCustomerPoint" />
-
-            <!-- 렌터카 버튼 -->
-            <Button
-                android:id="@+id/btnMainMenu2"
-                android:fontFamily="@font/nanumsquareregular"
-                style="@style/main_menu_button_style"
-                android:layout_width="0dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="24dp"
-                android:drawableTop="@drawable/main_share_image"
-                android:text="@string/main_menu_2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btnMainMenu1"
-                app:layout_constraintTop_toBottomOf="@+id/btnCustomerPoint" />
-
-            <!-- 승차공유 버튼 -->
-            <Button
-                android:id="@+id/btnMainMenu3"
-                android:fontFamily="@font/nanumsquareregular"
-                style="@style/main_menu_button_style"
-                android:layout_width="0dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="20dp"
-                android:drawableTop="@drawable/main_hailing_image"
-                android:text="@string/main_menu_3"
-                app:layout_constraintEnd_toStartOf="@+id/btnMainMenu4"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnMainMenu1" />
-
-            <!-- 대리운전 버튼 -->
-            <Button
-                android:id="@+id/btnMainMenu4"
-                android:fontFamily="@font/nanumsquareregular"
-                style="@style/main_menu_button_style"
-                android:layout_width="0dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="24dp"
-                android:drawableTop="@drawable/main_drive_image"
-                android:text="@string/main_menu_4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btnMainMenu3"
-                app:layout_constraintTop_toBottomOf="@+id/btnMainMenu2" />
-
-            <!-- 퀵,탁송 버튼 -->
-            <Button
-                android:id="@+id/btnMainMenu5"
-                android:fontFamily="@font/nanumsquareregular"
-                style="@style/main_menu_button_style"
-                android:layout_width="0dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="20dp"
-                android:drawableTop="@drawable/main_quick_image"
-                android:text="@string/main_menu_5"
-                app:layout_constraintEnd_toStartOf="@+id/btnMainMenu6"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnMainMenu3" />
-
-            <!-- 차량공유 버튼 -->
-            <Button
-                android:id="@+id/btnMainMenu6"
-                android:fontFamily="@font/nanumsquareregular"
-                style="@style/main_menu_button_style"
-                android:layout_width="0dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="24dp"
-                android:drawableTop="@drawable/main_car_image"
-                android:text="@string/main_menu_6"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btnMainMenu5"
-                app:layout_constraintTop_toBottomOf="@+id/btnMainMenu4" />
-
-            <!-- 배너 -->
-            <LinearLayout
-                android:id="@+id/banner_slider_layout"
-                android:layout_width="0dp"
-                android:layout_height="120dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnMainMenu5">
-                <ss.com.bannerslider.Slider
-                    android:id="@+id/banner_slider"
+                <!-- 나의 포인트 -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btnCustomerPoint"
                     android:layout_width="match_parent"
-                    android:layout_height="116dp"
-                    android:paddingBottom="0.5dp"
-                    android:paddingTop="0.5dp"
-                    android:paddingRight="0.5dp"
-                    android:paddingLeft="0.5dp"
-                    app:slider_interval="3000"
-                    app:slider_loopSlides="true"
-                    app:slider_defaultBanner="1"
-                    app:slider_indicatorSize="5dp"
-                    android:background="@drawable/layout_background" />
-            </LinearLayout>
+                    android:layout_height="84dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/default_button_type_1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            <!-- 차량 등록 -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_car_register"
-                android:layout_width="0dp"
-                android:layout_height="136dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="24dp"
-                android:background="@drawable/layout_background"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/banner_slider_layout"
-                tools:ignore="NotSibling" >
+                    <ImageView
+                        android:id="@+id/myPointIcon"
+                        android:layout_width="27dp"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="20dp"
+                        android:contentDescription="@string/customer_point_desc"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/red" />
 
-                <TextView
-                    android:id="@+id/registerTitle"
-                    android:fontFamily="@font/nanumsquarebold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    <TextView
+                        android:id="@+id/customerName"
+                        android:fontFamily="@font/nanumsquareregular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="67dp"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center"
+                        android:lineSpacingExtra="11sp"
+                        android:text="@string/customer_name_str"
+                        android:textColor="#ffffff"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="@string/customer_name_str" />
+
+                    <TextView
+                        android:id="@+id/customerPoint"
+                        android:fontFamily="@font/nanumsquareextrabold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="24dp"
+                        android:gravity="center"
+                        android:layout_marginStart="67dp"
+                        android:layout_marginBottom="17dp"
+                        android:lineSpacingExtra="7sp"
+                        android:text="@string/customer_point_str"
+                        android:textColor="#ffffff"
+                        android:textSize="19sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:text="@string/customer_point_str" />
+
+                    <ImageView
+                        android:id="@+id/myPointArrowIcon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginEnd="20dp"
+                        android:contentDescription="@string/customer_point_arrow_desc"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/filled" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- 출장스팀세차 버튼 -->
+                <Button
+                    android:id="@+id/btnMainMenu1"
+                    android:fontFamily="@font/nanumsquareregular"
+                    style="@style/main_menu_button_style"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="24dp"
+                    android:drawableTop="@drawable/main_steam_image"
+                    android:text="@string/main_menu_1"
+                    app:layout_constraintEnd_toStartOf="@+id/btnMainMenu2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnCustomerPoint" />
+
+                <!-- 렌터카 버튼 -->
+                <Button
+                    android:id="@+id/btnMainMenu2"
+                    android:fontFamily="@font/nanumsquareregular"
+                    style="@style/main_menu_button_style"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:drawableTop="@drawable/main_share_image"
+                    android:text="@string/main_menu_2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/btnMainMenu1"
+                    app:layout_constraintTop_toBottomOf="@+id/btnCustomerPoint" />
+
+                <!-- 승차공유 버튼 -->
+                <Button
+                    android:id="@+id/btnMainMenu3"
+                    android:fontFamily="@font/nanumsquareregular"
+                    style="@style/main_menu_button_style"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="20dp"
+                    android:drawableTop="@drawable/main_hailing_image"
+                    android:text="@string/main_menu_3"
+                    app:layout_constraintEnd_toStartOf="@+id/btnMainMenu4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnMainMenu1" />
+
+                <!-- 대리운전 버튼 -->
+                <Button
+                    android:id="@+id/btnMainMenu4"
+                    android:fontFamily="@font/nanumsquareregular"
+                    style="@style/main_menu_button_style"
+                    android:layout_width="0dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="20dp"
-                    android:lineSpacingExtra="7sp"
-                    android:text="@string/car_register_banner_title"
-                    android:textColor="#3e3e3e"
-                    android:textSize="15sp"
-                    android:letterSpacing="0.03"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="@string/car_register_banner_title" />
-
-                <TextView
-                    android:id="@+id/registerDescription"
-                    android:fontFamily="@font/nanumsquareregular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="10dp"
-                    android:lineSpacingExtra="5.5sp"
-                    android:text="@string/car_register_banner_description"
-                    android:textColor="#3e3e3e"
-                    android:textSize="13.5sp"
-                    android:letterSpacing="0.01"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/registerTitle"
-                    tools:text="@string/car_register_banner_description" />
-
-                <Button
-                    android:id="@+id/btnCarRegisterClose"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginEnd="20dp"
-                    android:background="@drawable/close"
-                    android:text=""
-                    android:visibility="gone"
+                    android:layout_marginEnd="24dp"
+                    android:drawableTop="@drawable/main_drive_image"
+                    android:text="@string/main_menu_4"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toEndOf="@+id/btnMainMenu3"
+                    app:layout_constraintTop_toBottomOf="@+id/btnMainMenu2" />
 
-                <ImageView
-                    android:id="@+id/imageView2"
+                <!-- 퀵,탁송 버튼 -->
+                <Button
+                    android:id="@+id/btnMainMenu5"
+                    android:fontFamily="@font/nanumsquareregular"
+                    style="@style/main_menu_button_style"
                     android:layout_width="0dp"
-                    android:layout_height="45dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:contentDescription="@string/car_register_desc"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:srcCompat="@drawable/group_14" />
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="20dp"
+                    android:drawableTop="@drawable/main_quick_image"
+                    android:text="@string/main_menu_5"
+                    app:layout_constraintEnd_toStartOf="@+id/btnMainMenu6"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnMainMenu3" />
 
+                <!-- 차량공유 버튼 -->
                 <Button
-                    android:id="@+id/btnCarRegister"
+                    android:id="@+id/btnMainMenu6"
                     android:fontFamily="@font/nanumsquareregular"
-                    android:layout_width="96dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginBottom="15dp"
-                    android:background="@null"
-                    android:drawableEnd="@drawable/chevron_left_24_px"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="12dp"
-                    android:text="@string/car_register"
-                    android:textColor="#ff4d4d"
-                    android:textSize="13sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    style="@style/main_menu_button_style"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="24dp"
+                    android:drawableTop="@drawable/main_car_image"
+                    android:text="@string/main_menu_6"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/btnMainMenu5"
+                    app:layout_constraintTop_toBottomOf="@+id/btnMainMenu4" />
 
+                <!-- 배너 -->
+                <LinearLayout
+                    android:id="@+id/banner_slider_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnMainMenu5">
+                    <ss.com.bannerslider.Slider
+                        android:id="@+id/banner_slider"
+                        android:layout_width="match_parent"
+                        android:layout_height="116dp"
+                        android:paddingBottom="0.5dp"
+                        android:paddingTop="0.5dp"
+                        android:paddingRight="0.5dp"
+                        android:paddingLeft="0.5dp"
+                        app:slider_interval="3000"
+                        app:slider_loopSlides="true"
+                        app:slider_defaultBanner="1"
+                        app:slider_indicatorSize="5dp"
+                        android:background="@null" />
+                </LinearLayout>
+
+                <!-- 차량 등록 -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_car_register"
+                    android:layout_width="0dp"
+                    android:layout_height="136dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/layout_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/banner_slider_layout"
+                    tools:ignore="NotSibling" >
+
+                    <TextView
+                        android:id="@+id/registerTitle"
+                        android:fontFamily="@font/nanumsquarebold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="20dp"
+                        android:lineSpacingExtra="7sp"
+                        android:text="@string/car_register_banner_title"
+                        android:textColor="#3e3e3e"
+                        android:textSize="15sp"
+                        android:letterSpacing="0.03"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="@string/car_register_banner_title" />
+
+                    <TextView
+                        android:id="@+id/registerDescription"
+                        android:fontFamily="@font/nanumsquareregular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="10dp"
+                        android:lineSpacingExtra="5.5sp"
+                        android:text="@string/car_register_banner_description"
+                        android:textColor="#3e3e3e"
+                        android:textSize="13.5sp"
+                        android:letterSpacing="0.01"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/registerTitle"
+                        tools:text="@string/car_register_banner_description" />
+
+                    <Button
+                        android:id="@+id/btnCarRegisterClose"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="18dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/close"
+                        android:text=""
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="0dp"
+                        android:layout_height="45dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:contentDescription="@string/car_register_desc"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:srcCompat="@drawable/group_14" />
+
+                    <Button
+                        android:id="@+id/btnCarRegister"
+                        android:fontFamily="@font/nanumsquareregular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="24dp"
+                        android:layout_marginBottom="15dp"
+                        android:background="@null"
+                        android:drawableEnd="@drawable/chevron_left_24_px"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:text="@string/car_register"
+                        android:textColor="#ff4d4d"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
         <LinearLayout

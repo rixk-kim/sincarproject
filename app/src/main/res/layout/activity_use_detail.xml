@@ -16,9 +16,9 @@
         <!-- ActionBar : Back / Title / Info -->
         <LinearLayout
             android:id="@+id/use_detail_btnPrev_layout"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:layout_gravity="center|center_horizontal|center_vertical"
             android:gravity="center|center_horizontal|center_vertical"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -36,6 +36,7 @@
             android:fontFamily="@font/nanumsquareregular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="24dp"
             android:gravity="center|center_horizontal"
             android:text="@string/title_use_detail"
             android:textColor="#3e3e3e"
@@ -72,13 +73,13 @@
             android:visibility="gone">
 
             <TextView
-            android:layout_width="match_parent"
-            android:layout_height="16dp"
-            android:layout_gravity="center"
-            android:gravity="center|center_horizontal|center_vertical"
-            android:text="취소가 완료되었습니다."
-            android:textColor="#ef3835"
-            android:textSize="14sp"/>
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:layout_gravity="center"
+                android:gravity="center|center_horizontal|center_vertical"
+                android:text="취소가 완료되었습니다."
+                android:textColor="#ef3835"
+                android:textSize="14sp"/>
 
             <TextView
                 android:id="@+id/reserve_cancel_time"

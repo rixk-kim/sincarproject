@@ -10,9 +10,11 @@ import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
@@ -36,7 +38,7 @@ import static com.sincar.customer.HWApplication.recommandResult;
 import static com.sincar.customer.common.Constants.RECOMMEND_REGISTER_REQUEST;
 
 public class MyProfileSettingsRecomActivity extends AppCompatActivity implements View.OnClickListener {
-    private TextView recomTextView, chuTextView, myinfo_visit_01, myinfo_visit_02;
+    private TextView recomTextView, chuTextView, myinfo_visit_01, myinfo_visit_02, manage_text_1;
     private EditText chu_code;
     private String recom_code;
     private LinearLayout myinfo_linearLayout13;
@@ -65,7 +67,7 @@ public class MyProfileSettingsRecomActivity extends AppCompatActivity implements
 
         recomTextView = (TextView) findViewById(R.id.recom_code);
         recomTextView.setText(recom_code);
- //       findViewById(R.id.myinfo_btnNext).setOnClickListener(this);
+        //       findViewById(R.id.myinfo_btnNext).setOnClickListener(this);
         myinfo_linearLayout13 = (LinearLayout) findViewById(R.id.myinfo_linearLayout13);
         chuTextView = (TextView) findViewById(R.id.recom_code1);
         myinfo_linearLayout14 = (LinearLayout) findViewById(R.id.myinfo_linearLayout14);
@@ -86,6 +88,17 @@ public class MyProfileSettingsRecomActivity extends AppCompatActivity implements
         ssb2.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 22, 25,Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
         myinfo_visit_02.setText(ssb2);
 
+
+        manage_text_1 = (TextView) findViewById(R.id.manage_text_1);
+        SpannableStringBuilder ssb3 = new SpannableStringBuilder(manage_text_1.getText());
+        ssb3.setSpan(new ForegroundColorSpan(Color.parseColor("#3e3e3e")), manage_text_1.getText().length()-30, manage_text_1.getText().length()-21, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ssb3.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), manage_text_1.getText().length()-30, manage_text_1.getText().length()-21,Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        manage_text_1.setText(ssb3);
+
+//        Spannable span = (Spannable) manage_text_1.getText();
+//        span.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.red_color)), manage_text_1.getText().length()-30, manage_text_1.getText().length()-21, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        span.setSpan(new StyleSpan(Typeface.BOLD), manage_text_1.getText().length()-30, manage_text_1.getText().length()-21, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//
 
         if(!TextUtils.isEmpty(voLoginItem.REGISTER_RECOM_CODE)) {
             myinfo_linearLayout13.setVisibility(View.VISIBLE);
@@ -136,7 +149,7 @@ public class MyProfileSettingsRecomActivity extends AppCompatActivity implements
 
                 //서버전송
                 requestRecomRegister();
- //               Toast.makeText(this, "전송완료", Toast.LENGTH_LONG).show();
+                //               Toast.makeText(this, "전송완료", Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.myinfo_linearLayout11:

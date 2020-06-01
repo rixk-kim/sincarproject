@@ -18,7 +18,7 @@
             android:id="@+id/car_reg_btnPrev"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="24dp"
             android:contentDescription="@string/actionbar_prev_icon_description"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,6 +30,7 @@
             android:fontFamily="@font/nanumsquareregular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="24dp"
             android:gravity="center|center_horizontal"
             android:text="@string/title_car_register"
             android:textColor="#3e3e3e"
@@ -196,38 +197,38 @@
                     android:textSize="15sp"
                     android:inputType="text"
                     android:imeOptions="actionDone" />
-<!--
-                <EditText
-                    android:id="@+id/car_select_colume4"
-                    android:layout_width="38dp"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="12dp"
-                    android:gravity="center|center_vertical|center_horizontal"
-                    android:background="@drawable/edt_underline"
-                    android:ems="10"
-                    android:hint="가"
-                    android:textColor="#3E3E3E"
-                    android:textSize="15sp"
-                    android:inputType="text"
-                    android:nextFocusDown="@+id/car_select_colume5"
-                    android:imeOptions="actionNext" />
+                <!--
+                                <EditText
+                                    android:id="@+id/car_select_colume4"
+                                    android:layout_width="38dp"
+                                    android:layout_height="20dp"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_marginLeft="12dp"
+                                    android:gravity="center|center_vertical|center_horizontal"
+                                    android:background="@drawable/edt_underline"
+                                    android:ems="10"
+                                    android:hint="가"
+                                    android:textColor="#3E3E3E"
+                                    android:textSize="15sp"
+                                    android:inputType="text"
+                                    android:nextFocusDown="@+id/car_select_colume5"
+                                    android:imeOptions="actionNext" />
 
-                <EditText
-                    android:id="@+id/car_select_colume5"
-                    android:layout_width="62dp"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="12dp"
-                    android:gravity="center|center_vertical|center_horizontal"
-                    android:background="@drawable/edt_underline"
-                    android:ems="10"
-                    android:hint="1234"
-                    android:textColor="#3E3E3E"
-                    android:textSize="15sp"
-                    android:inputType="number"
-                    android:imeOptions="actionDone" />
--->
+                                <EditText
+                                    android:id="@+id/car_select_colume5"
+                                    android:layout_width="62dp"
+                                    android:layout_height="20dp"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_marginLeft="12dp"
+                                    android:gravity="center|center_vertical|center_horizontal"
+                                    android:background="@drawable/edt_underline"
+                                    android:ems="10"
+                                    android:hint="1234"
+                                    android:textColor="#3E3E3E"
+                                    android:textSize="15sp"
+                                    android:inputType="number"
+                                    android:imeOptions="actionDone" />
+                -->
             </LinearLayout>
         </LinearLayout>
 
