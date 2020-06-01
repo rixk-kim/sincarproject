@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.sincar.customer.MapsActivity;
 import com.sincar.customer.R;
 import com.sincar.customer.ReservationAddressActivity;
+import com.sincar.customer.sy_rentcar.Rental_list;
 
 public class Maps_rent_mainfrag extends Fragment {
 
@@ -73,11 +74,12 @@ public class Maps_rent_mainfrag extends Fragment {
                 ((MapsActivity) getActivity()).start_returnDate();
             }
         });
-//
+
 //        btnCheck.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                ((MapsActivity_rentCar) getActivity()).start_rental_list();
+//                Intent intent = new Intent(getContext(), Rental_list.class);
+//                getActivity().startActivity(intent);
 //            }
 //        });
         return view;
