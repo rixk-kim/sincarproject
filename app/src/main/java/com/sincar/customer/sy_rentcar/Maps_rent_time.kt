@@ -26,6 +26,7 @@ class Maps_rent_time : Fragment() {
 
 
     private var onDateNTimeSetListener: OnDateNTimeSetListener? = null
+    private var rCodeCheck: rCodeCheck? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -61,8 +62,8 @@ class Maps_rent_time : Fragment() {
         var return_dateCheck: String?
         var return_timeCheckInt: Int
 
-        var dateCheck: String?
-        var timeCheck: Int
+        var dateCheck: String? = null
+        var timeCheck: Int = 0
 
         if (getArguments() != null) {
             start_dateCheck = arguments!!.getString("start_date")
@@ -71,13 +72,14 @@ class Maps_rent_time : Fragment() {
             return_dateCheck = arguments!!.getString("return_date")
             return_timeCheckInt = arguments!!.getInt("return_timeInt")
             rCode = arguments!!.getInt("reOrRe")
-            if (rCode == 0) {
+            if (rCode == 1) {
                 dateCheck = start_dateCheck
                 timeCheck = start_timeCheckInt
-            } else {
+            } else if(rCode == 2){
                 dateCheck = return_dateCheck
                 timeCheck = return_timeCheckInt
             }
+            rCodeCheck?.rCodechk(rCode)
 
             val dateCheck_date = dateFormat.parse(dateCheck)
             val date_now_date = dateFormat.parse(dateFormat.format(curDate))
@@ -108,7 +110,7 @@ class Maps_rent_time : Fragment() {
             var time_reserve = timeFormat.parse(start_timeCheck)
             var resToret_TimCheck = ((time_check.time - time_reserve.time) / (60 * 60 * 1000)).toInt()
 
-            if (rCode == 0) {
+            if (rCode == 1) {
                 if (now_dffdayCheck == 0) {
                     if (now_dfftimeCheck < 0)
                         Toast.makeText(context, "현재 시간 이후의 시간으로 설정하십시오.", Toast.LENGTH_LONG).show();
@@ -120,7 +122,7 @@ class Maps_rent_time : Fragment() {
                     onDateNTimeSetListener?.onDateNTimePickerSet(date, time, now_dfftimeCheck)
                     (activity as MapsActivity?)!!.replaceFragment(1)
                 }
-            } else {
+            } else if(rCode == 2) {
                 if (resToret_DayCheck < 0) {
                     Toast.makeText(context, "예약 날짜보다 반납 날짜가 더 빠릅니다.", Toast.LENGTH_LONG).show();
 
@@ -136,6 +138,7 @@ class Maps_rent_time : Fragment() {
                     (activity as MapsActivity?)!!.replaceFragment(1)
                 }
             }
+            rCodeCheck?.rCodechk(0);
         }
         return view
     }

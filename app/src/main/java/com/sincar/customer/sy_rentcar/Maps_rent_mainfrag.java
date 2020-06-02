@@ -16,6 +16,8 @@ import com.sincar.customer.MapsActivity;
 import com.sincar.customer.R;
 import com.sincar.customer.ReservationAddressActivity;
 
+import java.util.Map;
+
 public class Maps_rent_mainfrag extends Fragment {
 
     androidx.constraintlayout.widget.ConstraintLayout tvAddress, reserveTime, returnTime;
@@ -74,15 +76,16 @@ public class Maps_rent_mainfrag extends Fragment {
             }
         });
 
-//        btnCheck.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getContext(), Rental_list.class);
-//                getActivity().startActivity(intent);
-//            }
-//        });
+        btnCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), Rental_list.class);
+                getActivity().startActivity(intent);
+            }
+        });
         return view;
     }
+
 
     public void AddressChange() {
         String curAddress = getArguments().getString("current_Address");

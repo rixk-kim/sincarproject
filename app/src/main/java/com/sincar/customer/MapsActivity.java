@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -32,6 +33,7 @@ import com.sincar.customer.sy_rentcar.MapApiConst;
 import com.sincar.customer.sy_rentcar.Maps_rent_mainfrag;
 import com.sincar.customer.sy_rentcar.Maps_rent_time;
 import com.sincar.customer.sy_rentcar.OnDateNTimeSetListener;
+import com.sincar.customer.sy_rentcar.rCodeCheck;
 import com.sincar.customer.util.GPSInfo;
 import com.sincar.customer.util.Util;
 
@@ -51,7 +53,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class MapsActivity extends FragmentActivity implements
-        View.OnClickListener, OnDateNTimeSetListener, MapView.MapViewEventListener, MapView.OpenAPIKeyAuthenticationResultListener, MapView.POIItemEventListener {
+        View.OnClickListener, OnDateNTimeSetListener, MapView.MapViewEventListener,
+        MapView.OpenAPIKeyAuthenticationResultListener, MapView.POIItemEventListener, rCodeCheck {
 
     /*
      * GPS, 일출,일몰, 위도, 경도, 현재 주소
@@ -269,18 +272,19 @@ public class MapsActivity extends FragmentActivity implements
             case 1:
                 maps_rent_mainfrag.setArguments(bundle);
                 transaction.replace(R.id.framelayout_maps_rentcar, maps_rent_mainfrag).commitNow();
-                break;
-            case 2:
-                bundle.putInt("reOrRe", 0);
-                maps_rent_time_reserve.setArguments(bundle);
-                transaction.replace(R.id.framelayout_maps_rentcar, maps_rent_time_reserve).commit();
                 rCode = 0;
                 break;
-            case 3:
+            case 2:
                 bundle.putInt("reOrRe", 1);
+                maps_rent_time_reserve.setArguments(bundle);
+                transaction.replace(R.id.framelayout_maps_rentcar, maps_rent_time_reserve).commit();
+                rCode = 1;
+                break;
+            case 3:
+                bundle.putInt("reOrRe", 2);
                 maps_rent_time_return.setArguments(bundle);
                 transaction.replace(R.id.framelayout_maps_rentcar, maps_rent_time_return).commit();
-                rCode = 1;
+                rCode = 2;
                 break;
             default:
                 break;
@@ -392,8 +396,10 @@ public class MapsActivity extends FragmentActivity implements
                     } else {
                         bundle.putString("current_address", cAddress);
                         mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
-                        if (((Maps_rent_mainfrag) getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar)) != null)
-                            ((Maps_rent_mainfrag) getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar)).AddressChange();
+                        if(rCode == 0) {
+                            if (((Maps_rent_mainfrag) getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar)) != null)
+                                ((Maps_rent_mainfrag) getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar)).AddressChange();
+                        }
                     }
                     ///sy
 
@@ -556,16 +562,22 @@ public class MapsActivity extends FragmentActivity implements
 
     @Override
     public void onDateNTimePickerSet(String date, String time, int timeCheck) {
-        if (rCode == 0) {
+        if (rCode == 1) {
             start_date = date;
             start_time = time;
             start_timeInt = timeCheck + now_timeInt;
-        } else {
+        } else if (rCode == 2){
             return_date = date;
             return_time = time;
             return_timeInt = timeCheck + now_timeInt;
         }
     }
+
+    @Override
+    public void rCodechk(int rCodecheck) {
+        rCode = rCodecheck;
+    }
+
     ///sy
 
     // 앱 해시키 얻는 메소드
@@ -640,8 +652,12 @@ public class MapsActivity extends FragmentActivity implements
         longitude = mapPoint.getMapPointGeoCoord().longitude;
         if (mapCheck) {
             getAddress();
-            if (((Maps_rent_mainfrag) getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar)) != null)
-                ((Maps_rent_mainfrag) getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar)).AddressChange();
+            if(rCode == 0) {
+                if((Maps_rent_mainfrag)getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar) != null) {
+                    ((Maps_rent_mainfrag) getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar)).AddressChange();
+                }
+            }
+
         }
         mapCheck = true;
     }
