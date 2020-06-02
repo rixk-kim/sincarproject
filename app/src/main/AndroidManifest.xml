@@ -196,6 +196,11 @@
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
+            android:name=".sy_rentcar.Rental_list_detail"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
             android:name=".sy_rentcar.Rental_list_filter_age"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"

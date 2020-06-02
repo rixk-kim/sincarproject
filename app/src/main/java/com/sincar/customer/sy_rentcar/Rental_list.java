@@ -9,11 +9,13 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 
 import com.sincar.customer.MainActivity;
 import com.sincar.customer.R;
 
 public class Rental_list extends AppCompatActivity {
+    private AppCompatImageView mImagePhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,5 +60,16 @@ public class Rental_list extends AppCompatActivity {
                 dlg.show();
             }
         });
+
+        mImagePhoto = findViewById(R.id.img1);
+        mImagePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //상세페이지 이동
+                Intent intent = new Intent(getApplicationContext(), Rental_list_detail.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }

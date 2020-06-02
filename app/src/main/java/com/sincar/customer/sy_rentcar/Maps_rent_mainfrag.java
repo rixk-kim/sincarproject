@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -81,6 +82,7 @@ public class Maps_rent_mainfrag extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), Rental_list.class);
                 getActivity().startActivity(intent);
+//                Toast.makeText(getContext(), "서비스 준비중입니다.", Toast.LENGTH_SHORT).show();
             }
         });
         return view;

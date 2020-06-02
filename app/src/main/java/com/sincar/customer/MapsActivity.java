@@ -448,7 +448,7 @@ public class MapsActivity extends FragmentActivity implements
                     gps.showSettingsAlert();
                 }
                 //ConvertGPS("서울 송파구 석촌호수로 274");
-                Toast.makeText(this, cAddress + "로 부르셨습니다. 정보 갱신중..", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, cAddress + "로 부르셨습니다. 정보 갱신중..", Toast.LENGTH_LONG).show();
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());
