@@ -18,7 +18,7 @@ public class Rental_list_filter extends AppCompatActivity {
     ConstraintLayout btnAge, btnBrand, btnPrice, btnType;
     ImageButton imBack;
     Intent intent;
-    Button btnClear;
+    Button btnClear, btnAccept;
     TextView tvAge, tvPrice, tvType, tvBrand;
 
     @Override
@@ -32,6 +32,7 @@ public class Rental_list_filter extends AppCompatActivity {
         btnPrice = (ConstraintLayout) findViewById(R.id.btnPrice);
         btnType = (ConstraintLayout) findViewById(R.id.btnType);
         btnClear = (Button)findViewById(R.id.btn_rentalCar_filter_clear);
+        btnAccept = (Button)findViewById(R.id.btnAccept);
         tvAge = (TextView)findViewById(R.id.tvAge);
         tvPrice = (TextView)findViewById(R.id.tvPrice);
         tvType = (TextView)findViewById(R.id.tvType);
@@ -88,6 +89,14 @@ public class Rental_list_filter extends AppCompatActivity {
                 finish();
             }
         });
+
+        btnAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 
     }
 

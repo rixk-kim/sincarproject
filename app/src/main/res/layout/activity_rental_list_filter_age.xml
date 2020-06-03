@@ -34,22 +34,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="16dp"
         android:text="대여 조건의 나이 제한을 선택해주세요."
         android:textColor="@color/agent_color_1_80Opp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <RadioGroup
         android:id="@+id/rg_rental_list_filter_age"
-        android:layout_width="346dp"
+        android:layout_width="0dp"
         android:layout_height="110dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="154dp"
-        android:orientation="horizontal"
+        app:layout_constraintVertical_weight="1"
+        app:layout_constraintEnd_toStartOf="@+id/rg_rental_list_filter_age2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
         <RadioButton
             android:id="@+id/rbAgeAll"
             android:checked="true"
@@ -58,17 +58,7 @@
             android:text="전체"
             android:button="@drawable/radio_button_selector"
             android:textColor="@color/agent_color_1NoOpp"
-            android:textSize="15sp" />
-
-        <RadioButton
-            android:id="@+id/rbAge21"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="만 21세 이상"
-            android:button="@drawable/radio_button_selector"
-            android:textColor="@color/agent_color_1NoOpp"
-            android:textSize="15sp" />
-
+            android:textSize="15sp"/>
         <RadioButton
             android:id="@+id/rbAge26"
             android:layout_width="wrap_content"
@@ -76,8 +66,28 @@
             android:text="만 26세 이상"
             android:button="@drawable/radio_button_selector"
             android:textColor="@color/agent_color_1NoOpp"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:layout_marginTop="25dp"/>
+    </RadioGroup>
 
+    <RadioGroup
+        android:id="@+id/rg_rental_list_filter_age2"
+        android:layout_width="0dp"
+        android:layout_height="110dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginTop="154dp"
+        app:layout_constraintVertical_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/rg_rental_list_filter_age"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <RadioButton
+            android:id="@+id/rbAge21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="만 21세 이상"
+            android:button="@drawable/radio_button_selector"
+            android:textColor="@color/agent_color_1NoOpp"
+            android:textSize="15sp"/>
     </RadioGroup>
 
     <Button

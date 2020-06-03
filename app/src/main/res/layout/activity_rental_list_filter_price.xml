@@ -45,11 +45,13 @@
 
     <RadioGroup
         android:id="@+id/rg_rental_list_filter_price"
-        android:layout_width="346dp"
+        android:layout_width="0dp"
         android:layout_height="300dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="154dp"
+        app:layout_constraintVertical_weight="1"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rg_rental_list_filter_price2"
         app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
@@ -64,30 +66,11 @@
             android:textSize="17sp" />
 
         <RadioButton
-            android:id="@+id/rbPri10u"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="10만원 이하"
-            android:textColor="@color/agent_color_1NoOpp"
-            android:button="@drawable/radio_button_selector"
-            android:fontFamily="@font/nanumsquareregular"
-            android:textSize="17sp" />
-
-        <RadioButton
             android:id="@+id/rbPri20u"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="20만원 이하"
-            android:textColor="@color/agent_color_1NoOpp"
-            android:button="@drawable/radio_button_selector"
-            android:fontFamily="@font/nanumsquareregular"
-            android:textSize="17sp" />
-
-        <RadioButton
-            android:id="@+id/rbPri30u"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="30만원 이하"
+            android:layout_marginTop="25dp"
             android:textColor="@color/agent_color_1NoOpp"
             android:button="@drawable/radio_button_selector"
             android:fontFamily="@font/nanumsquareregular"
@@ -98,6 +81,55 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="40만원 이하"
+            android:layout_marginTop="25dp"
+            android:textColor="@color/agent_color_1NoOpp"
+            android:button="@drawable/radio_button_selector"
+            android:fontFamily="@font/nanumsquareregular"
+            android:textSize="17sp" />
+
+
+
+        <RadioButton
+            android:id="@+id/rbPri50o"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="50만원 이상"
+            android:layout_marginTop="25dp"
+            android:textColor="@color/agent_color_1NoOpp"
+            android:button="@drawable/radio_button_selector"
+            android:fontFamily="@font/nanumsquareregular"
+            android:textSize="17sp" />
+
+
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/rg_rental_list_filter_price2"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginTop="154dp"
+        app:layout_constraintVertical_weight="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rg_rental_list_filter_price"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/rbPri10u"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10만원 이하"
+            android:textColor="@color/agent_color_1NoOpp"
+            android:button="@drawable/radio_button_selector"
+            android:fontFamily="@font/nanumsquareregular"
+            android:textSize="17sp" />
+
+        <RadioButton
+            android:id="@+id/rbPri30u"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30만원 이하"
+            android:layout_marginTop="25dp"
             android:textColor="@color/agent_color_1NoOpp"
             android:button="@drawable/radio_button_selector"
             android:fontFamily="@font/nanumsquareregular"
@@ -108,16 +140,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="50만원 이하"
-            android:textColor="@color/agent_color_1NoOpp"
-            android:button="@drawable/radio_button_selector"
-            android:fontFamily="@font/nanumsquareregular"
-            android:textSize="17sp" />
-
-        <RadioButton
-            android:id="@+id/rbPri50o"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="50만원 이상"
+            android:layout_marginTop="25dp"
             android:textColor="@color/agent_color_1NoOpp"
             android:button="@drawable/radio_button_selector"
             android:fontFamily="@font/nanumsquareregular"
