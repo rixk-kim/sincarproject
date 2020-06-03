@@ -328,4 +328,5 @@
 
     <!-- 렌트카 -->
     <string name="title_rental_detail">상세 정보</string>
+    <string name="title_rental_delivery">딜리버리</string>
 </resources>
