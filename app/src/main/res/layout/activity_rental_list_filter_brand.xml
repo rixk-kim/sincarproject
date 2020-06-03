@@ -12,21 +12,21 @@
         android:layout_height="24dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
+        android:background="@color/base_background_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/abc_vector_test" />
+        app:srcCompat="@drawable/filled_red" />
 
     <Button
         android:id="@+id/btnBrandClear"
         android:layout_width="65dp"
         android:layout_height="32dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="32dp"
-        android:text="초기화"
-        android:textSize="14sp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_custom_button3"
         android:textColor="@color/agent_color_red"
-        android:lineHeight="17sp"
-        android:gravity="end"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:text="초기화"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,69 +38,82 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="72dp"
         android:text="국내 브랜드"
-        android:textColor="@color/agent_color_1"
+        android:textColor="@color/agent_color_1NoOpp"
+        android:fontFamily="@font/nanumsquarebold"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/rb1_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="31dp"
         android:layout_marginTop="123dp"
+        android:button="@drawable/checkbox_selector"
+        android:fontFamily="@font/nanumsquareregular"
         android:text="현대"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/rb1_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="201dp"
         android:layout_marginTop="124dp"
+        android:button="@drawable/checkbox_selector"
+        android:fontFamily="@font/nanumsquareregular"
         android:text="제네시스"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/rb1_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="31dp"
         android:layout_marginTop="25dp"
+        android:button="@drawable/checkbox_selector"
+        android:fontFamily="@font/nanumsquareregular"
         android:text="기아"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rb1_1" />
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/rb1_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="201dp"
         android:layout_marginTop="25dp"
+        android:button="@drawable/checkbox_selector"
+        android:fontFamily="@font/nanumsquareregular"
         android:text="쌍용"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rb1_2" />
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/rb1_5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="31dp"
         android:layout_marginTop="25dp"
+        android:button="@drawable/checkbox_selector"
+        android:fontFamily="@font/nanumsquareregular"
         android:text="르노삼성"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rb1_3" />
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/rb1_6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="201dp"
         android:layout_marginTop="25dp"
+        android:button="@drawable/checkbox_selector"
+        android:fontFamily="@font/nanumsquareregular"
         android:text="쉐보레"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rb1_4" />
@@ -112,108 +125,130 @@
         android:layout_height="20dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="277dp"
+        android:button="@drawable/checkbox_selector"
+        android:fontFamily="@font/nanumsquarebold"
         android:text="수입 브랜드"
-        android:textColor="@color/agent_color_1"
+        android:textColor="@color/agent_color_1NoOpp"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/rb2_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="31dp"
         android:layout_marginTop="32dp"
+        android:button="@drawable/checkbox_selector"
+        android:fontFamily="@font/nanumsquareregular"
         android:text="닛산"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/rb2_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="201dp"
         android:layout_marginTop="32dp"
+        android:button="@drawable/checkbox_selector"
+        android:fontFamily="@font/nanumsquareregular"
         android:text="도요타"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/rb2_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="31dp"
         android:layout_marginTop="25dp"
+        android:button="@drawable/checkbox_selector"
+        android:fontFamily="@font/nanumsquareregular"
         android:text="마쯔다"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rb2_1" />
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/rb2_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="201dp"
         android:layout_marginTop="25dp"
+        android:button="@drawable/checkbox_selector"
+        android:fontFamily="@font/nanumsquareregular"
         android:text="미쓰비시"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rb2_2" />
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/rb2_5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="31dp"
         android:layout_marginTop="25dp"
+        android:button="@drawable/checkbox_selector"
+        android:fontFamily="@font/nanumsquareregular"
         android:text="GM"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rb2_3" />
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/rb2_6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="201dp"
         android:layout_marginTop="25dp"
+        android:button="@drawable/checkbox_selector"
+        android:fontFamily="@font/nanumsquareregular"
         android:text="쉐보레"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rb2_4" />
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/rb2_7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="31dp"
         android:layout_marginTop="25dp"
+        android:button="@drawable/checkbox_selector"
+        android:fontFamily="@font/nanumsquareregular"
         android:text="닛산"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rb2_5" />
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/rb2_8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="201dp"
         android:layout_marginTop="25dp"
+        android:button="@drawable/checkbox_selector"
+        android:fontFamily="@font/nanumsquareregular"
         android:text="도요타"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rb2_6" />
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/rb2_9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="31dp"
         android:layout_marginTop="25dp"
+        android:button="@drawable/checkbox_selector"
+        android:fontFamily="@font/nanumsquareregular"
         android:text="마쯔다"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rb2_7" />
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/rb2_10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="201dp"
         android:layout_marginTop="25dp"
+        android:button="@drawable/checkbox_selector"
+        android:fontFamily="@font/nanumsquareregular"
         android:text="미쓰비시"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rb2_8" />
@@ -223,7 +258,10 @@
         android:layout_width="304dp"
         android:layout_height="74dp"
         android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_custom_button2"
+        android:fontFamily="@font/nanumsquareregular"
         android:text="적용"
+        android:textColor="@color/base_background_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.448"

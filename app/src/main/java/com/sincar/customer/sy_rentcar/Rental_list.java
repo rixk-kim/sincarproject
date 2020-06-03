@@ -10,12 +10,12 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.sincar.customer.MainActivity;
 import com.sincar.customer.R;
 
 public class Rental_list extends AppCompatActivity {
-    private AppCompatImageView mImagePhoto;
+    private ConstraintLayout mImagePhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,7 @@ public class Rental_list extends AppCompatActivity {
             }
         });
 
-        mImagePhoto = findViewById(R.id.img1);
+        mImagePhoto = findViewById(R.id.rent_list_con1);
         mImagePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
