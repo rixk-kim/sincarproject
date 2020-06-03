@@ -100,9 +100,9 @@ public class Maps_rent_mainfrag extends Fragment {
             public void onClick(View v) {
                 int compare = reserverDateNTime.compareTo(returnDateNTime);
                 if(compare == 0) {
-                    Toast.makeText(getContext(), "예약시간과 반납 시간이 같습니다\n반납시간이 예약시간보다 최소한 1시간 경과 되어있어야 합니다", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "예약 시간과 반납 시간이 같습니다\n반납시간이 예약 시간보다 최소한 1시간 경과 되어있어야 합니다", Toast.LENGTH_LONG).show();
                 } else if (compare > 0 ) {
-                    Toast.makeText(getContext(), "반납 시간이 예약 시간보다 빠릅니다.\n반납시간이 예약시간보다 최소한 1시간 경과 되어있어야 합니다", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "반납 시간이 예약 시간보다 빠릅니다.\n반납시간이 예약 시간보다 최소한 1시간 경과 되어있어야 합니다", Toast.LENGTH_LONG).show();
                 } else {
                     Intent intent = new Intent(getContext(), Rental_list.class);
                     getActivity().startActivity(intent);

@@ -23,14 +23,13 @@ public class CustomDialog extends Dialog {
     public CustomDialog(@NonNull Context context) {
         super(context);
 
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
         //다이얼로그 밖의 화면은 흐리게 만들어줌
 //        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
 //        layoutParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
 //        layoutParams.dimAmount = 0.6f;
 //        getWindow().setAttributes(layoutParams);
-//        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.sy_custom_dialog);
 
         tvDlgbtn1 = (TextView)findViewById(R.id.dlgBtn1);

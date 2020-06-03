@@ -59,8 +59,6 @@ public class Rental_list extends AppCompatActivity {
         WindowManager.LayoutParams wm = cd.getWindow().getAttributes();
         wm.copyFrom(cd.getWindow().getAttributes());
         wm.width = width / 5 * 4;
-        wm.height = height / 2;
-
 
 
         btSort.setOnClickListener(new View.OnClickListener() {

@@ -124,11 +124,15 @@ class Maps_rent_time : Fragment() {
                 }
             } else if(rCode == 2) {
                 if (resToret_DayCheck < 0) {
-                    Toast.makeText(context, "예약 날짜보다 반납 날짜가 더 빠릅니다.", Toast.LENGTH_LONG).show();
+                    var strMent = "예약 날짜보다 반납 날짜가 더 빠릅니다.\n예약 시간은 "
+                    Toast.makeText(context, strMent + start_dateCheck + start_timeCheck + "입니다", Toast.LENGTH_LONG).show();
 
                 } else if ( resToret_DayCheck == 0){
-                    if (resToret_TimCheck <= 0)
-                        Toast.makeText(context, "예약 시간으로부터 최소한 1시간 경과된 시간으로 설정하십시오.", Toast.LENGTH_LONG).show();
+                    if (resToret_TimCheck <= 0) {
+                        var strMent = "예약 시간으로부터 최소한 1시간 경과된 시간으로 설정하십시오.\n예약 시간은 "
+                        Toast.makeText(context, strMent + start_dateCheck + start_timeCheck + "입니다" , Toast.LENGTH_LONG).show();
+
+                    }
                     else {
                         onDateNTimeSetListener?.onDateNTimePickerSet(date, time, now_dfftimeCheck)
                         (activity as MapsActivity?)!!.replaceFragment(1)
