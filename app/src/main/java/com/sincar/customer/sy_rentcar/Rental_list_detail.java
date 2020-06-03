@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.sincar.customer.CouponeActivity;
 import com.sincar.customer.R;
 import com.sincar.customer.adapter.AdapterSpinner;
 import com.sincar.customer.util.Util;
@@ -67,6 +68,10 @@ public class Rental_list_detail extends FragmentActivity implements
      * 화면 초기화
      */
     private void init() {
+
+        findViewById(R.id.rental_detail_btnPrev_layout).setOnClickListener(this);
+        findViewById(R.id.rental_confirm_btn).setOnClickListener(this);
+
         car_image  = (ImageView) findViewById(R.id.rental_car_image);
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -140,14 +145,14 @@ public class Rental_list_detail extends FragmentActivity implements
         Intent intent;
 
         switch (v.getId()) {
-            case R.id.use_detail_btnPrev_layout:
+            case R.id.rental_detail_btnPrev_layout:
+                finish();
                 break;
 
-            case R.id.reserve_cancel_btn:
-
-                break;
-
-            case R.id.reserve_btn:
+            case R.id.rental_confirm_btn:
+                // TODO : 예약하기
+                intent = new Intent(this, Rental_payment.class);
+                startActivity(intent);
                 break;
 
             case R.id.rental_allocate_position:

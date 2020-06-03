@@ -199,7 +199,12 @@
             android:name=".sy_rentcar.Rental_list_detail"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity" /> <!-- 상세보기 -->
+        <activity
+            android:name=".sy_rentcar.Rental_payment"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" /> <!-- 결제하기 -->
         <activity
             android:name=".sy_rentcar.Rental_list_filter_age"
             android:screenOrientation="portrait"
