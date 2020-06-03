@@ -12,9 +12,10 @@
         android:layout_height="24dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
+        android:background="@color/base_background_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/abc_vector_test" />
+        app:srcCompat="@drawable/filled_red" />
 
     <TextView
         android:id="@+id/textView6"
@@ -23,7 +24,7 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="72dp"
         android:text="나이 제한"
-        android:textColor="@color/agent_color_1"
+        android:textColor="@color/agent_color_1NoOpp"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,6 +36,7 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="108dp"
         android:text="대여 조건의 나이 제한을 선택해주세요."
+        android:textColor="@color/agent_color_1_80Opp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,6 +46,7 @@
         android:layout_height="110dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="154dp"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -53,32 +56,40 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="전체"
-            android:textColor="@color/agent_color_1"
-            android:textSize="17sp" />
+            android:button="@drawable/radio_button_selector"
+            android:textColor="@color/agent_color_1NoOpp"
+            android:textSize="15sp" />
 
         <RadioButton
             android:id="@+id/rbAge21"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="만 21세 이상"
-            android:textColor="@color/agent_color_1"
-            android:textSize="17sp" />
+            android:button="@drawable/radio_button_selector"
+            android:textColor="@color/agent_color_1NoOpp"
+            android:textSize="15sp" />
 
         <RadioButton
             android:id="@+id/rbAge26"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="만 26세 이상"
-            android:textColor="@color/agent_color_1"
-            android:textSize="17sp" />
+            android:button="@drawable/radio_button_selector"
+            android:textColor="@color/agent_color_1NoOpp"
+            android:textSize="15sp" />
+
     </RadioGroup>
 
     <Button
         android:id="@+id/btnAgeCheck"
         android:layout_width="304dp"
-        android:layout_height="74dp"
+        android:layout_height="52dp"
         android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_custom_button2"
+        android:fontFamily="@font/nanumsquareregular"
         android:text="적용"
+        android:textColor="@color/base_background_color"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.448"

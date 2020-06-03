@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 
@@ -15,8 +16,8 @@ public class Rental_list_filter_brand extends AppCompatActivity {
 
     ImageButton imBack;
     Button btnBrandCheck, btnBrandClear;
-    RadioButton rb1[] = new RadioButton[6];
-    RadioButton rb2[] = new RadioButton[10];
+    CheckBox rb1[] = new CheckBox[6];
+    CheckBox rb2[] = new CheckBox[10];
     String brandStrData = "";
     String[] brandArrayData1 = {"현대", "제네시스", "기아", "쌍용", "르노삼성", "쉐보레"};
     String[] brandArrayData2 = {"닛산", "도요타", "마쯔다", "미쓰비시", "GM", "쉐보레", "닛산", "도요타", "마쯔다", "미쓰비시"};
@@ -31,22 +32,22 @@ public class Rental_list_filter_brand extends AppCompatActivity {
         imBack = (ImageButton)findViewById(R.id.imBtnBack_rental_list_filter_brand);
         btnBrandCheck = (Button)findViewById(R.id.btnBrandCheck);
         btnBrandClear = (Button)findViewById(R.id.btnBrandClear);
-        rb1[0] = (RadioButton)findViewById(R.id.rb1_1);
-        rb1[1] = (RadioButton)findViewById(R.id.rb1_2);
-        rb1[2] = (RadioButton)findViewById(R.id.rb1_3);
-        rb1[3] = (RadioButton)findViewById(R.id.rb1_4);
-        rb1[4] = (RadioButton)findViewById(R.id.rb1_5);
-        rb1[5] = (RadioButton)findViewById(R.id.rb1_6);
-        rb2[0] = (RadioButton)findViewById(R.id.rb2_1);
-        rb2[1] = (RadioButton)findViewById(R.id.rb2_2);
-        rb2[2] = (RadioButton)findViewById(R.id.rb2_3);
-        rb2[3] = (RadioButton)findViewById(R.id.rb2_4);
-        rb2[4] = (RadioButton)findViewById(R.id.rb2_5);
-        rb2[5] = (RadioButton)findViewById(R.id.rb2_6);
-        rb2[6] = (RadioButton)findViewById(R.id.rb2_7);
-        rb2[7] = (RadioButton)findViewById(R.id.rb2_8);
-        rb2[8] = (RadioButton)findViewById(R.id.rb2_9);
-        rb2[9] = (RadioButton)findViewById(R.id.rb2_10);
+        rb1[0] = (CheckBox)findViewById(R.id.rb1_1);
+        rb1[1] = (CheckBox)findViewById(R.id.rb1_2);
+        rb1[2] = (CheckBox)findViewById(R.id.rb1_3);
+        rb1[3] = (CheckBox)findViewById(R.id.rb1_4);
+        rb1[4] = (CheckBox)findViewById(R.id.rb1_5);
+        rb1[5] = (CheckBox)findViewById(R.id.rb1_6);
+        rb2[0] = (CheckBox)findViewById(R.id.rb2_1);
+        rb2[1] = (CheckBox)findViewById(R.id.rb2_2);
+        rb2[2] = (CheckBox)findViewById(R.id.rb2_3);
+        rb2[3] = (CheckBox)findViewById(R.id.rb2_4);
+        rb2[4] = (CheckBox)findViewById(R.id.rb2_5);
+        rb2[5] = (CheckBox)findViewById(R.id.rb2_6);
+        rb2[6] = (CheckBox)findViewById(R.id.rb2_7);
+        rb2[7] = (CheckBox)findViewById(R.id.rb2_8);
+        rb2[8] = (CheckBox)findViewById(R.id.rb2_9);
+        rb2[9] = (CheckBox)findViewById(R.id.rb2_10);
 
         imBack.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -6,6 +6,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageButton
+        android:id="@+id/imBtn_rental_list_filter"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/base_background_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/filled_red" />
+
+    <Button
+        android:id="@+id/btn_rentalCar_filter_clear"
+        android:layout_width="65dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_custom_button3"
+        android:textColor="@color/agent_color_red"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:text="초기화"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -13,7 +37,8 @@
         android:layout_marginTop="72dp"
         android:text="필터 상세 조건"
         android:textSize="18sp"
-        android:textColor="@color/agent_color_1"
+        android:textColor="@color/agent_color_1NoOpp"
+        android:fontFamily="@font/nanumsquarebold"
         android:letterSpacing="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +60,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/nanumsquarebold"
             android:text="나이 제한"
-            android:textColor="@color/agent_color_1"
+            android:textColor="@color/agent_color_1NoOpp"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -45,10 +70,22 @@
             android:layout_width="wrap_content"
             android:layout_height="16dp"
             android:layout_marginBottom="16dp"
+            android:textColor="@color/agent_color_1_80Opp"
+            android:fontFamily="@font/nanumsquareregular"
             android:text="전체"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:src="@drawable/arrow_right_red"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:layout_width="0dp"
@@ -67,8 +104,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAge"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toBottomOf="@+id/btnAge">
 
         <TextView
             android:layout_width="wrap_content"
@@ -76,7 +112,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/nanumsquarebold"
             android:text="가격 설정"
-            android:textColor="@color/agent_color_1"
+            android:textColor="@color/agent_color_1NoOpp"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -86,10 +122,21 @@
             android:layout_width="wrap_content"
             android:layout_height="16dp"
             android:layout_marginBottom="16dp"
+            android:textColor="@color/agent_color_1_80Opp"
+            android:fontFamily="@font/nanumsquareregular"
             android:text="전체"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:src="@drawable/arrow_right_red"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
@@ -114,7 +161,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/nanumsquarebold"
             android:text="외형 선택"
-            android:textColor="@color/agent_color_1"
+            android:textColor="@color/agent_color_1NoOpp"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -124,10 +171,21 @@
             android:layout_width="wrap_content"
             android:layout_height="16dp"
             android:layout_marginBottom="16dp"
+            android:textColor="@color/agent_color_1_80Opp"
+            android:fontFamily="@font/nanumsquareregular"
             android:text="전체"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:src="@drawable/arrow_right_red"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
@@ -153,7 +211,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/nanumsquarebold"
             android:text="브랜드 선택"
-            android:textColor="@color/agent_color_1"
+            android:textColor="@color/agent_color_1NoOpp"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -163,10 +221,21 @@
             android:layout_width="wrap_content"
             android:layout_height="16dp"
             android:layout_marginBottom="16dp"
+            android:textColor="@color/agent_color_1_80Opp"
+            android:fontFamily="@font/nanumsquareregular"
             android:text="전체"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:src="@drawable/arrow_right_red"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
@@ -180,32 +249,16 @@
     <Button
         android:id="@+id/btnAccept"
         android:layout_width="304dp"
-        android:layout_height="74dp"
-        android:layout_marginTop="568dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_custom_button2"
+        android:fontFamily="@font/nanumsquareregular"
         android:text="적용"
+        android:textColor="@color/base_background_color"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/imBtn_rental_list_filter"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_dialog" />
-
-    <Button
-        android:id="@+id/btn_rentalCar_filter_clear"
-        android:layout_width="65dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="16dp"
-        android:text="초기화"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
