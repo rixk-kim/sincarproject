@@ -17,6 +17,9 @@ import com.sincar.customer.MapsActivity;
 import com.sincar.customer.R;
 import com.sincar.customer.ReservationAddressActivity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 public class Maps_rent_mainfrag extends Fragment {
@@ -24,6 +27,7 @@ public class Maps_rent_mainfrag extends Fragment {
     androidx.constraintlayout.widget.ConstraintLayout tvAddress, reserveTime, returnTime;
     TextView tvReserveDate, tvReserveTime, tvReturnDate, tvReturnTime, currentAddress;
     Button btnCheck;
+    Date reserverDateNTime, returnDateNTime;
 
     @Nullable
     @Override
@@ -53,7 +57,19 @@ public class Maps_rent_mainfrag extends Fragment {
             tvReturnDate.setText(return_date);
             tvReturnTime.setText(return_time);
             currentAddress.setText(curAddress);
+
+            //예약 날짜,시간 과 반납 날짜,시간의 String을 파싱
+            SimpleDateFormat dateNtimeFormat = new SimpleDateFormat("MMM d일 (E)HH:00");
+
+            try {
+                reserverDateNTime = dateNtimeFormat.parse(start_date + start_time);
+                returnDateNTime = dateNtimeFormat.parse(return_date + return_time);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
+
+
 
         tvAddress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,10 +95,19 @@ public class Maps_rent_mainfrag extends Fragment {
 
         btnCheck.setOnClickListener(new View.OnClickListener() {
             @Override
+            //파싱한 예약 시간과 반납 시간을 비교
+            //예약 시간과 반납 시간이 같거나 반납시간잉 예약시간보다 빠르면 오류 토스트
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), Rental_list.class);
-                getActivity().startActivity(intent);
+                int compare = reserverDateNTime.compareTo(returnDateNTime);
+                if(compare == 0) {
+                    Toast.makeText(getContext(), "예약시간과 반납 시간이 같습니다\n반납시간이 예약시간보다 최소한 1시간 경과 되어있어야 합니다", Toast.LENGTH_LONG).show();
+                } else if (compare > 0 ) {
+                    Toast.makeText(getContext(), "반납 시간이 예약 시간보다 빠릅니다.\n반납시간이 예약시간보다 최소한 1시간 경과 되어있어야 합니다", Toast.LENGTH_LONG).show();
+                } else {
+                    Intent intent = new Intent(getContext(), Rental_list.class);
+                    getActivity().startActivity(intent);
 //                Toast.makeText(getContext(), "서비스 준비중입니다.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         return view;

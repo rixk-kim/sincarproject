@@ -160,7 +160,7 @@ public class MapsActivity extends FragmentActivity implements
 
         btnCurrent = (ImageView) findViewById(R.id.btnCurrent);
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d일 (E)");
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH : 00");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:00");
         SimpleDateFormat timeIntFormat = new SimpleDateFormat("HH");
         start_date = dateFormat.format(currentTime);
         start_time = timeFormat.format(currentTime);
