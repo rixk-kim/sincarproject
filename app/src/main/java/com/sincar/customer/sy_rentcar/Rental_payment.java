@@ -215,41 +215,44 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
                 if(clause_agree.isChecked() == true){
                     // 예약으로 이동
                     //reserveSelect();
-                    intent = new Intent(pContext, PayApproveActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("reserve_address", reserve_address);   //주소
-                    bundle.putString("reserve_year", reserve_year);         //년
-                    bundle.putString("reserve_month", reserve_month);       //월
-                    bundle.putString("reserve_day", reserve_day);           //일
-                    bundle.putString("agent_seq", agent_seq);               //예약 대리점주 seq
-                    bundle.putString("agent_company", agent_company);       //예약 대리점주
-                    bundle.putString("agent_time", agent_time);             //예약시간
-                    bundle.putString("wash_area", wash_area);               //세차장소(실내/실외)
-                    bundle.putString("car_wash_option", car_wash_option);   //옵션(가니쉬코팅/에머랄드 코팅)
-                    bundle.putString("car_company", car_company);           //제조사
-                    bundle.putString("car_name", car_name);                 //차량 이름
-                    bundle.putString("car_number", car_number);             //차번호
-//                    bundle.putString("car_wash_pay", car_wash_pay);         //차량 기본 세차 금액
-                    bundle.putString("use_my_point", String.valueOf(use_my_point));         //사용 포인트
-                    bundle.putString("use_coupone_seq", coupone_seq);                       //사용 쿠폰 seq
+//                    intent = new Intent(pContext, PayApproveActivity.class);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("reserve_address", reserve_address);   //주소
+//                    bundle.putString("reserve_year", reserve_year);         //년
+//                    bundle.putString("reserve_month", reserve_month);       //월
+//                    bundle.putString("reserve_day", reserve_day);           //일
+//                    bundle.putString("agent_seq", agent_seq);               //예약 대리점주 seq
+//                    bundle.putString("agent_company", agent_company);       //예약 대리점주
+//                    bundle.putString("agent_time", agent_time);             //예약시간
+//                    bundle.putString("wash_area", wash_area);               //세차장소(실내/실외)
+//                    bundle.putString("car_wash_option", car_wash_option);   //옵션(가니쉬코팅/에머랄드 코팅)
+//                    bundle.putString("car_company", car_company);           //제조사
+//                    bundle.putString("car_name", car_name);                 //차량 이름
+//                    bundle.putString("car_number", car_number);             //차번호
+////                    bundle.putString("car_wash_pay", car_wash_pay);         //차량 기본 세차 금액
+//                    bundle.putString("use_my_point", String.valueOf(use_my_point));         //사용 포인트
+//                    bundle.putString("use_coupone_seq", coupone_seq);                       //사용 쿠폰 seq
+//
+//                    //car_wash_option_pay => 부가서비스 비용
+//                    String tmp_value = use_point.getText().toString().trim();
+//                    int input_point = 0;
+//                    //특정 문자열 제거(, / 원)
+//                    tmp_value = tmp_value.replaceAll(",","");
+//                    tmp_value = tmp_value.replaceAll("원","");
+//                    if(!TextUtils.isEmpty(tmp_value)) {
+//                        input_point = Integer.parseInt(tmp_value);              //사용 포인트
+//                    }
+//
+//                    int reserve_pay = Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay - input_point;
+//                    if(reserve_pay < 0) reserve_pay = 0;
+//
+//                    bundle.putString("total_amt", String.valueOf(reserve_pay));               //총 결제 금액
+//
+//                    //부가서비스
+//                    intent.putExtras(bundle);
+//                    startActivity(intent);
 
-                    //car_wash_option_pay => 부가서비스 비용
-                    String tmp_value = use_point.getText().toString().trim();
-                    int input_point = 0;
-                    //특정 문자열 제거(, / 원)
-                    tmp_value = tmp_value.replaceAll(",","");
-                    tmp_value = tmp_value.replaceAll("원","");
-                    if(!TextUtils.isEmpty(tmp_value)) {
-                        input_point = Integer.parseInt(tmp_value);              //사용 포인트
-                    }
-
-                    int reserve_pay = Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay - input_point;
-                    if(reserve_pay < 0) reserve_pay = 0;
-
-                    bundle.putString("total_amt", String.valueOf(reserve_pay));               //총 결제 금액
-
-                    //부가서비스
-                    intent.putExtras(bundle);
+                    intent = new Intent(pContext, Rental_approve.class);
                     startActivity(intent);
                 }else {
                     Toast.makeText(com.sincar.customer.sy_rentcar.Rental_payment.this, "약관 동의를 체크해 주세요.", Toast.LENGTH_LONG).show();
