@@ -17,10 +17,12 @@ import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -64,6 +66,7 @@ public class Rental_list_detail extends FragmentActivity implements
     private TextView rental_car_start_date, rental_car_start_time, rental_car_end_date, rental_car_end_time;
     private TextView rental_car_address;
     private TextView btn_rental_allocate, btn_rental_return;
+    private View view_touchless;
     ///sy
 
 
@@ -117,10 +120,13 @@ public class Rental_list_detail extends FragmentActivity implements
 
         //지도
         mRelativeLayout = (RelativeLayout) findViewById(R.id.rMap);
+        view_touchless = (View)findViewById(R.id.view_touchless);
 
         mapView = new MapView(this);
         mapViewContainer = (ViewGroup) findViewById(R.id.rMap);
         mapViewContainer.addView(mapView);
+        view_touchless.setClickable(true);
+
 
         ArrayList<String> dlivery_title = new ArrayList<>();
         dlivery_title.add("지점방문"); //ArrayList에 내가 스피너에 보여주고싶은 값 셋팅
@@ -189,7 +195,6 @@ public class Rental_list_detail extends FragmentActivity implements
             case R.id.rental_confirm_btn:
                 // TODO : 예약하기
                 intent = new Intent(this, Rental_payment.class);
-                mapViewContainer.removeView(mapView);
                 startActivity(intent);
                 break;
 

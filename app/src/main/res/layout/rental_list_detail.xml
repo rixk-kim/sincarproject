@@ -686,13 +686,16 @@
 
                     <!-- 지도 -->
                     <FrameLayout
+                        android:id="@+id/rental_list_detail_frameMap"
                         android:layout_width="match_parent"
                         android:layout_height="188dp"
                         android:layout_marginTop="28dp">
+
                         <RelativeLayout
                             android:id="@+id/rMap"
                             android:layout_width="match_parent"
                             android:layout_height="188dp"
+                            android:clickable="false"
                             android:gravity="center|center_horizontal|center_vertical"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -711,6 +714,17 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             android:src="@drawable/current_icon" />
+
+                        <View
+                            android:id="@+id/view_touchless"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#00000000"
+                            app:layout_constraintBottom_toBottomOf="@+id/rMap"
+                            app:layout_constraintEnd_toEndOf="@+id/rMap"
+                            app:layout_constraintStart_toStartOf="@+id/rMap"
+                            app:layout_constraintTop_toTopOf="@+id/rMap"/>
+
                     </FrameLayout>
 
                     <!-- 딜리버리 여부 -->
