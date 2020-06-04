@@ -130,8 +130,8 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
         textView_point_pay.setText(Util.setAddMoneyDot(point_pay) + "원");
 
         //결재정보
-        textView_approve_info = (TextView) findViewById(R.id.use_approve_info);
-        textView_approve_info.setText(approve_info);
+//        textView_approve_info = (TextView) findViewById(R.id.use_approve_info);
+//        textView_approve_info.setText(approve_info);
 
         //결재요금
         textView_use_pay = (TextView) findViewById(R.id.use_use_pay);

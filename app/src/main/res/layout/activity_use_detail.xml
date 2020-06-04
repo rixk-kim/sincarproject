@@ -289,13 +289,13 @@
 
                 <TextView
                     android:id="@+id/use_approve_info"
-                    android:fontFamily="@font/nanumsquarebold"
+                    android:fontFamily="@font/nanumsquareregular"
                     android:layout_width="match_parent"
                     android:layout_height="18dp"
                     android:layout_gravity="left|center_horizontal|center_vertical"
                     android:letterSpacing="0.05"
-                    android:text="케이뱅크 ****3840"
-                    android:textColor="@color/textColorPrimary"
+                    android:text="결제 금액"
+                    android:textColor="#b33e3e3e"
                     android:textSize="14sp" />
             </LinearLayout>
 
