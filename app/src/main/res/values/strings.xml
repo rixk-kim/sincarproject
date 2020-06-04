@@ -54,7 +54,7 @@
 
     <!-- Main 메뉴 시작 -->
     <string name="main_menu_1">출장스팀세차</string>
-    <string name="main_menu_2">렌터카 준비중</string>
+    <string name="main_menu_2">렌터카</string>
     <string name="main_menu_3">승차공유 준비중</string>
     <string name="main_menu_4">대리운전 준비중</string>
     <string name="main_menu_5">퀵・탁송 준비중</string>

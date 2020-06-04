@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PayApproveResult">
+
+    <ImageView
+        android:id="@+id/reserve_approve_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="111dp"
+        android:contentDescription="@string/actionbar_prev_icon_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/accomplishment" />
+
+    <TextView
+        android:id="@+id/reserve_approve_text1"
+        android:fontFamily="@font/nanumsquareregular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="63dp"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:layout_gravity="center|center_horizontal|center_vertical"
+        android:letterSpacing="0.05"
+        android:text="예약완료"
+        android:textColor="#ff4d4d"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/reserve_approve_image"/>
+
+    <TextView
+        android:id="@+id/reserve_approve_text2"
+        android:fontFamily="@font/nanumsquareregular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:layout_gravity="center|center_horizontal|center_vertical"
+        android:lineSpacingExtra="4sp"
+        android:text="예약이 완료되었습니다!\n안전한 운행하시기 바래요 :)"
+        android:textColor="#3e3e3e"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/reserve_approve_text1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:gravity="center|center_horizontal|center_vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/reserve_approve_text2"
+        tools:ignore="MissingConstraints">
+
+
+        <Button
+            android:id="@+id/rental_reserve_approve_btn"
+            android:fontFamily="@font/nanumsquarebold"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_gravity="center"
+            android:background="@drawable/default_button_type_1"
+            android:gravity="center|center_horizontal|center_vertical"
+            android:shadowColor="#C4C4C4"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="7"
+            android:text="@string/btn_confirm"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
