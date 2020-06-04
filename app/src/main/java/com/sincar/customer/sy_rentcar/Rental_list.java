@@ -23,12 +23,21 @@ public class Rental_list extends AppCompatActivity {
     private ConstraintLayout mImagePhoto;
     CustomDialog cd;
     int dlgCheck = 0;
+    Bundle bundle;
+    String start_date, start_time, return_date, return_time, curAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rental_list);
+
+        Intent intent = getIntent(); //Maps_rent_mainfrag에서 넘어온 데이터 수신
+        start_date = intent.getStringExtra("start_date");
+        start_time = intent.getStringExtra("start_time");
+        return_date = intent.getStringExtra("return_date");
+        return_time = intent.getStringExtra("return_time");
+        curAddress = intent.getStringExtra("current_Address");
 
         ImageButton ibBack = (ImageButton)findViewById(R.id.ibBack1);
 
@@ -99,6 +108,11 @@ public class Rental_list extends AppCompatActivity {
             public void onClick(View v) {
                 //상세페이지 이동
                 Intent intent = new Intent(getApplicationContext(), Rental_list_detail.class);
+                intent.putExtra("start_date", start_date);
+                intent.putExtra("start_time", start_time);
+                intent.putExtra("return_date", return_date);
+                intent.putExtra("return_time", return_time);
+                intent.putExtra("current_Address", curAddress);
                 startActivity(intent);
             }
         });

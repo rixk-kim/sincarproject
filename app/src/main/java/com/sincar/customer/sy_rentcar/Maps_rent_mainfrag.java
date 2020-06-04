@@ -28,6 +28,7 @@ public class Maps_rent_mainfrag extends Fragment {
     TextView tvReserveDate, tvReserveTime, tvReturnDate, tvReturnTime, currentAddress;
     Button btnCheck;
     Date reserverDateNTime, returnDateNTime;
+    String start_date, start_time, return_date, return_time, curAddress;
 
     @Nullable
     @Override
@@ -47,11 +48,11 @@ public class Maps_rent_mainfrag extends Fragment {
         tvReturnTime = (TextView) view.findViewById(R.id.return_time);
 
         if (getArguments() != null) {
-            String start_date = getArguments().getString("start_date");
-            String start_time = getArguments().getString("start_time");
-            String return_date = getArguments().getString("return_date");
-            String return_time = getArguments().getString("return_time");
-            String curAddress = getArguments().getString("current_Address");
+            start_date = getArguments().getString("start_date");
+            start_time = getArguments().getString("start_time");
+            return_date = getArguments().getString("return_date");
+            return_time = getArguments().getString("return_time");
+            curAddress = getArguments().getString("current_Address");
             tvReserveDate.setText(start_date);
             tvReserveTime.setText(start_time);
             tvReturnDate.setText(return_date);
@@ -68,8 +69,6 @@ public class Maps_rent_mainfrag extends Fragment {
                 e.printStackTrace();
             }
         }
-
-
 
         tvAddress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +104,14 @@ public class Maps_rent_mainfrag extends Fragment {
                     Toast.makeText(getContext(), "반납 시간이 예약 시간보다 빠릅니다.\n반납시간이 예약 시간보다 최소한 1시간 경과 되어있어야 합니다", Toast.LENGTH_LONG).show();
                 } else {
                     Intent intent = new Intent(getContext(), Rental_list.class);
+                    //MapsActivity에서 넘어온 예약시간,반납시간,주소등의 데이터를 번들로 Rental_list에 넘김
+                    intent.putExtra("start_date", start_date);
+                    intent.putExtra("start_time", start_time);
+                    intent.putExtra("return_date", return_date);
+                    intent.putExtra("return_time", return_time);
+                    intent.putExtra("current_Address", curAddress);
                     getActivity().startActivity(intent);
+                    getActivity().finish();
 //                Toast.makeText(getContext(), "서비스 준비중입니다.", Toast.LENGTH_SHORT).show();
                 }
             }

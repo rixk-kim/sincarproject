@@ -48,10 +48,17 @@ public class Rental_list_detail extends FragmentActivity implements
     private ImageView car_image;
     private RelativeLayout mRelativeLayout;
     private MapView mapView;
+    private ViewGroup mapViewContainer;
     private Spinner spinner;
     AdapterSpinner adapterSpinner;
     private boolean spinner_select = true;
     private int select_delivery = 0;
+    //sy
+    String start_date, start_time, return_date, return_time, curAddress;
+    private TextView rental_car_start_date, rental_car_start_time, rental_car_end_date, rental_car_end_time;
+    private TextView rental_car_address;
+    ///sy
+
 
     private TextView rental_allocate_text, rental_return_text;
 
@@ -59,7 +66,12 @@ public class Rental_list_detail extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rental_list_detail);
+    }
 
+    //sy 현재 액티비티와 rental_car_delivery의 양쪽 맵뷰 사용을 위해 필요함
+    @Override
+    protected void onResume() {
+        super.onResume();
         // 화면 초기화
         init();
     }
@@ -100,7 +112,7 @@ public class Rental_list_detail extends FragmentActivity implements
         mRelativeLayout = (RelativeLayout) findViewById(R.id.rMap);
 
         mapView = new MapView(this);
-        final ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.rMap);
+        mapViewContainer = (ViewGroup) findViewById(R.id.rMap);
         mapViewContainer.addView(mapView);
         mapView.setMapViewEventListener(this);
 
@@ -137,7 +149,28 @@ public class Rental_list_detail extends FragmentActivity implements
             public void onNothingSelected(AdapterView<?> parent) { }
         });
 
+        //sy
+        rental_car_start_date = (TextView)findViewById(R.id.rental_car_start_date);
+        rental_car_start_time = (TextView)findViewById(R.id.rental_car_start_time);
+        rental_car_end_date = (TextView)findViewById(R.id.rental_car_end_date);
+        rental_car_end_time = (TextView)findViewById(R.id.rental_car_end_time);
+        rental_car_address = (TextView)findViewById(R.id.rental_car_address);
 
+        Intent intent = getIntent(); //Rental_list에서 넘어온 데이터 수신
+
+        start_date = intent.getStringExtra("start_date");
+        start_time = intent.getStringExtra("start_time");
+        return_date = intent.getStringExtra("return_date");
+        return_time = intent.getStringExtra("return_time");
+        curAddress = intent.getStringExtra("current_Address");
+
+        rental_car_start_date.setText(start_date);
+        rental_car_start_time.setText(start_time);
+        rental_car_end_date.setText(return_date);
+        rental_car_end_time.setText(return_time);
+        rental_car_address.setText(curAddress);
+
+        ///sy
     }
 
     @Override
@@ -152,17 +185,27 @@ public class Rental_list_detail extends FragmentActivity implements
             case R.id.rental_confirm_btn:
                 // TODO : 예약하기
                 intent = new Intent(this, Rental_payment.class);
+                mapViewContainer.removeView(mapView);
                 startActivity(intent);
                 break;
 
             case R.id.rental_allocate_position:
                 // TODO : 배차위치 변경하러 가기
-                Toast.makeText(getApplicationContext(),"배차위치 변경하러 가기",Toast.LENGTH_SHORT).show();
+                //sy
+                intent = new Intent(this, Rental_car_delivery_map.class);
+
+                startActivity(intent);
+
+                //Toast.makeText(getApplicationContext(),"배차위치 변경하러 가기",Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.rental_return_position:
                 // TODO : 반납위치 변경하러 가기
-                Toast.makeText(getApplicationContext(),"반납위치 변경하러 가기",Toast.LENGTH_SHORT).show();
+                intent = new Intent(this, Rental_car_delivery_map.class);
+                startActivity(intent);
+                finish();
+                //Toast.makeText(getApplicationContext(),"반납위치 변경하러 가기",Toast.LENGTH_SHORT).show();
+                ///sy
                 break;
         }
     }
@@ -174,6 +217,11 @@ public class Rental_list_detail extends FragmentActivity implements
         finish();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mapViewContainer.removeView(mapView);
+    }
 
     @Override
     public void onDateNTimePickerSet(String date, String time, int timeCheck) {
