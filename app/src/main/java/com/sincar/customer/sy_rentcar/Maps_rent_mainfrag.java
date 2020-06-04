@@ -111,7 +111,6 @@ public class Maps_rent_mainfrag extends Fragment {
                     intent.putExtra("return_time", return_time);
                     intent.putExtra("current_Address", curAddress);
                     getActivity().startActivity(intent);
-                    getActivity().finish();
 //                Toast.makeText(getContext(), "서비스 준비중입니다.", Toast.LENGTH_SHORT).show();
                 }
             }

@@ -22,12 +22,14 @@ import com.bumptech.glide.Glide;
 import com.sincar.customer.R;
 
 public class Rental_list extends AppCompatActivity {
-    private ConstraintLayout mImagePhoto;
+    private ConstraintLayout mImagePhoto[] = new ConstraintLayout[8];
+    int con[] = {R.id.rent_list_con1, R.id.rent_list_con2, R.id.rent_list_con3, R.id.rent_list_con4
+    , R.id.rent_list_con5, R.id.rent_list_con6, R.id.rent_list_con7, R.id.rent_list_con8};
+
     CustomDialog cd;
     int dlgCheck = 0;
     String start_date, start_time, return_date, return_time, curAddress;
     ImageView ivImage;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -108,20 +110,22 @@ public class Rental_list extends AppCompatActivity {
             }
         });
 
-        mImagePhoto = findViewById(R.id.rent_list_con1);
-        mImagePhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //상세페이지 이동
-                Intent intent = new Intent(getApplicationContext(), Rental_list_detail.class);
-                intent.putExtra("start_date", start_date);
-                intent.putExtra("start_time", start_time);
-                intent.putExtra("return_date", return_date);
-                intent.putExtra("return_time", return_time);
-                intent.putExtra("current_Address", curAddress);
-                startActivity(intent);
-            }
-        });
+        for(int i = 0; i < 8; i++) {
+            mImagePhoto[i] = (ConstraintLayout)findViewById(con[i]);
 
+            mImagePhoto[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //상세페이지 이동
+                    Intent intent = new Intent(getApplicationContext(), Rental_list_detail.class);
+                    intent.putExtra("start_date", start_date);
+                    intent.putExtra("start_time", start_time);
+                    intent.putExtra("return_date", return_date);
+                    intent.putExtra("return_time", return_time);
+                    intent.putExtra("current_Address", curAddress);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 }

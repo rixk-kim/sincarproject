@@ -83,6 +83,7 @@ public class Rental_list_detail extends FragmentActivity implements
     protected void onResume() {
         super.onResume();
         // 화면 초기화
+        spinner_select = true;
         init();
     }
 
@@ -164,7 +165,7 @@ public class Rental_list_detail extends FragmentActivity implements
         rental_car_start_time = (TextView)findViewById(R.id.rental_car_start_time);
         rental_car_end_date = (TextView)findViewById(R.id.rental_car_end_date);
         rental_car_end_time = (TextView)findViewById(R.id.rental_car_end_time);
-        rental_car_address = (TextView)findViewById(R.id.rental_car_address);
+//        rental_car_address = (TextView)findViewById(R.id.rental_car_address);
 
         Intent intent = getIntent(); //Rental_list에서 넘어온 데이터 수신
 
@@ -172,13 +173,13 @@ public class Rental_list_detail extends FragmentActivity implements
         start_time = intent.getStringExtra("start_time");
         return_date = intent.getStringExtra("return_date");
         return_time = intent.getStringExtra("return_time");
-        curAddress = intent.getStringExtra("current_Address");
+//        curAddress = intent.getStringExtra("current_Address");
 
         rental_car_start_date.setText(start_date);
         rental_car_start_time.setText(start_time);
         rental_car_end_date.setText(return_date);
         rental_car_end_time.setText(return_time);
-        rental_car_address.setText(curAddress);
+//        rental_car_address.setText(curAddress);
 
         ///sy
     }
