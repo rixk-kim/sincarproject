@@ -65,6 +65,7 @@ public class Rental_list_filter_type extends AppCompatActivity {
                         typeStrData += ",";
                     }
                 }
+                typeStrData = typeStrData.substring(0, typeStrData.length()-1);
                 Intent intent = new Intent();
                 intent.putExtra("type_data", typeStrData);
                 setResult(RESULT_OK, intent);

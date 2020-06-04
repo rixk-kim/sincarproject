@@ -125,7 +125,7 @@ public class Rental_list_detail extends FragmentActivity implements
         mapView = new MapView(this);
         mapViewContainer = (ViewGroup) findViewById(R.id.rMap);
         mapViewContainer.addView(mapView);
-        view_touchless.setClickable(true);
+        view_touchless.setClickable(true); //맵을 터치 불가 형식으로 만듬
 
 
         ArrayList<String> dlivery_title = new ArrayList<>();

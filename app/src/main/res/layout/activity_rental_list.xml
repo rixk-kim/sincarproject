@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="10dp"
-                    android:text="사당지점"
+                    android:text="송파지점"
                     android:textColor="@color/agent_color_1Opp"
                     android:textSize="11sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -110,34 +110,23 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="6dp"
                     android:lineSpacingExtra="5sp"
-                    android:text="벤츠 S 클래스 S 450 4Matic"
+                    android:text="BMW 5시리즈 520i"
                     android:textColor="@color/agent_color_1Opp"
                     android:textSize="13sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView1_1" />
 
-                <TextView
-                    android:id="@+id/textView1_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="11dp"
-                    android:text="75% 할인"
-                    android:textColor="@color/agent_color_red"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView1_2" />
 
                 <TextView
                     android:id="@+id/textView1_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="13dp"
+                    android:layout_marginStart="24dp"
                     android:layout_marginTop="11dp"
-                    android:text="65,000원"
+                    android:text="150,000원"
                     android:textColor="@color/agent_color_1"
                     android:textSize="14sp"
-                    app:layout_constraintStart_toEndOf="@+id/textView1_3"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView1_2" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

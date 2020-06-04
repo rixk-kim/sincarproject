@@ -83,6 +83,7 @@ public class Rental_list_filter_brand extends AppCompatActivity {
                         brandStrData += ",";
                     }
                 }
+                brandStrData = brandStrData.substring(0, brandStrData.length()-1);
                 Intent intent = new Intent();
                 intent.putExtra("brand_data", brandStrData);
                 setResult(RESULT_OK, intent);
