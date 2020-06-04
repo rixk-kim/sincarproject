@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -17,20 +18,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.bumptech.glide.Glide;
 import com.sincar.customer.R;
 
 public class Rental_list extends AppCompatActivity {
     private ConstraintLayout mImagePhoto;
     CustomDialog cd;
     int dlgCheck = 0;
-    Bundle bundle;
     String start_date, start_time, return_date, return_time, curAddress;
+    ImageView ivImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rental_list);
+
+        ivImage = (ImageView)findViewById(R.id.rent_list_iv1);
+        Glide.with(this).load("https://www.sincar.co.kr/upload/program/goods/list/201912241503214320.jpg")
+                .into(ivImage);
 
         Intent intent = getIntent(); //Maps_rent_mainfrag에서 넘어온 데이터 수신
         start_date = intent.getStringExtra("start_date");

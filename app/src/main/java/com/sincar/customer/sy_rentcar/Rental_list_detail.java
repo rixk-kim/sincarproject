@@ -5,6 +5,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -43,8 +45,7 @@ import java.util.ArrayList;
 import static com.sincar.customer.util.Util.getYear;
 
 public class Rental_list_detail extends FragmentActivity implements
-        View.OnClickListener, OnDateNTimeSetListener, MapView.MapViewEventListener,
-        MapView.OpenAPIKeyAuthenticationResultListener, MapView.POIItemEventListener, rCodeCheck {
+        View.OnClickListener {
     private ImageView car_image;
     private RelativeLayout mRelativeLayout;
     private MapView mapView;
@@ -54,9 +55,15 @@ public class Rental_list_detail extends FragmentActivity implements
     private boolean spinner_select = true;
     private int select_delivery = 0;
     //sy
-    String start_date, start_time, return_date, return_time, curAddress;
+
+    public final static int CAR_START_REQ_CODE = 1030;
+    public final static int CAR_END_REQ_CODE = 1031;
+
+
+    String start_date, start_time, return_date, return_time, curAddress, start_address, end_address;
     private TextView rental_car_start_date, rental_car_start_time, rental_car_end_date, rental_car_end_time;
     private TextView rental_car_address;
+    private TextView btn_rental_allocate, btn_rental_return;
     ///sy
 
 
@@ -99,14 +106,14 @@ public class Rental_list_detail extends FragmentActivity implements
         rental_allocate_text = (TextView) findViewById(R.id.rental_allocate_text);
         rental_return_text   = (TextView) findViewById(R.id.rental_return_text);
 
-        findViewById(R.id.rental_allocate_position).setOnClickListener(this);
-        findViewById(R.id.rental_return_position).setOnClickListener(this);
+        //배차 및 반납 위치 설정 버튼
+        btn_rental_allocate = (TextView)findViewById(R.id.rental_allocate_position);
+        btn_rental_return = (TextView)findViewById(R.id.rental_return_position);
+        btn_rental_allocate.setOnClickListener(this);
+        btn_rental_return.setOnClickListener(this);
 
-        if(select_delivery == 0)
-        {
-            rental_allocate_text.setText("사용하지 않음");
-            rental_return_text.setText("사용하지 않음");
-        }
+        //딜리버리 선택에 따른 배차,반납 위치 텍스트와 버튼 활성화 여부 설정
+        spinner_Selected(select_delivery);
 
         //지도
         mRelativeLayout = (RelativeLayout) findViewById(R.id.rMap);
@@ -114,7 +121,6 @@ public class Rental_list_detail extends FragmentActivity implements
         mapView = new MapView(this);
         mapViewContainer = (ViewGroup) findViewById(R.id.rMap);
         mapViewContainer.addView(mapView);
-        mapView.setMapViewEventListener(this);
 
         ArrayList<String> dlivery_title = new ArrayList<>();
         dlivery_title.add("지점방문"); //ArrayList에 내가 스피너에 보여주고싶은 값 셋팅
@@ -122,15 +128,12 @@ public class Rental_list_detail extends FragmentActivity implements
         dlivery_title.add("배차시 딜리버리");
         dlivery_title.add("반납시 딜리버리");
 
-//
-////        spinner.setSelection(-1);   //초기 선택값 지정
-
         spinner = findViewById(R.id.rental_spinner);
         spinner.setPrompt("딜리버리");
         adapterSpinner = new AdapterSpinner(this,dlivery_title); //그 값을 넣어줌
 
         spinner.setAdapter(adapterSpinner); //어댑터연결
-
+        spinner.setSelection(select_delivery);   //선택값 지정
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -140,6 +143,7 @@ public class Rental_list_detail extends FragmentActivity implements
                 } else { // 로직
                     Toast.makeText(getApplicationContext(),(String)spinner.getItemAtPosition(position)+" 선택되었습니다.",Toast.LENGTH_SHORT).show();
                     select_delivery = position;
+                    spinner_Selected(select_delivery);
  //                   select_jisa_title = (String)spinner.getItemAtPosition(position);
                 }
 
@@ -193,20 +197,37 @@ public class Rental_list_detail extends FragmentActivity implements
                 // TODO : 배차위치 변경하러 가기
                 //sy
                 intent = new Intent(this, Rental_car_delivery_map.class);
-
-                startActivity(intent);
-
+                intent.putExtra("delivery_type", select_delivery);
+                startActivityForResult(intent,CAR_START_REQ_CODE);
                 //Toast.makeText(getApplicationContext(),"배차위치 변경하러 가기",Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.rental_return_position:
                 // TODO : 반납위치 변경하러 가기
                 intent = new Intent(this, Rental_car_delivery_map.class);
-                startActivity(intent);
-                finish();
+                intent.putExtra("delivery_type", select_delivery);
+                startActivityForResult(intent,CAR_END_REQ_CODE);
                 //Toast.makeText(getApplicationContext(),"반납위치 변경하러 가기",Toast.LENGTH_SHORT).show();
                 ///sy
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CAR_START_REQ_CODE) {
+            if (resultCode == RESULT_OK) {
+                start_address = data.getStringExtra("address");
+                select_delivery = data.getIntExtra("delivery_type", 0);
+                spinner_select = true;
+            }
+        } else if (requestCode == CAR_END_REQ_CODE) {
+            if(resultCode == RESULT_OK) {
+                end_address = data.getStringExtra("address");
+                select_delivery = data.getIntExtra("delivery_type", 0);
+                spinner_select = true;
+            }
         }
     }
 
@@ -223,86 +244,53 @@ public class Rental_list_detail extends FragmentActivity implements
         mapViewContainer.removeView(mapView);
     }
 
-    @Override
-    public void onDateNTimePickerSet(String date, String time, int timeCheck) {
-
+    //딜리버리 선택에 따라 배차 및 반납 버튼 활성화여부 설정
+    private void spinner_Selected(int spinner_type) {
+        switch(spinner_type) {
+            case 0:
+                btn_rental_allocate.setVisibility(View.INVISIBLE);
+                btn_rental_return.setVisibility(View.INVISIBLE);
+                rental_allocate_text.setText("사용하지 않음");
+                rental_return_text.setText("사용하지 않음");
+                break;
+            case 1:
+                btn_rental_allocate.setVisibility(View.VISIBLE);
+                btn_rental_return.setVisibility(View.VISIBLE);
+                text_Selected(start_address, end_address);
+                break;
+            case 2:
+                btn_rental_allocate.setVisibility(View.VISIBLE);
+                btn_rental_return.setVisibility(View.INVISIBLE);
+                text_Selected(start_address, "사용하지 않음");
+                break;
+            case 3:
+                btn_rental_allocate.setVisibility(View.INVISIBLE);
+                btn_rental_return.setVisibility(View.VISIBLE);
+                text_Selected("사용하지 않음", end_address);
+                break;
+            default:
+                break;
+        }
     }
 
-    @Override
-    public void rCodechk(int rCodecheck) {
-
-    }
-
-    @Override
-    public void onMapViewInitialized(MapView mapView) {
-
-    }
-
-    @Override
-    public void onMapViewCenterPointMoved(MapView mapView, MapPoint mapPoint) {
-
-    }
-
-    @Override
-    public void onMapViewZoomLevelChanged(MapView mapView, int i) {
-
-    }
-
-    @Override
-    public void onMapViewSingleTapped(MapView mapView, MapPoint mapPoint) {
-
-    }
-
-    @Override
-    public void onMapViewDoubleTapped(MapView mapView, MapPoint mapPoint) {
-
-    }
-
-    @Override
-    public void onMapViewLongPressed(MapView mapView, MapPoint mapPoint) {
-
-    }
-
-    @Override
-    public void onMapViewDragStarted(MapView mapView, MapPoint mapPoint) {
-
-    }
-
-    @Override
-    public void onMapViewDragEnded(MapView mapView, MapPoint mapPoint) {
-
-    }
-
-    @Override
-    public void onMapViewMoveFinished(MapView mapView, MapPoint mapPoint) {
-
-    }
-
-    @Override
-    public void onDaumMapOpenAPIKeyAuthenticationResult(MapView mapView, int i, String s) {
-
-    }
-
-    @Override
-    public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
-
-    }
-
-    @Override
-    public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
-
-    }
-
-    @Override
-    public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
-
-    }
-
-    @Override
-    public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
-
+    void text_Selected(String start, String end) {
+        if(start == null) {
+            rental_allocate_text.setText("배차 위치를 정해주세요");
+        } else if(start == "사용하지 않음") {
+            rental_allocate_text.setText("사용하지 않음");
+        } else {
+            rental_allocate_text.setText(start_address);
+        }
+        if(end == null) {
+            rental_return_text.setText("반납 위치를 정해주세요");
+        } else if (end == "사용하지 않음") {
+            rental_return_text.setText("사용하지 않음");
+        } else {
+            rental_return_text.setText(end_address);
+        }
     }
 }
+
 
 
 

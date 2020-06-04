@@ -1,5 +1,6 @@
 package com.sincar.customer.sy_rentcar;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -8,6 +9,7 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +18,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sincar.customer.MapsActivity;
 import com.sincar.customer.R;
+import com.sincar.customer.ReservationAddressActivity;
 import com.sincar.customer.util.GPSInfo;
 
 import net.daum.mf.map.api.MapPoint;
@@ -26,7 +30,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class Rental_car_delivery_map extends AppCompatActivity implements View.OnClickListener {
+import static com.sincar.customer.MapsActivity.MAP_REQ_CODE;
+
+public class Rental_car_delivery_map extends AppCompatActivity implements View.OnClickListener, MapView.MapViewEventListener {
 
     /*
      * GPS, 일출,일몰, 위도, 경도, 현재 주소
@@ -38,6 +44,8 @@ public class Rental_car_delivery_map extends AppCompatActivity implements View.O
 
     private Context gContext;
     private Geocoder gCoder;
+
+    private String search_keyword = "";
 
     private double my_latitude;    //내위치 위도
     private double my_longitude;   //내위치 경도
@@ -52,7 +60,7 @@ public class Rental_car_delivery_map extends AppCompatActivity implements View.O
         setContentView(R.layout.activity_rental_car_delivery_map);
 
         gContext = this;
-        
+
         // GPS 정보
         gps = new GPSInfo(gContext);
         latitude = gps.getLatitude();
@@ -61,7 +69,6 @@ public class Rental_car_delivery_map extends AppCompatActivity implements View.O
         my_latitude = latitude;
         my_longitude = longitude;
 
-        init();
     }
 
     //화명 초기화
@@ -69,6 +76,7 @@ public class Rental_car_delivery_map extends AppCompatActivity implements View.O
         mapView = new MapView(this);
         mapViewContainer = (ViewGroup) findViewById(R.id.car_del_map);
         mapViewContainer.addView(mapView);
+        mapView.setMapViewEventListener(this);
 
         tvAddress = (TextView) findViewById(R.id.tvCar_del_address);
         findViewById(R.id.car_del_btnBack).setOnClickListener(this);
@@ -105,8 +113,17 @@ public class Rental_car_delivery_map extends AppCompatActivity implements View.O
                 }
                 break;
             case R.id.con_car_del_address:
+                intent = new Intent(this, ReservationAddressActivity.class);
+                startActivityForResult(intent, MAP_REQ_CODE);
                 break;
             case R.id.btn_car_del_accept:
+                Intent getIntent = getIntent();
+                intent = new Intent();
+                int delivery_type = getIntent.getIntExtra("delivery_type", 0);
+                intent.putExtra("delivery_type", delivery_type);
+                intent.putExtra("address", cAddress);
+                setResult(RESULT_OK, intent);
+                finish();
                 break;
             default:
                 break;
@@ -151,13 +168,30 @@ public class Rental_car_delivery_map extends AppCompatActivity implements View.O
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == MAP_REQ_CODE) {
+            if (resultCode == RESULT_OK) {
+                if (!TextUtils.isEmpty(data.getStringExtra("search_result"))) {
+                    cAddress = data.getStringExtra("search_result");
+                    search_keyword = data.getStringExtra("search_keyword");
+                    ConvertGPS(cAddress);
+                } else {
+                    Toast.makeText(Rental_car_delivery_map.this, "주소 검색을 다시 해주세요", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        }
+    }
+
+
     /**
      * 주소 -> 위경도로 변환
      */
     private void ConvertGPS(String cAddress) {
         List<Address> list = null;
 
-//        String str = et3.getText().toString();
         try {
             list = gCoder.getFromLocationName
                     (cAddress, // 지역 이름
@@ -184,11 +218,59 @@ public class Rental_car_delivery_map extends AppCompatActivity implements View.O
     }
 
     @Override
-    protected void onPostResume() {
-        super.onPostResume();
+    public void onMapViewInitialized(MapView mapView) {
+
+    }
+
+    @Override
+    public void onMapViewCenterPointMoved(MapView mapView, MapPoint mapPoint) {
+
+    }
+
+    @Override
+    public void onMapViewZoomLevelChanged(MapView mapView, int i) {
+
+    }
+
+    @Override
+    public void onMapViewSingleTapped(MapView mapView, MapPoint mapPoint) {
+
+    }
+
+    @Override
+    public void onMapViewDoubleTapped(MapView mapView, MapPoint mapPoint) {
+
+    }
+
+    @Override
+    public void onMapViewLongPressed(MapView mapView, MapPoint mapPoint) {
+
+    }
+
+    @Override
+    public void onMapViewDragStarted(MapView mapView, MapPoint mapPoint) {
+
+    }
+
+    @Override
+    public void onMapViewDragEnded(MapView mapView, MapPoint mapPoint) {
+
+    }
+
+    @Override
+    public void onMapViewMoveFinished(MapView mapView, MapPoint mapPoint) {
+        latitude = mapPoint.getMapPointGeoCoord().latitude;
+        longitude = mapPoint.getMapPointGeoCoord().longitude;
+        getAddress();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         if (!gps.isGetLocation()) {
             gps.showSettingsAlert();
         }
+        init();
     }
 
     @Override

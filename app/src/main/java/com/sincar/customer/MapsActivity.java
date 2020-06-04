@@ -92,6 +92,7 @@ public class MapsActivity extends FragmentActivity implements
     Bundle bundle = new Bundle();
     int rCode = 0;
     MapView mapView;
+    ViewGroup mapViewContainer;
     String appkey = MapApiConst.KAKAO_MAPS_ANDROID_APP_API_KEY;
     ConstraintLayout constraintLayout;
     ConstraintSet constraintSet;
@@ -127,9 +128,7 @@ public class MapsActivity extends FragmentActivity implements
         Display display = getWindowManager().getDefaultDisplay();
         display.getSize(pt);
 
-        // 화면 초기화
-        init();
-
+        //화면 초기화는 onResume메소드 안에 있음
     }
 
     /**
@@ -214,7 +213,7 @@ public class MapsActivity extends FragmentActivity implements
         }
 
         mapView = new MapView(this);
-        final ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.kMap);
+        mapViewContainer = (ViewGroup) findViewById(R.id.kMap);
         mapViewContainer.addView(mapView);
         mapView.setMapViewEventListener(this);
 
@@ -311,12 +310,17 @@ public class MapsActivity extends FragmentActivity implements
     @Override
     public void onResume() {
         super.onResume();
-
         if (!gps.isGetLocation()) {
             gps.showSettingsAlert();
         }
+        init();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mapViewContainer.removeView(mapView);
+    }
 
     /**
      * 현 위치 호출시 주소 갱신
@@ -369,7 +373,6 @@ public class MapsActivity extends FragmentActivity implements
                 // 지도 home button -> 메인이동
                 intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
-                finish();
                 break;
 
             case R.id.btnCurrent:
