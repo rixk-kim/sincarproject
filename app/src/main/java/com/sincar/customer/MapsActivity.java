@@ -610,7 +610,7 @@ public class MapsActivity extends FragmentActivity implements
 
     @Override
     public void onMapViewInitialized(@NotNull MapView mapView) {
-        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(my_latitude, my_longitude), true);
+        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
     }
 
     @Override

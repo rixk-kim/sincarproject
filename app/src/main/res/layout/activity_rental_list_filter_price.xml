@@ -150,7 +150,7 @@
     <Button
         android:id="@+id/btnPriceCheck"
         android:layout_width="304dp"
-        android:layout_height="74dp"
+        android:layout_height="52dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/bg_custom_button2"
         android:fontFamily="@font/nanumsquareregular"
