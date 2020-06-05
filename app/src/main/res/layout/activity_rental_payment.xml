@@ -29,7 +29,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:contentDescription="@string/actionbar_prev_icon_description"
-                android:src="@drawable/prev_image_selector" />
+                android:src="@drawable/back_black" />
         </LinearLayout>
 
         <TextView
@@ -183,7 +183,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="24dp"
-                    android:background="#3e3e3e"
+                    android:background="@color/agent_color_1_10Opp"
                     android:visibility="visible"/>
 
                 <!-- 할인 수단 -->

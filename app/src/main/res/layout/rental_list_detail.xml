@@ -29,7 +29,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:contentDescription="@string/actionbar_prev_icon_description"
-                android:src="@drawable/prev_image_selector" />
+                android:src="@drawable/back_red" />
         </LinearLayout>
         <TextView
             android:id="@+id/myinfo_title_activity"
@@ -420,6 +420,8 @@
                                 android:layout_marginStart="24dp"
                                 android:layout_gravity="left|center_horizontal|center_vertical"
                                 android:letterSpacing="0.01"
+                                android:layout_marginTop="24dp"
+                                android:layout_marginBottom="4dp"
                                 android:textColor="#ff4d4d"
                                 android:textSize="14sp"
                                 android:text="대여" />
@@ -430,10 +432,11 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="24dp"
-                                android:layout_marginTop="8dp"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginBottom="4dp"
                                 android:layout_gravity="left|center_horizontal|center_vertical"
                                 android:letterSpacing="0.01"
-                                android:textColor="#ff4d4d"
+                                android:textColor="@color/agent_color_1NoOpp"
                                 android:textSize="13sp"
                                 android:text="2010.10.01(화)" />
 
@@ -443,11 +446,12 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="24dp"
-                                android:layout_marginTop="8dp"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginBottom="24dp"
                                 android:layout_gravity="left|center_horizontal|center_vertical"
                                 android:letterSpacing="0.01"
                                 android:textColor="#3e3e3e"
-                                android:textSize="14sp"
+                                android:textSize="18sp"
                                 android:text="18:00" />
                         </LinearLayout>
 
@@ -477,8 +481,9 @@
                                 android:fontFamily="@font/nanumsquareregular"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="24dp"
-                                android:layout_marginEnd="24dp"
+                                android:layout_marginTop="24dp"
+                                android:layout_marginBottom="4dp"
+                                android:layout_marginRight="25dp"
                                 android:layout_gravity="right|center_horizontal|center_vertical"
                                 android:letterSpacing="0.01"
                                 android:textColor="#ff4d4d"
@@ -490,12 +495,12 @@
                                 android:id="@+id/rental_car_end_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="24dp"
-                                android:layout_marginEnd="24dp"
-                                android:layout_marginTop="8dp"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginBottom="4dp"
+                                android:layout_marginRight="25dp"
                                 android:layout_gravity="right|center_horizontal|center_vertical"
                                 android:letterSpacing="0.01"
-                                android:textColor="#ff4d4d"
+                                android:textColor="@color/agent_color_1NoOpp"
                                 android:textSize="13sp"
                                 android:text="2010.10.04(금)" />
 
@@ -504,13 +509,13 @@
                                 android:id="@+id/rental_car_end_time"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="24dp"
-                                android:layout_marginEnd="24dp"
-                                android:layout_marginTop="8dp"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginBottom="24dp"
+                                android:layout_marginRight="25dp"
                                 android:layout_gravity="right|center_horizontal|center_vertical"
                                 android:letterSpacing="0.01"
                                 android:textColor="#3e3e3e"
-                                android:textSize="14sp"
+                                android:textSize="18sp"
                                 android:text="17:00" />
                         </LinearLayout>
                     </LinearLayout>
@@ -937,7 +942,7 @@
                         android:layout_marginTop="24dp"
                         android:layout_marginStart="24dp"
                         android:layout_marginEnd="24dp"
-                        android:background="#3e3e3e"/>
+                        android:background="@color/agent_color_1_10Opp"/>
 
                     <!-- 반납위치 -->
                     <LinearLayout
@@ -1067,7 +1072,7 @@
                                     android:layout_marginLeft="10dp"
                                     android:gravity="right"
                                     android:text="1일 10,000원"
-                                    android:textSize="14sp"
+                                    android:textSize="15sp"
                                     android:layout_gravity="center_horizontal|center_vertical"
                                     android:letterSpacing="0.05"/>
                             </LinearLayout>
@@ -1211,14 +1216,14 @@
                                 android:layout_marginTop="24dp"
                                 android:layout_marginStart="24dp"
                                 android:layout_marginEnd="24dp"
-                                android:background="#3e3e3e"
+                                android:background="@color/agent_color_1_10Opp"
                                 android:visibility="visible"/>
 
                             <!-- 보험 금액 -->
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="12dp"
+                                android:layout_marginTop="24dp"
                                 android:orientation="horizontal">
 
                                 <TextView

@@ -56,7 +56,8 @@
             android:checked="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="전체"
+            android:text="  전체"
+            android:layout_marginBottom="12.5dp"
             android:button="@drawable/radio_button_selector"
             android:textColor="@color/agent_color_1NoOpp"
             android:textSize="15sp"/>
@@ -64,7 +65,10 @@
             android:id="@+id/rbAge26"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="만 26세 이상"
+            android:layout_marginVertical="12.5dp"
+            android:layout_marginHorizontal="0dp"
+
+            android:text="  만 26세 이상"
             android:button="@drawable/radio_button_selector"
             android:textColor="@color/agent_color_1NoOpp"
             android:textSize="15sp"
@@ -85,7 +89,7 @@
             android:id="@+id/rbAge21"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="만 21세 이상"
+            android:text="  만 21세 이상"
             android:button="@drawable/radio_button_selector"
             android:textColor="@color/agent_color_1NoOpp"
             android:textSize="15sp"/>

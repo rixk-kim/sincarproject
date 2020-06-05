@@ -59,47 +59,46 @@
             android:id="@+id/rbPriall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="12.5dp"
             android:checked="true"
-            android:text="전체"
+            android:text="  전체"
             android:textColor="@color/agent_color_1NoOpp"
             android:button="@drawable/radio_button_selector"
             android:fontFamily="@font/nanumsquareregular"
-            android:textSize="17sp" />
+            android:textSize="15sp" />
 
         <RadioButton
             android:id="@+id/rbPri20u"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="20만원 이하"
-            android:layout_marginTop="25dp"
+            android:text="  20만원 이하"
+            android:layout_marginVertical="12.5dp"
             android:textColor="@color/agent_color_1NoOpp"
             android:button="@drawable/radio_button_selector"
             android:fontFamily="@font/nanumsquareregular"
-            android:textSize="17sp" />
+            android:textSize="15sp" />
 
         <RadioButton
             android:id="@+id/rbPri40u"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="40만원 이하"
-            android:layout_marginTop="25dp"
+            android:text="  40만원 이하"
+            android:layout_marginVertical="12.5dp"
             android:textColor="@color/agent_color_1NoOpp"
             android:button="@drawable/radio_button_selector"
             android:fontFamily="@font/nanumsquareregular"
-            android:textSize="17sp" />
-
-
+            android:textSize="15sp" />
 
         <RadioButton
             android:id="@+id/rbPri50o"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="50만원 이상"
-            android:layout_marginTop="25dp"
+            android:text="  50만원 이상"
+            android:layout_marginVertical="12.5dp"
             android:textColor="@color/agent_color_1NoOpp"
             android:button="@drawable/radio_button_selector"
             android:fontFamily="@font/nanumsquareregular"
-            android:textSize="17sp" />
+            android:textSize="15sp" />
 
 
     </RadioGroup>
@@ -119,33 +118,34 @@
             android:id="@+id/rbPri10u"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10만원 이하"
+            android:text="  10만원 이하"
+            android:layout_marginBottom="12.5dp"
             android:textColor="@color/agent_color_1NoOpp"
             android:button="@drawable/radio_button_selector"
             android:fontFamily="@font/nanumsquareregular"
-            android:textSize="17sp" />
+            android:textSize="15sp" />
 
         <RadioButton
             android:id="@+id/rbPri30u"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="30만원 이하"
-            android:layout_marginTop="25dp"
+            android:text="  30만원 이하"
+            android:layout_marginVertical="12.5dp"
             android:textColor="@color/agent_color_1NoOpp"
             android:button="@drawable/radio_button_selector"
             android:fontFamily="@font/nanumsquareregular"
-            android:textSize="17sp" />
+            android:textSize="15sp" />
 
         <RadioButton
             android:id="@+id/rbPri50u"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="50만원 이하"
-            android:layout_marginTop="25dp"
+            android:text="  50만원 이하"
+            android:layout_marginVertical="12.5dp"
             android:textColor="@color/agent_color_1NoOpp"
             android:button="@drawable/radio_button_selector"
             android:fontFamily="@font/nanumsquareregular"
-            android:textSize="17sp" />
+            android:textSize="15sp" />
     </RadioGroup>
 
     <Button

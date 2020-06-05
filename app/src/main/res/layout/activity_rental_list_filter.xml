@@ -16,7 +16,7 @@
         android:background="@color/base_background_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/filled_red" />
+        app:srcCompat="@drawable/rounded_copy_2" />
 
     <Button
         android:id="@+id/btn_rentalCar_filter_clear"
@@ -91,7 +91,7 @@
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:background="@color/agent_color_1"
+            android:background="@color/agent_color_1_10Opp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -141,7 +141,7 @@
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:background="@color/agent_color_1"
+            android:background="@color/agent_color_1_10Opp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -190,7 +190,7 @@
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:background="@color/agent_color_1"
+            android:background="@color/agent_color_1_10Opp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -240,7 +240,7 @@
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:background="@color/agent_color_1"
+            android:background="@color/agent_color_1_10Opp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

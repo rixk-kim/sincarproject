@@ -54,7 +54,7 @@
         android:layout_marginTop="123dp"
         android:button="@drawable/checkbox_selector"
         android:fontFamily="@font/nanumsquareregular"
-        android:text="현대"
+        android:text="  현대"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,7 +67,7 @@
         android:layout_marginTop="124dp"
         android:button="@drawable/checkbox_selector"
         android:fontFamily="@font/nanumsquareregular"
-        android:text="제네시스"
+        android:text="  제네시스"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -79,7 +79,7 @@
         android:layout_marginTop="25dp"
         android:button="@drawable/checkbox_selector"
         android:fontFamily="@font/nanumsquareregular"
-        android:text="기아"
+        android:text="  기아"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rb1_1" />
 
@@ -91,7 +91,7 @@
         android:layout_marginTop="25dp"
         android:button="@drawable/checkbox_selector"
         android:fontFamily="@font/nanumsquareregular"
-        android:text="쌍용"
+        android:text="  쌍용"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rb1_2" />
 
@@ -103,7 +103,7 @@
         android:layout_marginTop="25dp"
         android:button="@drawable/checkbox_selector"
         android:fontFamily="@font/nanumsquareregular"
-        android:text="르노삼성"
+        android:text="  르노삼성"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rb1_3" />
 
@@ -115,7 +115,7 @@
         android:layout_marginTop="25dp"
         android:button="@drawable/checkbox_selector"
         android:fontFamily="@font/nanumsquareregular"
-        android:text="쉐보레"
+        android:text="  쉐보레"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rb1_4" />
 
@@ -128,7 +128,7 @@
         android:layout_marginTop="277dp"
         android:button="@drawable/checkbox_selector"
         android:fontFamily="@font/nanumsquarebold"
-        android:text="수입 브랜드"
+        android:text="  수입 브랜드"
         android:textColor="@color/agent_color_1NoOpp"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -142,7 +142,7 @@
         android:layout_marginTop="32dp"
         android:button="@drawable/checkbox_selector"
         android:fontFamily="@font/nanumsquareregular"
-        android:text="닛산"
+        android:text="  닛산"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
@@ -154,7 +154,7 @@
         android:layout_marginTop="32dp"
         android:button="@drawable/checkbox_selector"
         android:fontFamily="@font/nanumsquareregular"
-        android:text="도요타"
+        android:text="  도요타"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
@@ -166,7 +166,7 @@
         android:layout_marginTop="25dp"
         android:button="@drawable/checkbox_selector"
         android:fontFamily="@font/nanumsquareregular"
-        android:text="마쯔다"
+        android:text="  마쯔다"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rb2_1" />
 
@@ -178,7 +178,7 @@
         android:layout_marginTop="25dp"
         android:button="@drawable/checkbox_selector"
         android:fontFamily="@font/nanumsquareregular"
-        android:text="미쓰비시"
+        android:text="  미쓰비시"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rb2_2" />
 
@@ -190,7 +190,7 @@
         android:layout_marginTop="25dp"
         android:button="@drawable/checkbox_selector"
         android:fontFamily="@font/nanumsquareregular"
-        android:text="GM"
+        android:text="  GM"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rb2_3" />
 
@@ -202,7 +202,7 @@
         android:layout_marginTop="25dp"
         android:button="@drawable/checkbox_selector"
         android:fontFamily="@font/nanumsquareregular"
-        android:text="쉐보레"
+        android:text="  쉐보레"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rb2_4" />
 
@@ -214,7 +214,7 @@
         android:layout_marginTop="25dp"
         android:button="@drawable/checkbox_selector"
         android:fontFamily="@font/nanumsquareregular"
-        android:text="닛산"
+        android:text="  닛산"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rb2_5" />
 
@@ -226,7 +226,7 @@
         android:layout_marginTop="25dp"
         android:button="@drawable/checkbox_selector"
         android:fontFamily="@font/nanumsquareregular"
-        android:text="도요타"
+        android:text="  도요타"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rb2_6" />
 
@@ -238,7 +238,7 @@
         android:layout_marginTop="25dp"
         android:button="@drawable/checkbox_selector"
         android:fontFamily="@font/nanumsquareregular"
-        android:text="마쯔다"
+        android:text="  마쯔다"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rb2_7" />
 
@@ -250,7 +250,7 @@
         android:layout_marginTop="25dp"
         android:button="@drawable/checkbox_selector"
         android:fontFamily="@font/nanumsquareregular"
-        android:text="미쓰비시"
+        android:text="  미쓰비시"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rb2_8" />
 
