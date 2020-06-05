@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -266,21 +267,33 @@ public class MapsActivity extends FragmentActivity implements
             bundle.putInt("return_timeInt", return_timeInt);
             bundle.putString("current_Address", cAddress);
         }
+        int fm1Height, fm2Height;
         switch (i) {
+
             case 1:
                 maps_rent_mainfrag.setArguments(bundle);
+                fm1Height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 278, getResources().getDisplayMetrics()); //278dp입력
+                constraintSet.constrainHeight(R.id.framelayout_maps_rentcar, fm1Height);
+                constraintSet.applyTo(constraintLayout);
                 transaction.replace(R.id.framelayout_maps_rentcar, maps_rent_mainfrag).commitNow();
                 rCode = 0;
                 break;
             case 2:
                 bundle.putInt("reOrRe", 1);
                 maps_rent_time_reserve.setArguments(bundle);
+                //framelayout 크기 설정
+                fm2Height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 321, getResources().getDisplayMetrics()); //321dp 입력
+                constraintSet.constrainHeight(R.id.framelayout_maps_rentcar, fm2Height);
+                constraintSet.applyTo(constraintLayout);
                 transaction.replace(R.id.framelayout_maps_rentcar, maps_rent_time_reserve).commit();
                 rCode = 1;
                 break;
             case 3:
                 bundle.putInt("reOrRe", 2);
                 maps_rent_time_return.setArguments(bundle);
+                fm2Height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 321, getResources().getDisplayMetrics()); //321dp 입력
+                constraintSet.constrainHeight(R.id.framelayout_maps_rentcar, fm2Height);
+                constraintSet.applyTo(constraintLayout);
                 transaction.replace(R.id.framelayout_maps_rentcar, maps_rent_time_return).commit();
                 rCode = 2;
                 break;

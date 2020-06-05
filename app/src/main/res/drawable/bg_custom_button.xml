@@ -4,6 +4,9 @@
         <shape>
             <solid android:color="@color/card_background_color"/>
             <corners android:radius = "16dp"/>
+            <stroke
+                android:width="10dp"
+                android:color="#FFffe7e9"/>
 
         </shape>
     </item>
