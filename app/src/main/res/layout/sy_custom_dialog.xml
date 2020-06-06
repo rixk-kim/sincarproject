@@ -4,8 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sy_dialog_radius"
-    >
+    android:background="@drawable/sy_dialog_radius">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -27,7 +26,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <RadioButton
             android:id="@+id/dlgBtn1"
             android:layout_width="284dp"
             android:layout_height="52dp"
@@ -37,7 +36,8 @@
             android:paddingTop="17dp"
             android:paddingBottom="17dp"
             android:text="거리순"
-            android:textColor="@color/agent_color_1NoOpp"
+            android:textColor="@drawable/sy_dialog_rb_selector"
+            android:checked="true"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/dlgBtn2"
             app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +45,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView"
             app:layout_constraintVertical_chainStyle="packed" />
 
-        <TextView
+        <RadioButton
             android:id="@+id/dlgBtn2"
             android:layout_width="284dp"
             android:layout_height="52dp"
@@ -62,7 +62,7 @@
             app:layout_constraintTop_toBottomOf="@+id/dlgBtn1"
             app:layout_constraintVertical_chainStyle="packed" />
 
-        <TextView
+        <RadioButton
             android:id="@+id/dlgBtn3"
             android:layout_width="284dp"
             android:layout_height="52dp"

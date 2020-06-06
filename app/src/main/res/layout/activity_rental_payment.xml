@@ -9,9 +9,9 @@
 
     <!-- ActionBar 영역 -->
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rental_include"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:id="@+id/rental_include"
         tools:ignore="MissingConstraints">
 
         <!-- ActionBar : Back / Title / Info -->
@@ -19,12 +19,13 @@
             android:id="@+id/rental_btnPrev_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
             android:layout_gravity="center|center_horizontal|center_vertical"
+            android:layout_marginStart="24dp"
             android:gravity="center|center_horizontal|center_vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
@@ -33,10 +34,10 @@
         </LinearLayout>
 
         <TextView
-            android:fontFamily="@font/nanumsquareregular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="24dp"
+            android:fontFamily="@font/nanumsquareregular"
             android:gravity="center|center_horizontal"
             android:text="결제"
             android:textColor="#3e3e3e"
@@ -52,286 +53,293 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rental_include"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rental_include">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <!-- 결제 정보 영역 -->
-            <!-- 요금 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:fontFamily="@font/nanumsquarebold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left|center_horizontal|center_vertical"
-                    android:letterSpacing="0.01"
-                    android:textColor="@color/textColorPrimary"
-                    android:textSize="16sp"
-                    android:text="상품 금액" />
-                <!-- 차량 대여료 -->
+                <!-- 결제 정보 영역 -->
+                <!-- 요금 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <TextView
-                        android:fontFamily="@font/nanumsquareregular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="left|center_horizontal|center_vertical"
-                        android:letterSpacing="0.01"
-                        android:textColor="#B33E3E3E"
-                        android:textSize="15sp"
-                        android:text="차량 대여료"
-                        android:layout_weight="1"/>
-
-                    <TextView
-                        android:id="@+id/rental_use_amount"
                         android:fontFamily="@font/nanumsquarebold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center|center_horizontal|center_vertical"
-                        android:gravity="right|center_vertical|center_horizontal"
-
                         android:letterSpacing="0.01"
+                        android:text="상품 금액"
                         android:textColor="@color/textColorPrimary"
-                        android:textSize="15sp"
-                        android:text="160,000원"
-                        android:layout_weight="1"/>
-                </LinearLayout>
-
-                <!-- 딜리버리 금액 -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:fontFamily="@font/nanumsquareregular"
-                        android:layout_width="wrap_content"
+                        android:textSize="16sp" />
+                    <!-- 차량 대여료 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="left|center_horizontal|center_vertical"
-                        android:letterSpacing="0.01"
-                        android:textColor="#B33E3E3E"
-                        android:textSize="15sp"
-                        android:text="딜리버리 금액"
-                        android:layout_weight="1"/>
+                        android:layout_marginTop="24dp"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/rental_use_delivery"
-                        android:fontFamily="@font/nanumsquareregular"
-                        android:layout_width="wrap_content"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left|center_horizontal|center_vertical"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/nanumsquareregular"
+                            android:letterSpacing="0.01"
+                            android:text="차량 대여료"
+                            android:textColor="#B33E3E3E"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/rental_use_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center|center_horizontal|center_vertical"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/nanumsquarebold"
+
+                            android:gravity="right|center_vertical|center_horizontal"
+                            android:letterSpacing="0.01"
+                            android:text="160,000원"
+                            android:textColor="@color/textColorPrimary"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                    <!-- 딜리버리 금액 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center|center_horizontal|center_vertical"
-                        android:gravity="right|center_vertical|center_horizontal"
-                        android:letterSpacing="0.01"
-                        android:textColor="@color/textColorPrimary"
-                        android:textSize="15sp"
-                        android:text="0원"
-                        android:layout_weight="1"/>
-                </LinearLayout>
+                        android:layout_marginTop="14dp"
+                        android:orientation="horizontal">
 
-                <!-- 보험 금액 -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left|center_horizontal|center_vertical"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/nanumsquareregular"
+                            android:letterSpacing="0.01"
+                            android:text="딜리버리 금액"
+                            android:textColor="#B33E3E3E"
+                            android:textSize="15sp" />
 
-                    <TextView
-                        android:fontFamily="@font/nanumsquareregular"
-                        android:layout_width="wrap_content"
+                        <TextView
+                            android:id="@+id/rental_use_delivery"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center|center_horizontal|center_vertical"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/nanumsquareregular"
+                            android:gravity="right|center_vertical|center_horizontal"
+                            android:letterSpacing="0.01"
+                            android:text="0원"
+                            android:textColor="@color/textColorPrimary"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                    <!-- 보험 금액 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="left|center_horizontal|center_vertical"
-                        android:letterSpacing="0.01"
-                        android:textColor="#B33E3E3E"
-                        android:textSize="15sp"
-                        android:text="보험 금액"
-                        android:layout_weight="1"/>
+                        android:layout_marginTop="14dp"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/rental_use_insurance"
-                        android:fontFamily="@font/nanumsquareregular"
-                        android:layout_width="201dp"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left|center_horizontal|center_vertical"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/nanumsquareregular"
+                            android:letterSpacing="0.01"
+                            android:text="보험 금액"
+                            android:textColor="#B33E3E3E"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/rental_use_insurance"
+                            android:layout_width="201dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center|center_horizontal|center_vertical"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/nanumsquareregular"
+                            android:gravity="right|center_vertical|center_horizontal"
+                            android:letterSpacing="0.01"
+                            android:text="0원"
+                            android:textColor="@color/textColorPrimary"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/rental_divider_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="24dp"
+                        android:background="@color/agent_color_1_10Opp"
+                        android:visibility="visible" />
+
+                    <!-- 할인 수단 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center|center_horizontal|center_vertical"
-                        android:gravity="right|center_vertical|center_horizontal"
-                        android:letterSpacing="0.01"
-                        android:textColor="@color/textColorPrimary"
-                        android:textSize="15sp"
-                        android:text="0원"
-                        android:layout_weight="1"/>
+                        android:layout_marginTop="24dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/discount_title"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/nanumsquarebold"
+                                android:text="@string/discount_title"
+                                android:textColor="#3e3e3e"
+                                android:textSize="16sp" />
+
+                            <!-- 할인 쿠폰 등록 -->
+                            <TextView
+                                android:id="@+id/rental_btnCouponRegister"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/nanumsquareregular"
+                                android:gravity="right|center_horizontal|center_vertical"
+                                android:lineSpacingExtra="3sp"
+                                android:text="@string/coupon_register"
+                                android:textColor="#ff4d4d"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="18dp"
+                            android:orientation="horizontal">
+                            <!-- 쿠폰 -->
+                            <TextView
+                                android:id="@+id/discount_coupon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/nanumsquareregular"
+                                android:lineSpacingExtra="2sp"
+                                android:text="@string/discount_coupon"
+                                android:textColor="#3e3e3e"
+                                android:textSize="15sp" />
+
+                            <!-- 쿠폰 할인 금액 -->
+                            <TextView
+                                android:id="@+id/rental_coupon_amount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/nanumsquarebold"
+                                android:gravity="right|center_horizontal|center_vertical"
+                                android:lineSpacingExtra="2sp"
+                                android:text="@string/amount_default"
+                                android:textColor="#3e3e3e"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
 
                 <View
-                    android:id="@+id/rental_divider_1"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="24dp"
-                    android:background="@color/agent_color_1_10Opp"
-                    android:visibility="visible"/>
+                    android:background="#1a3e3e3e" />
 
-                <!-- 할인 수단 -->
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+                        <!-- 포인트 타이틀 -->
                         <TextView
-                            android:id="@+id/discount_title"
-                            android:fontFamily="@font/nanumsquarebold"
-                            android:layout_width="match_parent"
+                            android:id="@+id/discount_point"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textColor="#3e3e3e"
-                            android:text="@string/discount_title"
-                            android:layout_weight="1"/>
+                            android:layout_weight="1"
 
-                        <!-- 할인 쿠폰 등록 -->
+                            android:fontFamily="@font/nanumsquarebold"
+                            android:text="@string/discount_point"
+                            android:textColor="#3e3e3e"
+                            android:textSize="16sp" />
+
+                        <!-- 포인트 전액사용 -->
                         <TextView
-                            android:id="@+id/rental_btnCouponRegister"
-                            android:fontFamily="@font/nanumsquareregular"
-                            android:layout_width="match_parent"
+                            android:id="@+id/rental_btnPointUse"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="right|center_horizontal|center_vertical"
-                            android:textSize="14sp"
-                            android:textColor="#ff4d4d"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/nanumsquareregular"
+                            android:gravity="right|center_vertical|center_horizontal"
                             android:lineSpacingExtra="3sp"
-                            android:text="@string/coupon_register"
-                            android:layout_weight="1"/>
+                            android:text="@string/total_point_use"
+                            android:textColor="#ff4d4d"
+                            android:textSize="14sp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="18dp"
+                        android:layout_marginTop="12dp"
                         android:orientation="horizontal">
                         <!-- 쿠폰 -->
                         <TextView
-                            android:id="@+id/discount_coupon"
-                            android:fontFamily="@font/nanumsquareregular"
+                            android:id="@+id/rental_my_point"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="15sp"
-                            android:textColor="#3e3e3e"
-                            android:lineSpacingExtra="2sp"
-                            android:text="@string/discount_coupon"
+                            android:layout_marginBottom="35dp"
                             android:layout_weight="1"
-                            />
-
-                        <!-- 쿠폰 할인 금액 -->
-                        <TextView
-                            android:id="@+id/rental_coupon_amount"
-                            android:fontFamily="@font/nanumsquarebold"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="right|center_horizontal|center_vertical"
-                            android:textSize="15sp"
-                            android:textColor="#3e3e3e"
+                            android:fontFamily="@font/nanumsquareregular"
                             android:lineSpacingExtra="2sp"
+                            android:text="@string/my_point"
+                            android:textColor="#3e3e3e"
+                            android:textSize="15sp" />
+
+                        <!-- 포인트 사용 금액 EditBox style change -->
+                        <EditText
+                            android:id="@+id/rental_use_point"
+                            android:layout_width="120dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/border"
+                            android:digits="0123456789"
+                            android:fontFamily="@font/nanumsquarebold"
+                            android:gravity="right|center_vertical|center_horizontal"
+                            android:imeOptions="actionDone"
+                            android:inputType="number"
+                            android:maxLength="10"
+                            android:paddingRight="5dp"
                             android:text="@string/amount_default"
-                            android:layout_weight="1" />
+                            android:textColor="@color/default_text_color"
+                            android:textSize="15sp" />
                     </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="24dp"
-                android:background="#1a3e3e3e"/>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <!-- 포인트 타이틀 -->
-                    <TextView
-                        android:id="@+id/discount_point"
-                        android:fontFamily="@font/nanumsquarebold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:textSize="16sp"
-                        android:textColor="#3e3e3e"
-                        android:text="@string/discount_point"
-                        android:layout_weight="1" />
-
-                    <!-- 포인트 전액사용 -->
-                    <TextView
-                        android:id="@+id/rental_btnPointUse"
-                        android:fontFamily="@font/nanumsquareregular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:textColor="#ff4d4d"
-                        android:lineSpacingExtra="3sp"
-                        android:text="@string/total_point_use"
-                        android:gravity="right|center_vertical|center_horizontal"
-                        android:layout_weight="1" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="12dp">
-                    <!-- 쿠폰 -->
-                    <TextView
-                        android:id="@+id/rental_my_point"
-                        android:fontFamily="@font/nanumsquareregular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="35dp"
-                        android:textSize="15sp"
-                        android:textColor="#3e3e3e"
-                        android:lineSpacingExtra="2sp"
-                        android:text="@string/my_point"
-                        android:layout_weight="1" />
-
-                    <!-- 포인트 사용 금액 EditBox style change -->
-                    <EditText
-                        android:id="@+id/rental_use_point"
-                        android:fontFamily="@font/nanumsquarebold"
-                        android:layout_width="120dp"
-                        android:layout_height="40dp"
-                        android:paddingRight="5dp"
-                        android:gravity="right|center_vertical|center_horizontal"
-                        android:background="@drawable/border"
-                        android:inputType="number"
-                        android:digits="0123456789"
-                        android:maxLength="10"
-                        android:text="@string/amount_default"
-                        android:textSize="15sp"
-                        android:textColor="@color/default_text_color"
-                        android:imeOptions="actionDone"
-                        android:layout_weight="1" />
                 </LinearLayout>
             </LinearLayout>
             <!-- 결제 수단 divider -->
@@ -345,52 +353,60 @@
 
             <!-- 결제 수단 영역 -->
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/payment_type_layout"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:orientation="vertical">
 
-                <!-- 결제수단 타이틀 -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/payment_type_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/payment_type_title"
-                    android:fontFamily="@font/nanumsquarebold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:textColor="#3e3e3e"
-                    android:text="@string/payment_type_title"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <!-- 결제수단 타이틀 -->
 
-                <!-- 결제수단 변경 -->
-                <!--
-                                <TextView
-                                    android:id="@+id/btnPaymentChange"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="14sp"
-                                    android:textColor="#ff4d4d"
-                                    android:lineSpacingExtra="3sp"
-                                    android:text="@string/payment_change"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent" />
-                -->
-                <TextView
-                    android:id="@+id/pay"
-                    android:fontFamily="@font/nanumsquareregular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:textSize="15sp"
-                    android:textColor="#3e3e3e"
-                    android:lineSpacingExtra="2sp"
-                    android:text="@string/payment_type"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/payment_type_title" />
+                    <TextView
+                        android:id="@+id/payment_type_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nanumsquarebold"
+                        android:text="@string/payment_type_title"
+                        android:textColor="#3e3e3e"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <!-- 결제수단 변경 -->
+                    <!--
+                                    <TextView
+                                        android:id="@+id/btnPaymentChange"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="14sp"
+                                        android:textColor="#ff4d4d"
+                                        android:lineSpacingExtra="3sp"
+                                        android:text="@string/payment_change"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+                    -->
+                    <TextView
+                        android:id="@+id/pay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:fontFamily="@font/nanumsquareregular"
+                        android:lineSpacingExtra="2sp"
+                        android:text="@string/payment_type"
+                        android:textColor="#3e3e3e"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/payment_type_title" />
 
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
             <!-- 취소 정책 divider -->
             <View
                 android:layout_width="match_parent"
@@ -399,127 +415,133 @@
                 android:layout_marginBottom="24dp"
                 android:background="#1a3e3e3e" />
 
-            <!-- 취소 정책 영역 -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cancel_policy_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <!-- 결제수단 타이틀 -->
-                <TextView
-                    android:id="@+id/cancel_policy_title"
-                    android:fontFamily="@font/nanumsquarebold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:textColor="#3e3e3e"
-                    android:text="@string/cancel_policy_title"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <!-- 결제수단 변경 -->
-                <TextView
-                    android:fontFamily="@font/nanumsquareregular"
-                    android:id="@+id/rental_btnCancelDesc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textColor="#ff4d4d"
-                    android:lineSpacingExtra="3sp"
-                    android:text="@string/cancel_policy_btn"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:fontFamily="@font/nanumsquareregular"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:textSize="15sp"
-                    android:textColor="#3e3e3e"
-                    android:lineSpacingExtra="2sp"
-                    android:text="@string/cancel_policy_desc"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cancel_policy_title" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- 약관 divider -->
-            <!--
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="10dp"
-                            android:layout_marginTop="24dp"
-                            android:layout_marginBottom="24dp"
-                            android:background="#1a3e3e3e" />
-            -->
-            <!-- 약관 영역 -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/rental_clause_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
-                android:layout_marginBottom="32dp"
-                android:layout_gravity="center|center_horizontal|center_vertical"
-                android:gravity="center|center_horizontal|center_vertical"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/rental_clause_agree"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:background="@drawable/checkbox_selector_1"
-                    android:button="@null"
-                    android:layout_gravity="center|center_horizontal|center_vertical"
-                    android:gravity="center|center_horizontal|center_vertical"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <!-- 결제수단 타이틀 -->
-                <TextView
-                    android:id="@+id/clause_title"
-                    android:fontFamily="@font/nanumsquareregular"
-                    android:layout_width="match_parent"
-                    android:layout_height="24dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_gravity="center|center_horizontal|center_vertical"
-                    android:gravity="center|center_vertical|center_horizontal"
-                    android:textSize="16sp"
-                    android:textColor="#3e3e3e"
-                    android:letterSpacing="0.05"
-                    android:text="@string/clause_title"
-                    app:layout_constraintStart_toEndOf="@+id/clause_agree"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="40dp"
-                android:gravity="bottom|center_horizontal|center_vertical"
-                app:layout_constraintTop_toBottomOf="@+id/payment_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/rental_reserve_confirm_btn"
-                    android:fontFamily="@font/nanumsquarebold"
+                <!-- 취소 정책 영역 -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cancel_policy_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:background="@drawable/default_button_type_1"
-                    android:shadowColor="#C4C4C4"
-                    android:shadowDx="0"
-                    android:shadowDy="0"
-                    android:shadowRadius="7"
-                    android:text="결재하기"
-                    android:textColor="#FFFFFF"
-                    android:textSize="15sp"
-                    tools:ignore="MissingConstraints" />
+                    android:layout_height="wrap_content">
+
+                    <!-- 결제수단 타이틀 -->
+                    <TextView
+                        android:id="@+id/cancel_policy_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nanumsquarebold"
+                        android:text="취소 정책"
+                        android:textColor="#3e3e3e"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <!-- 결제수단 변경 -->
+                    <TextView
+                        android:id="@+id/rental_btnCancelDesc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nanumsquareregular"
+                        android:lineSpacingExtra="3sp"
+                        android:text="@string/cancel_policy_btn"
+                        android:textColor="#ff4d4d"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:fontFamily="@font/nanumsquareregular"
+                        android:lineSpacingExtra="2sp"
+                        android:text="@string/cancel_policy_desc"
+                        android:textColor="#3e3e3e"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cancel_policy_title" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- 약관 divider -->
+                <!--
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp"
+                                android:layout_marginTop="24dp"
+                                android:layout_marginBottom="24dp"
+                                android:background="#1a3e3e3e" />
+                -->
+                <!-- 약관 영역 -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/rental_clause_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|center_horizontal|center_vertical"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginBottom="32dp"
+                    android:gravity="center|center_horizontal|center_vertical"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/rental_clause_agree"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center|center_horizontal|center_vertical"
+                        android:background="@drawable/checkbox_selector_1"
+                        android:button="@null"
+                        android:gravity="center|center_horizontal|center_vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <!-- 결제수단 타이틀 -->
+                    <TextView
+                        android:id="@+id/clause_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center|center_horizontal|center_vertical"
+                        android:layout_marginLeft="15dp"
+                        android:fontFamily="@font/nanumsquareregular"
+                        android:gravity="center|center_vertical|center_horizontal"
+                        android:letterSpacing="0.05"
+                        android:text="@string/clause_title"
+                        android:textColor="#3e3e3e"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toEndOf="@+id/clause_agree"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="40dp"
+                    android:gravity="bottom|center_horizontal|center_vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/payment_content">
+
+                    <Button
+                        android:id="@+id/rental_reserve_confirm_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:background="@drawable/default_button_type_1"
+                        android:fontFamily="@font/nanumsquarebold"
+                        android:shadowColor="#C4C4C4"
+                        android:shadowDx="0"
+                        android:shadowDy="0"
+                        android:shadowRadius="7"
+                        android:text="결재하기"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp"
+                        tools:ignore="MissingConstraints" />
+                </LinearLayout>
             </LinearLayout>
+
         </LinearLayout>
-
-
     </ScrollView>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

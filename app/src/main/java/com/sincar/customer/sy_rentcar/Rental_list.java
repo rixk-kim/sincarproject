@@ -81,8 +81,15 @@ public class Rental_list extends AppCompatActivity {
         btSort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cd.setDialogItem(dlgCheck);
+
+                cd.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialog) {
+
+                    }
+                });
                 cd.show();
+                cd.setDialogItem(dlgCheck);
                 cd.setDialogResult(new CustomDialog.OnMyDialogResult() {
                     @Override
                     public void finish(int result) {
