@@ -26,7 +26,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <RadioButton
+        <TextView
             android:id="@+id/dlgBtn1"
             android:layout_width="284dp"
             android:layout_height="52dp"
@@ -35,17 +35,19 @@
             android:paddingStart="40dp"
             android:paddingTop="17dp"
             android:paddingBottom="17dp"
+            android:paddingRight="32dp"
             android:text="거리순"
-            android:textColor="@drawable/sy_dialog_rb_selector"
+            android:textColor="@color/agent_color_1NoOpp"
             android:checked="true"
             android:textSize="16sp"
+            android:drawableRight="@drawable/check_red"
             app:layout_constraintBottom_toTopOf="@+id/dlgBtn2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
             app:layout_constraintVertical_chainStyle="packed" />
 
-        <RadioButton
+        <TextView
             android:id="@+id/dlgBtn2"
             android:layout_width="284dp"
             android:layout_height="52dp"
@@ -53,16 +55,18 @@
             android:paddingStart="40dp"
             android:paddingTop="17dp"
             android:paddingBottom="17dp"
+            android:paddingRight="32dp"
             android:text="가격순"
             android:textColor="@color/agent_color_1NoOpp"
             android:textSize="16sp"
+            android:drawableRight="@drawable/check_red"
             app:layout_constraintBottom_toTopOf="@+id/dlgBtn3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dlgBtn1"
             app:layout_constraintVertical_chainStyle="packed" />
 
-        <RadioButton
+        <TextView
             android:id="@+id/dlgBtn3"
             android:layout_width="284dp"
             android:layout_height="52dp"
@@ -70,9 +74,11 @@
             android:paddingStart="40dp"
             android:paddingTop="17dp"
             android:paddingBottom="17dp"
+            android:paddingRight="32dp"
             android:text="인기순"
             android:textColor="@color/agent_color_1NoOpp"
             android:textSize="16sp"
+            android:drawableRight="@drawable/check_red"
             app:layout_constraintBottom_toTopOf="@+id/dlgCancel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

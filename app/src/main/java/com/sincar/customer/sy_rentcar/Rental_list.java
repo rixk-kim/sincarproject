@@ -10,7 +10,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -19,24 +22,27 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bumptech.glide.Glide;
+import com.sincar.customer.MainActivity;
 import com.sincar.customer.R;
 
 public class Rental_list extends AppCompatActivity {
     private ConstraintLayout mImagePhoto[] = new ConstraintLayout[8];
     int con[] = {R.id.rent_list_con1, R.id.rent_list_con2, R.id.rent_list_con3, R.id.rent_list_con4
-    , R.id.rent_list_con5, R.id.rent_list_con6, R.id.rent_list_con7, R.id.rent_list_con8};
+            , R.id.rent_list_con5, R.id.rent_list_con6, R.id.rent_list_con7, R.id.rent_list_con8};
 
-    CustomDialog cd;
+    CustomDialog dlg;
     int dlgCheck = 0;
     String start_date, start_time, return_date, return_time, curAddress;
     ImageView ivImage;
+    Bundle dlgBundle; //다이얼로그 번들
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rental_list);
 
-        ivImage = (ImageView)findViewById(R.id.rent_list_iv1);
+        ivImage = (ImageView) findViewById(R.id.rent_list_iv1);
         Glide.with(this).load("https://www.sincar.co.kr/upload/program/goods/list/201912241503214320.jpg")
                 .into(ivImage);
 
@@ -47,7 +53,7 @@ public class Rental_list extends AppCompatActivity {
         return_time = intent.getStringExtra("return_time");
         curAddress = intent.getStringExtra("current_Address");
 
-        ImageButton ibBack = (ImageButton)findViewById(R.id.ibBack1);
+        ImageButton ibBack = (ImageButton) findViewById(R.id.ibBack1);
 
         ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +62,7 @@ public class Rental_list extends AppCompatActivity {
             }
         });
 
-        Button btFilter = (Button)findViewById(R.id.btFilter);
+        Button btFilter = (Button) findViewById(R.id.btFilter);
 
         btFilter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,34 +72,25 @@ public class Rental_list extends AppCompatActivity {
             }
         });
 
-        final Button btSort = (Button)findViewById(R.id.btn_rentalCar_Sort);
+        final Button btSort = (Button) findViewById(R.id.btn_rentalCar_Sort);
 
         DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        cd = new CustomDialog(this);
-        WindowManager.LayoutParams wm = cd.getWindow().getAttributes();
-        wm.copyFrom(cd.getWindow().getAttributes());
-        wm.width = width / 5 * 4;
-
-
+        //다이얼로그 호출
         btSort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                cd.setOnShowListener(new DialogInterface.OnShowListener() {
-                    @Override
-                    public void onShow(DialogInterface dialog) {
-
-                    }
-                });
-                cd.show();
-                cd.setDialogItem(dlgCheck);
-                cd.setDialogResult(new CustomDialog.OnMyDialogResult() {
+                dlg = CustomDialog.getInstance();
+                dlgBundle = new Bundle();
+                dlgBundle.putInt("dlgCheck", dlgCheck);
+                dlg.setArguments(dlgBundle);
+                dlg.show(getSupportFragmentManager(), "dialog_event");
+                dlg.setDialogResult(new CustomDialog.OnMyDialogResult() {
                     @Override
                     public void finish(int result) {
-                        switch(result) {
+                        switch (result) {
                             case 0:
                                 btSort.setText("거리순");
                                 Toast.makeText(getApplicationContext(), "거리순을 선택하셨습니다", Toast.LENGTH_SHORT).show();
@@ -114,11 +111,12 @@ public class Rental_list extends AppCompatActivity {
                         }
                     }
                 });
+
             }
         });
 
-        for(int i = 0; i < 8; i++) {
-            mImagePhoto[i] = (ConstraintLayout)findViewById(con[i]);
+        for (int i = 0; i < 8; i++) {
+            mImagePhoto[i] = (ConstraintLayout) findViewById(con[i]);
 
             mImagePhoto[i].setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -135,4 +133,7 @@ public class Rental_list extends AppCompatActivity {
             });
         }
     }
+
 }
+
+

@@ -122,7 +122,8 @@ public class MapsActivity extends FragmentActivity implements
         my_longitude = longitude;
 
         //키해시 확인
-        String sigStr = getSigneture(this);
+        String sigStr = getSigneture(this); //디버그 모드 앱 해시키 확인
+        //Log.e("keyhash", Base64.encodeToString(sha1, Base64.NO_WRAP)); //구글 플레이 앱 사이닝 해시키 확인
 
         //화면 크기 구함
         pt = new Point();
@@ -618,6 +619,12 @@ public class MapsActivity extends FragmentActivity implements
         }
         return null;
     }
+
+    //안드로이드 앱 배포시 Google Play App Signing 기능을 이용할 시에 해시키값
+    byte[] sha1 = {0x0F, 0x71, 0x23, 0x55, 0x6C, (byte)0x8E, (byte)0xE7, (byte)0xD6, (byte)0xD4, (byte)0xCC, 0x4D, (byte)0x9E, (byte)0x9D,
+            (byte)0xA9, (byte)0xEC, 0x05, 0x47, 0x39, (byte)0xD6, (byte)0xA1};
+
+
 
     //카카오맵 맵뷰이벤트리스너 오버라이드
 
