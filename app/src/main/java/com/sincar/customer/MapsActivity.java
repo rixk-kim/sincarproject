@@ -122,7 +122,7 @@ public class MapsActivity extends FragmentActivity implements
         my_longitude = longitude;
 
         //키해시 확인
-        String sigStr = getSigneture(this);
+        //String sigStr = getSigneture(this);
 
         //화면 크기 구함
         pt = new Point();

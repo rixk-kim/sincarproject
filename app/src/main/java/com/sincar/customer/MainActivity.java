@@ -3,9 +3,13 @@ package com.sincar.customer;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +27,7 @@ import com.sincar.customer.adapter.content.UseContent;
 import com.sincar.customer.service.PicassoImageLoadingService;
 import com.sincar.customer.util.Util;
 
+import java.security.MessageDigest;
 import java.util.ArrayList;
 
 import static com.sincar.customer.HWApplication.voAdvertiseItem;
@@ -52,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // 화면 초기화
         init();
+
+        //getAppKeyHash();
     }
 
     /**
@@ -147,6 +154,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
+    private void getAppKeyHash() {
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md;
+                md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                //자체 hash값
+                String something = Base64.encodeToString(md.digest(), Base64.NO_WRAP); //new String(Base64.encode(md.digest(), 0));
+                Log.e("Hash key", something);
+                System.out.println("[spirit] Hash key1 : "+something);
+
+                //구글 앱서명 SHA-1값
+                byte[] sha1 = {
+                        0x0F, 0x71, 0x23, 0x55, 0x6C, (byte)0x8E, (byte)0xE7, (byte)0xD6, (byte)0xD4, (byte)0xCC, 0x4D, (byte)0x9E, (byte)0x9D, (byte)0xA9, (byte)0xEC, 0x05, 0x47, 0x39, (byte)0xD6, (byte)0xA1
+                };
+                System.out.println("[spirit] Hash key2 : "+Base64.encodeToString(sha1, Base64.NO_WRAP));
+
+
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            Log.e("name not found", e.toString());
+        }
+    }
+
+
 
     @Override
     public void onClick(View v) {

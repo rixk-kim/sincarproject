@@ -93,6 +93,7 @@
 
     <!-- bottom navi -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        style="@style/BottomNavigationView"
         android:id="@+id/useBottomNav"
         android:layout_width="match_parent"
         android:layout_height="64dp"
@@ -104,7 +105,7 @@
         android:background="@drawable/default_background_type_3"
         app:itemBackground="@color/base_background_color"
         app:itemIconTint="@drawable/bottom_section_color"
-        app:itemTextColor="@color/bottom_text_color"
+        app:itemTextColor="@drawable/bottom_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
