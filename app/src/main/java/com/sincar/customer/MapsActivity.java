@@ -122,7 +122,7 @@ public class MapsActivity extends FragmentActivity implements
         my_longitude = longitude;
 
         //키해시 확인
-        String sigStr = getSigneture(this); //디버그 모드 앱 해시키 확인
+        //String sigStr = getSigneture(this); //디버그 모드 앱 해시키 확인
         //Log.e("keyhash", Base64.encodeToString(sha1, Base64.NO_WRAP)); //구글 플레이 앱 사이닝 해시키 확인
 
         //화면 크기 구함
