@@ -43,6 +43,7 @@ public class CustomDialog extends DialogFragment implements View.OnClickListener
         View v = inflater.inflate(R.layout.sy_custom_dialog, container);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        setCancelable(false);
         tvDlgbtn1 = (TextView) v.findViewById(R.id.dlgBtn1);
         tvDlgbtn2 = (TextView) v.findViewById(R.id.dlgBtn2);
         tvDlgbtn3 = (TextView) v.findViewById(R.id.dlgBtn3);

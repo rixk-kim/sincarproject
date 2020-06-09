@@ -74,9 +74,9 @@ public class Rental_list extends AppCompatActivity {
 
         final Button btSort = (Button) findViewById(R.id.btn_rentalCar_Sort);
 
-        DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
-        int width = dm.widthPixels;
-        int height = dm.heightPixels;
+//        DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
+//        int width = dm.widthPixels;
+//        int height = dm.heightPixels;
 
         //다이얼로그 호출
         btSort.setOnClickListener(new View.OnClickListener() {

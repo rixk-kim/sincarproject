@@ -52,8 +52,8 @@ public class Rental_list_detail extends FragmentActivity implements
     private RelativeLayout mRelativeLayout;
     private MapView mapView;
     private ViewGroup mapViewContainer;
-    private Spinner spinner;
-    AdapterSpinner adapterSpinner;
+    private TextView spinner;
+
     private boolean spinner_select = true;
     private int select_delivery = 0;
     //sy
@@ -67,6 +67,9 @@ public class Rental_list_detail extends FragmentActivity implements
     private TextView rental_car_address;
     private TextView btn_rental_allocate, btn_rental_return;
     private View view_touchless;
+
+    CustomDialogInListDetail customSpinnerDialog;
+    Bundle dlgSpinnerBundle;
     ///sy
 
 
@@ -128,36 +131,41 @@ public class Rental_list_detail extends FragmentActivity implements
         mapViewContainer.addView(mapView);
         view_touchless.setClickable(true); //맵을 터치 불가 형식으로 만듬
 
-
-        ArrayList<String> dlivery_title = new ArrayList<>();
-        dlivery_title.add("지점방문"); //ArrayList에 내가 스피너에 보여주고싶은 값 셋팅
-        dlivery_title.add("왕복 딜리버리");
-        dlivery_title.add("배차시 딜리버리");
-        dlivery_title.add("반납시 딜리버리");
-
         spinner = findViewById(R.id.rental_spinner);
-        spinner.setPrompt("딜리버리");
-        adapterSpinner = new AdapterSpinner(this,dlivery_title); //그 값을 넣어줌
 
-        spinner.setAdapter(adapterSpinner); //어댑터연결
-        spinner.setSelection(select_delivery);   //선택값 지정
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (spinner_select) {
-                    spinner_select = false;
-                } else { // 로직
-                    Toast.makeText(getApplicationContext(),(String)spinner.getItemAtPosition(position)+" 선택되었습니다.",Toast.LENGTH_SHORT).show();
-                    select_delivery = position;
-                    spinner_Selected(select_delivery);
- //                   select_jisa_title = (String)spinner.getItemAtPosition(position);
-                }
-
+            public void onClick(View v) {
+                customSpinnerDialog = CustomDialogInListDetail.getInstance();
+                dlgSpinnerBundle = new Bundle();
+                dlgSpinnerBundle.putInt("dlgSpinnerCheck", select_delivery);
+                customSpinnerDialog.setArguments(dlgSpinnerBundle);
+                customSpinnerDialog.show(getSupportFragmentManager(), "spinnerDialog_event");
+                customSpinnerDialog.setDialogResult(new CustomDialogInListDetail.OnMySpinnerDialogResult() {
+                    @Override
+                    public void finish(int result) {
+                        select_delivery = result;
+                        spinner_Selected(select_delivery);
+                        switch (select_delivery) {
+                            case 0:
+                                spinner.setText("지점 방문");
+                                break;
+                            case 1:
+                                spinner.setText("왕복 딜리버리");
+                                break;
+                            case 2:
+                                spinner.setText("배차시 딜리버리");
+                                break;
+                            case 3:
+                                spinner.setText("반납시 딜리버리");
+                                break;
+                            default:
+                                break;
+                        }
+                        Toast.makeText(getApplicationContext(),spinner.getText().toString() + " 선택되었습니다.",Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
         });
 
         //sy
