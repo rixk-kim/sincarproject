@@ -10,6 +10,7 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
+    <!-- TODO 커스텀 리스트뷰를 위한 아이템 레이아웃-->
     <TextView
         android:id="@+id/tvRental_list_deli_list_item"
         android:layout_width="wrap_content"

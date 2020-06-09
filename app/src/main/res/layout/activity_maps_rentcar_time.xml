@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- TODO 날짜 NumberPicker -->
+    <!-- Custom NumberPicker Library 사용 -->
     <com.super_rabbit.wheel_picker.WheelPicker
         android:id="@+id/nPick1"
         android:layout_width="124dp"
@@ -23,6 +25,8 @@
         app:wheelItemCount="5"
         app:textSize="16sp" />
 
+    <!-- TODO 시간 Numberpicker -->
+    <!-- Custom NumberPicker Library 사용 -->
     <com.super_rabbit.wheel_picker.WheelPicker
         android:id="@+id/nPick2"
         android:layout_width="124dp"
@@ -84,6 +88,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/nPick2" />
 
+    <!-- TODO 설정된 시간 적용 버튼 -->
     <Button
         android:id="@+id/btnCheck"
         android:layout_width="0dp"

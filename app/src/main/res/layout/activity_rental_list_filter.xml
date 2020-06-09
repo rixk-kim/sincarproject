@@ -18,6 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/rounded_copy_2" />
 
+    <!-- TODO 필터 초기화 버튼 -->
     <Button
         android:id="@+id/btn_rentalCar_filter_clear"
         android:layout_width="65dp"
@@ -44,6 +45,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- TODO 나이 조건 필터 버튼 -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btnAge"
         android:layout_width="304dp"
@@ -66,6 +68,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- TODO 필터에서 가져온 조건 정보 텍스트뷰에 적용-->
         <TextView
             android:id="@+id/tvAge"
             android:layout_width="wrap_content"
@@ -98,6 +101,7 @@
             app:layout_constraintVertical_bias="0.42"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- TODO 가격 조건 필터 버튼 -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btnPrice"
         android:layout_width="304dp"
@@ -118,6 +122,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- TODO 필터에서 가져온 조건 정보 텍스트뷰에 적용-->
         <TextView
             android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
@@ -148,6 +153,7 @@
             app:layout_constraintVertical_bias="0.42"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- TODO 외형 조건 필터 버튼 -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btnType"
         android:layout_width="304dp"
@@ -167,6 +173,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- TODO 필터에서 가져온 조건 정보 텍스트뷰에 적용-->
         <TextView
             android:id="@+id/tvType"
             android:layout_width="wrap_content"
@@ -197,6 +204,7 @@
             app:layout_constraintVertical_bias="0.42"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- TODO 브랜드 조건 필터 버튼 -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btnBrand"
         android:layout_width="304dp"
@@ -217,6 +225,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- TODO 필터에서 가져온 조건 정보 텍스트뷰에 적용-->
         <TextView
             android:id="@+id/tvBrand"
             android:layout_width="wrap_content"
@@ -228,6 +237,7 @@
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -247,6 +257,7 @@
             app:layout_constraintVertical_bias="0.42"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- TODO 조건 리스트 취함후 렌탈카 리스트 호출 버튼 -->
     <Button
         android:id="@+id/btnAccept"
         android:layout_width="304dp"

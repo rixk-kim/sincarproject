@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".MapsActivity">
 
-    <!-- kakao map layout -->
+    <!-- TODO kakao map layout -->
 
     <RelativeLayout
         android:id="@+id/kMap"
@@ -176,6 +176,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- TODO - 렌탈카 부분 표시 프래그먼트 -->
     <FrameLayout
         android:id="@+id/framelayout_maps_rentcar"
         android:layout_width="match_parent"

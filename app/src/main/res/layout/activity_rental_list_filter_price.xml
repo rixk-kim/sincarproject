@@ -55,6 +55,7 @@
         app:layout_constraintEnd_toStartOf="@+id/rg_rental_list_filter_price2"
         app:layout_constraintTop_toTopOf="parent">
 
+        <!-- TODO 가격 설정 아이템1 -->
         <RadioButton
             android:id="@+id/rbPriall"
             android:layout_width="wrap_content"
@@ -67,6 +68,7 @@
             android:fontFamily="@font/nanumsquareregular"
             android:textSize="15sp" />
 
+        <!-- TODO 가격 설정 아이템2 -->
         <RadioButton
             android:id="@+id/rbPri20u"
             android:layout_width="wrap_content"
@@ -78,6 +80,7 @@
             android:fontFamily="@font/nanumsquareregular"
             android:textSize="15sp" />
 
+        <!-- TODO 가격 설정 아이템3 -->
         <RadioButton
             android:id="@+id/rbPri40u"
             android:layout_width="wrap_content"
@@ -89,6 +92,7 @@
             android:fontFamily="@font/nanumsquareregular"
             android:textSize="15sp" />
 
+        <!-- TODO 가격 설정 아이템4 -->
         <RadioButton
             android:id="@+id/rbPri50o"
             android:layout_width="wrap_content"
@@ -114,6 +118,7 @@
         app:layout_constraintStart_toEndOf="@+id/rg_rental_list_filter_price"
         app:layout_constraintTop_toTopOf="parent">
 
+        <!-- TODO 가격 설정 아이템5 -->
         <RadioButton
             android:id="@+id/rbPri10u"
             android:layout_width="wrap_content"
@@ -125,6 +130,7 @@
             android:fontFamily="@font/nanumsquareregular"
             android:textSize="15sp" />
 
+        <!-- TODO 가격 설정 아이템6 -->
         <RadioButton
             android:id="@+id/rbPri30u"
             android:layout_width="wrap_content"
@@ -136,6 +142,7 @@
             android:fontFamily="@font/nanumsquareregular"
             android:textSize="15sp" />
 
+        <!-- TODO 가격 설정 아이템7 -->
         <RadioButton
             android:id="@+id/rbPri50u"
             android:layout_width="wrap_content"
@@ -148,6 +155,7 @@
             android:textSize="15sp" />
     </RadioGroup>
 
+    <!-- TODO 최종 적용 버튼 -->
     <Button
         android:id="@+id/btnPriceCheck"
         android:layout_width="304dp"

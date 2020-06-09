@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- TODO - 주소정보 텍스트 -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btnReserveAddress"
         android:layout_width="0dp"
@@ -45,6 +46,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- TODO 예약 날짜 및 반납 날짜 Display 및 호출 버튼-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/next_layout"
         android:layout_width="0dp"
@@ -73,6 +75,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- TODO 현재 설정 적용 확인 버튼 -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btnDate"
         android:layout_width="match_parent"

@@ -51,6 +51,7 @@
         app:layout_constraintEnd_toStartOf="@+id/rg_rental_list_filter_age2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+        <!-- TODO 전체 -->
         <RadioButton
             android:id="@+id/rbAgeAll"
             android:checked="true"
@@ -61,6 +62,7 @@
             android:button="@drawable/radio_button_selector"
             android:textColor="@color/agent_color_1NoOpp"
             android:textSize="15sp"/>
+        <!-- TODO 만 26세 이상 -->
         <RadioButton
             android:id="@+id/rbAge26"
             android:layout_width="wrap_content"
@@ -85,6 +87,7 @@
         app:layout_constraintStart_toEndOf="@+id/rg_rental_list_filter_age"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+        <!-- TODO 만 21세 이상 -->
         <RadioButton
             android:id="@+id/rbAge21"
             android:layout_width="wrap_content"
@@ -95,6 +98,7 @@
             android:textSize="15sp"/>
     </RadioGroup>
 
+    <!-- TODO 최종 적용 버튼 -->
     <Button
         android:id="@+id/btnAgeCheck"
         android:layout_width="304dp"
