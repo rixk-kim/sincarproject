@@ -3,6 +3,8 @@ package com.sincar.customer.sy_rentcar;
 import android.graphics.drawable.Drawable;
 
 public class Rental_list_detail_deli_listview_item {
+
+    //커스텀 리스트뷰를 위한 커스텀리스트뷰아이템 클래스
     private String list_item_str;
     private Drawable checkDrawable;
 

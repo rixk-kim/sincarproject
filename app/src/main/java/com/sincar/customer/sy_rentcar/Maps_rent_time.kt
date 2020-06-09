@@ -24,10 +24,12 @@ val curDate = Date(System.currentTimeMillis())
 class Maps_rent_time : Fragment() {
     var btnCheck: Button? = null
 
-
+    //MapsActivity에 날짜,시간(설정에 따라 예약 또는 반납) 데이터를 넘기기위한 클래스
     private var onDateNTimeSetListener: OnDateNTimeSetListener? = null
+    //현재 화면이 예약인지 반납인짖 구분 짓기 위한 변수
     private var rCodeCheck: rCodeCheck? = null
 
+    //onDateNTimeSetListener를 사용하기 위한 초기화 메소드
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnDateNTimeSetListener) {
@@ -48,30 +50,32 @@ class Maps_rent_time : Fragment() {
         view.findViewById<WheelPicker>(R.id.nPick2).setAdapter(WPHourPickerAdapter())
         view.findViewById<WheelPicker>(R.id.nPick1).setUnselectedTextColor(R.color.agent_color_1Opp)
         view.findViewById<WheelPicker>(R.id.nPick2).setUnselectedTextColor(R.color.agent_color_1Opp)
-        view.findViewById<WheelPicker>(R.id.nPick2).scrollTo(23)
+        view.findViewById<WheelPicker>(R.id.nPick2).scrollTo(23) //초기화 중 시간 넘버피커의 마지막 아이템으로 이동
 
         val dateFormat = SimpleDateFormat("MMM d일 (E)")
         val timeFormat = SimpleDateFormat("HH")
 
         var context: Context? = container!!.context
 
+        //예약,반납 시간 설정을 위한 변수 선언
         var rCode = 0
         var start_dateCheck: String? = null
         var start_timeCheck: String? = null
-        var start_timeCheckInt: Int
+        var start_timeCheckInt: Int //예약시간 인트화(0 ~ 23)
         var return_dateCheck: String?
         var return_timeCheckInt: Int
 
         var dateCheck: String? = null
         var timeCheck: Int = 0
 
+        //번들로부터 넘어온 데이터를 변수에 대입
         if (getArguments() != null) {
             start_dateCheck = arguments!!.getString("start_date")
             start_timeCheck = arguments!!.getString("start_time")
             start_timeCheckInt = arguments!!.getInt("start_timeInt")
             return_dateCheck = arguments!!.getString("return_date")
             return_timeCheckInt = arguments!!.getInt("return_timeInt")
-            rCode = arguments!!.getInt("reOrRe")
+            rCode = arguments!!.getInt("reOrRe") //현재 화면이 예약인지 반납인지 구분 짓기 위한 변수
             if (rCode == 1) {
                 dateCheck = start_dateCheck
                 timeCheck = start_timeCheckInt
@@ -81,11 +85,15 @@ class Maps_rent_time : Fragment() {
             }
             rCodeCheck?.rCodechk(rCode)
 
+            //변수에 데입된 데이터를 Date변수로 변환
             val dateCheck_date = dateFormat.parse(dateCheck)
             val date_now_date = dateFormat.parse(dateFormat.format(curDate))
+            //예약날짜와 현재 날짜의 일수 차이를 계산
             val dffday = (dateCheck_date.time - date_now_date.time) / (24 * 60 * 60 * 1000)
 
+            //계산된 수 만큼 날짜 넘버피커의 스크롤 이동(날짜 넘버피커는 초기화시 현재 날짜기준으로 설정됨)
             view.findViewById<WheelPicker>(R.id.nPick1).scrollTo(dffday.toInt())
+            //인트화 된 시간으로 스크롤 이동
             view.findViewById<WheelPicker>(R.id.nPick2).scrollTo(timeCheck)
         }
 
@@ -110,8 +118,10 @@ class Maps_rent_time : Fragment() {
             var time_reserve = timeFormat.parse(start_timeCheck)
             var resToret_TimCheck = ((time_check.time - time_reserve.time) / (60 * 60 * 1000)).toInt()
 
+            //예약 프래그먼트일 경우
             if (rCode == 1) {
                 if (now_dffdayCheck == 0) {
+                    //예약날짜가 현재시간과 같고 예약시간이 현재시간과 같거나 작을 경우 화면 전환 하지 않음
                     if (now_dfftimeCheck < 0)
                         Toast.makeText(context, "현재 시간 이후의 시간으로 설정하십시오.", Toast.LENGTH_LONG).show();
                     else {
@@ -122,11 +132,14 @@ class Maps_rent_time : Fragment() {
                     onDateNTimeSetListener?.onDateNTimePickerSet(date, time, now_dfftimeCheck)
                     (activity as MapsActivity?)!!.replaceFragment(1)
                 }
+                //반납 프래그먼트일 경우
             } else if(rCode == 2) {
+                //반납날짜가 예약날짜보다 빠를 경우
                 if (resToret_DayCheck < 0) {
                     var strMent = "예약 날짜보다 반납 날짜가 더 빠릅니다.\n예약 시간은 "
                     Toast.makeText(context, strMent + start_dateCheck + start_timeCheck + "입니다", Toast.LENGTH_LONG).show();
 
+                    //반납날짜가 예약날짜와 같을 경우 시간을 비교하여 화면 전환 결정
                 } else if ( resToret_DayCheck == 0){
                     if (resToret_TimCheck <= 0) {
                         var strMent = "예약 시간으로부터 최소한 1시간 경과된 시간으로 설정하십시오.\n예약 시간은 "
@@ -142,12 +155,13 @@ class Maps_rent_time : Fragment() {
                     (activity as MapsActivity?)!!.replaceFragment(1)
                 }
             }
-            rCodeCheck?.rCodechk(0);
+            rCodeCheck?.rCodechk(0); //메인 프래그먼트로 넘어가므로 rCode를 다시 0으로 전환
         }
         return view
     }
 }
 
+//날짜 넘버피커를 위한 아답터
 class WPDayPickerAdapter : WheelAdapter {
 
     val simpleDateFormat = SimpleDateFormat("MMM d일 (E)")
@@ -177,6 +191,7 @@ class WPDayPickerAdapter : WheelAdapter {
     }
 }
 
+//시간 넘버피커를 위한 아답터
 class WPHourPickerAdapter : WheelAdapter {
     override fun getValue(position: Int): String {
         return when (position) {

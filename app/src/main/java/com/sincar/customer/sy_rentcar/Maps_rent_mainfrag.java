@@ -24,11 +24,11 @@ import java.util.Map;
 
 public class Maps_rent_mainfrag extends Fragment {
 
-    androidx.constraintlayout.widget.ConstraintLayout tvAddress, reserveTime, returnTime;
-    TextView tvReserveDate, tvReserveTime, tvReturnDate, tvReturnTime, currentAddress;
-    Button btnCheck;
-    Date reserverDateNTime, returnDateNTime;
-    String start_date, start_time, return_date, return_time, curAddress;
+    androidx.constraintlayout.widget.ConstraintLayout tvAddress, reserveTime, returnTime; //맵표시 주소, 예약시간, 반납시간의 버튼화
+    TextView tvReserveDate, tvReserveTime, tvReturnDate, tvReturnTime, currentAddress; //예약날짜,시간, 반납날짜,시간, 맵표시 주소텍스트
+    Button btnCheck;    //최종 확인 버튼
+    Date reserverDateNTime, returnDateNTime; //예약날짜,반납날짜의 Date
+    String start_date, start_time, return_date, return_time, curAddress; // 예약날짜,시간, 반납날짜,시간, 맵표시 주소 String
 
     @Nullable
     @Override
@@ -47,12 +47,14 @@ public class Maps_rent_mainfrag extends Fragment {
         tvReturnDate = (TextView) view.findViewById(R.id.return_date);
         tvReturnTime = (TextView) view.findViewById(R.id.return_time);
 
+        //Bundle로부터 데이터를 받아옴
         if (getArguments() != null) {
             start_date = getArguments().getString("start_date");
             start_time = getArguments().getString("start_time");
             return_date = getArguments().getString("return_date");
             return_time = getArguments().getString("return_time");
             curAddress = getArguments().getString("current_Address");
+            //받아온 데이터를 텍스트뷰에 표시
             tvReserveDate.setText(start_date);
             tvReserveTime.setText(start_time);
             tvReturnDate.setText(return_date);
@@ -70,6 +72,7 @@ public class Maps_rent_mainfrag extends Fragment {
             }
         }
 
+        //주소 검색 액티비티로 화면 전환
         tvAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,25 +81,27 @@ public class Maps_rent_mainfrag extends Fragment {
             }
         });
 
+        //예약 날짜,시간 설정 프래그먼트로 화면 전환
         reserveTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((MapsActivity) getActivity()).start_reserveDate();
             }
         });
-
+        //반납 날짜,시간 설정 프래그먼트로 화면 전환
         returnTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((MapsActivity) getActivity()).start_returnDate();
             }
         });
-
+        //최종 확인 버튼
         btnCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             //파싱한 예약 시간과 반납 시간을 비교
             //예약 시간과 반납 시간이 같거나 반납시간잉 예약시간보다 빠르면 오류 토스트
             public void onClick(View v) {
+                //현재시간과 예약시간과 반납시간을 비교하여 화면 전환 결정하는 알고리즘
                 int compare = reserverDateNTime.compareTo(returnDateNTime);
                 if(compare == 0) {
                     Toast.makeText(getContext(), "예약 시간과 반납 시간이 같습니다\n반납시간이 예약 시간보다 최소한 1시간 경과 되어있어야 합니다", Toast.LENGTH_LONG).show();
@@ -118,7 +123,7 @@ public class Maps_rent_mainfrag extends Fragment {
         return view;
     }
 
-
+    //MapsActivity에서 화면중앙 위치의 주소를 표현하기 위한 메소드
     public void AddressChange() {
         String curAddress = getArguments().getString("current_Address");
         if(curAddress != null && currentAddress != null)

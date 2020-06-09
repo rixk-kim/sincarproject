@@ -84,16 +84,16 @@ public class MapsActivity extends FragmentActivity implements
     public static MapsActivity _mMapsActivity;
 
     //sy
-    FrameLayout framelayout_maps_rentCar;
-    Maps_rent_time maps_rent_time_reserve, maps_rent_time_return;
-    Maps_rent_mainfrag maps_rent_mainfrag;
-    String start_date, start_time, return_date, return_time;
-    int now_timeInt, start_timeInt, return_timeInt;
+    FrameLayout framelayout_maps_rentCar;   //렌트카 메뉴 선택시 하단 디스플레이를 위한 프레임레이아웃
+    Maps_rent_time maps_rent_time_reserve, maps_rent_time_return; //렌트카 메뉴 선택중 예약 시간 설정 디스플레이를 위한 클래스(예약,반납)
+    Maps_rent_mainfrag maps_rent_mainfrag; //렌트카 메뉴 선택시 하단 메인메뉴 디스플레이를 위한 클래스
+    String start_date, start_time, return_date, return_time; //예약 날짜,시간 과 반납 날짜 시간
+    int now_timeInt, start_timeInt, return_timeInt; //현재시간,예약시간,반납시간 인트화
     ImageView btnCurrent;
-    Bundle bundle = new Bundle();
-    int rCode = 0;
-    MapView mapView;
-    ViewGroup mapViewContainer;
+    Bundle bundle = new Bundle(); //메인프래그먼트에 데이터 전달을 위한 번들
+    int rCode = 0;  //렌터카 프래그먼트 활성화중 메인화면,예약시간화면,반납시간화면을 구분 짓기 위한 변수
+    MapView mapView; //카카오맵 맵뷰
+    ViewGroup mapViewContainer; //맵뷰 디스플레이용 컨테이너
     String appkey = MapApiConst.KAKAO_MAPS_ANDROID_APP_API_KEY;
     ConstraintLayout constraintLayout;
     ConstraintSet constraintSet;
@@ -158,6 +158,7 @@ public class MapsActivity extends FragmentActivity implements
 
         //sy
 
+        //렌터카 디스플레이를 위한 심플데이터포맷
         btnCurrent = (ImageView) findViewById(R.id.btnCurrent);
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d일 (E)");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:00");
@@ -167,7 +168,7 @@ public class MapsActivity extends FragmentActivity implements
         return_date = dateFormat.format(currentTime);
         return_time = timeFormat.format(currentTime);
         now_timeInt = Integer.parseInt(timeIntFormat.format(currentTime));
-        start_timeInt = return_timeInt = now_timeInt;
+        start_timeInt = return_timeInt = now_timeInt; //초기화 중엔 초기화면 설정을 위해서 현재시간 예약시간 반납시간 동일화
 
         ///sy
         findViewById(R.id.btnMapHome).setOnClickListener(this);
@@ -197,10 +198,12 @@ public class MapsActivity extends FragmentActivity implements
             currentTextView.setText("");
             reserve_date = findViewById(R.id.reserve_date);
             reserve_date.setText(reserve_month + "/ " + reserve_day + " (" + weekDay + ")"); //9/15 (화)
+            //현재위치 설정 버튼의 위치 설정 (스팀세차의 액티비티 기준으로 위치)
             constraintSet.connect(btnCurrent.getId(), constraintSet.BOTTOM, mbtnReserveAddress.getId(), ConstraintSet.TOP);
             constraintSet.applyTo(constraintLayout);
 
-        } else { //sy
+        } else { //sy //현재는 렌터카만 작동하지만 추후 렌터카 외 부문의 추가 구분 필요
+            //현재위치 설정 버튼의 위치 설정 (렌트카 프레임레이아웃의 기준으로 위치)
             constraintSet.connect(btnCurrent.getId(), constraintSet.BOTTOM, framelayout_maps_rentCar.getId(), ConstraintSet.TOP);
             constraintSet.applyTo(constraintLayout);
             mConstraintLayout.setVisibility(View.GONE);
@@ -214,9 +217,11 @@ public class MapsActivity extends FragmentActivity implements
             replaceFragment(1);
         }
 
+        //카카오맵 디스플레이
         mapView = new MapView(this);
         mapViewContainer = (ViewGroup) findViewById(R.id.kMap);
         mapViewContainer.addView(mapView);
+        //카카오맵의 여러 이벤트의 리스너
         mapView.setMapViewEventListener(this);
 
         getAddress();
@@ -259,11 +264,13 @@ public class MapsActivity extends FragmentActivity implements
         FragmentTransaction transaction;
         fragmentManager = getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();
+        //설정된 예약시간,반납시간 데이터 패스
         if (start_date != null && start_time != null && return_date != null && return_time != null) {
             bundle.putString("start_date", start_date);
             bundle.putString("start_time", start_time);
             bundle.putString("return_date", return_date);
             bundle.putString("return_time", return_time);
+            //예약시간과 반납시간의 인트화를 데이터 패스
             bundle.putInt("start_timeInt", start_timeInt);
             bundle.putInt("return_timeInt", return_timeInt);
             bundle.putString("current_Address", cAddress);
@@ -271,18 +278,20 @@ public class MapsActivity extends FragmentActivity implements
         int fm1Height, fm2Height;
         switch (i) {
 
+            // 1번 : 메인프레임레이아웃 2번 : 예약시간 설정(넘버피커) 프레임레이아웃 3번 : 반납시간 설정(넘버피커)
             case 1:
                 maps_rent_mainfrag.setArguments(bundle);
+                //렌터카 메인프래그화면 DP크기로 설정
                 fm1Height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 278, getResources().getDisplayMetrics()); //278dp입력
                 constraintSet.constrainHeight(R.id.framelayout_maps_rentcar, fm1Height);
                 constraintSet.applyTo(constraintLayout);
-                transaction.replace(R.id.framelayout_maps_rentcar, maps_rent_mainfrag).commitNow();
+                transaction.replace(R.id.framelayout_maps_rentcar, maps_rent_mainfrag).commitNow(); //프래그먼트 화면표시 코드
                 rCode = 0;
                 break;
             case 2:
-                bundle.putInt("reOrRe", 1);
+                bundle.putInt("reOrRe", 1); //렌터카 예약 시간으로 구분
                 maps_rent_time_reserve.setArguments(bundle);
-                //framelayout 크기 설정
+                //렌터카 예약시간,반납시간화면 DP크기로 설정
                 fm2Height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 321, getResources().getDisplayMetrics()); //321dp 입력
                 constraintSet.constrainHeight(R.id.framelayout_maps_rentcar, fm2Height);
                 constraintSet.applyTo(constraintLayout);
@@ -290,7 +299,7 @@ public class MapsActivity extends FragmentActivity implements
                 rCode = 1;
                 break;
             case 3:
-                bundle.putInt("reOrRe", 2);
+                bundle.putInt("reOrRe", 2); //렌터카 반납 시간으로 구분
                 maps_rent_time_return.setArguments(bundle);
                 fm2Height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 321, getResources().getDisplayMetrics()); //321dp 입력
                 constraintSet.constrainHeight(R.id.framelayout_maps_rentcar, fm2Height);
@@ -311,11 +320,11 @@ public class MapsActivity extends FragmentActivity implements
         if ("steam".equals(main_path)) {
             constraintSet.constrainHeight(R.id.kMap, pt.y - mbtnReserveAddress.getHeight()
                     - mConstraintLayout.getHeight() - next_Layout.getHeight() + 20);
-            constraintSet.applyTo(constraintLayout);
-            framelayout_maps_rentCar.setVisibility(View.GONE);
+            constraintSet.applyTo(constraintLayout);    //맵뷰의 크기를 스팀세차에 맞춰 설정
+            framelayout_maps_rentCar.setVisibility(View.GONE);  //렌터카 프래그먼트 디스플레이 화면에서 삭제
         } else {
             constraintSet.constrainHeight(R.id.kMap, pt.y - framelayout_maps_rentCar.getHeight()+ 20);
-            constraintSet.applyTo(constraintLayout);
+            constraintSet.applyTo(constraintLayout);    //맵뷰의 크기를 렌터카에 맞춰 설정
         }
     }
 
@@ -324,7 +333,7 @@ public class MapsActivity extends FragmentActivity implements
     @Override
     public void onResume() {
         super.onResume();
-        if (!gps.isGetLocation()) {
+        if (!gps.isGetLocation()) {//액티비티 활성 또는 재활성화 중 gps설정 확인
             gps.showSettingsAlert();
         }
         init();
@@ -333,7 +342,7 @@ public class MapsActivity extends FragmentActivity implements
     @Override
     protected void onPause() {
         super.onPause();
-        mapViewContainer.removeView(mapView);
+        mapViewContainer.removeView(mapView); //액티비티가 넘어갈때 맵뷰를 컨테이너에서 삭제(오류 방지)
     }
 
     /**
@@ -411,7 +420,8 @@ public class MapsActivity extends FragmentActivity implements
                         //sy
                     } else {
                         bundle.putString("current_address", cAddress);
-                        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
+                        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true); //맵뷰의 시점을 gps기준으로 현재위치로 이동
+                        //현재화면이 렌터카 메인프래그먼트 일때만 현재위치 정보 표시 메소드 실행
                         if(rCode == 0) {
                             if (((Maps_rent_mainfrag) getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar)) != null)
                                 ((Maps_rent_mainfrag) getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar)).AddressChange();
@@ -471,7 +481,7 @@ public class MapsActivity extends FragmentActivity implements
         }
     }
 
-    //
+    //액티비티 재활성화시 실행되는 메소드(스팀세차의 날짜,주소 설정후)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -568,6 +578,9 @@ public class MapsActivity extends FragmentActivity implements
     }
 
     //sy
+    /**
+    예약시간과 반납시간 프레임레이아웃 호출 메소드
+     */
     public void start_reserveDate() {
         replaceFragment(2);
     }
@@ -576,6 +589,10 @@ public class MapsActivity extends FragmentActivity implements
         replaceFragment(3);
     }
 
+    /**
+     렌터카 메인 프래그먼트로부터 데이터를 받기 위한 인터페이스 메소드
+     날짜,시간,r코드에 따라 예약시간이나 반납시간 구분
+     */
     @Override
     public void onDateNTimePickerSet(String date, String time, int timeCheck) {
         if (rCode == 1) {
@@ -589,6 +606,11 @@ public class MapsActivity extends FragmentActivity implements
         }
     }
 
+    /**
+     *
+     * @param rCodecheck 렌터카 프래그먼트에서 액티비티로 현재화면표시 정보를 보내기 위한 인터페이스 메소드
+     *                   0 : 메인프래그먼트 1 : 예약시간 프래그먼트 2 : 반납시간 프래그먼트
+     */
     @Override
     public void rCodechk(int rCodecheck) {
         rCode = rCodecheck;
@@ -628,6 +650,8 @@ public class MapsActivity extends FragmentActivity implements
 
     //카카오맵 맵뷰이벤트리스너 오버라이드
 
+
+    //카카오맵의 맵뷰가 초기 표현됐을때 호출
     @Override
     public void onMapViewInitialized(@NotNull MapView mapView) {
         mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
@@ -668,12 +692,15 @@ public class MapsActivity extends FragmentActivity implements
 
     }
 
+    //맵뷰의 이동후 완전히 멈췄을때 호출되는 메소드(맵뷰 초기화면 설정후에 호출되기도 함)
     @Override
     public void onMapViewMoveFinished(MapView mapView, MapPoint mapPoint) {
+        //화면의 중앙읭 위경도 정보를 변수에 대입
         latitude = mapPoint.getMapPointGeoCoord().latitude;
         longitude = mapPoint.getMapPointGeoCoord().longitude;
         if (mapCheck) {
             getAddress();
+            //현재화면이 렌터카 메인프래그먼트 일때만 현재위치 정보 표시 메소드 실행
             if(rCode == 0) {
                 if((Maps_rent_mainfrag)getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar) != null) {
                     ((Maps_rent_mainfrag) getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar)).AddressChange();

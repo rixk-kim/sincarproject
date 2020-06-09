@@ -16,10 +16,10 @@ public class Rental_list_filter_price extends AppCompatActivity {
 
     ImageButton imBack;
     Button btnPriCheck;
-    RadioGroup rgPri, rgPri2;
-    RadioButton rb1, rb2, rb3, rb4, rb5, rb6, rb7;
+    RadioGroup rgPri, rgPri2; //버튼 위치 배치 디스플레이를 위해 라디오 그룹 2개 설정
+    RadioButton rb1, rb2, rb3, rb4, rb5, rb6, rb7; // 7개의 라디오버튼 변수 선언
 
-    int rbPriceChange;
+    int rbPriceChange; // 설정된 가격 조건을 구분 짓기 위한 변수 0: 전체 1: 10만원이하 2: 20만원 이하 ~~
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -37,6 +37,8 @@ public class Rental_list_filter_price extends AppCompatActivity {
         rb6 = (RadioButton)findViewById(R.id.rbPri50u);
         rb7 = (RadioButton)findViewById(R.id.rbPri50o);
 
+        //라디오 버튼 6개 중 1개 클릭시 나머지 버튼은 비활성화
+        //가격조건 구분 변수에 구분된 데이터 대입 (0 ~ 6)
         rb1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,6 +165,7 @@ public class Rental_list_filter_price extends AppCompatActivity {
             }
         });
 
+        //취소 버튼
         imBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,6 +173,7 @@ public class Rental_list_filter_price extends AppCompatActivity {
             }
         });
 
+        //조건 적용 버튼
         btnPriCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

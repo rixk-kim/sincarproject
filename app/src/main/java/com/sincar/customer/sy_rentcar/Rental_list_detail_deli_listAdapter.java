@@ -15,6 +15,8 @@ import java.util.ArrayList;
 
 public class Rental_list_detail_deli_listAdapter extends BaseAdapter {
 
+    //커스텀 리스트뷰를 위한 커스텀리스트뷰아답터
+
     private ArrayList<Rental_list_detail_deli_listview_item> listViewItemList = new ArrayList<Rental_list_detail_deli_listview_item>();
 
     public Rental_list_detail_deli_listAdapter() {

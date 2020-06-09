@@ -26,15 +26,16 @@ import com.sincar.customer.MainActivity;
 import com.sincar.customer.R;
 
 public class Rental_list extends AppCompatActivity {
+    //8개의 샘플 렌탈카 리스트 생성
     private ConstraintLayout mImagePhoto[] = new ConstraintLayout[8];
     int con[] = {R.id.rent_list_con1, R.id.rent_list_con2, R.id.rent_list_con3, R.id.rent_list_con4
             , R.id.rent_list_con5, R.id.rent_list_con6, R.id.rent_list_con7, R.id.rent_list_con8};
 
-    CustomDialog dlg;
-    int dlgCheck = 0;
-    String start_date, start_time, return_date, return_time, curAddress;
+    CustomDialog dlg; //렌탈 리스트용 커스텀 다이얼로그
+    int dlgCheck = 0; //다이얼로그에 체크된 아이템을 구분 짓기 위한 변수
+    String start_date, start_time, return_date, return_time, curAddress; //시간 데이터
     ImageView ivImage;
-    Bundle dlgBundle; //다이얼로그 번들
+    Bundle dlgBundle; //다이얼로그용 번들
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,7 @@ public class Rental_list extends AppCompatActivity {
 
         Button btFilter = (Button) findViewById(R.id.btFilter);
 
+        //리스트 필터 보기 액티비티로 화면 전환
         btFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,6 +74,7 @@ public class Rental_list extends AppCompatActivity {
             }
         });
 
+        //리스트 sort방식을 결정하기 위한 버튼
         final Button btSort = (Button) findViewById(R.id.btn_rentalCar_Sort);
 
 //        DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
@@ -84,12 +87,13 @@ public class Rental_list extends AppCompatActivity {
             public void onClick(View v) {
                 dlg = CustomDialog.getInstance();
                 dlgBundle = new Bundle();
-                dlgBundle.putInt("dlgCheck", dlgCheck);
+                dlgBundle.putInt("dlgCheck", dlgCheck); //체크된 아이템 확인용 변수 0:거리순 1:가격순 2:인기순
                 dlg.setArguments(dlgBundle);
                 dlg.show(getSupportFragmentManager(), "dialog_event");
                 dlg.setDialogResult(new CustomDialog.OnMyDialogResult() {
                     @Override
-                    public void finish(int result) {
+                    public void finish(int result) { //커스텀 다이얼로그가 종료시 호출되는 메소드
+                        //추후 통신 인터페이스 적용후 대대적 수정 필요
                         switch (result) {
                             case 0:
                                 btSort.setText("거리순");
@@ -115,6 +119,8 @@ public class Rental_list extends AppCompatActivity {
             }
         });
 
+        //8개의 임시 렌탈카 리스트 변수 적용
+        //추후 통신 인터페이스 적용후 대대적 수정 필요
         for (int i = 0; i < 8; i++) {
             mImagePhoto[i] = (ConstraintLayout) findViewById(con[i]);
 
@@ -122,6 +128,7 @@ public class Rental_list extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     //상세페이지 이동
+                    //예약시간,반납시간, 현재주소의 데이터를 이전 액티비티에서 받아서 넘김
                     Intent intent = new Intent(getApplicationContext(), Rental_list_detail.class);
                     intent.putExtra("start_date", start_date);
                     intent.putExtra("start_time", start_time);

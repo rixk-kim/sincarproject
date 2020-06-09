@@ -17,10 +17,10 @@ public class Rental_list_filter_age extends AppCompatActivity {
 
     ImageButton imBack;
     Button btAgeCheck;
-    RadioGroup rgAge,rgAge2;
-    RadioButton rb1, rb2, rb3;
+    RadioGroup rgAge,rgAge2; //버튼 위치 배치 디스플레이를 위해 라디오 그룹 2개 설정
+    RadioButton rb1, rb2, rb3; //라디오 버튼3개 설정(전체,만 21세이상,만 26세 이상)
 
-    int rb_age_change;
+    int rb_age_change; // 설정된 나이 조건을 구분 짓기 위한 변수 0:전체 1:만 21세 2: 만 26세
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,7 @@ public class Rental_list_filter_age extends AppCompatActivity {
         rb2 = findViewById(R.id.rbAge21);
         rb3 = findViewById(R.id.rbAge26);
 
+        //화면 종료
         imBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,6 +43,8 @@ public class Rental_list_filter_age extends AppCompatActivity {
             }
         });
 
+        //버튼이 클릭 되어지면 체크된 라디오버튼만 활성화 하고 나머지 버튼은 비활성화
+        //나이조건 구분 변수에 구분된 데이터 대입 (0 ~ 2)
         rb1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,10 +87,12 @@ public class Rental_list_filter_age extends AppCompatActivity {
             }
         });
 
+        //현재 적용된 조건을 필터에 적용 및 액티비티 종료
         btAgeCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
+                //조건정보 적용된 변수 번들로 데이터 전달
                 intent.putExtra("age_data", rb_age_change);
                 setResult(RESULT_OK, intent);
                 finish();
