@@ -2,6 +2,6 @@
     <item android:state_pressed="true" android:drawable="@drawable/back_black"/>
     <item android:state_focused="true" android:drawable="@drawable/back_black"/>
     <item android:state_selected="true" android:drawable="@drawable/back_black"/>
-    <item android:drawable="@drawable/back_red"/>
+    <item android:drawable="@drawable/arrow_red_24_px"/>
 </selector>
 

@@ -29,7 +29,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:contentDescription="@string/actionbar_prev_icon_description"
-                android:src="@drawable/back_red" />
+                android:src="@drawable/prev_image_selector" />
         </LinearLayout>
         <TextView
             android:id="@+id/myinfo_title_activity"

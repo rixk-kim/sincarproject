@@ -16,7 +16,7 @@
         android:background="@color/base_background_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/filled_red" />
+        app:srcCompat="@drawable/arrow_red_24_px" />
 
     <!-- TODO 리스트 Sort 설정 Dialog 호출 버튼-->
     <Button
