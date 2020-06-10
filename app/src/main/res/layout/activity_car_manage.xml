@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:id="@+id/car_manage_include"
+        android:background="@color/base_background_color"
         tools:ignore="MissingConstraints">
 
         <!-- ActionBar : Back / Title / Info -->
@@ -73,6 +74,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="80dp"
+        android:background="@color/base_background_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

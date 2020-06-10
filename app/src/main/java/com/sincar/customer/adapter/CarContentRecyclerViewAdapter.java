@@ -67,16 +67,19 @@ public class CarContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
         mLayout = holder.mView.findViewById(R.id.car_layout);
 
         if (holder.mItem.car_selected == true) {
-            mLayout.setBackgroundResource(R.color.card_background_color);
+            //mLayout.setBackgroundResource(R.color.card_background_color);
+            mLayout.setBackgroundResource(R.drawable.car_manage_select);
         } else {
-            mLayout.setBackgroundResource(R.color.base_background_color);
+            //mLayout.setBackgroundResource(R.color.base_background_color);
+            mLayout.setBackgroundResource(R.drawable.shadow_button_type_1);
+
         }
 
         holder.mCarDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 리스트 선택 시 이벤트 핸들러 추가 필요하면 여기에서 해주기
-                // 카드 삭제
+                // 삭제
                 //Toast.makeText(mContext, "차량 삭제 요청 : " + holder.mCarSeq, Toast.LENGTH_SHORT).show();
                 ((CarManageActivity)CarManageActivity.carContext).carDelete(String.valueOf(holder.mCarSeq));
             }

@@ -141,7 +141,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- 리스트 타이틀 -->
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/list_title"
         android:layout_width="match_parent"
         android:layout_height="52dp"
@@ -149,62 +149,79 @@
         android:background="@drawable/default_background_type_5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/friend_layout_2">
+        app:layout_constraintTop_toBottomOf="@id/friend_layout_2"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/column1"
-            android:fontFamily="@font/nanumsquareregular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#3e3e3e"
-            android:textSize="14sp"
-            android:text="@string/point_history_list_column_1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/column2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/point_history_list_column_1" />
-        <TextView
-            android:id="@+id/column2"
-            android:fontFamily="@font/nanumsquareregular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#3e3e3e"
-            android:textSize="14sp"
-            android:text="@string/point_history_list_column_2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/column3"
-            app:layout_constraintStart_toEndOf="@+id/column1"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/point_history_list_column_2" />
-        <TextView
-            android:id="@+id/column3"
-            android:fontFamily="@font/nanumsquareregular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#3e3e3e"
-            android:textSize="14sp"
-            android:text="@string/point_history_list_column_3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/column4"
-            app:layout_constraintStart_toEndOf="@+id/column2"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/point_history_list_column_3" />
-        <TextView
-            android:id="@+id/column4"
-            android:fontFamily="@font/nanumsquareregular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#3e3e3e"
-            android:textSize="14sp"
-            android:text="@string/point_history_list_column_4"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/column3"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/point_history_list_column_4" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            tools:ignore="MissingConstraints">
+            <TextView
+                android:id="@+id/column1"
+                android:fontFamily="@font/nanumsquareregular"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:textColor="#3e3e3e"
+                android:textSize="14sp"
+                android:text="@string/point_history_list_column_1"
+                android:gravity="center|center_horizontal|center_vertical"
+                tools:text="@string/point_history_list_column_1" />
+        </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            tools:ignore="MissingConstraints">
+            <TextView
+                android:id="@+id/column2"
+                android:fontFamily="@font/nanumsquareregular"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:textColor="#3e3e3e"
+                android:textSize="14sp"
+                android:text="@string/point_history_list_column_2"
+                android:gravity="center|center_horizontal|center_vertical"
+                tools:text="@string/point_history_list_column_2" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            tools:ignore="MissingConstraints">
+            <TextView
+                android:id="@+id/column3"
+                android:fontFamily="@font/nanumsquareregular"
+                android:layout_width="wrap_content"
+                android:layout_height="52dp"
+                android:textColor="#3e3e3e"
+                android:textSize="14sp"
+                android:text="@string/point_history_list_column_3"
+                android:layout_weight="1"
+                tools:text="@string/point_history_list_column_3"
+                android:gravity="center|center_horizontal|center_vertical" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            tools:ignore="MissingConstraints">
+            <TextView
+                android:id="@+id/column4"
+                android:fontFamily="@font/nanumsquareregular"
+                android:layout_width="wrap_content"
+                android:layout_height="52dp"
+                android:textColor="#3e3e3e"
+                android:textSize="14sp"
+                android:text="@string/point_history_list_column_4"
+                android:layout_weight="1"
+                tools:text="@string/point_history_list_column_4"
+                android:gravity="center|center_horizontal|center_vertical" />
+        </LinearLayout>
+    </LinearLayout>
 
     <!-- 리스트 내용 -->
     <androidx.recyclerview.widget.RecyclerView

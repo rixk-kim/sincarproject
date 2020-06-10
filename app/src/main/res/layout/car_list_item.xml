@@ -100,14 +100,14 @@
         </LinearLayout>
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="16dp" />
+   <View
+       android:layout_width="match_parent"
+       android:layout_height="16dp" />
     <!--
-        <View
-            android:id="@+id/notice_list_item_divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#333e3e3e" />
-    -->
+           <View
+               android:id="@+id/notice_list_item_divider"
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="#333e3e3e" />
+       -->
 </LinearLayout>
