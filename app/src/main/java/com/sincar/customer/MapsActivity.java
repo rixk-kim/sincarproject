@@ -32,6 +32,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.sincar.customer.sy_rentcar.MapApiConst;
 import com.sincar.customer.sy_rentcar.Maps_rent_mainfrag;
 import com.sincar.customer.sy_rentcar.Maps_rent_time;
+import com.sincar.customer.sy_rentcar.Maps_rent_time_java;
 import com.sincar.customer.sy_rentcar.OnDateNTimeSetListener;
 import com.sincar.customer.sy_rentcar.rCodeCheck;
 import com.sincar.customer.util.GPSInfo;
@@ -85,7 +86,7 @@ public class MapsActivity extends FragmentActivity implements
 
     //sy
     FrameLayout framelayout_maps_rentCar;   //렌트카 메뉴 선택시 하단 디스플레이를 위한 프레임레이아웃
-    Maps_rent_time maps_rent_time_reserve, maps_rent_time_return; //렌트카 메뉴 선택중 예약 시간 설정 디스플레이를 위한 클래스(예약,반납)
+    Maps_rent_time_java maps_rent_time_reserve, maps_rent_time_return; //렌트카 메뉴 선택중 예약 시간 설정 디스플레이를 위한 클래스(예약,반납)
     Maps_rent_mainfrag maps_rent_mainfrag; //렌트카 메뉴 선택시 하단 메인메뉴 디스플레이를 위한 클래스
     String start_date, start_time, return_date, return_time; //예약 날짜,시간 과 반납 날짜 시간
     int now_timeInt, start_timeInt, return_timeInt; //현재시간,예약시간,반납시간 인트화
@@ -211,8 +212,8 @@ public class MapsActivity extends FragmentActivity implements
             next_Layout.setVisibility(View.GONE);
             //framelayout_maps_rentCar.setVisibility(View.GONE);
 
-            maps_rent_time_reserve = new Maps_rent_time();
-            maps_rent_time_return = new Maps_rent_time();
+            maps_rent_time_reserve = new Maps_rent_time_java();
+            maps_rent_time_return = new Maps_rent_time_java();
             maps_rent_mainfrag = new Maps_rent_mainfrag();
             replaceFragment(1);
         }

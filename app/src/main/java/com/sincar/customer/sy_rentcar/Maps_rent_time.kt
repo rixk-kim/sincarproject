@@ -85,7 +85,7 @@ class Maps_rent_time : Fragment() {
             }
             rCodeCheck?.rCodechk(rCode)
 
-            //변수에 데입된 데이터를 Date변수로 변환
+            //변수에 대입된 데이터를 Date변수로 변환
             val dateCheck_date = dateFormat.parse(dateCheck)
             val date_now_date = dateFormat.parse(dateFormat.format(curDate))
             //예약날짜와 현재 날짜의 일수 차이를 계산

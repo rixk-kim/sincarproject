@@ -21,6 +21,11 @@ android {
         }
     }
 
+    //xml에 있는 뷰를 바인딩 하지 않고 사용하기 위한 플러그인
+    viewBinding {
+        enabled =true;
+    }
+
 }
 
 allprojects {
