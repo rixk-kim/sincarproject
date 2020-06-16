@@ -16,6 +16,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- 대리점 시간 리스트 -->
+
+    <!-- 리스트가 없을때 -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/agentList"
         android:layout_width="0dp"
@@ -24,10 +26,11 @@
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include" />
+        app:layout_constraintTop_toBottomOf="@+id/include"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <!-- 리스트가 없을때 -->
     <LinearLayout
         android:id="@+id/agent_history_empty"
         android:layout_width="match_parent"

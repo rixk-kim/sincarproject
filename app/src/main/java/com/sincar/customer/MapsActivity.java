@@ -203,7 +203,7 @@ public class MapsActivity extends FragmentActivity implements
             constraintSet.connect(btnCurrent.getId(), constraintSet.BOTTOM, mbtnReserveAddress.getId(), ConstraintSet.TOP);
             constraintSet.applyTo(constraintLayout);
 
-        } else { //sy //현재는 렌터카만 작동하지만 추후 렌터카 외 부문의 추가 구분 필요
+        } else if ("driver".equals(main_path)){ //sy //현재는 렌터카만 작동하지만 추후 렌터카 외 부문의 추가 구분 필요
             //현재위치 설정 버튼의 위치 설정 (렌트카 프레임레이아웃의 기준으로 위치)
             constraintSet.connect(btnCurrent.getId(), constraintSet.BOTTOM, framelayout_maps_rentCar.getId(), ConstraintSet.TOP);
             constraintSet.applyTo(constraintLayout);
@@ -216,6 +216,12 @@ public class MapsActivity extends FragmentActivity implements
             maps_rent_time_return = new Maps_rent_time_java();
             maps_rent_mainfrag = new Maps_rent_mainfrag();
             replaceFragment(1);
+        } else {
+            constraintSet.connect(btnCurrent.getId(), constraintSet.BOTTOM, framelayout_maps_rentCar.getId(), ConstraintSet.TOP);
+            constraintSet.applyTo(constraintLayout);
+            mConstraintLayout.setVisibility(View.GONE);
+            mbtnReserveAddress.setVisibility(View.GONE);
+            next_Layout.setVisibility(View.GONE);
         }
 
         //카카오맵 디스플레이
@@ -323,9 +329,13 @@ public class MapsActivity extends FragmentActivity implements
                     - mConstraintLayout.getHeight() - next_Layout.getHeight() + 20);
             constraintSet.applyTo(constraintLayout);    //맵뷰의 크기를 스팀세차에 맞춰 설정
             framelayout_maps_rentCar.setVisibility(View.GONE);  //렌터카 프래그먼트 디스플레이 화면에서 삭제
-        } else {
+        } else if ("driver".equals(main_path)) {
             constraintSet.constrainHeight(R.id.kMap, pt.y - framelayout_maps_rentCar.getHeight()+ 20);
             constraintSet.applyTo(constraintLayout);    //맵뷰의 크기를 렌터카에 맞춰 설정
+        } else {
+            framelayout_maps_rentCar.setVisibility(View.GONE);
+//            constraintSet.constrainHeight(R.id.kMap, pt.y - framelayout_maps_rentCar.getHeight()+ 20);
+//            constraintSet.applyTo(constraintLayout);
         }
     }
 
@@ -419,7 +429,7 @@ public class MapsActivity extends FragmentActivity implements
                         currentTextView.setText(cAddress);
                         mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
                         //sy
-                    } else {
+                    } else if("driver".equals(main_path)) {
                         bundle.putString("current_address", cAddress);
                         mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true); //맵뷰의 시점을 gps기준으로 현재위치로 이동
                         //현재화면이 렌터카 메인프래그먼트 일때만 현재위치 정보 표시 메소드 실행
@@ -427,6 +437,8 @@ public class MapsActivity extends FragmentActivity implements
                             if (((Maps_rent_mainfrag) getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar)) != null)
                                 ((Maps_rent_mainfrag) getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar)).AddressChange();
                         }
+                    } else {
+                        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
                     }
                     ///sy
 
@@ -563,8 +575,9 @@ public class MapsActivity extends FragmentActivity implements
                 if ("steam".equals(main_path))
                     currentTextView.setText(cAddress);
                     //sy
-                else
+                else if("driver".equals(main_path))
                     bundle.putString("current_address", cAddress);
+                else {}
                 ///sy
                 ///sy
 

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.sincar.customer.adapter.AgentRecyclerViewAdapter;
@@ -114,7 +115,6 @@ public class ReservationTimeActivity extends AppCompatActivity
         postParams.put("REQUEST_PAGE", String.valueOf(request_page));       // 요청페이지
         postParams.put("REQUEST_NUM", String.valueOf(request_offset));      // 요청갯수
         postParams.put("SEARCH_WORD", String.valueOf(search_keyword));      // 검색어
-
 
         //프로그래스바 시작
         Util.showDialog(this);

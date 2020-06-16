@@ -71,642 +71,643 @@
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rental_list_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-            <!-- TODO Rental Car Item Information -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/rent_list_con1"
-                android:layout_width="0dp"
-                android:layout_height="226dp"
-                app:layout_constraintBottom_toTopOf="@id/rent_list_con3"
-                app:layout_constraintEnd_toStartOf="@+id/rent_list_con2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_weight="1">
+<!--            &lt;!&ndash; TODO Rental Car Item Information &ndash;&gt;-->
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/rent_list_con1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="226dp"-->
+<!--                app:layout_constraintBottom_toTopOf="@id/rent_list_con3"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/rent_list_con2"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintVertical_weight="1">-->
 
-                <!-- 렌탈카 이미지 -->
-                <ImageView
-                    android:id="@+id/rent_list_iv1"
-                    android:layout_width="151dp"
-                    android:layout_height="102dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/rent_hyundaicar"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                &lt;!&ndash; 렌탈카 이미지 &ndash;&gt;-->
+<!--                <ImageView-->
+<!--                    android:id="@+id/rent_list_iv1"-->
+<!--                    android:layout_width="151dp"-->
+<!--                    android:layout_height="102dp"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:src="@drawable/rent_hyundaicar"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-                <!-- 지점 정보-->
-                <TextView
-                    android:id="@+id/textView1_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="10dp"
-                    android:text="송파지점"
-                    android:textColor="@color/agent_color_1Opp"
-                    android:textSize="11sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rent_list_iv1" />
+<!--                &lt;!&ndash; 지점 정보&ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView1_1"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:text="송파지점"-->
+<!--                    android:textColor="@color/agent_color_1Opp"-->
+<!--                    android:textSize="11sp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/rent_list_iv1" />-->
 
-                <!-- 품목명 -->
-                <TextView
-                    android:id="@+id/textView1_2"
-                    android:layout_width="149dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="6dp"
-                    android:lineSpacingExtra="5sp"
-                    android:text="BMW 5시리즈 520i"
-                    android:fontFamily="@font/nanumsquarebold"
-                    android:textColor="@color/agent_color_1NoOpp"
-                    android:textSize="13sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView1_1" />
+<!--                &lt;!&ndash; 품목명 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView1_2"-->
+<!--                    android:layout_width="149dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="6dp"-->
+<!--                    android:lineSpacingExtra="5sp"-->
+<!--                    android:text="BMW 5시리즈 520i"-->
+<!--                    android:fontFamily="@font/nanumsquarebold"-->
+<!--                    android:textColor="@color/agent_color_1NoOpp"-->
+<!--                    android:textSize="13sp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textView1_1" />-->
 
-                <!-- 가격 -->
-                <TextView
-                    android:id="@+id/textView1_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="11dp"
-                    android:text="150,000원"
-                    android:fontFamily="@font/nanumsquareextrabold"
-                    android:textColor="@color/agent_color_1NoOpp"
-                    android:background="@drawable/default_background_type_price"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView1_2" />
+<!--                &lt;!&ndash; 가격 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView1_4"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="11dp"-->
+<!--                    android:text="150,000원"-->
+<!--                    android:fontFamily="@font/nanumsquareextrabold"-->
+<!--                    android:textColor="@color/agent_color_1NoOpp"-->
+<!--                    android:background="@drawable/default_background_type_price"-->
+<!--                    android:textSize="14sp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textView1_2" />-->
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-            <!-- TODO Rental Car Item Information -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/rent_list_con2"
-                android:layout_width="0dp"
-                android:layout_height="226dp"
-                app:layout_constraintBottom_toTopOf="@id/rent_list_con4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/rent_list_con1"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_weight="1">
+<!--            &lt;!&ndash; TODO Rental Car Item Information &ndash;&gt;-->
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/rent_list_con2"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="226dp"-->
+<!--                app:layout_constraintBottom_toTopOf="@id/rent_list_con4"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/rent_list_con1"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintVertical_weight="1">-->
 
-                <!-- 렌탈카 이미지 -->
-                <ImageView
-                    android:id="@+id/rent_list_iv2"
-                    android:layout_width="151dp"
-                    android:layout_height="102dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/rent_hyundaicar"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                &lt;!&ndash; 렌탈카 이미지 &ndash;&gt;-->
+<!--                <ImageView-->
+<!--                    android:id="@+id/rent_list_iv2"-->
+<!--                    android:layout_width="151dp"-->
+<!--                    android:layout_height="102dp"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:src="@drawable/rent_hyundaicar"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-                <!-- 지점 정보-->
-                <TextView
-                    android:id="@+id/textView2_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="10dp"
-                    android:text="사당지점"
-                    android:textColor="@color/agent_color_1Opp"
-                    android:textSize="11sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rent_list_iv2" />
+<!--                &lt;!&ndash; 지점 정보&ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView2_1"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:text="사당지점"-->
+<!--                    android:textColor="@color/agent_color_1Opp"-->
+<!--                    android:textSize="11sp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/rent_list_iv2" />-->
 
-                <!-- 품목명 -->
-                <TextView
-                    android:id="@+id/textView2_2"
-                    android:layout_width="149dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="6dp"
-                    android:lineSpacingExtra="5sp"
-                    android:text="벤츠 S 클래스 S 450 4Matic"
-                    android:fontFamily="@font/nanumsquarebold"
-                    android:textColor="@color/agent_color_1NoOpp"
-                    android:textSize="13sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2_1" />
+<!--                &lt;!&ndash; 품목명 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView2_2"-->
+<!--                    android:layout_width="149dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="6dp"-->
+<!--                    android:lineSpacingExtra="5sp"-->
+<!--                    android:text="벤츠 S 클래스 S 450 4Matic"-->
+<!--                    android:fontFamily="@font/nanumsquarebold"-->
+<!--                    android:textColor="@color/agent_color_1NoOpp"-->
+<!--                    android:textSize="13sp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textView2_1" />-->
 
-                <!--할인율 -->
-                <TextView
-                    android:id="@+id/textView2_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="11dp"
-                    android:text="75% 할인"
-                    android:textColor="@color/agent_color_red"
-                    android:fontFamily="@font/nanumsquareextrabold"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2_2" />
+<!--                &lt;!&ndash;할인율 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView2_3"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="11dp"-->
+<!--                    android:text="75% 할인"-->
+<!--                    android:textColor="@color/agent_color_red"-->
+<!--                    android:fontFamily="@font/nanumsquareextrabold"-->
+<!--                    android:textSize="14sp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textView2_2" />-->
 
-                <!-- 가격 -->
-                <TextView
-                    android:id="@+id/textView2_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="13dp"
-                    android:layout_marginTop="11dp"
-                    android:text="65,000원"
-                    android:fontFamily="@font/nanumsquareextrabold"
-                    android:textColor="@color/agent_color_1NoOpp"
-                    android:background="@drawable/default_background_type_price"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toEndOf="@+id/textView2_3"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2_2" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                &lt;!&ndash; 가격 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView2_4"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="13dp"-->
+<!--                    android:layout_marginTop="11dp"-->
+<!--                    android:text="65,000원"-->
+<!--                    android:fontFamily="@font/nanumsquareextrabold"-->
+<!--                    android:textColor="@color/agent_color_1NoOpp"-->
+<!--                    android:background="@drawable/default_background_type_price"-->
+<!--                    android:textSize="14sp"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/textView2_3"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textView2_2" />-->
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-            <!-- TODO Rental Car Item Information -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/rent_list_con3"
-                android:layout_width="0dp"
-                android:layout_height="226dp"
-                app:layout_constraintBottom_toTopOf="@id/rent_list_con5"
-                app:layout_constraintEnd_toStartOf="@+id/rent_list_con4"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rent_list_con1"
-                app:layout_constraintVertical_weight="1">
+<!--            &lt;!&ndash; TODO Rental Car Item Information &ndash;&gt;-->
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/rent_list_con3"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="226dp"-->
+<!--                app:layout_constraintBottom_toTopOf="@id/rent_list_con5"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/rent_list_con4"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/rent_list_con1"-->
+<!--                app:layout_constraintVertical_weight="1">-->
 
-                <!-- 렌탈카 이미지 -->
-                <ImageView
-                    android:id="@+id/rent_list_iv3"
-                    android:layout_width="151dp"
-                    android:layout_height="102dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/rent_hyundaicar"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                &lt;!&ndash; 렌탈카 이미지 &ndash;&gt;-->
+<!--                <ImageView-->
+<!--                    android:id="@+id/rent_list_iv3"-->
+<!--                    android:layout_width="151dp"-->
+<!--                    android:layout_height="102dp"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:src="@drawable/rent_hyundaicar"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-                <!-- 지점 정보-->
-                <TextView
-                    android:id="@+id/textView3_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="10dp"
-                    android:text="사당지점"
-                    android:textColor="@color/agent_color_1Opp"
-                    android:textSize="11sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rent_list_iv3" />
+<!--                &lt;!&ndash; 지점 정보&ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView3_1"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:text="사당지점"-->
+<!--                    android:textColor="@color/agent_color_1Opp"-->
+<!--                    android:textSize="11sp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/rent_list_iv3" />-->
 
-                <!-- 품목명 -->
-                <TextView
-                    android:id="@+id/textView3_2"
-                    android:layout_width="149dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="6dp"
-                    android:lineSpacingExtra="5sp"
-                    android:text="벤츠 S 클래스 S 450 4Matic"
-                    android:fontFamily="@font/nanumsquarebold"
-                    android:textColor="@color/agent_color_1NoOpp"
-                    android:textSize="13sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView3_1" />
+<!--                &lt;!&ndash; 품목명 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView3_2"-->
+<!--                    android:layout_width="149dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="6dp"-->
+<!--                    android:lineSpacingExtra="5sp"-->
+<!--                    android:text="벤츠 S 클래스 S 450 4Matic"-->
+<!--                    android:fontFamily="@font/nanumsquarebold"-->
+<!--                    android:textColor="@color/agent_color_1NoOpp"-->
+<!--                    android:textSize="13sp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textView3_1" />-->
 
-                <!--할인율 -->
-                <TextView
-                    android:id="@+id/textView3_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="11dp"
-                    android:text="75% 할인"
-                    android:textColor="@color/agent_color_red"
-                    android:fontFamily="@font/nanumsquareextrabold"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView3_2" />
+<!--                &lt;!&ndash;할인율 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView3_3"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="11dp"-->
+<!--                    android:text="75% 할인"-->
+<!--                    android:textColor="@color/agent_color_red"-->
+<!--                    android:fontFamily="@font/nanumsquareextrabold"-->
+<!--                    android:textSize="14sp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textView3_2" />-->
 
-                <!-- 가격 -->
-                <TextView
-                    android:id="@+id/textView3_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="13dp"
-                    android:layout_marginTop="11dp"
-                    android:text="65,000원"
-                    android:fontFamily="@font/nanumsquareextrabold"
-                    android:textColor="@color/agent_color_1NoOpp"
-                    android:background="@drawable/default_background_type_price"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toEndOf="@+id/textView3_3"
-                    app:layout_constraintTop_toBottomOf="@+id/textView3_2" />
+<!--                &lt;!&ndash; 가격 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView3_4"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="13dp"-->
+<!--                    android:layout_marginTop="11dp"-->
+<!--                    android:text="65,000원"-->
+<!--                    android:fontFamily="@font/nanumsquareextrabold"-->
+<!--                    android:textColor="@color/agent_color_1NoOpp"-->
+<!--                    android:background="@drawable/default_background_type_price"-->
+<!--                    android:textSize="14sp"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/textView3_3"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textView3_2" />-->
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-            <!-- TODO Rental Car Item Information -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/rent_list_con4"
-                android:layout_width="0dp"
-                android:layout_height="226dp"
-                app:layout_constraintBottom_toTopOf="@id/rent_list_con6"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/rent_list_con3"
-                app:layout_constraintTop_toBottomOf="@id/rent_list_con2"
-                app:layout_constraintVertical_weight="1">
+<!--            &lt;!&ndash; TODO Rental Car Item Information &ndash;&gt;-->
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/rent_list_con4"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="226dp"-->
+<!--                app:layout_constraintBottom_toTopOf="@id/rent_list_con6"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/rent_list_con3"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/rent_list_con2"-->
+<!--                app:layout_constraintVertical_weight="1">-->
 
-                <!-- 렌탈카 이미지 -->
-                <ImageView
-                    android:id="@+id/rent_list_iv4"
-                    android:layout_width="151dp"
-                    android:layout_height="102dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/rent_hyundaicar"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                &lt;!&ndash; 렌탈카 이미지 &ndash;&gt;-->
+<!--                <ImageView-->
+<!--                    android:id="@+id/rent_list_iv4"-->
+<!--                    android:layout_width="151dp"-->
+<!--                    android:layout_height="102dp"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:src="@drawable/rent_hyundaicar"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-                <!-- 지점 정보-->
-                <TextView
-                    android:id="@+id/textView4_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="10dp"
-                    android:text="사당지점"
-                    android:textColor="@color/agent_color_1Opp"
-                    android:textSize="11sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rent_list_iv4" />
+<!--                &lt;!&ndash; 지점 정보&ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView4_1"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:text="사당지점"-->
+<!--                    android:textColor="@color/agent_color_1Opp"-->
+<!--                    android:textSize="11sp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/rent_list_iv4" />-->
 
-                <!-- 품목명 -->
-                <TextView
-                    android:id="@+id/textView4_2"
-                    android:layout_width="149dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="6dp"
-                    android:lineSpacingExtra="5sp"
-                    android:text="벤츠 S 클래스 S 450 4Matic"
-                    android:fontFamily="@font/nanumsquarebold"
-                    android:textColor="@color/agent_color_1NoOpp"
-                    android:textSize="13sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView4_1" />
+<!--                &lt;!&ndash; 품목명 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView4_2"-->
+<!--                    android:layout_width="149dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="6dp"-->
+<!--                    android:lineSpacingExtra="5sp"-->
+<!--                    android:text="벤츠 S 클래스 S 450 4Matic"-->
+<!--                    android:fontFamily="@font/nanumsquarebold"-->
+<!--                    android:textColor="@color/agent_color_1NoOpp"-->
+<!--                    android:textSize="13sp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textView4_1" />-->
 
-                <!--할인율 -->
-                <TextView
-                    android:id="@+id/textView4_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="11dp"
-                    android:text="75% 할인"
-                    android:fontFamily="@font/nanumsquareextrabold"
-                    android:textColor="@color/agent_color_red"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView4_2" />
+<!--                &lt;!&ndash;할인율 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView4_3"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="11dp"-->
+<!--                    android:text="75% 할인"-->
+<!--                    android:fontFamily="@font/nanumsquareextrabold"-->
+<!--                    android:textColor="@color/agent_color_red"-->
+<!--                    android:textSize="14sp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textView4_2" />-->
 
-                <!-- 가격 -->
-                <TextView
-                    android:id="@+id/textView4_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="13dp"
-                    android:layout_marginTop="11dp"
-                    android:text="65,000원"
-                    android:fontFamily="@font/nanumsquareextrabold"
-                    android:textColor="@color/agent_color_1NoOpp"
-                    android:background="@drawable/default_background_type_price"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toEndOf="@+id/textView4_3"
-                    app:layout_constraintTop_toBottomOf="@+id/textView4_2" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                &lt;!&ndash; 가격 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView4_4"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="13dp"-->
+<!--                    android:layout_marginTop="11dp"-->
+<!--                    android:text="65,000원"-->
+<!--                    android:fontFamily="@font/nanumsquareextrabold"-->
+<!--                    android:textColor="@color/agent_color_1NoOpp"-->
+<!--                    android:background="@drawable/default_background_type_price"-->
+<!--                    android:textSize="14sp"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/textView4_3"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textView4_2" />-->
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-            <!-- TODO Rental Car Item Information -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/rent_list_con5"
-                android:layout_width="0dp"
-                android:layout_height="226dp"
-                app:layout_constraintBottom_toTopOf="@id/rent_list_con7"
-                app:layout_constraintEnd_toStartOf="@+id/rent_list_con6"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rent_list_con3"
-                app:layout_constraintVertical_weight="1">
+<!--            &lt;!&ndash; TODO Rental Car Item Information &ndash;&gt;-->
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/rent_list_con5"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="226dp"-->
+<!--                app:layout_constraintBottom_toTopOf="@id/rent_list_con7"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/rent_list_con6"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/rent_list_con3"-->
+<!--                app:layout_constraintVertical_weight="1">-->
 
-                <!-- 렌탈카 이미지 -->
-                <ImageView
-                    android:id="@+id/rent_list_iv5"
-                    android:layout_width="151dp"
-                    android:layout_height="102dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/rent_hyundaicar"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                &lt;!&ndash; 렌탈카 이미지 &ndash;&gt;-->
+<!--                <ImageView-->
+<!--                    android:id="@+id/rent_list_iv5"-->
+<!--                    android:layout_width="151dp"-->
+<!--                    android:layout_height="102dp"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:src="@drawable/rent_hyundaicar"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-                <!-- 지점 정보-->
-                <TextView
-                    android:id="@+id/textView5_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="10dp"
-                    android:text="사당지점"
-                    android:textColor="@color/agent_color_1Opp"
-                    android:textSize="11sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rent_list_iv5" />
+<!--                &lt;!&ndash; 지점 정보&ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView5_1"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:text="사당지점"-->
+<!--                    android:textColor="@color/agent_color_1Opp"-->
+<!--                    android:textSize="11sp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/rent_list_iv5" />-->
 
-                <!-- 품목명 -->
-                <TextView
-                    android:id="@+id/textView5_2"
-                    android:layout_width="149dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="6dp"
-                    android:lineSpacingExtra="5sp"
-                    android:text="벤츠 S 클래스 S 450 4Matic"
-                    android:fontFamily="@font/nanumsquarebold"
-                    android:textColor="@color/agent_color_1NoOpp"
-                    android:textSize="13sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView5_1" />
+<!--                &lt;!&ndash; 품목명 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView5_2"-->
+<!--                    android:layout_width="149dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="6dp"-->
+<!--                    android:lineSpacingExtra="5sp"-->
+<!--                    android:text="벤츠 S 클래스 S 450 4Matic"-->
+<!--                    android:fontFamily="@font/nanumsquarebold"-->
+<!--                    android:textColor="@color/agent_color_1NoOpp"-->
+<!--                    android:textSize="13sp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textView5_1" />-->
 
-                <!--할인율 -->
-                <TextView
-                    android:id="@+id/textView5_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="11dp"
-                    android:text="75% 할인"
-                    android:fontFamily="@font/nanumsquareextrabold"
-                    android:textColor="@color/agent_color_red"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView5_2" />
+<!--                &lt;!&ndash;할인율 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView5_3"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="11dp"-->
+<!--                    android:text="75% 할인"-->
+<!--                    android:fontFamily="@font/nanumsquareextrabold"-->
+<!--                    android:textColor="@color/agent_color_red"-->
+<!--                    android:textSize="14sp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textView5_2" />-->
 
-                <!-- 가격 -->
-                <TextView
-                    android:id="@+id/textView5_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="13dp"
-                    android:layout_marginTop="11dp"
-                    android:text="65,000원"
-                    android:fontFamily="@font/nanumsquareextrabold"
-                    android:textColor="@color/agent_color_1NoOpp"
-                    android:background="@drawable/default_background_type_price"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toEndOf="@+id/textView5_3"
-                    app:layout_constraintTop_toBottomOf="@+id/textView5_2" />
+<!--                &lt;!&ndash; 가격 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView5_4"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="13dp"-->
+<!--                    android:layout_marginTop="11dp"-->
+<!--                    android:text="65,000원"-->
+<!--                    android:fontFamily="@font/nanumsquareextrabold"-->
+<!--                    android:textColor="@color/agent_color_1NoOpp"-->
+<!--                    android:background="@drawable/default_background_type_price"-->
+<!--                    android:textSize="14sp"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/textView5_3"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textView5_2" />-->
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-            <!-- TODO Rental Car Item Information -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/rent_list_con6"
-                android:layout_width="0dp"
-                android:layout_height="226dp"
-                app:layout_constraintBottom_toTopOf="@id/rent_list_con8"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/rent_list_con5"
-                app:layout_constraintTop_toBottomOf="@id/rent_list_con4"
-                app:layout_constraintVertical_weight="1">
+<!--            &lt;!&ndash; TODO Rental Car Item Information &ndash;&gt;-->
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/rent_list_con6"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="226dp"-->
+<!--                app:layout_constraintBottom_toTopOf="@id/rent_list_con8"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/rent_list_con5"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/rent_list_con4"-->
+<!--                app:layout_constraintVertical_weight="1">-->
 
-                <!-- 렌탈카 이미지 -->
-                <ImageView
-                    android:id="@+id/rent_list_iv6"
-                    android:layout_width="151dp"
-                    android:layout_height="102dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/rent_hyundaicar"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                &lt;!&ndash; 렌탈카 이미지 &ndash;&gt;-->
+<!--                <ImageView-->
+<!--                    android:id="@+id/rent_list_iv6"-->
+<!--                    android:layout_width="151dp"-->
+<!--                    android:layout_height="102dp"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:src="@drawable/rent_hyundaicar"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-                <!-- 지점 정보-->
-                <TextView
-                    android:id="@+id/textView6_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="10dp"
-                    android:text="사당지점"
-                    android:textColor="@color/agent_color_1Opp"
-                    android:textSize="11sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rent_list_iv6" />
+<!--                &lt;!&ndash; 지점 정보&ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView6_1"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:text="사당지점"-->
+<!--                    android:textColor="@color/agent_color_1Opp"-->
+<!--                    android:textSize="11sp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/rent_list_iv6" />-->
 
-                <!-- 품목명 -->
-                <TextView
-                    android:id="@+id/textView6_2"
-                    android:layout_width="149dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="6dp"
-                    android:lineSpacingExtra="5sp"
-                    android:text="벤츠 S 클래스 S 450 4Matic"
-                    android:fontFamily="@font/nanumsquarebold"
-                    android:textColor="@color/agent_color_1NoOpp"
-                    android:textSize="13sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView6_1" />
+<!--                &lt;!&ndash; 품목명 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView6_2"-->
+<!--                    android:layout_width="149dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="6dp"-->
+<!--                    android:lineSpacingExtra="5sp"-->
+<!--                    android:text="벤츠 S 클래스 S 450 4Matic"-->
+<!--                    android:fontFamily="@font/nanumsquarebold"-->
+<!--                    android:textColor="@color/agent_color_1NoOpp"-->
+<!--                    android:textSize="13sp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textView6_1" />-->
 
-                <!--할인율 -->
-                <TextView
-                    android:id="@+id/textView6_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="11dp"
-                    android:text="75% 할인"
-                    android:fontFamily="@font/nanumsquareextrabold"
-                    android:textColor="@color/agent_color_red"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView6_2" />
+<!--                &lt;!&ndash;할인율 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView6_3"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="11dp"-->
+<!--                    android:text="75% 할인"-->
+<!--                    android:fontFamily="@font/nanumsquareextrabold"-->
+<!--                    android:textColor="@color/agent_color_red"-->
+<!--                    android:textSize="14sp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textView6_2" />-->
 
-                <!-- 가격 -->
-                <TextView
-                    android:id="@+id/textView6_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="13dp"
-                    android:layout_marginTop="11dp"
-                    android:text="65,000원"
-                    android:fontFamily="@font/nanumsquareextrabold"
-                    android:textColor="@color/agent_color_1NoOpp"
-                    android:background="@drawable/default_background_type_price"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toEndOf="@+id/textView6_3"
-                    app:layout_constraintTop_toBottomOf="@+id/textView6_2" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                &lt;!&ndash; 가격 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView6_4"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="13dp"-->
+<!--                    android:layout_marginTop="11dp"-->
+<!--                    android:text="65,000원"-->
+<!--                    android:fontFamily="@font/nanumsquareextrabold"-->
+<!--                    android:textColor="@color/agent_color_1NoOpp"-->
+<!--                    android:background="@drawable/default_background_type_price"-->
+<!--                    android:textSize="14sp"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/textView6_3"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textView6_2" />-->
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-            <!-- TODO Rental Car Item Information -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/rent_list_con7"
-                android:layout_width="0dp"
-                android:layout_height="226dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/rent_list_con8"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rent_list_con5"
+<!--            &lt;!&ndash; TODO Rental Car Item Information &ndash;&gt;-->
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/rent_list_con7"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="226dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/rent_list_con8"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/rent_list_con5"-->
 
-                app:layout_constraintVertical_weight="1">
+<!--                app:layout_constraintVertical_weight="1">-->
 
-                <!-- 렌탈카 이미지 -->
-                <ImageView
-                    android:id="@+id/rent_list_iv7"
-                    android:layout_width="151dp"
-                    android:layout_height="102dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/rent_hyundaicar"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                &lt;!&ndash; 렌탈카 이미지 &ndash;&gt;-->
+<!--                <ImageView-->
+<!--                    android:id="@+id/rent_list_iv7"-->
+<!--                    android:layout_width="151dp"-->
+<!--                    android:layout_height="102dp"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:src="@drawable/rent_hyundaicar"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-                <!-- 지점 정보-->
-                <TextView
-                    android:id="@+id/textView7_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="10dp"
-                    android:text="사당지점"
-                    android:textColor="@color/agent_color_1Opp"
-                    android:textSize="11sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rent_list_iv7" />
+<!--                &lt;!&ndash; 지점 정보&ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView7_1"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:text="사당지점"-->
+<!--                    android:textColor="@color/agent_color_1Opp"-->
+<!--                    android:textSize="11sp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/rent_list_iv7" />-->
 
-                <!-- 품목명 -->
-                <TextView
-                    android:id="@+id/textView7_2"
-                    android:layout_width="149dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="6dp"
-                    android:lineSpacingExtra="5sp"
-                    android:text="벤츠 S 클래스 S 450 4Matic"
-                    android:fontFamily="@font/nanumsquarebold"
-                    android:textColor="@color/agent_color_1NoOpp"
-                    android:textSize="13sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView7_1" />
+<!--                &lt;!&ndash; 품목명 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView7_2"-->
+<!--                    android:layout_width="149dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="6dp"-->
+<!--                    android:lineSpacingExtra="5sp"-->
+<!--                    android:text="벤츠 S 클래스 S 450 4Matic"-->
+<!--                    android:fontFamily="@font/nanumsquarebold"-->
+<!--                    android:textColor="@color/agent_color_1NoOpp"-->
+<!--                    android:textSize="13sp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textView7_1" />-->
 
-                <!--할인율 -->
-                <TextView
-                    android:id="@+id/textView7_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="11dp"
-                    android:text="75% 할인"
-                    android:fontFamily="@font/nanumsquareextrabold"
-                    android:textColor="@color/agent_color_red"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView7_2" />
+<!--                &lt;!&ndash;할인율 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView7_3"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="11dp"-->
+<!--                    android:text="75% 할인"-->
+<!--                    android:fontFamily="@font/nanumsquareextrabold"-->
+<!--                    android:textColor="@color/agent_color_red"-->
+<!--                    android:textSize="14sp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textView7_2" />-->
 
-                <!-- 가격 -->
-                <TextView
-                    android:id="@+id/textView7_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="13dp"
-                    android:layout_marginTop="11dp"
-                    android:text="65,000원"
-                    android:fontFamily="@font/nanumsquareextrabold"
-                    android:textColor="@color/agent_color_1NoOpp"
-                    android:background="@drawable/default_background_type_price"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toEndOf="@+id/textView7_3"
-                    app:layout_constraintTop_toBottomOf="@+id/textView7_2" />
+<!--                &lt;!&ndash; 가격 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView7_4"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="13dp"-->
+<!--                    android:layout_marginTop="11dp"-->
+<!--                    android:text="65,000원"-->
+<!--                    android:fontFamily="@font/nanumsquareextrabold"-->
+<!--                    android:textColor="@color/agent_color_1NoOpp"-->
+<!--                    android:background="@drawable/default_background_type_price"-->
+<!--                    android:textSize="14sp"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/textView7_3"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textView7_2" />-->
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-            <!-- TODO Rental Car Item Information -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/rent_list_con8"
-                android:layout_width="0dp"
-                android:layout_height="226dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/rent_list_con7"
-                app:layout_constraintTop_toBottomOf="@id/rent_list_con6"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_weight="1">
+<!--            &lt;!&ndash; TODO Rental Car Item Information &ndash;&gt;-->
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/rent_list_con8"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="226dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/rent_list_con7"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/rent_list_con6"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintVertical_weight="1">-->
 
-                <!-- 렌탈카 이미지 -->
-                <ImageView
-                    android:id="@+id/rent_list_iv8"
-                    android:layout_width="151dp"
-                    android:layout_height="102dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/rent_hyundaicar"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                &lt;!&ndash; 렌탈카 이미지 &ndash;&gt;-->
+<!--                <ImageView-->
+<!--                    android:id="@+id/rent_list_iv8"-->
+<!--                    android:layout_width="151dp"-->
+<!--                    android:layout_height="102dp"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:src="@drawable/rent_hyundaicar"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-                <!-- 지점 정보-->
-                <TextView
-                    android:id="@+id/textView8_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="10dp"
-                    android:text="사당지점"
-                    android:textColor="@color/agent_color_1Opp"
-                    android:textSize="11sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rent_list_iv8" />
+<!--                &lt;!&ndash; 지점 정보&ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView8_1"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:text="사당지점"-->
+<!--                    android:textColor="@color/agent_color_1Opp"-->
+<!--                    android:textSize="11sp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/rent_list_iv8" />-->
 
-                <!-- 품목명 -->
-                <TextView
-                    android:id="@+id/textView8_2"
-                    android:layout_width="149dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="6dp"
-                    android:lineSpacingExtra="5sp"
-                    android:text="벤츠 S 클래스 S 450 4Matic"
-                    android:fontFamily="@font/nanumsquarebold"
-                    android:textColor="@color/agent_color_1NoOpp"
-                    android:textSize="13sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView8_1" />
+<!--                &lt;!&ndash; 품목명 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView8_2"-->
+<!--                    android:layout_width="149dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="6dp"-->
+<!--                    android:lineSpacingExtra="5sp"-->
+<!--                    android:text="벤츠 S 클래스 S 450 4Matic"-->
+<!--                    android:fontFamily="@font/nanumsquarebold"-->
+<!--                    android:textColor="@color/agent_color_1NoOpp"-->
+<!--                    android:textSize="13sp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textView8_1" />-->
 
-                <!--할인율 -->
-                <TextView
-                    android:id="@+id/textView8_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="11dp"
-                    android:text="75% 할인"
-                    android:fontFamily="@font/nanumsquareextrabold"
-                    android:textColor="@color/agent_color_red"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView8_2" />
+<!--                &lt;!&ndash;할인율 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView8_3"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="11dp"-->
+<!--                    android:text="75% 할인"-->
+<!--                    android:fontFamily="@font/nanumsquareextrabold"-->
+<!--                    android:textColor="@color/agent_color_red"-->
+<!--                    android:textSize="14sp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textView8_2" />-->
 
-                <!-- 가격 -->
-                <TextView
-                    android:id="@+id/textView8_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="13dp"
-                    android:layout_marginTop="11dp"
-                    android:text="65,000원"
-                    android:fontFamily="@font/nanumsquareextrabold"
-                    android:textColor="@color/agent_color_1NoOpp"
-                    android:background="@drawable/default_background_type_price"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toEndOf="@+id/textView8_3"
-                    app:layout_constraintTop_toBottomOf="@+id/textView8_2" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                &lt;!&ndash; 가격 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/textView8_4"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="13dp"-->
+<!--                    android:layout_marginTop="11dp"-->
+<!--                    android:text="65,000원"-->
+<!--                    android:fontFamily="@font/nanumsquareextrabold"-->
+<!--                    android:textColor="@color/agent_color_1NoOpp"-->
+<!--                    android:background="@drawable/default_background_type_price"-->
+<!--                    android:textSize="14sp"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/textView8_3"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textView8_2" />-->
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.recyclerview.widget.RecyclerView>
 
     </ScrollView>
 
