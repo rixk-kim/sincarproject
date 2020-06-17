@@ -88,7 +88,7 @@ public class MapsActivity extends FragmentActivity implements
     FrameLayout framelayout_maps_rentCar;   //렌트카 메뉴 선택시 하단 디스플레이를 위한 프레임레이아웃
     Maps_rent_time_java maps_rent_time_reserve, maps_rent_time_return; //렌트카 메뉴 선택중 예약 시간 설정 디스플레이를 위한 클래스(예약,반납)
     Maps_rent_mainfrag maps_rent_mainfrag; //렌트카 메뉴 선택시 하단 메인메뉴 디스플레이를 위한 클래스
-    String start_date, start_time, return_date, return_time; //예약 날짜,시간 과 반납 날짜 시간
+    static String start_date, start_time, return_date, return_time; //예약 날짜,시간 과 반납 날짜 시간
     int now_timeInt, start_timeInt, return_timeInt; //현재시간,예약시간,반납시간 인트화
     ImageView btnCurrent;
     Bundle bundle = new Bundle(); //메인프래그먼트에 데이터 전달을 위한 번들
@@ -164,10 +164,13 @@ public class MapsActivity extends FragmentActivity implements
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d일 (E)");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:00");
         SimpleDateFormat timeIntFormat = new SimpleDateFormat("HH");
-        start_date = dateFormat.format(currentTime);
-        start_time = timeFormat.format(currentTime);
-        return_date = dateFormat.format(currentTime);
-        return_time = timeFormat.format(currentTime);
+        if(start_date == null && start_time == null && return_date == null && return_time == null) {
+            start_date = dateFormat.format(currentTime);
+            start_time = timeFormat.format(currentTime);
+            return_date = dateFormat.format(currentTime);
+            return_time = timeFormat.format(currentTime);
+        }
+
         now_timeInt = Integer.parseInt(timeIntFormat.format(currentTime));
         start_timeInt = return_timeInt = now_timeInt; //초기화 중엔 초기화면 설정을 위해서 현재시간 예약시간 반납시간 동일화
 
@@ -260,6 +263,8 @@ public class MapsActivity extends FragmentActivity implements
                 return false;
             }
         });
+
+
 
         ///sy
     }
@@ -356,6 +361,12 @@ public class MapsActivity extends FragmentActivity implements
         mapViewContainer.removeView(mapView); //액티비티가 넘어갈때 맵뷰를 컨테이너에서 삭제(오류 방지)
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        start_date = null; start_time = null; return_date = null; return_time = null; //메뉴로 돌아가면 예약,반납 시간 초기화
+    }
+
     /**
      * 현 위치 호출시 주소 갱신
      */
@@ -406,6 +417,8 @@ public class MapsActivity extends FragmentActivity implements
             case R.id.btnMapHome:
                 // 지도 home button -> 메인이동
                 intent = new Intent(this, MainActivity.class);
+                //메뉴로 돌아가면 예약,반납 시간 초기화
+                start_date = null; start_time = null; return_date = null; return_time = null;
                 startActivity(intent);
                 break;
 
@@ -570,7 +583,10 @@ public class MapsActivity extends FragmentActivity implements
                 //Toast.makeText(this, "위도 : " + lat + ", 경도 : " + lon, Toast.LENGTH_LONG).show();
 
                 //sy
+                latitude = lat;
+                longitude = lon;
                 mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(lat, lon), true);
+
 
                 if ("steam".equals(main_path))
                     currentTextView.setText(cAddress);
@@ -709,7 +725,7 @@ public class MapsActivity extends FragmentActivity implements
     //맵뷰의 이동후 완전히 멈췄을때 호출되는 메소드(맵뷰 초기화면 설정후에 호출되기도 함)
     @Override
     public void onMapViewMoveFinished(MapView mapView, MapPoint mapPoint) {
-        //화면의 중앙읭 위경도 정보를 변수에 대입
+        //화면의 중앙의 위경도 정보를 변수에 대입
         latitude = mapPoint.getMapPointGeoCoord().latitude;
         longitude = mapPoint.getMapPointGeoCoord().longitude;
         if (mapCheck) {
