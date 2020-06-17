@@ -20,12 +20,18 @@ public class Rental_list_filter extends AppCompatActivity {
     Intent intent;
     Button btnClear, btnAccept;
     TextView tvAge, tvPrice, tvType, tvBrand; //필터로부터 적용될 텍스트뷰
+    public static String rent_car_list_age, rent_car_list_price, rent_car_list_type, rent_car_list_brand;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rental_list_filter);
+
+        rent_car_list_age = "전체";
+        rent_car_list_price = "전체";
+        rent_car_list_type = "전체";
+        rent_car_list_brand= "전체";
 
         btnAge = (ConstraintLayout) findViewById(R.id.btnAge);
         btnBrand = (ConstraintLayout) findViewById(R.id.btnBrand);
@@ -80,6 +86,10 @@ public class Rental_list_filter extends AppCompatActivity {
                 tvPrice.setText("전체");
                 tvType.setText("전체");
                 tvBrand.setText("전체");
+                rent_car_list_age = "전체";
+                rent_car_list_price = "전체";
+                rent_car_list_type = "전체";
+                rent_car_list_brand= "전체";
             }
         });
 
@@ -93,8 +103,15 @@ public class Rental_list_filter extends AppCompatActivity {
         //필터를 렌탈카 리스트 적용
         //현재는 샘플 페이지임으로 추후 대대적 수정 필요
         btnAccept.setOnClickListener(new View.OnClickListener() {
+            Intent backToList = new Intent();
+
             @Override
             public void onClick(View v) {
+                backToList.putExtra("age_data", rent_car_list_age);
+                backToList.putExtra("price_data", rent_car_list_price);
+                backToList.putExtra("type_data", rent_car_list_type);
+                backToList.putExtra("brand_data", rent_car_list_brand);
+                setResult(RESULT_OK, backToList);
                 finish();
             }
         });
@@ -120,11 +137,13 @@ public class Rental_list_filter extends AppCompatActivity {
         //외형 조건
         else if(requestCode == 2 && resultCode == RESULT_OK) {
             String type_data = data.getStringExtra("type_data");
+            rent_car_list_type = type_data;
             tvType.setText(type_data);
         }
         //브랜드 조건
         else if(requestCode == 3 && resultCode == RESULT_OK) {
             String type_data = data.getStringExtra("brand_data");
+            rent_car_list_brand= type_data;
             tvBrand.setText(type_data);
         }
 
@@ -135,12 +154,15 @@ public class Rental_list_filter extends AppCompatActivity {
         switch (i) {
             case 0:
                 tvAge.setText("전체");
+                rent_car_list_age = "전체";
                 break;
             case 1:
                 tvAge.setText("만 21세 이상");
+                rent_car_list_age = "만 21세 이상";
                 break;
             case 2:
                 tvAge.setText("만 26세 이상");
+                rent_car_list_age = "만 26세 이상";
                 break;
             default:
                 break;
@@ -152,24 +174,31 @@ public class Rental_list_filter extends AppCompatActivity {
         switch (i) {
             case 0:
                 tvPrice.setText("전체");
+                rent_car_list_price = "전체";
                 break;
             case 1:
                 tvPrice.setText("10만원 이하");
+                rent_car_list_price = "10만원 이하";
                 break;
             case 2:
                 tvPrice.setText("20만원 이하");
+                rent_car_list_price = "20만원 이하";
                 break;
             case 3:
                 tvPrice.setText("30만원 이하");
+                rent_car_list_price = "30만원 이하";
                 break;
             case 4:
                 tvPrice.setText("40만원 이하");
+                rent_car_list_price = "40만원 이하";
                 break;
             case 5:
                 tvPrice.setText("50만원 이하");
+                rent_car_list_price = "50만원 이하";
                 break;
             case 6:
                 tvPrice.setText("50만원 이상");
+                rent_car_list_price = "50만원 이상";
                 break;
             default:
                 break;

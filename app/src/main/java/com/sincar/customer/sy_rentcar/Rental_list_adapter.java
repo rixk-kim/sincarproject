@@ -13,11 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.sincar.customer.R;
-import com.sincar.customer.databinding.ActivityRentalListRecyclerItemBinding;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class Rental_list_adapter extends RecyclerView.Adapter<Rental_list_adapter.ViewHolder> {

@@ -4,20 +4,25 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -27,18 +32,29 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.sincar.customer.MainActivity;
 import com.sincar.customer.R;
+import com.sincar.customer.item.AgentDataItem;
 import com.sincar.customer.item.AgentResult;
 import com.sincar.customer.network.VolleyNetwork;
+import com.sincar.customer.util.GPSInfo;
 import com.sincar.customer.util.Util;
 
+import net.daum.mf.map.api.MapPoint;
+
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 
 import static com.sincar.customer.HWApplication.agentResult;
 import static com.sincar.customer.HWApplication.voAgentDataItem;
@@ -59,11 +75,20 @@ public class Rental_list extends AppCompatActivity {
     //    ImageView ivImage;
     Bundle dlgBundle; //다이얼로그용 번들
     Context rental_list_context;
-
+    RecyclerView recyclerView; //리사이클러뷰
+    //위경도 확인후 계산시 필요
+    private Geocoder gCoder;
+    LatLng latLng; //위경도
+    private final static int RENTAL_CAR_LIST_FILTER = 3333;
+    private final int DISTTYPE = 0;
+    private final int PRICETYPE = 1;
+    private final int POPULARTYPE = 2;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        final Button btFilter, btSort;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rental_list);
@@ -79,6 +104,10 @@ public class Rental_list extends AppCompatActivity {
         return_date = intent.getStringExtra("return_date"); //반납 날짜
         return_time = intent.getStringExtra("return_time"); //반납 시간
         curAddress = intent.getStringExtra("current_Address"); //현재 위치
+
+        gCoder = new Geocoder(this, Locale.getDefault());
+//        getAddress();
+        latLng = ConvertGPS(curAddress);
 
         //예약 시간을 yyyyMMdd타입으로 바꿔줌
         SimpleDateFormat ymdFormat = new SimpleDateFormat("MMdd");
@@ -103,6 +132,8 @@ public class Rental_list extends AppCompatActivity {
         postParams.put("REQUEST_NUM", "20");
         postParams.put("SEARCH_WORD", curAddress);
 
+        Util.showDialog(rental_list_context);
+
         //테스트용 스팀세차 리스트로 호출 추후에 조정 필요
         VolleyNetwork.getInstance(this).serverDataRequest(AGENT_LIST_REQUEST, postParams, onRentalListInteractionListener);
 
@@ -116,19 +147,19 @@ public class Rental_list extends AppCompatActivity {
             }
         });
 
-        Button btFilter = (Button) findViewById(R.id.btFilter);
+        btFilter = (Button) findViewById(R.id.btn_rentalCar_Fil);
 
         //리스트 필터 보기 액티비티로 화면 전환
         btFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Rental_list_filter.class);
-                startActivity(intent);
+                startActivityForResult(intent, RENTAL_CAR_LIST_FILTER);
             }
         });
 
         //리스트 sort방식을 결정하기 위한 버튼
-        final Button btSort = (Button) findViewById(R.id.btn_rentalCar_Sort);
+        btSort = (Button) findViewById(R.id.btn_rentalCar_Sort);
 
 //        DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
 //        int width = dm.widthPixels;
@@ -150,16 +181,19 @@ public class Rental_list extends AppCompatActivity {
                         switch (result) {
                             case 0:
                                 btSort.setText("거리순");
+                                listRefresh(DISTTYPE);
                                 Toast.makeText(getApplicationContext(), "거리순을 선택하셨습니다", Toast.LENGTH_SHORT).show();
                                 dlgCheck = 0;
                                 break;
                             case 1:
                                 btSort.setText("가격순");
+                                listRefresh(PRICETYPE);
                                 Toast.makeText(getApplicationContext(), "가격순을 선택하셨습니다", Toast.LENGTH_SHORT).show();
                                 dlgCheck = 1;
                                 break;
                             case 2:
                                 btSort.setText("인기순");
+                                listRefresh(POPULARTYPE);
                                 Toast.makeText(getApplicationContext(), "인기순을 선택하셨습니다", Toast.LENGTH_SHORT).show();
                                 dlgCheck = 2;
                                 break;
@@ -196,6 +230,45 @@ public class Rental_list extends AppCompatActivity {
 
     }
 
+    //필터 액티비티 전환후 돌아올때 실행되는 메소드
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RENTAL_CAR_LIST_FILTER) {
+            if (resultCode == RESULT_OK) {
+                String filter_data = data.getStringExtra("age_data");
+                filter_data += " " + data.getStringExtra("price_data");
+                filter_data += " " + data.getStringExtra("type_data");
+                filter_data += " " + data.getStringExtra("brand_data");
+                Toast.makeText(getApplicationContext(), filter_data, Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    //정렬 방식 설정 거리순, 가격순, 인기순순
+    //거리순
+    class distCompare implements Comparator<Rental_list_adapterItem.Rental_List_Item> {
+        @Override
+        public int compare(Rental_list_adapterItem.Rental_List_Item o1, Rental_list_adapterItem.Rental_List_Item o2) {
+            return o1.distance > o2.distance ? 1 : o1.distance < o2.distance ? -1 : 0; //4항 연산자
+        }
+    }
+
+    //가격순
+    class priceCompare implements Comparator<Rental_list_adapterItem.Rental_List_Item> {
+        @Override
+        public int compare(Rental_list_adapterItem.Rental_List_Item o1, Rental_list_adapterItem.Rental_List_Item o2) {
+            return Integer.parseInt(o1.rental_Price) > Integer.parseInt(o2.rental_Price)
+                    ? 1 : Integer.parseInt(o1.rental_Price) < Integer.parseInt(o2.rental_Price) ? -1 : 0;
+        }
+    }
+
+    //인기순
+    class populCompare {
+
+    }
+
+    //발리 네트워크 연결후 Response 성공,실패 메소드
     VolleyNetwork.OnResponseListener onRentalListInteractionListener = new VolleyNetwork.OnResponseListener() {
         @Override
         public void onResponseSuccessListener(String it) {
@@ -208,58 +281,195 @@ public class Rental_list extends AppCompatActivity {
 
             voAgentDataItem = agentResult.DATA;
 
-            for (int i = 0; i < voAgentDataItem.size(); i++) {
-                if (i % 2 == 0) {
-                    Rental_list_adapterItem.addItem1(new Rental_list_adapterItem.Rental_List_Item(
-                            voAgentDataItem.get(i).AGENT_IMG_URL,
-                            voAgentDataItem.get(i).AGENT_NAME,
-                            voAgentDataItem.get(i).NAME,
-                            voAgentDataItem.get(i).AGENT_STAUS,
-                            voAgentDataItem.get(i).AGENT_NUMBER
-                    ));
-                } else {
-                    Rental_list_adapterItem.addItem2(new Rental_list_adapterItem.Rental_List_Item(
-                            voAgentDataItem.get(i).AGENT_IMG_URL,
-                            voAgentDataItem.get(i).AGENT_NAME,
-                            voAgentDataItem.get(i).NAME,
-                            voAgentDataItem.get(i).AGENT_STAUS,
-                            voAgentDataItem.get(i).AGENT_NUMBER
-                    ));
-                }
-
-
-            }
+            putItemToList();
             callRentalListRecyclerViewAdapter();
+            //프로그래스바 종료
+            Util.dismiss();
         }
 
         @Override
         public void onResponseFailListener(VolleyError it) {
-
+            //프로그래스바 종료
+            Util.dismiss();
         }
     };
 
+    //아답터 연결후 레이아웃 표시 메소드
     private void callRentalListRecyclerViewAdapter() {
-        RecyclerView recyclerView = findViewById(R.id.rental_list_recyclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        Rental_list_adapter adapter = new Rental_list_adapter(Rental_list_adapterItem.RENTAL_LIST_ITEM1,Rental_list_adapterItem.RENTAL_LIST_ITEM2, rental_list_context);
-        recyclerView.setAdapter(adapter);
+        if (Rental_list_adapterItem.RENTAL_LIST_ITEM1.size() > 0) {
+            recyclerView = findViewById(R.id.rental_list_recyclerview);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //Recyclerview 에서 아이템을 클릭했을때 이벤트(상세 페이지 이동)
-        adapter.setOnItemClickListener(new Rental_list_adapter.OnRentalListInteractionListener() {
-            @Override
-            public void onRentalListInteractionListener(Rental_list_adapterItem rental_Item) {
-                //상세페이지 이동
-                //예약시간,반납시간, 현재주소의 데이터를 이전 액티비티에서 받아서 넘김
-                Intent intent = new Intent(getApplicationContext(), Rental_list_detail.class);
-                intent.putExtra("start_date", start_date);
-                intent.putExtra("start_time", start_time);
-                intent.putExtra("return_date", return_date);
-                intent.putExtra("return_time", return_time);
-                intent.putExtra("current_Address", curAddress);
-                startActivity(intent);
+            Rental_list_adapter adapter = new Rental_list_adapter(Rental_list_adapterItem.RENTAL_LIST_ITEM1, Rental_list_adapterItem.RENTAL_LIST_ITEM2, rental_list_context);
+            recyclerView.setAdapter(adapter);
+
+
+            //Recyclerview 에서 아이템을 클릭했을때 이벤트(상세 페이지 이동)
+            adapter.setOnItemClickListener(new Rental_list_adapter.OnRentalListInteractionListener() {
+                @Override
+                public void onRentalListInteractionListener(Rental_list_adapterItem rental_Item) {
+                    //상세페이지 이동
+                    //예약시간,반납시간, 현재주소의 데이터를 이전 액티비티에서 받아서 넘김
+                    Intent intent = new Intent(getApplicationContext(), Rental_list_detail.class);
+                    intent.putExtra("start_date", start_date);
+                    intent.putExtra("start_time", start_time);
+                    intent.putExtra("return_date", return_date);
+                    intent.putExtra("return_time", return_time);
+                    intent.putExtra("current_Address", curAddress);
+                    startActivity(intent);
+                }
+            });
+        } else {
+            View view = findViewById(R.id.scr_rent_List);
+            view.setVisibility(View.GONE);
+
+            LinearLayout view1 = findViewById(R.id.rental_list_empty);
+            view1.setVisibility(View.VISIBLE);
+            Button btSort, btFil;
+            btSort = findViewById(R.id.btn_rentalCar_Sort);
+            btSort.setClickable(false);
+            btFil = findViewById(R.id.btn_rentalCar_Fil);
+            btFil.setClickable(false);
+        }
+    }
+
+    private void putItemToList() {
+
+        for (int i = 0; i < voAgentDataItem.size(); i++) {
+
+            LatLng rental_shop_latlng = ConvertGPS(voAgentDataItem.get(i).WASH_AREA);
+            double dist = distance(latLng.latitude, latLng.longitude, rental_shop_latlng.latitude, rental_shop_latlng.longitude);
+            if (i % 2 == 0) {
+                Rental_list_adapterItem.addItem1(new Rental_list_adapterItem.Rental_List_Item(
+                        voAgentDataItem.get(i).AGENT_IMG_URL,
+                        voAgentDataItem.get(i).AGENT_NAME,
+                        voAgentDataItem.get(i).NAME,
+                        voAgentDataItem.get(i).AGENT_STAUS,
+                        voAgentDataItem.get(i).AGENT_NUMBER,
+                        dist
+                ));
+            } else {
+                Rental_list_adapterItem.addItem2(new Rental_list_adapterItem.Rental_List_Item(
+                        voAgentDataItem.get(i).AGENT_IMG_URL,
+                        voAgentDataItem.get(i).AGENT_NAME,
+                        voAgentDataItem.get(i).NAME,
+                        voAgentDataItem.get(i).AGENT_STAUS,
+                        voAgentDataItem.get(i).AGENT_NUMBER,
+                        dist
+                ));
             }
-        });
+        }
+    }
+
+    //정렬 다이얼로그에서 정렬시 실행되는 메소드
+    public void listRefresh(int sortType) {
+        recyclerView.removeAllViewsInLayout(); //recyclerview 삭제
+        Rental_list_adapterItem.sumList();
+        switch (sortType) {
+            case DISTTYPE:
+                Collections.sort(Rental_list_adapterItem.RENTAL_LIST_ITEM_BOTH, new distCompare()); //가격순으로 정렬
+                break;
+            case PRICETYPE:
+                Collections.sort(Rental_list_adapterItem.RENTAL_LIST_ITEM_BOTH, new priceCompare()); //가격순으로 정렬
+                break;
+            case POPULARTYPE:
+                break;
+            default:
+                break;
+        }
+
+        Rental_list_adapterItem.divList();
+        callRentalListRecyclerViewAdapter();
+    }
+
+    /**
+     * 현 위치 호출시 주소 갱신
+     */
+//    private void getAddress() {
+//        if (gps.isGetLocation()) {
+//            //Geocoder
+//            List<Address> addr = null;
+//            try {
+//                addr = gCoder.getFromLocation(latitude, longitude, 10);   //위도, 경도, 얻어올 값의 개수
+//                Address a = addr.get(0);
+//
+//                String address = a.getAddressLine(0).substring(a.getAddressLine(0).indexOf("\"") + 1, a.getAddressLine(0).length()); // 주소
+//                address = address.replace("대한민국 ", "");
+//                if (address != null && address.length() > 0) {
+//                    String[] splitStr = address.split(" ");
+//                    curAddress = address;
+//
+//                    //해당 지역을 넣어준다.
+//                    //return_address = "위치 : " + splitStr[1] + " " + splitStr[2];
+//
+//                } else {
+//                    //주소를 가져오지 못했을 때 처리 추가.
+//                    //Toast.makeText(this,"주소 정보가 없습니다.", Toast.LENGTH_LONG).show();
+//                }
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                Toast.makeText(this, "주소 정보가 없습니다.", Toast.LENGTH_LONG).show();
+//            }
+//        }
+//    }
+
+    /**
+     * 주소 -> 위경도로 변환
+     */
+    private LatLng ConvertGPS(String cAddress) {
+        List<Address> list = null;
+        gCoder = new Geocoder(this, Locale.getDefault());
+        LatLng latlng;
+
+//        String str = et3.getText().toString();
+        try {
+            list = gCoder.getFromLocationName
+                    (cAddress, // 지역 이름
+                            10); // 읽을 개수
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("test", "입출력 오류 - 서버에서 주소변환시 에러발생");
+        }
+
+        if (list != null) {
+            if (list.size() == 0) {
+                Log.e("test", "해당되는 주소 정보는 없습니다");
+            } else {
+                // 해당되는 주소로 인텐트 날리기
+                Address addr = list.get(0);
+                latlng = new LatLng(addr.getLatitude(), addr.getLongitude());
+                return latlng;
+//                Toast.makeText(this, "위도 : " + lat + ", 경도 : " + lon, Toast.LENGTH_LONG).show();
+
+            }
+        }
+        return null;
+    }
+
+    /*
+     * TODO 거리계산 메소드
+     */
+
+    private static double distance(double lat1, double lon1, double lat2, double lon2) {
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1))
+                * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+
+        return (dist);
+    }
+
+    private static double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    private static double rad2deg(double rad) {
+        return (rad * 180 / Math.PI);
     }
 
 }
