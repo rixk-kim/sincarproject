@@ -115,8 +115,6 @@ public class Rental_list_filter extends AppCompatActivity {
                 finish();
             }
         });
-
-
     }
 
     //필터 조건을 설정후 돌아올 경우 호출되는 메소드

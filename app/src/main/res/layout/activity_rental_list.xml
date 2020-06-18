@@ -92,7 +92,7 @@
     </LinearLayout>
 
     <!-- TODO 스크롤뷰에 리스트 적용 -->
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scr_rent_List"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -738,6 +738,6 @@
 
         </androidx.recyclerview.widget.RecyclerView>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

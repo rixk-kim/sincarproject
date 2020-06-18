@@ -59,7 +59,7 @@ public class Rental_list_adapter extends RecyclerView.Adapter<Rental_list_adapte
                     int pos = getAdapterPosition();
                     if(pos != RecyclerView.NO_POSITION) {
                         if(mOnRentalListInteractionListener != null) {
-                            mOnRentalListInteractionListener.onRentalListInteractionListener(new Rental_list_adapterItem());
+                            mOnRentalListInteractionListener.onRentalListInteractionListener(Rental_list_adapterItem.RENTAL_LIST_ITEM1.get(pos));
                         }
                     }
                 }
@@ -70,7 +70,7 @@ public class Rental_list_adapter extends RecyclerView.Adapter<Rental_list_adapte
                     int pos = getAdapterPosition();
                     if(pos != RecyclerView.NO_POSITION) {
                         if(mOnRentalListInteractionListener != null) {
-                            mOnRentalListInteractionListener.onRentalListInteractionListener(new Rental_list_adapterItem());
+                            mOnRentalListInteractionListener.onRentalListInteractionListener(Rental_list_adapterItem.RENTAL_LIST_ITEM2.get(pos));
                         }
                     }
                 }
@@ -146,7 +146,7 @@ public class Rental_list_adapter extends RecyclerView.Adapter<Rental_list_adapte
     }
 
     public interface OnRentalListInteractionListener {
-        void onRentalListInteractionListener(Rental_list_adapterItem rental_Item);
+        void onRentalListInteractionListener(Rental_list_adapterItem.Rental_List_Item rental_list_item);
     }
 
     public void setOnItemClickListener(OnRentalListInteractionListener listener) {

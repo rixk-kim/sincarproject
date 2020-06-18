@@ -15,8 +15,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.model.LatLng;
 import com.sincar.customer.R;
 
+import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
 public class Rental_list_detail extends FragmentActivity implements
@@ -159,6 +161,11 @@ public class Rental_list_detail extends FragmentActivity implements
         return_date = intent.getStringExtra("return_date");
         return_time = intent.getStringExtra("return_time");
 //        curAddress = intent.getStringExtra("current_Address");
+        LatLng shop_latlng = new LatLng(
+                intent.getDoubleExtra("shop_lng", 0),
+                intent.getDoubleExtra("shop_lon", 0));
+        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(shop_latlng.latitude, shop_latlng.longitude), true);
+
 
         //넘어온 시간 데이터를 시간 텍스트뷰에 적용
         rental_car_start_date.setText(start_date);
@@ -288,6 +295,8 @@ public class Rental_list_detail extends FragmentActivity implements
             rental_return_text.setText(end_address);
         }
     }
+
+
 }
 
 
