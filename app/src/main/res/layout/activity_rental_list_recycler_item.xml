@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rent_list_con1"
+        android:layout_width="0dp"
+        android:layout_height="226dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rent_list_con2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="1">
+
+        <!-- 렌탈카 이미지 -->
+        <ImageView
+            android:id="@+id/rent_list_iv1"
+            android:layout_width="151dp"
+            android:layout_height="102dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/rent_hyundaicar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- 지점 정보-->
+        <TextView
+            android:id="@+id/rent_list_tv1_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:text="송파지점"
+            android:textColor="@color/agent_color_1Opp"
+            android:textSize="11sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rent_list_iv1" />
+
+        <!-- 품목명 -->
+        <TextView
+            android:id="@+id/rent_list_tv1_2"
+            android:layout_width="149dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/nanumsquarebold"
+            android:lineSpacingExtra="5sp"
+            android:text="BMW 5시리즈 520i"
+            android:textColor="@color/agent_color_1NoOpp"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rent_list_tv1_1" />
+
+        <!--할인율 -->
+        <TextView
+            android:id="@+id/rent_list_tv1_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="11dp"
+            android:fontFamily="@font/nanumsquareextrabold"
+            android:text="75% 할인"
+            android:textColor="@color/agent_color_red"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rent_list_tv1_2" />
+
+
+        <!-- 가격 -->
+        <TextView
+            android:id="@+id/rent_list_tv1_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/default_background_type_price"
+            android:fontFamily="@font/nanumsquareextrabold"
+            android:text="150,000원"
+            android:textColor="@color/agent_color_1NoOpp"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/rent_list_tv1_3"
+            app:layout_constraintTop_toBottomOf="@+id/rent_list_tv1_2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rent_list_con2"
+        android:layout_width="0dp"
+        android:layout_height="226dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rent_list_con1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="1">
+        <!-- 렌탈카 이미지 -->
+        <ImageView
+            android:id="@+id/rent_list_iv2"
+            android:layout_width="151dp"
+            android:layout_height="102dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/rent_hyundaicar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- 지점 정보-->
+        <TextView
+            android:id="@+id/rent_list_tv2_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:text="사당지점"
+            android:textColor="@color/agent_color_1Opp"
+            android:textSize="11sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rent_list_iv2" />
+
+        <!-- 품목명 -->
+        <TextView
+            android:id="@+id/rent_list_tv2_2"
+            android:layout_width="149dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/nanumsquarebold"
+            android:lineSpacingExtra="5sp"
+            android:text="벤츠 S 클래스 S 450 4Matic"
+            android:textColor="@color/agent_color_1NoOpp"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rent_list_tv2_1" />
+
+        <!--할인율 -->
+        <TextView
+            android:id="@+id/rent_list_tv2_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="11dp"
+            android:fontFamily="@font/nanumsquareextrabold"
+            android:text="75% 할인"
+            android:textColor="@color/agent_color_red"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rent_list_tv2_2" />
+
+        <!-- 가격 -->
+        <TextView
+            android:id="@+id/rent_list_tv2_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/default_background_type_price"
+            android:fontFamily="@font/nanumsquareextrabold"
+            android:text="65,000원"
+            android:textColor="@color/agent_color_1NoOpp"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/rent_list_tv2_3"
+            app:layout_constraintTop_toBottomOf="@+id/rent_list_tv2_2" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
