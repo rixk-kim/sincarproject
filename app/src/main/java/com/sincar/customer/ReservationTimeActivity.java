@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.sincar.customer.adapter.AgentRecyclerViewAdapter;
@@ -37,9 +36,6 @@ import static com.sincar.customer.HWApplication.voAgentDataItem;
 import static com.sincar.customer.HWApplication.voAgentItem;
 import static com.sincar.customer.HWApplication.voLoginItem;
 import static com.sincar.customer.common.Constants.AGENT_LIST_REQUEST;
-import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
-import static com.sincar.customer.common.Constants.TEST_REQUEST;
-import static com.sincar.customer.util.Util.getHour;
 
 public class ReservationTimeActivity extends AppCompatActivity
         implements View.OnClickListener, AgentRecyclerViewAdapter.OnAgentListInteractionListener {
@@ -136,7 +132,7 @@ public class ReservationTimeActivity extends AppCompatActivity
             voAgentItem.CURRENT_PAGE       = agentResult.agent_list.get(0).CURRENT_PAGE;
             voAgentItem.CURRENT_NUM        = agentResult.agent_list.get(0).CURRENT_NUM;
 
-            voAgentDataItem     = agentResult.DATA;
+            voAgentDataItem = agentResult.DATA;
 
             // 내림차순 정렬
             Collections.sort(voAgentDataItem, new AgentContentComparator());

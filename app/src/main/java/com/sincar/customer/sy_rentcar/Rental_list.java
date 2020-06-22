@@ -21,8 +21,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.VolleyError;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
+import com.sincar.customer.HWApplication;
 import com.sincar.customer.R;
 import com.sincar.customer.item.AgentResult;
+import com.sincar.customer.item.RentCarAgentResult;
 import com.sincar.customer.network.VolleyNetwork;
 import com.sincar.customer.util.Util;
 
@@ -36,14 +38,16 @@ import java.util.List;
 import java.util.Locale;
 
 import static com.sincar.customer.HWApplication.agentResult;
+import static com.sincar.customer.HWApplication.rentCarAgentResult;
 import static com.sincar.customer.HWApplication.voAgentDataItem;
-import static com.sincar.customer.HWApplication.voAgentItem;
 import static com.sincar.customer.HWApplication.voLoginItem;
+import static com.sincar.customer.HWApplication.voRentCarAgentDataItem;
+import static com.sincar.customer.HWApplication.voRentCarAgentItem;
 import static com.sincar.customer.common.Constants.AGENT_LIST_REQUEST;
 
 public class Rental_list extends AppCompatActivity {
     //8개의 샘플 렌탈카 리스트 생성
-    private ConstraintLayout mImagePhoto[] = new ConstraintLayout[8];
+   // private ConstraintLayout mImagePhoto[] = new ConstraintLayout[8];
 //    int con[] = {R.id.rent_list_con1, R.id.rent_list_con2, R.id.rent_list_con3, R.id.rent_list_con4
 //            , R.id.rent_list_con5, R.id.rent_list_con6, R.id.rent_list_con7, R.id.rent_list_con8};
 
@@ -60,9 +64,9 @@ public class Rental_list extends AppCompatActivity {
     LatLng myLatLng; //현재 위치 위경도
     LatLng rental_shop_latlng; // shop의 위경도
     private final static int RENTAL_CAR_LIST_FILTER = 3333;
-    private final int DISTTYPE = 0;
-    private final int PRICETYPE = 1;
-    private final int POPULARTYPE = 2;
+    private final int DISTTYPE = 0;     //거리순 정렬
+    private final int PRICETYPE = 1;    //가격순 정렬
+    private final int POPULARTYPE = 2;  //인기순 정렬
 
 
     @Override
@@ -257,16 +261,18 @@ public class Rental_list extends AppCompatActivity {
         @Override
         public void onResponseSuccessListener(String it) {
             Gson gson = new Gson();
-            agentResult = gson.fromJson(it, AgentResult.class);
+            rentCarAgentResult = gson.fromJson(it, RentCarAgentResult.class);
 
-            voAgentItem.TOTAL = agentResult.agent_list.get(0).TOTAL;
-            voAgentItem.CURRENT_PAGE = agentResult.agent_list.get(0).CURRENT_PAGE;
-            voAgentItem.CURRENT_NUM = agentResult.agent_list.get(0).CURRENT_NUM;
+            //Toast.makeText(getApplicationContext(), rentCarAgentResult.agent_list.get(0).toString(), Toast.LENGTH_LONG).show();
+            voRentCarAgentItem.TOTAL = rentCarAgentResult.agent_list.get(0).TOTAL;
+            voRentCarAgentItem.CURRENT_PAGE = rentCarAgentResult.agent_list.get(0).CURRENT_PAGE;
+            voRentCarAgentItem.CURRENT_NUM = rentCarAgentResult.agent_list.get(0).CURRENT_NUM;
 
-            voAgentDataItem = agentResult.DATA;
+            voRentCarAgentDataItem = rentCarAgentResult.DATA;
 
             putItemToList();
             callRentalListRecyclerViewAdapter();
+
             //프로그래스바 종료
             Util.dismiss();
         }
@@ -326,38 +332,38 @@ public class Rental_list extends AppCompatActivity {
     //짝수번째는 왼쪽 홀수번째는 오른쪽에 추가하는 방식으로 함
     private void putItemToList() {
 
-        for (int i = 0; i < voAgentDataItem.size(); i++) {
+        for (int i = 0; i < voRentCarAgentDataItem.size(); i++) {
 
-           rental_shop_latlng = ConvertGPS(voAgentDataItem.get(i).WASH_AREA);
+           rental_shop_latlng = ConvertGPS(voRentCarAgentDataItem.get(i).WASH_AREA);
             double dist = distance(myLatLng.latitude, myLatLng.longitude, rental_shop_latlng.latitude, rental_shop_latlng.longitude);
             if (i % 2 == 0) {
                 Rental_list_adapterItem.addItem1(new Rental_list_adapterItem.Rental_List_Item(
-                        voAgentDataItem.get(i).AGENT_IMG_URL,
-                        voAgentDataItem.get(i).AGENT_NAME,
-                        voAgentDataItem.get(i).NAME,
-                        voAgentDataItem.get(i).AGENT_STAUS,
-                        voAgentDataItem.get(i).AGENT_NUMBER,
-                        voAgentDataItem.get(i).WASH_AREA,
+                        voRentCarAgentDataItem.get(i).AGENT_IMG_URL,
+                        voRentCarAgentDataItem.get(i).AGENT_NAME,
+                        voRentCarAgentDataItem.get(i).NAME,
+                        voRentCarAgentDataItem.get(i).AGENT_STAUS,
+                        voRentCarAgentDataItem.get(i).AGENT_NUMBER,
+                        voRentCarAgentDataItem.get(i).WASH_AREA,
                         dist
                 ));
             } else {
                 Rental_list_adapterItem.addItem2(new Rental_list_adapterItem.Rental_List_Item(
-                        voAgentDataItem.get(i).AGENT_IMG_URL,
-                        voAgentDataItem.get(i).AGENT_NAME,
-                        voAgentDataItem.get(i).NAME,
-                        voAgentDataItem.get(i).AGENT_STAUS,
-                        voAgentDataItem.get(i).AGENT_NUMBER,
-                        voAgentDataItem.get(i).WASH_AREA,
+                        voRentCarAgentDataItem.get(i).AGENT_IMG_URL,
+                        voRentCarAgentDataItem.get(i).AGENT_NAME,
+                        voRentCarAgentDataItem.get(i).NAME,
+                        voRentCarAgentDataItem.get(i).AGENT_STAUS,
+                        voRentCarAgentDataItem.get(i).AGENT_NUMBER,
+                        voRentCarAgentDataItem.get(i).WASH_AREA,
                         dist
                 ));
             }
-            Rental_list_adapterItem.sumList(); //두개의 List그룹을 합침
         }
     }
 
     //정렬 다이얼로그에서 정렬시 실행되는 메소드
     public void listRefresh(int sortType) {
         recyclerView.removeAllViewsInLayout(); //recyclerview 삭제
+        Rental_list_adapterItem.sumList();
         switch (sortType) {
             case DISTTYPE:
                 Collections.sort(Rental_list_adapterItem.RENTAL_LIST_ITEM_BOTH, new distCompare()); //가격순으로 정렬

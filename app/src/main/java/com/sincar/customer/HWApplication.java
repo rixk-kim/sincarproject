@@ -54,6 +54,9 @@ import com.sincar.customer.item.PointItem;
 import com.sincar.customer.item.PointResult;
 import com.sincar.customer.item.RecommandItem;
 import com.sincar.customer.item.RecommandResult;
+import com.sincar.customer.item.RentCarAgentDataItem;
+import com.sincar.customer.item.RentCarAgentItem;
+import com.sincar.customer.item.RentCarAgentResult;
 import com.sincar.customer.item.ReserveCancelItem;
 import com.sincar.customer.item.ReserveCancelResult;
 import com.sincar.customer.item.ReserveItem;
@@ -112,6 +115,8 @@ public class HWApplication extends MultiDexApplication {
     public static ArrayList<UseDataDetailItem> voUseDataDetailItem;         //이용내역
     public static ArrayList<OptionDataItem> voOptionDataItem;               //부가서비스 리스트
     public static ArrayList<PointDataItem> voPointDataItem;                 //포인트 리스트
+
+    public static ArrayList<RentCarAgentDataItem> voRentCarAgentDataItem;   //렌트카 대리점 정보 리스트
 
     //공지사항
     public static NoticeResult noticeResult;
@@ -198,6 +203,13 @@ public class HWApplication extends MultiDexApplication {
     public static MemberResult memberResult;
     public static MemberItem voMemberItem;
 
+    //sy
+    //RentCar 관련
+    public static RentCarAgentItem voRentCarAgentItem;
+    public static RentCarAgentResult rentCarAgentResult;
+
+
+    ///sy
     public static DBAdapter dbConnect;
 
     AppStatus mAppStatus;
@@ -248,6 +260,8 @@ public class HWApplication extends MultiDexApplication {
         voSearchWordItem= new SearchWordItem();
         voCarDeleteItem = new CarDeleteItem();
         voMemberItem    = new MemberItem();
+
+        voRentCarAgentItem = new RentCarAgentItem();
 
 //        dbConnect = new DBAdapter(context);
 //        dbConnect.openTransjection();

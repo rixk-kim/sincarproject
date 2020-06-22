@@ -216,6 +216,8 @@ public class CouponeActivity extends AppCompatActivity implements View.OnClickLi
 
         switch (v.getId()) {
             case R.id.coupone_btnPrev_layout:
+                onBackPressed();
+                break;
             case R.id.coupone_confirm_btn:
                 if("payment".equals(path)){
                     intent = new Intent(this, PaymentActivity.class);
