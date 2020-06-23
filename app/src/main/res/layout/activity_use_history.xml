@@ -28,23 +28,28 @@
             app:layout_constraintStart_toStartOf="@+id/use_history_include"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/select_dialog_useHis"
-            android:layout_width="70dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="16dp"
-            android:drawableRight="@drawable/triangle_arrangement"
-            android:drawablePadding="6dp"
+        <Button
+            android:id="@+id/btn_history_sort"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:background="@null"
+            android:drawableRight="@drawable/triangle"
+            android:drawablePadding="2dp"
             android:fontFamily="@font/nanumsquareregular"
-            android:gravity="center_vertical"
-            android:paddingLeft="8dp"
-            android:text="렌터카"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.01"
+            android:paddingLeft="10dp"
+            android:paddingTop="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:text="스팀세차"
+            android:gravity="right"
             android:textColor="@color/agent_color_1NoOpp"
             android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View

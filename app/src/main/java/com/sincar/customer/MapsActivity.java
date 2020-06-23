@@ -101,7 +101,7 @@ public class MapsActivity extends FragmentActivity implements
     Point pt;
     RelativeLayout reMap;
     boolean mapCheck = false;
-    //MapPOIItem marker;
+    MapPOIItem marker;
     ///sy
 
     @Override
@@ -231,6 +231,7 @@ public class MapsActivity extends FragmentActivity implements
         mapView = new MapView(this);
         mapViewContainer = (ViewGroup) findViewById(R.id.kMap);
         mapViewContainer.addView(mapView);
+
         //카카오맵의 여러 이벤트의 리스너
         mapView.setMapViewEventListener(this);
 
