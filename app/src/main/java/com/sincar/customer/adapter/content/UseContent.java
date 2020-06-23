@@ -84,10 +84,15 @@ public class UseContent {
         public final String car_company;
         public final String wash_place;
 
+        public final String rent_insurance;
+        public final String rent_allocate;
+        public final String rent_return;
+
 
         public UseItem(int id, String seq, String reserve_status, String reserve_time, String cancel_time, String wash_address, String wash_agent, String use_pay,
                        String agent_mobile, String reserve_name, String common_pay, String coupone_pay, String approve_info, String car_info, String car_number,
-                        String point_pay, String coupone_seq, String agent_seq, String add_service, String car_company, String wash_place) {
+                       String point_pay, String coupone_seq, String agent_seq, String add_service, String car_company, String wash_place,
+                       String rent_insurance, String rent_allocate, String rent_return) {
             this.id = id;
             this.seq = seq;
             this.reserve_status = reserve_status;
@@ -117,6 +122,10 @@ public class UseContent {
             this.add_service = add_service;
             this.car_company = car_company;
             this.wash_place  = wash_place;
+
+            this.rent_insurance = rent_insurance;   //면책요금(보험료)
+            this.rent_allocate  = rent_allocate;    //배차위치
+            this.rent_return    = rent_return;      //반납위치
         }
     }
 }

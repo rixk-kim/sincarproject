@@ -25,6 +25,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sincar.customer.adapter.MainBannerSliderAdapter;
 import com.sincar.customer.adapter.content.UseContent;
 import com.sincar.customer.service.PicassoImageLoadingService;
+import com.sincar.customer.sharing.ShareActivity;
 import com.sincar.customer.util.Util;
 
 import java.security.MessageDigest;
@@ -209,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnMainMenu3:
                 // TODO - 차량공유
                 //Toast.makeText(getApplicationContext(), "카페어링 준비중입니다.", Toast.LENGTH_SHORT).show();
-                intent = new Intent(this, MapsActivity.class);
+                intent = new Intent(this, com.sincar.customer.sharing.ShareActivity.class);
                 intent.putExtra("menu", "pairing");
                 startActivity(intent);
                 break;

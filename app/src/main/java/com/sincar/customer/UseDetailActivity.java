@@ -47,24 +47,21 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
     private String car_company;     //차량제조사
     private String wash_place;      //세차장소
 
-    private TextView textView_common_pay;
-    private TextView textView_coupone_pay;
-    private TextView textView_approve_info;
-    private TextView textView_use_pay;
+    private TextView textView_common_pay, textView_coupone_pay, textView_approve_info, textView_use_pay;
+    private TextView textView_reserve_time, textView_reserve_cancel_time, textView_wash_address, textView_wash_agent, textView_car_info, textView_car_number, textView_point_pay;
 
-    private TextView textView_reserve_time;
-    private TextView textView_reserve_cancel_time;
-    private TextView textView_wash_address;
-    private TextView textView_wash_agent;
-    private TextView textView_car_info;
-    private TextView textView_car_number;
-    private TextView textView_point_pay;
-
-    private LinearLayout useLinearLayout;
-    private LinearLayout reserve_cancel_area;
-    private LinearLayout reserve_cancel_layout;
+    private LinearLayout useLinearLayout, reserve_cancel_area, reserve_cancel_layout;
 
     private Button reserve_cancel_btn, reserve_btn;
+
+    private String req_sort;
+    private String rent_insurance;  // 면책요금(보험료)
+    private String rent_allocate;   // 배차위치
+    private String rent_return;     // 반납위치
+    private TextView use_detail_title_1, use_detail_title_2, use_detail_title_3;
+    private TextView use_column2, use_column4, use_column6;
+
+    private LinearLayout useAllocateLayout, useReturnLayout, useWashLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +94,13 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
         agent_seq       = intent.getExtras().getString("agent_seq");        /*String형*/
         add_service     = intent.getExtras().getString("add_service");      /*String형*/
         car_company     = intent.getExtras().getString("car_company");      /*String형*/
-        wash_place      = intent.getExtras().getString("wash_place");      /*String형*/
+        wash_place      = intent.getExtras().getString("wash_place");       /*String형*/
+
+        req_sort        = intent.getExtras().getString("req_sort");         /*String형*/
+        rent_insurance  = intent.getExtras().getString("rent_insurance");   /*String형*/
+        rent_allocate   = intent.getExtras().getString("rent_allocate");    /*String형*/
+        rent_return     = intent.getExtras().getString("rent_return");      /*String형*/
+
 
         // 화면 초기화
         init();
@@ -116,6 +119,42 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
 
         reserve_cancel_area = (LinearLayout) findViewById(R.id.reserve_cancel_area);
 
+        use_detail_title_1 = (TextView) findViewById(R.id.use_detail_title_1);  //기본세차
+        use_detail_title_2 = (TextView) findViewById(R.id.use_detail_title_2);  //쿠폰
+        use_detail_title_3 = (TextView) findViewById(R.id.use_detail_title_3);  //포인트
+
+        useAllocateLayout   = (LinearLayout) findViewById(R.id.use_column10);
+        useReturnLayout     = (LinearLayout) findViewById(R.id.use_column11);
+        useWashLayout       = (LinearLayout) findViewById(R.id.use_column12);   //세차장소
+
+        use_column2 = (TextView) findViewById(R.id.use_column2);  //예약시간
+        use_column6 = (TextView) findViewById(R.id.use_column6);  //대리점
+        use_column4 = (TextView) findViewById(R.id.use_column9);  //차량정보
+
+        if("1".equals(req_sort))    //렌터카
+        {
+            use_detail_title_1.setText("차량 대여료");
+            use_detail_title_3.setText("보험료");
+
+            use_column2.setText("대여시간");
+            use_column6.setText("지점정보");
+            use_column4.setText("대여차량");
+
+            useWashLayout.setVisibility(View.GONE);
+            useAllocateLayout.setVisibility(View.VISIBLE);
+            useReturnLayout.setVisibility(View.VISIBLE);
+        }else{
+            use_detail_title_1.setText("기본세차");
+            use_detail_title_3.setText("포인트");
+
+            use_column2.setText("예약시간");
+            use_column6.setText("대리점");
+            use_column4.setText("차량정보");
+
+            useWashLayout.setVisibility(View.VISIBLE);
+            useAllocateLayout.setVisibility(View.GONE);
+            useReturnLayout.setVisibility(View.GONE);
+        }
 
         //일반요금
         textView_common_pay = (TextView) findViewById(R.id.use_common_pay);
@@ -223,6 +262,7 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
                 // 예약 취소 이동
 //                Toast toast = Toast.makeText(this, "예약을 취소하였습니다.", Toast.LENGTH_LONG);
 //                cancel_time = Util.getYearMonthDay();
+                //  예약취소
                 intent = new Intent(this, UseDeleteActivity.class);
                 intent.putExtra("reserve_seq", reserve_seq);
                 intent.putExtra("reserve_status", reserve_status);
@@ -238,35 +278,44 @@ public class UseDetailActivity extends AppCompatActivity implements View.OnClick
                 intent.putExtra("car_info", car_info);
                 intent.putExtra("car_number", car_number);
                 intent.putExtra("point_pay", point_pay);
+
+                intent.putExtra("req_sort", req_sort);
+                intent.putExtra("rent_insurance", rent_insurance);
+                intent.putExtra("rent_allocate", rent_allocate);
+                intent.putExtra("rent_return", rent_return);
                 startActivity(intent);
+
  //               finish();
                 break;
 
             case R.id.reserve_btn:
                 //reserve_time => 2020-03-09 14:00
-                intent = new Intent(this, PayApproveActivity.class);
-                Bundle bundle = new Bundle();
+                if("0".equals(reserve_status))  // 스팀세차 재예약
+                {
+                    intent = new Intent(this, PayApproveActivity.class);
+                    Bundle bundle = new Bundle();
 
-                bundle.putString("seq", reserve_seq);                               //SEQ
-                bundle.putString("reserve_address", wash_address);                  //주소
-                bundle.putString("reserve_year", reserve_time.substring(0,4));      //년
-                bundle.putString("reserve_month", reserve_time.substring(5,7));     //월
-                bundle.putString("reserve_day", reserve_time.substring(8,10));      //일
-                bundle.putString("agent_seq", agent_seq);                           //예약 대리점주 seq
-                bundle.putString("agent_company", wash_agent);                      //예약 대리점주
-                bundle.putString("agent_time", reserve_time.substring(11,16));      //예약시간
-                bundle.putString("wash_area", wash_place);                          //세차장소(실내/실외)
-                bundle.putString("car_wash_option", add_service);                   //옵션(가니쉬코팅/에머랄드 코팅)
-                bundle.putString("car_company", car_company);                       //제조사
-                bundle.putString("car_name", car_info);                             //차량 이름
-                bundle.putString("car_number", car_number);                         //차번호
-                bundle.putString("use_my_point", point_pay);                        //사용 포인트
-                bundle.putString("use_coupone_seq", coupone_seq);                   //사용 쿠폰 seq
-                bundle.putString("total_amt", common_pay);                          //총 결제 금액
-                //부가서비스
-                intent.putExtras(bundle);
-                startActivity(intent);
-                finish();
+                    bundle.putString("seq", reserve_seq);                               //SEQ
+                    bundle.putString("reserve_address", wash_address);                  //주소
+                    bundle.putString("reserve_year", reserve_time.substring(0, 4));      //년
+                    bundle.putString("reserve_month", reserve_time.substring(5, 7));     //월
+                    bundle.putString("reserve_day", reserve_time.substring(8, 10));      //일
+                    bundle.putString("agent_seq", agent_seq);                           //예약 대리점주 seq
+                    bundle.putString("agent_company", wash_agent);                      //예약 대리점주
+                    bundle.putString("agent_time", reserve_time.substring(11, 16));      //예약시간
+                    bundle.putString("wash_area", wash_place);                          //세차장소(실내/실외)
+                    bundle.putString("car_wash_option", add_service);                   //옵션(가니쉬코팅/에머랄드 코팅)
+                    bundle.putString("car_company", car_company);                       //제조사
+                    bundle.putString("car_name", car_info);                             //차량 이름
+                    bundle.putString("car_number", car_number);                         //차번호
+                    bundle.putString("use_my_point", point_pay);                        //사용 포인트
+                    bundle.putString("use_coupone_seq", coupone_seq);                   //사용 쿠폰 seq
+                    bundle.putString("total_amt", common_pay);                          //총 결제 금액
+                    //부가서비스
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    finish();
+                }
                 break;
         }
     }

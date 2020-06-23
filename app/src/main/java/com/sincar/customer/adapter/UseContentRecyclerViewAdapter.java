@@ -39,12 +39,14 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
 
     private LinearLayout mLayout;
     private LinearLayout useLinearLayout;
+    private int req_sort = 0;   //0: 스팀세차, 1 : 렌터카, 2 : 카셰어링
 
-    public UseContentRecyclerViewAdapter(Context context, List<UseContent.UseItem> items, Activity uActivity) {
+    public UseContentRecyclerViewAdapter(Context context, int type, List<UseContent.UseItem> items, Activity uActivity) {
         mContext    = context;
         mValues     = items;
         itemCount   = items.size();
         useActivity = uActivity;
+        req_sort    = type;
     }
 
     @SuppressLint("ResourceAsColor")
@@ -70,8 +72,14 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
         holder.send_reserve_time = mValues.get(position).reserve_time;
 
         holder.cancel_time = mValues.get(position).cancel_time;
-        holder.wash_address.setText(mValues.get(position).wash_address);
-        holder.send_wash_address = mValues.get(position).wash_address;
+
+        if(req_sort == 1) {   //0: 스팀세차, 1 : 렌터카, 2 : 카셰어링)
+            holder.wash_address.setText(mValues.get(position).car_info + " | " + mValues.get(position).car_number);
+            holder.send_wash_address = "";
+        }else {
+            holder.wash_address.setText(mValues.get(position).wash_address);
+            holder.send_wash_address = mValues.get(position).wash_address;
+        }
 
         holder.wash_agent.setText(mValues.get(position).wash_agent);
         holder.send_wash_agent = mValues.get(position).wash_agent;
@@ -94,6 +102,10 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
         holder.car_company  = mValues.get(position).car_company;        //차량 제조사
         holder.wash_place   = mValues.get(position).wash_place;         //세차장소
 
+        holder.rent_insurance   = mValues.get(position).rent_insurance;     //면책요금(보험료
+        holder.rent_allocate    = mValues.get(position).rent_allocate;      //배차위치
+        holder.rent_return      = mValues.get(position).rent_return;        //반납위치
+
         //0: 예약중, 1:완료 , 2: 예약취소
         if("0".equals(holder.reserve_status)) {
             holder.reserve_view.setText("예약완료");
@@ -103,6 +115,16 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
             holder.reserve_view.setText("세차완료");
         }else if("3".equals(holder.reserve_status)) {
             holder.reserve_view.setText("결제대기");
+        }
+
+        if(req_sort == 1) {   //0: 스팀세차, 1 : 렌터카, 2 : 카셰어링)
+            holder.title_reserve_time.setText("대여시간");
+            holder.title_reserve_car.setText("대여차량");
+            holder.title_reserve_agent.setText("지점정보");
+        }else{
+            holder.title_reserve_time.setText("예약시간");
+            holder.title_reserve_car.setText("세차장소");
+            holder.title_reserve_agent.setText("대리점");
         }
 
         use_pos = String.valueOf(position);
@@ -160,6 +182,11 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
                 intent.putExtra("car_company", holder.car_company);
                 intent.putExtra("wash_place", holder.wash_place);
 
+                intent.putExtra("req_sort",req_sort);
+                intent.putExtra("rent_insurance",holder.rent_insurance);
+                intent.putExtra("rent_allocate",holder.rent_allocate);
+                intent.putExtra("rent_return",holder.rent_return);
+
                 mContext.startActivity(intent);
             }
         });
@@ -204,15 +231,24 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
 
         public UseContent.UseItem mItem;
 
+        public final TextView title_reserve_time, title_reserve_car, title_reserve_agent;
+        public String rent_insurance, rent_allocate, rent_return;
+
+
         public ViewHolder(View view) {
             super(view);
             mView = view;
 
             mUseSeq         = "";
             reserve_status  = "";
-            reserve_view    = view.findViewById(R.id.use_column1);
-            reserve_time    = view.findViewById(R.id.use_column3);
-            wash_address    = view.findViewById(R.id.use_column5);
+
+            reserve_view        = view.findViewById(R.id.use_column1);
+            title_reserve_time  = view.findViewById(R.id.use_column2);
+            reserve_time        = view.findViewById(R.id.use_column3);
+            title_reserve_car   = view.findViewById(R.id.use_column4);
+            wash_address        = view.findViewById(R.id.use_column5);
+            title_reserve_agent = view.findViewById(R.id.use_column6);
+
             wash_agent      = view.findViewById(R.id.use_column7);
             call_view       = view.findViewById(R.id.use_column8);
             use_pay         = view.findViewById(R.id.use_column10);
@@ -236,6 +272,10 @@ public class UseContentRecyclerViewAdapter extends RecyclerView.Adapter<com.sinc
             add_service     = "";
             car_company     = "";
             wash_place      = "";
+
+            rent_insurance  = "";
+            rent_allocate   = "";
+            rent_return     = "";
         }
     }
 }
