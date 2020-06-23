@@ -13,33 +13,24 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import com.sincar.customer.adapter.UseContentRecyclerViewAdapter;
 import com.sincar.customer.adapter.content.UseContent;
-import com.sincar.customer.entity.LoginDataEntity;
 import com.sincar.customer.entity.UseDataEntity;
 import com.sincar.customer.item.UseResult;
-import com.sincar.customer.network.DataObject;
-import com.sincar.customer.network.JsonParser;
 import com.sincar.customer.network.VolleyNetwork;
-import com.sincar.customer.util.DataParser;
 import com.sincar.customer.util.Util;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import static com.sincar.customer.HWApplication.useResult;
 import static com.sincar.customer.HWApplication.voUseDataItem;
 import static com.sincar.customer.HWApplication.voUseItem;
-import static com.sincar.customer.HWApplication.voUseDataDetailItem;
 import static com.sincar.customer.HWApplication.voLoginItem;
-import static com.sincar.customer.adapter.content.UseContent.clearItem;
-import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
 import static com.sincar.customer.common.Constants.USE_HISTORY_REQUEST;
 
 /**
@@ -60,6 +51,11 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
 
     public static UseHistoryActivity _useHistoryActivity;
     private UseContentRecyclerViewAdapter mUseContentRecyclerViewAdapter;
+
+    private TextView tvSelecte; //이용 내역 목록 선택 다이얼로그
+    //렌탈 리스트 디테일용 커스텀 다이얼로그
+    CustomDialoginUseHis customDialogInUseHis;
+    Bundle dlgUseHisBundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +115,9 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
                 return true;
             }
         });
+
+        tvSelecte = (TextView)findViewById(R.id.select_dialog_useHis);
+        tvSelecte.setOnClickListener(this);
     }
 
     /**
@@ -284,6 +283,13 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
 //                finish();
 //                break;
 //        }
+
+        if(v.getId() == R.id.select_dialog_useHis) {
+            customDialogInUseHis = CustomDialoginUseHis.getInstance();
+            dlgUseHisBundle = new Bundle();
+
+            customDialogInUseHis.show(getSupportFragmentManager(), "customDialogUseHis");
+        }
     }
 
     @SuppressLint("NewApi")

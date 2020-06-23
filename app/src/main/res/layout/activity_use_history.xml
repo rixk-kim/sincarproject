@@ -27,6 +27,24 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/use_history_include"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/select_dialog_useHis"
+            android:layout_width="70dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="16dp"
+            android:drawableRight="@drawable/triangle_arrangement"
+            android:drawablePadding="6dp"
+            android:fontFamily="@font/nanumsquareregular"
+            android:gravity="center_vertical"
+            android:paddingLeft="8dp"
+            android:text="렌터카"
+            android:textColor="@color/agent_color_1NoOpp"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
