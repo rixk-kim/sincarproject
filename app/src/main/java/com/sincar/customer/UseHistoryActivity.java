@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import com.sincar.customer.adapter.UseContentRecyclerViewAdapter;
 import com.sincar.customer.adapter.content.UseContent;
+import com.sincar.customer.custom.UseHistoryCustomDialog;
 import com.sincar.customer.entity.LoginDataEntity;
 import com.sincar.customer.entity.UseDataEntity;
 import com.sincar.customer.item.UseResult;
@@ -61,6 +63,11 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
     public static UseHistoryActivity _useHistoryActivity;
     private UseContentRecyclerViewAdapter mUseContentRecyclerViewAdapter;
 
+    private int history_sort_position = 0;
+    private UseHistoryCustomDialog dlg;
+    private int history_dlgCheck = 0;
+    private Bundle history_dlgBundle; //다이얼로그 번들
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +89,55 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
     private void init() {
         // TODO - 서버 연동 후 CardContent.ITEMS에 리스 항목 추가 작업
         // Set the adapter - 이용내역 리스트 설정
+        final Button btSort = (Button) findViewById(R.id.btn_rentalCar_Sort);
+//다이얼로그 호출
+        btSort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dlg = UseHistoryCustomDialog.getInstance();
+                history_dlgBundle = new Bundle();
+                history_dlgBundle.putInt("history_dlgCheck", history_sort_position);
+                dlg.setArguments(history_dlgBundle);
+                dlg.show(getSupportFragmentManager(), "dialog_event");
+                dlg.setDialogResult(new UseHistoryCustomDialog.OnMyDialogResult() {
+                    @Override
+                    public void finish(int result) {
+                        switch (result) {
+                            case 0:
+                                btSort.setText("스팀세차");
+                                Toast.makeText(getApplicationContext(), "스팀세차를 선택하셨습니다", Toast.LENGTH_SHORT).show();
+                                history_sort_position = 0;
+                                UseContent.clearItem(); //초기화
+                                // 정렬
+                                requestUseHistory();
+                                break;
+                            case 1:
+                                btSort.setText("렌터카");
+                                Toast.makeText(getApplicationContext(), "렌터카를 선택하셨습니다", Toast.LENGTH_SHORT).show();
+                                history_sort_position = 1;
+                                UseContent.clearItem(); //초기화
+                                // 정렬
+                                requestUseHistory();
+                                break;
+                            case 2:
+                                btSort.setText("카셰어링");
+                                Toast.makeText(getApplicationContext(), "카셰어링을 선택하셨습니다", Toast.LENGTH_SHORT).show();
+                                history_sort_position = 2;
+                                UseContent.clearItem(); //초기화
+                                // 정렬
+                                requestUseHistory();
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+                });
+
+            }
+        });
+
+
         // 실서버 연동시
         UseContent.clearItem(); //초기화
         requestUseHistory();
@@ -132,6 +188,7 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
         postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);                 // 회원번호
         postParams.put("REQUESTT_PAGE", String.valueOf(request_page));      // 요청페이지
         postParams.put("REQUEST_NUM", String.valueOf(request_offset));      // 요청갯수
+        //TODO - history_sort_position 넘기자
 
         //프로그래스바 시작
         Util.showDialog(this);
@@ -190,7 +247,10 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
                         voUseDataItem.get(i).AGENT_SEQ,
                         voUseDataItem.get(i).ADD_SERVICE,
                         voUseDataItem.get(i).CAR_COMPANY,
-                        voUseDataItem.get(i).WASH_PLACE
+                        voUseDataItem.get(i).WASH_PLACE,
+                        voUseDataItem.get(i).RENT_INSURANCE,
+                        voUseDataItem.get(i).RENT_ALLOCATE,
+                        voUseDataItem.get(i).RENT_RETURN
                 ));
             }
 
@@ -210,7 +270,7 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
                     RecyclerView recyclerView = (RecyclerView) view;
 
                     recyclerView.setLayoutManager(new LinearLayoutManager(context));
-                    recyclerView.setAdapter(new UseContentRecyclerViewAdapter(uContext, UseContent.ITEMS, _useHistoryActivity));
+                    recyclerView.setAdapter(new UseContentRecyclerViewAdapter(uContext, history_sort_position, UseContent.ITEMS, _useHistoryActivity));
 
                     recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                         @Override

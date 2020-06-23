@@ -128,7 +128,6 @@
 
         <!-- 기본 세차 -->
         <LinearLayout
-            android:id="@+id/notice_linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="16.5dp"
@@ -143,6 +142,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/use_del_title_1"
                     android:fontFamily="@font/nanumsquareregular"
                     android:layout_width="match_parent"
                     android:layout_height="18dp"
@@ -190,6 +190,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/use_del_title_2"
                     android:fontFamily="@font/nanumsquareregular"
                     android:layout_width="match_parent"
                     android:layout_height="18dp"
@@ -237,6 +238,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/use_del_title_3"
                     android:fontFamily="@font/nanumsquareregular"
                     android:layout_width="match_parent"
                     android:layout_height="18dp"
@@ -330,7 +332,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="182dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center|center_horizontal|center_vertical"
             android:layout_marginTop="1dp"
             android:gravity="center_vertical"
@@ -339,6 +341,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="18dp"
+                android:layout_marginTop="40.5dp"
                 android:gravity="left|center_horizontal|center_vertical">
 
                 <TextView
@@ -365,6 +368,7 @@
                     android:gravity="left|center_horizontal|center_vertical">
 
                     <TextView
+                        android:id="@+id/use_del_column1"
                         android:fontFamily="@font/nanumsquareregular"
                         android:layout_width="56dp"
                         android:layout_height="18dp"
@@ -394,6 +398,7 @@
 
             <!-- 세차장소 -->
             <LinearLayout
+                android:id="@+id/settle_wash_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="18dp"
                 android:layout_marginTop="16dp"
@@ -447,6 +452,7 @@
                     android:gravity="left|center_horizontal|center_vertical">
 
                     <TextView
+                        android:id="@+id/use_del_column2"
                         android:fontFamily="@font/nanumsquareregular"
                         android:layout_width="56dp"
                         android:layout_height="18dp"
@@ -489,6 +495,7 @@
                     android:gravity="left|center_horizontal|center_vertical">
 
                     <TextView
+                        android:id="@+id/use_del_column3"
                         android:fontFamily="@font/nanumsquareregular"
                         android:layout_width="56dp"
                         android:layout_height="18dp"
@@ -538,6 +545,91 @@
                         android:textSize="14sp" />
                 </LinearLayout>
 
+            </LinearLayout>
+
+
+            <!-- 배차 위치 -->
+            <LinearLayout
+                android:id="@+id/settle_column10"
+                android:layout_width="wrap_content"
+                android:layout_height="18dp"
+                android:layout_marginTop="12dp"
+                android:gravity="left|center_horizontal|center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="left|center_horizontal|center_vertical">
+
+                    <TextView
+                        android:fontFamily="@font/nanumsquareregular"
+                        android:layout_width="56dp"
+                        android:layout_height="18dp"
+                        android:gravity="left|center_horizontal|center_vertical"
+                        android:text="배차위치"
+                        android:textColor="#993e3e3e"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="18dp"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="left|center_horizontal|center_vertical">
+
+                    <TextView
+                        android:fontFamily="@font/nanumsquareregular"
+                        android:layout_width="match_parent"
+                        android:layout_height="18dp"
+                        android:gravity="left|center_horizontal|center_vertical"
+                        android:text="없음"
+                        android:textColor="#3e3e3e"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 반납 위치 -->
+            <LinearLayout
+                android:id="@+id/settle_column11"
+                android:layout_width="wrap_content"
+                android:layout_height="18dp"
+                android:layout_marginTop="12dp"
+                android:gravity="left|center_horizontal|center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="left|center_horizontal|center_vertical">
+
+                    <TextView
+                        android:fontFamily="@font/nanumsquareregular"
+                        android:layout_width="56dp"
+                        android:layout_height="18dp"
+                        android:gravity="left|center_horizontal|center_vertical"
+                        android:text="배차위치"
+                        android:textColor="#993e3e3e"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="18dp"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="left|center_horizontal|center_vertical">
+
+                    <TextView
+                        android:fontFamily="@font/nanumsquareregular"
+                        android:layout_width="match_parent"
+                        android:layout_height="18dp"
+                        android:gravity="left|center_horizontal|center_vertical"
+                        android:text="없음"
+                        android:textColor="#3e3e3e"
+                        android:textSize="14sp" />
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>

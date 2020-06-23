@@ -26,22 +26,21 @@ public class UseDeleteSettleActivity extends AppCompatActivity implements View.O
     private String settle_car_number;      //차량번호
     private String settle_point_pay;       //사용포인트
 
-    private TextView textView_settle_common_pay;
-    private TextView textView_settle_coupone_pay;
-    private TextView textView_settle_approve_info;
-    private TextView textView_settle_use_pay;
+    private TextView textView_settle_common_pay, textView_settle_coupone_pay, textView_settle_approve_info, textView_settle_use_pay;
 
-    private TextView textView_settle_reserve_time;
-    private TextView textView_settle_reserve_cancel_time;
-    private TextView textView_settle_wash_address;
-    private TextView textView_settle_wash_agent;
-    private TextView textView_settle_car_info;
-    private TextView textView_settle_car_number;
-    private TextView textView_settle_point_pay;
+    private TextView textView_settle_reserve_time, textView_settle_reserve_cancel_time, textView_settle_wash_address;
+    private TextView textView_settle_wash_agent, textView_settle_car_info, textView_settle_car_number, textView_settle_point_pay;
 
-    private LinearLayout useLinearLayout;
-    private LinearLayout reserve_cancel_area;
-    private LinearLayout reserve_cancel_layout;
+    private LinearLayout useLinearLayout, reserve_cancel_area, reserve_cancel_layout;
+
+    private String req_sort;
+    private String rent_insurance;  // 면책요금(보험료)
+    private String rent_allocate;   // 배차위치
+    private String rent_return;     // 반납위치
+
+    private TextView use_delete_title_1, use_delete_title_2, use_delete_title_3;
+    private TextView use_del_column1, use_del_column2, use_del_column3;
+    private LinearLayout settleAllocateLayout, settleReturnLayout, settleWashLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +65,11 @@ public class UseDeleteSettleActivity extends AppCompatActivity implements View.O
         settle_car_info         = intent.getExtras().getString("car_info");         /*String형*/
         settle_car_number       = intent.getExtras().getString("car_number");       /*String형*/
         settle_point_pay        = intent.getExtras().getString("point_pay");        /*String형*/
+
+        req_sort        = intent.getExtras().getString("req_sort");         /*String형*/
+        rent_insurance  = intent.getExtras().getString("rent_insurance");   /*String형*/
+        rent_allocate   = intent.getExtras().getString("rent_allocate");    /*String형*/
+        rent_return     = intent.getExtras().getString("rent_return");      /*String형*/
 
         // 화면 초기화
         init();
@@ -96,6 +100,44 @@ public class UseDeleteSettleActivity extends AppCompatActivity implements View.O
         //결재요금
         textView_settle_use_pay = (TextView) findViewById(R.id.settle_use_pay);
         textView_settle_use_pay.setText(Util.setAddMoneyDot(settle_use_pay) + "원");
+
+        use_delete_title_1 = (TextView) findViewById(R.id.use_del_title_1);  //기본세차
+        use_delete_title_2 = (TextView) findViewById(R.id.use_del_title_2);  //쿠폰
+        use_delete_title_3 = (TextView) findViewById(R.id.use_del_title_3);  //포인트
+
+        use_del_column1 = (TextView) findViewById(R.id.use_del_column1);  //예약시간
+        use_del_column2 = (TextView) findViewById(R.id.use_del_column2);  //대리점
+        use_del_column3 = (TextView) findViewById(R.id.use_del_column3);  //차량정보
+
+        settleAllocateLayout   = (LinearLayout) findViewById(R.id.settle_column10);
+        settleReturnLayout     = (LinearLayout) findViewById(R.id.settle_column11);
+        settleWashLayout       = (LinearLayout) findViewById(R.id.settle_wash_layout);   //세차장소
+
+        if("1".equals(req_sort))    //렌터카
+        {
+            use_delete_title_1.setText("차량 대여료");
+            use_delete_title_3.setText("보험료");
+
+            use_del_column1.setText("대여시간");
+            use_del_column2.setText("지점정보");
+            use_del_column3.setText("대여차량");
+
+            settleWashLayout.setVisibility(View.GONE);
+            settleAllocateLayout.setVisibility(View.VISIBLE);
+            settleReturnLayout.setVisibility(View.VISIBLE);
+        }else{
+            use_delete_title_1.setText("기본세차");
+            use_delete_title_3.setText("포인트");
+
+            use_del_column1.setText("예약시간");
+            use_del_column2.setText("대리점");
+            use_del_column3.setText("차량정보");
+
+            settleWashLayout.setVisibility(View.VISIBLE);
+            settleAllocateLayout.setVisibility(View.GONE);
+            settleReturnLayout.setVisibility(View.GONE);
+        }
+
 
         //예약시간
         textView_settle_reserve_time = (TextView) findViewById(R.id.settle_reserve_time);

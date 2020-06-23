@@ -1,4 +1,4 @@
-package com.sincar.customer;
+package com.sincar.customer.sharing;
 
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +29,11 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.sincar.customer.MainActivity;
+import com.sincar.customer.R;
+import com.sincar.customer.ReservationAddressActivity;
+import com.sincar.customer.ReservationCalendarActivity;
+import com.sincar.customer.ReservationTimeActivity;
 import com.sincar.customer.sy_rentcar.MapApiConst;
 import com.sincar.customer.sy_rentcar.Maps_rent_mainfrag;
 import com.sincar.customer.sy_rentcar.Maps_rent_time;
@@ -52,7 +57,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class MapsActivity extends FragmentActivity implements
+public class ShareActivity extends FragmentActivity implements
         View.OnClickListener, OnDateNTimeSetListener, MapView.MapViewEventListener,
         MapView.OpenAPIKeyAuthenticationResultListener, MapView.POIItemEventListener, rCodeCheck {
 
@@ -81,7 +86,7 @@ public class MapsActivity extends FragmentActivity implements
     private ConstraintLayout mConstraintLayout, mbtnReserveAddress, next_Layout;
 
     private String reserve_year, reserve_month, reserve_day;
-    public static MapsActivity _mMapsActivity;
+    public static com.sincar.customer.sharing.ShareActivity _mMapsActivity;
 
     //sy
     FrameLayout framelayout_maps_rentCar;   //렌트카 메뉴 선택시 하단 디스플레이를 위한 프레임레이아웃
@@ -108,7 +113,7 @@ public class MapsActivity extends FragmentActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         gContext = this;
-        _mMapsActivity = MapsActivity.this;
+        _mMapsActivity = com.sincar.customer.sharing.ShareActivity.this;
 
         Intent intent = getIntent(); /*데이터 수신*/
         main_path = intent.getExtras().getString("menu");    /*String형*/
@@ -221,6 +226,23 @@ public class MapsActivity extends FragmentActivity implements
         mapView = new MapView(this);
         mapViewContainer = (ViewGroup) findViewById(R.id.kMap);
         mapViewContainer.addView(mapView);
+
+        if("pairing".equals(main_path))
+        {
+            String[][] marker_point = {{"어린이공원","37.509744346040485","127.1070079816675"},{"호수빌","37.508385366020065","127.10529819821205"},{"미자식당","37.509696416140585","127.11014089945938"}};
+            //marker 추가
+
+
+            for(int i = 0; i < marker_point.length; i++) {
+                marker = new MapPOIItem();
+                marker.setItemName(marker_point[i][0]);
+                marker.setTag(0);
+                marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
+                marker.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(marker_point[i][1]), Double.parseDouble(marker_point[i][2])));
+                mapView.addPOIItem(marker);
+            }
+        }
+
 
         //카카오맵의 여러 이벤트의 리스너
         mapView.setMapViewEventListener(this);
@@ -500,7 +522,7 @@ public class MapsActivity extends FragmentActivity implements
 //                    ///sy
                     ConvertGPS(cAddress);
                 } else {
-                    Toast.makeText(MapsActivity.this, "주소 검색을 다시 해주세요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(com.sincar.customer.sharing.ShareActivity.this, "주소 검색을 다시 해주세요", Toast.LENGTH_SHORT).show();
                 }
 //                Toast.makeText(MapsActivity.this, "Result: " + data.getStringExtra("search_result"), Toast.LENGTH_SHORT).show();
             } else {   // RESULT_CANCEL
@@ -521,7 +543,7 @@ public class MapsActivity extends FragmentActivity implements
                     }
                     reserve_date.setText(reserve_month + "/ " + reserve_day + " (" + dayofday + ")"); //9/15 (화)
                 } else {
-                    Toast.makeText(MapsActivity.this, "날짜를 다시 해주세요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(com.sincar.customer.sharing.ShareActivity.this, "날짜를 다시 해주세요", Toast.LENGTH_SHORT).show();
                 }
 //                Toast.makeText(MapsActivity.this, "Result: " + data.getStringExtra("search_result"), Toast.LENGTH_SHORT).show();
             } else {   // RESULT_CANCEL
@@ -580,7 +602,7 @@ public class MapsActivity extends FragmentActivity implements
 
     //sy
     /**
-    예약시간과 반납시간 프레임레이아웃 호출 메소드
+     예약시간과 반납시간 프레임레이아웃 호출 메소드
      */
     public void start_reserveDate() {
         replaceFragment(2);

@@ -24,6 +24,11 @@ public class UseDataItem {
     public String CAR_COMPANY;
     public String WASH_PLACE;
 
+    public String RENT_INSURANCE;
+    public String RENT_ALLOCATE;
+    public String RENT_RETURN;
+
+
 
     @Override
     public String toString() {
@@ -48,6 +53,9 @@ public class UseDataItem {
                 ", ADD_SERVICE='" + ADD_SERVICE + '\'' +
                 ", CAR_COMPANY='" + CAR_COMPANY + '\'' +
                 ", WASH_PLACE='" + WASH_PLACE + '\'' +
+                ", RENT_INSURANCE='" + RENT_INSURANCE + '\'' +
+                ", RENT_ALLOCATE='" + RENT_ALLOCATE + '\'' +
+                ", RENT_RETURN='" + RENT_RETURN + '\'' +
                 "}";
     }
 }

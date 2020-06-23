@@ -45,6 +45,10 @@ public class UseDeleteActivity extends AppCompatActivity implements View.OnClick
 
     private Context dContext;
 
+    private String req_sort;
+    private String rent_insurance;  // 면책요금(보험료)
+    private String rent_allocate;   // 배차위치
+    private String rent_return;     // 반납위치
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +76,11 @@ public class UseDeleteActivity extends AppCompatActivity implements View.OnClick
         car_number      = intent.getExtras().getString("car_number");       /*String형*/
         point_pay       = intent.getExtras().getString("point_pay");        /*String형*/
 
+        req_sort        = intent.getExtras().getString("req_sort");         /*String형*/
+        rent_insurance  = intent.getExtras().getString("rent_insurance");   /*String형*/
+        rent_allocate   = intent.getExtras().getString("rent_allocate");    /*String형*/
+        rent_return     = intent.getExtras().getString("rent_return");      /*String형*/
+
         // 화면 초기화
         init();
     }
@@ -83,36 +92,6 @@ public class UseDeleteActivity extends AppCompatActivity implements View.OnClick
         findViewById(R.id.use_delete_btnPrev_layout).setOnClickListener(this);
         delete_checkbox = (CheckBox)findViewById(R.id.delete_checkbox);
         findViewById(R.id.reserve_delete_btn).setOnClickListener(this);
-//        Button b = (Button)findViewById(R.id.reserve_delete_btn);
-//
-//        b.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                String result = "";  // 결과를 출력할 문자열  ,  항상 스트링은 빈문자열로 초기화 하는 습관을 가지자
-//                if(delete_checkbox.isChecked() == true){
-//                    //
-//                    Intent intent = new Intent(dContext, UseDeleteSettleActivity.class);
-//                    intent.putExtra("reserve_status", reserve_status);
-//                    intent.putExtra("common_pay", common_pay);
-//                    intent.putExtra("coupone_pay", coupone_pay);
-//                    intent.putExtra("approve_info", approve_info);
-//                    intent.putExtra("use_pay", use_pay);
-//                    intent.putExtra("reserve_time", reserve_time);
-//                    intent.putExtra("cencel_time", cancel_time);
-//                    intent.putExtra("wash_address", wash_address);
-//                    intent.putExtra("wash_agent", wash_agent);
-//                    intent.putExtra("agent_mobile", agent_mobile);
-//                    intent.putExtra("car_info", car_info);
-//                    intent.putExtra("car_number", car_number);
-//                    startActivity(intent);
-//                    finish();
-//                }else {
-//                    Toast.makeText(dContext, "동의를 체크해 주세요.", Toast.LENGTH_SHORT);
-//                }
-//
-//            } // end onClick
-//        }); // end setOnClickListener
 
     }
 
@@ -123,21 +102,6 @@ public class UseDeleteActivity extends AppCompatActivity implements View.OnClick
         switch (v.getId()) {
             case R.id.use_delete_btnPrev_layout:
                 //  이용내역 상세으로
-//                intent = new Intent(this, UseDetailActivity.class);
-//                intent.putExtra("reserve_seq", reserve_seq);
-//                intent.putExtra("reserve_status", reserve_status);
-//                intent.putExtra("common_pay", common_pay);
-//                intent.putExtra("coupone_pay", coupone_pay);
-//                intent.putExtra("approve_info", approve_info);
-//                intent.putExtra("use_pay", use_pay);
-//                intent.putExtra("reserve_time", reserve_time);
-//                intent.putExtra("cencel_time", cancel_time);
-//                intent.putExtra("wash_address", wash_address);
-//                intent.putExtra("wash_agent", wash_agent);
-//                intent.putExtra("agent_mobile", agent_mobile);
-//                intent.putExtra("car_info", car_info);
-//                intent.putExtra("car_number", car_number);
-//                startActivity(intent);
                 finish();
                 break;
 
@@ -196,6 +160,12 @@ public class UseDeleteActivity extends AppCompatActivity implements View.OnClick
                 intent.putExtra("car_info", car_info);
                 intent.putExtra("car_number", car_number);
                 intent.putExtra("point_pay", point_pay);
+
+                intent.putExtra("req_sort", req_sort);
+                intent.putExtra("rent_insurance", rent_insurance);
+                intent.putExtra("rent_allocate", rent_allocate);
+                intent.putExtra("rent_return", rent_return);
+
                 startActivity(intent);
                 finish();
             }else{
@@ -216,21 +186,21 @@ public class UseDeleteActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        Intent intent = new Intent(this, UseDetailActivity.class);
-        intent.putExtra("reserve_status", reserve_status);
-        intent.putExtra("common_pay", common_pay);
-        intent.putExtra("coupone_pay", coupone_pay);
-        intent.putExtra("approve_info", approve_info);
-        intent.putExtra("use_pay", use_pay);
-        intent.putExtra("reserve_time", reserve_time);
-        intent.putExtra("cencel_time", cancel_time);
-        intent.putExtra("wash_address", wash_address);
-        intent.putExtra("wash_agent", wash_agent);
-        intent.putExtra("agent_mobile", agent_mobile);
-        intent.putExtra("car_info", car_info);
-        intent.putExtra("car_number", car_number);
-        intent.putExtra("point_pay", point_pay);
-        startActivity(intent);
+//        Intent intent = new Intent(this, UseDetailActivity.class);
+//        intent.putExtra("reserve_status", reserve_status);
+//        intent.putExtra("common_pay", common_pay);
+//        intent.putExtra("coupone_pay", coupone_pay);
+//        intent.putExtra("approve_info", approve_info);
+//        intent.putExtra("use_pay", use_pay);
+//        intent.putExtra("reserve_time", reserve_time);
+//        intent.putExtra("cencel_time", cancel_time);
+//        intent.putExtra("wash_address", wash_address);
+//        intent.putExtra("wash_agent", wash_agent);
+//        intent.putExtra("agent_mobile", agent_mobile);
+//        intent.putExtra("car_info", car_info);
+//        intent.putExtra("car_number", car_number);
+//        intent.putExtra("point_pay", point_pay);
+//        startActivity(intent);
 
         finish();
     }
