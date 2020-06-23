@@ -89,7 +89,7 @@ public class UseHistoryActivity extends AppCompatActivity implements View.OnClic
     private void init() {
         // TODO - 서버 연동 후 CardContent.ITEMS에 리스 항목 추가 작업
         // Set the adapter - 이용내역 리스트 설정
-        final Button btSort = (Button) findViewById(R.id.btn_rentalCar_Sort);
+        final Button btSort = (Button) findViewById(R.id.btn_history_sort);
 //다이얼로그 호출
         btSort.setOnClickListener(new View.OnClickListener() {
             @Override
