@@ -161,10 +161,12 @@ public class Rental_list_detail extends FragmentActivity implements
         return_date = intent.getStringExtra("return_date");
         return_time = intent.getStringExtra("return_time");
 //        curAddress = intent.getStringExtra("current_Address");
-        LatLng shop_latlng = new LatLng(
-                intent.getDoubleExtra("shop_lng", 0),
-                intent.getDoubleExtra("shop_lon", 0));
-        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(shop_latlng.latitude, shop_latlng.longitude), true);
+        //20-06-23 잠시 보류
+        //대리점 위치정보를 맵븁에 보여줌
+//        LatLng shop_latlng = new LatLng(
+//                intent.getDoubleExtra("shop_lng", 0),
+//                intent.getDoubleExtra("shop_lon", 0));
+//        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(shop_latlng.latitude, shop_latlng.longitude), true);
 
 
         //넘어온 시간 데이터를 시간 텍스트뷰에 적용
@@ -295,8 +297,6 @@ public class Rental_list_detail extends FragmentActivity implements
             rental_return_text.setText(end_address);
         }
     }
-
-
 }
 
 
