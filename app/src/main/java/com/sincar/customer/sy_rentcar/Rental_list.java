@@ -334,7 +334,7 @@ public class Rental_list extends AppCompatActivity {
 //        }
 //    }
 //
-//    //클래스통에 아이템을 순차적으로 넣음
+//    //클래스에 아이템을 순차적으로 넣음
 //    //리싸이클러뷰 아이템 하나에 두개의 속성 아이템을 넣을수 있으므로
 //    //짝수번째는 왼쪽 홀수번째는 오른쪽에 추가하는 방식으로 함
 //    private void putItemToList() {

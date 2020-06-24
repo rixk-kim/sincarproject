@@ -190,8 +190,44 @@ public class Rental_list_detail extends FragmentActivity implements
 
             case R.id.rental_confirm_btn:
                 // TODO : 예약하기
-                intent = new Intent(this, Rental_payment.class);
-                startActivity(intent);
+                switch (select_delivery) {
+                    //딜리버리 선택에 따른 확인 버튼 활성화
+                    // case 0은 지점 방문이기에 default 값으로 대체
+                    case 1:
+                        if(rental_allocate_text.getText() == "배차 위치를 정해주세요" && rental_return_text.getText() == "반납 위치를 정해주세요") {
+                            Toast.makeText(getApplicationContext(), "먼저 배차 및 위치를 정해주세요",Toast.LENGTH_LONG).show();
+                        } else if(rental_allocate_text.getText() == "배차 위치를 정해주세요") {
+                            Toast.makeText(getApplicationContext(), "먼저 배차 위치를 정해주세요",Toast.LENGTH_LONG).show();
+                        } else if (rental_return_text.getText() == "반납 위치를 정해주세요") {
+                            Toast.makeText(getApplicationContext(), "먼저 반납 위치를 정해주세요",Toast.LENGTH_LONG).show();
+                        } else {
+                            intent = new Intent(this, Rental_payment.class);
+                            startActivity(intent);
+                        }
+                        break;
+                    case 2:
+                        if(rental_allocate_text.getText() == "배차 위치를 정해주세요") {
+                            Toast.makeText(getApplicationContext(), "먼저 배차 위치를 정해주세요",Toast.LENGTH_LONG).show();
+                        } else {
+                            intent = new Intent(this, Rental_payment.class);
+                            startActivity(intent);
+                        }
+                        break;
+                    case 3:
+                        if (rental_return_text.getText() == "반납 위치를 정해주세요") {
+                            Toast.makeText(getApplicationContext(), "먼저 배차 위치를 정해주세요",Toast.LENGTH_LONG).show();
+                        } else {
+                            intent = new Intent(this, Rental_payment.class);
+                            startActivity(intent);
+                        }
+                        break;
+                    default:
+                        intent = new Intent(this, Rental_payment.class);
+                        startActivity(intent);
+                        break;
+                }
+                //지도 타일 이미지 캐쉬 데이터 삭제 (메모리 확보용)
+                mapView.releaseUnusedMapTileImageResources();
                 break;
 
             case R.id.rental_allocate_position:

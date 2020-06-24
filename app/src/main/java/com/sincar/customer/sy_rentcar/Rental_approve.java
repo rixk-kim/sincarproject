@@ -43,7 +43,7 @@ public class Rental_approve extends AppCompatActivity implements View.OnClickLis
 
         switch (v.getId()) {
             case R.id.rental_reserve_approve_btn:
-                intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent = new Intent(this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
@@ -55,8 +55,9 @@ public class Rental_approve extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
+
         Intent intent;
-        intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();

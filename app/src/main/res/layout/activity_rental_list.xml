@@ -122,19 +122,33 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView1_1" />
 
+            <!--할인율 -->
+            <TextView
+                android:id="@+id/textView1_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="11dp"
+                android:fontFamily="@font/nanumsquareextrabold"
+                android:text="75% 할인"
+                android:textColor="@color/agent_color_red"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView1_2" />
+
             <!-- 가격 -->
             <TextView
                 android:id="@+id/textView1_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="13dp"
                 android:layout_marginTop="11dp"
                 android:background="@drawable/default_background_type_price"
                 android:fontFamily="@font/nanumsquareextrabold"
-                android:text="150,000원"
+                android:text="155,000원"
                 android:textColor="@color/agent_color_1NoOpp"
                 android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView1_3"
                 app:layout_constraintTop_toBottomOf="@+id/textView1_2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
