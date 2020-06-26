@@ -11,6 +11,8 @@ import android.widget.RadioButton;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.sincar.customer.R;
+import com.sincar.customer.sy_rentcar.Rental_list_filter.kuk_brand_filter;
+import com.sincar.customer.sy_rentcar.Rental_list_filter.su_brand_filter;
 
 public class Rental_list_filter_brand extends AppCompatActivity {
 
@@ -20,8 +22,8 @@ public class Rental_list_filter_brand extends AppCompatActivity {
     CheckBox rb1[] = new CheckBox[6];
     CheckBox rb2[] = new CheckBox[10];
     String brandStrData = "";
-    String[] brandArrayData1 = {"현대", "제네시스", "기아", "쌍용", "르노삼성", "쉐보레"};
-    String[] brandArrayData2 = {"닛산", "도요타", "마쯔다", "미쓰비시", "GM", "쉐보레", "닛산", "도요타", "마쯔다", "미쓰비시"};
+//    String[] brandArrayData1 = {"현대", "제네시스", "기아", "쌍용", "르노삼성", "쉐보레"};
+//    String[] brandArrayData2 = {"닛산", "도요타", "마쯔다", "미쓰비시", "GM", "쉐보레", "닛산", "도요타", "마쯔다", "미쓰비시"};
     int[] idList1 = {R.id.rb1_1, R.id.rb1_2, R.id.rb1_3, R.id.rb1_4, R.id.rb1_5, R.id.rb1_6};
     int[] idList2 = {R.id.rb2_1, R.id.rb2_2, R.id.rb2_3, R.id.rb2_4, R.id.rb2_5, R.id.rb2_6, R.id.rb2_7, R.id.rb2_8, R.id.rb2_9, R.id.rb2_10};
 
@@ -68,15 +70,31 @@ public class Rental_list_filter_brand extends AppCompatActivity {
         btnBrandCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(int i = 0; i < 6; i ++) {
-                    if(rb1[i].isChecked()) {
-                        brandStrData += brandArrayData1[i];
+//                for(int i = 0; i < 6; i ++) {
+//                    if(rb1[i].isChecked()) {
+//                        brandStrData += brandArrayData1[i];
+//                        brandStrData += ",";
+//                    }
+//                }
+//                for(int i = 0; i < 10; i ++) {
+//                    if(rb2[i].isChecked()) {
+//                        brandStrData += brandArrayData2[i];
+//                        brandStrData += ",";
+//                    }
+//                }
+
+                kuk_brand_filter[] kuk_brand_filterArr = kuk_brand_filter.values();
+                su_brand_filter[] su_brand_filtersArr = su_brand_filter.values();
+
+                for(kuk_brand_filter d: kuk_brand_filterArr) {
+                    if(rb1[d.ordinal()].isChecked()){
+                        brandStrData += d.getValue();
                         brandStrData += ",";
                     }
                 }
-                for(int i = 0; i < 10; i ++) {
-                    if(rb2[i].isChecked()) {
-                        brandStrData += brandArrayData2[i];
+                for(su_brand_filter d: su_brand_filtersArr) {
+                    if(rb2[d.ordinal()].isChecked()) {
+                        brandStrData += d.getValue();
                         brandStrData += ",";
                     }
                 }

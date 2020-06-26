@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.sincar.customer.R;
+import com.sincar.customer.sy_rentcar.Rental_list_filter.type_filter;
 
 public class Rental_list_filter_type extends AppCompatActivity {
 
@@ -18,7 +19,7 @@ public class Rental_list_filter_type extends AppCompatActivity {
     Button btnTypeCheck,btnTypeClear;
     CheckBox rb[] = new CheckBox[10];
     String typeStrData = "";
-    String[] typeArrayData = {"경차", "세단", "스포츠", "R/V", "SUV", "승합", "밴", "컨버터블", "쿠페", "트럭"};
+//    String[] typeArrayData = {"경차", "세단", "스포츠", "R/V", "SUV", "승합", "밴", "컨버터블", "쿠페", "트럭"};
     int[] idList = {R.id.rb0, R.id.rb1, R.id.rb2, R.id.rb3, R.id.rb4, R.id.rb5, R.id.rb6, R.id.rb7, R.id.rb8, R.id.rb9};
 
     @Override
@@ -57,9 +58,16 @@ public class Rental_list_filter_type extends AppCompatActivity {
             public void onClick(View v) {
 
                 //체크된 조건을 String으로 변환
-                for(int i = 0; i < 10; i ++) {
-                    if(rb[i].isChecked()) {
-                        typeStrData += typeArrayData[i];
+//                for(int i = 0; i < 10; i ++) {
+//                    if(rb[i].isChecked()) {
+//                        typeStrData += typeArrayData[i];
+//                        typeStrData += ",";
+//                    }
+//                }
+                type_filter[] typeArr = type_filter.values();
+                for(type_filter d: typeArr) {
+                    if(rb[d.ordinal()].isChecked()) {
+                        typeStrData += d.getValue();
                         typeStrData += ",";
                     }
                 }

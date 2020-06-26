@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.sincar.customer.R;
+import com.sincar.customer.sy_rentcar.Rental_list_filter.price_filter;
 
 public class Rental_list_filter_price extends AppCompatActivity {
 
@@ -19,7 +20,8 @@ public class Rental_list_filter_price extends AppCompatActivity {
     RadioGroup rgPri, rgPri2; //버튼 위치 배치 디스플레이를 위해 라디오 그룹 2개 설정
     RadioButton rb1, rb2, rb3, rb4, rb5, rb6, rb7; // 7개의 라디오버튼 변수 선언
 
-    int rbPriceChange; // 설정된 가격 조건을 구분 짓기 위한 변수 0: 전체 1: 10만원이하 2: 20만원 이하 ~~
+    price_filter rbPriceChange; // 설정된 가격 조건을 구분 짓기 위한 변수 0: 전체 1: 10만원이하 2: 20만원 이하 ~~
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -47,7 +49,7 @@ public class Rental_list_filter_price extends AppCompatActivity {
                 if(!rb1.isChecked()) {
                     rb1.setChecked(true);
                 }
-                rbPriceChange = 0;
+                rbPriceChange = price_filter.all;
                 if (rb2.isChecked()) rb2.setChecked(false);
                 if (rb3.isChecked()) rb3.setChecked(false);
                 if (rb4.isChecked()) rb4.setChecked(false);
@@ -65,7 +67,7 @@ public class Rental_list_filter_price extends AppCompatActivity {
                 if(!rb2.isChecked()) {
                     rb2.setChecked(true);
                 }
-                rbPriceChange = 1;
+                rbPriceChange = price_filter._10under;
                 if (rb1.isChecked()) rb1.setChecked(false);
                 if (rb3.isChecked()) rb3.setChecked(false);
                 if (rb4.isChecked()) rb4.setChecked(false);
@@ -83,7 +85,7 @@ public class Rental_list_filter_price extends AppCompatActivity {
                 if(!rb3.isChecked()) {
                     rb3.setChecked(true);
                 }
-                rbPriceChange = 2;
+                rbPriceChange = price_filter._20under;
                 if (rb1.isChecked()) rb1.setChecked(false);
                 if (rb2.isChecked()) rb2.setChecked(false);
                 if (rb4.isChecked()) rb4.setChecked(false);
@@ -101,7 +103,7 @@ public class Rental_list_filter_price extends AppCompatActivity {
                 if(!rb4.isChecked()) {
                     rb4.setChecked(true);
                 }
-                rbPriceChange = 3;
+                rbPriceChange = price_filter._30under;
                 if (rb1.isChecked()) rb1.setChecked(false);
                 if (rb2.isChecked()) rb2.setChecked(false);
                 if (rb3.isChecked()) rb3.setChecked(false);
@@ -119,7 +121,7 @@ public class Rental_list_filter_price extends AppCompatActivity {
                 if(!rb5.isChecked()) {
                     rb5.setChecked(true);
                 }
-                rbPriceChange = 4;
+                rbPriceChange = price_filter._40under;
                 if (rb1.isChecked()) rb1.setChecked(false);
                 if (rb2.isChecked()) rb2.setChecked(false);
                 if (rb3.isChecked()) rb3.setChecked(false);
@@ -137,7 +139,7 @@ public class Rental_list_filter_price extends AppCompatActivity {
                 if(!rb6.isChecked()) {
                     rb6.setChecked(true);
                 }
-                rbPriceChange = 5;
+                rbPriceChange = price_filter._50under;
                 if (rb1.isChecked()) rb1.setChecked(false);
                 if (rb2.isChecked()) rb2.setChecked(false);
                 if (rb3.isChecked()) rb3.setChecked(false);
@@ -155,7 +157,7 @@ public class Rental_list_filter_price extends AppCompatActivity {
                 if(!rb7.isChecked()) {
                     rb7.setChecked(true);
                 }
-                rbPriceChange = 6;
+                rbPriceChange = price_filter._50over;
                 if (rb1.isChecked()) rb1.setChecked(false);
                 if (rb2.isChecked()) rb2.setChecked(false);
                 if (rb3.isChecked()) rb3.setChecked(false);
@@ -178,7 +180,7 @@ public class Rental_list_filter_price extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.putExtra("price_data", rbPriceChange);
+                intent.putExtra("price_data", rbPriceChange.getValue());
                 setResult(RESULT_OK, intent);
                 finish();
             }

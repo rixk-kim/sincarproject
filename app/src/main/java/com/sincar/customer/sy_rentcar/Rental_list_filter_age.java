@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -12,6 +11,7 @@ import android.widget.RadioGroup;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.sincar.customer.R;
+import com.sincar.customer.sy_rentcar.Rental_list_filter.age_filter;
 
 public class Rental_list_filter_age extends AppCompatActivity {
 
@@ -20,7 +20,7 @@ public class Rental_list_filter_age extends AppCompatActivity {
     RadioGroup rgAge,rgAge2; //버튼 위치 배치 디스플레이를 위해 라디오 그룹 2개 설정
     RadioButton rb1, rb2, rb3; //라디오 버튼3개 설정(전체,만 21세이상,만 26세 이상)
 
-    int rb_age_change; // 설정된 나이 조건을 구분 짓기 위한 변수 0:전체 1:만 21세 2: 만 26세
+    age_filter rb_age_change; // 설정된 나이 조건을 구분 짓기 위한 변수 0:전체 1:만 21세 2: 만 26세
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,8 @@ public class Rental_list_filter_age extends AppCompatActivity {
                 if(!rb1.isChecked()) {
                     rb1.setChecked(true);
                 }
-                rb_age_change = 0;
+
+                rb_age_change = age_filter.all;
                 if (rb2.isChecked()) rb2.setChecked(false);
                 if (rb3.isChecked()) rb3.setChecked(false);
             }
@@ -67,7 +68,7 @@ public class Rental_list_filter_age extends AppCompatActivity {
                 if(!rb2.isChecked()) {
                     rb2.setChecked(true);
                 }
-                rb_age_change = 1;
+                rb_age_change = age_filter._21over;
                 if (rb1.isChecked()) rb1.setChecked(false);
                 if (rb3.isChecked()) rb3.setChecked(false);
             }
@@ -81,7 +82,7 @@ public class Rental_list_filter_age extends AppCompatActivity {
                 if(!rb3.isChecked()) {
                     rb3.setChecked(true);
                 }
-                rb_age_change = 2;
+                rb_age_change = age_filter._26over;
                 if (rb1.isChecked()) rb1.setChecked(false);
                 if (rb2.isChecked()) rb2.setChecked(false);
             }
@@ -93,7 +94,7 @@ public class Rental_list_filter_age extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 //조건정보 적용된 변수 번들로 데이터 전달
-                intent.putExtra("age_data", rb_age_change);
+                intent.putExtra("age_data", rb_age_change.getValue());
                 setResult(RESULT_OK, intent);
                 finish();
             }

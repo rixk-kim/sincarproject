@@ -22,7 +22,63 @@ public class Rental_list_filter extends AppCompatActivity {
     TextView tvAge, tvPrice, tvType, tvBrand; //필터로부터 적용될 텍스트뷰
     public static String rent_car_list_age, rent_car_list_price, rent_car_list_type, rent_car_list_brand;
 
-    enum filter { age, price, type, brand}
+    //필터 종류 4가지
+    public enum filter {age, price, type, brand}
+    //나이 필터
+    public enum age_filter {
+        all("전체"), _21over("만 21세 이상"), _26over("만 26세 이상");
+        private final String age_str;
+        age_filter (String age_str) {
+            this.age_str = age_str;
+        }
+        public String getValue() {
+            return age_str;
+        }
+    }
+    //가격 필터
+    public enum price_filter {
+        all("전체"), _10under("10만원 이하"), _20under("20만원 이하"), _30under("30만원 이하"),
+        _40under("40만원 이하"), _50under("50만원 이하"), _50over("50만원 이상");
+        private final String price_str;
+        price_filter (String price_str) {
+            this.price_str = price_str;
+        }
+        public String getValue() {
+            return price_str;
+        }
+    }
+    //외형 필터
+    public enum type_filter {
+        light("경차"), saedan("세단"), sports("스포츠"), rv("R/V"), suv("SUV"), suenghap("승합"),
+        van("밴"), convertouble("컨버터블"), coupeh("쿠페"), truck("트럭");
+        private final String type_str;
+        type_filter (String type_str) {
+            this.type_str = type_str;
+        }
+        public String getValue() {
+            return type_str;
+        }
+    }
+    //브랜드 필터(수입, 국산)
+    public enum kuk_brand_filter {
+        hyundai("현대"), genesis("제네시스"), kia("기아"), ssangyong("쌍용"),
+        renaultsamsung("르노삼성"), chevrolet("쉐보레");
+        private  final String kuk_brand_str;
+        kuk_brand_filter(String kuk_brand_str) {
+            this.kuk_brand_str = kuk_brand_str;
+        }
+        public String getValue() { return kuk_brand_str; }
+    }
+    public enum su_brand_filter {
+        nissan("닛산"), toyota("토요타"), mastuda("마츠다"), mitsubishi("미쓰비시"),
+        gm("GM"), chevrolet("쉐보레"), nissan2("닛산"), toyota2("도요타"),
+        mastuda2("마츠다"), mitsubishi2("미쓰비시");
+        private final String su_brand_str;
+        su_brand_filter (String su_brand_str) {
+            this.su_brand_str = su_brand_str;
+        }
+        public String getValue() { return su_brand_str; }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +110,7 @@ public class Rental_list_filter extends AppCompatActivity {
             public void onClick(View v) {
                 intent = new Intent(getApplicationContext(), Rental_list_filter_age.class);
                 startActivityForResult(intent, filter.age.ordinal());
+
             }
         });
         //가격조건 필터 액티비티로 전환
@@ -126,13 +183,17 @@ public class Rental_list_filter extends AppCompatActivity {
 
         //나이 조건
         if(requestCode == filter.age.ordinal() && resultCode == RESULT_OK) {
-            int i = data.getIntExtra("age_data", 0);
-            rental_list_filter_ageSelect(i);
+            String age_data = data.getStringExtra("age_data");
+            rent_car_list_age = age_data;
+            tvAge.setText(age_data);
+            //rental_list_filter_ageSelect(i);
         }
         //가격 조건
         else if(requestCode == filter.price.ordinal() && resultCode == RESULT_OK) {
-            int i = data.getIntExtra("price_data", 0);
-            rental_list_filter_priceSelect(i);
+            String price_data = data.getStringExtra("price_data");
+            rent_car_list_price = price_data;
+            tvPrice.setText(price_data);
+            //rental_list_filter_priceSelect(i);
         }
         //외형 조건
         else if(requestCode == filter.type.ordinal() && resultCode == RESULT_OK) {
@@ -153,60 +214,60 @@ public class Rental_list_filter extends AppCompatActivity {
 
     }
 
-    //적용된 조건에 따라 조건 텍스트뷰에 설정(나이)
-    public void rental_list_filter_ageSelect(int i) {
-        switch (i) {
-            case 0:
-                tvAge.setText("전체");
-                rent_car_list_age = "전체";
-                break;
-            case 1:
-                tvAge.setText("만 21세 이상");
-                rent_car_list_age = "만 21세 이상";
-                break;
-            case 2:
-                tvAge.setText("만 26세 이상");
-                rent_car_list_age = "만 26세 이상";
-                break;
-            default:
-                break;
-        }
-    }
-
-    //적용된 조건에 따라 조건 텍스트뷰에 설정(가격)
-    public void rental_list_filter_priceSelect(int i) {
-        switch (i) {
-            case 0:
-                tvPrice.setText("전체");
-                rent_car_list_price = "전체";
-                break;
-            case 1:
-                tvPrice.setText("10만원 이하");
-                rent_car_list_price = "10만원 이하";
-                break;
-            case 2:
-                tvPrice.setText("20만원 이하");
-                rent_car_list_price = "20만원 이하";
-                break;
-            case 3:
-                tvPrice.setText("30만원 이하");
-                rent_car_list_price = "30만원 이하";
-                break;
-            case 4:
-                tvPrice.setText("40만원 이하");
-                rent_car_list_price = "40만원 이하";
-                break;
-            case 5:
-                tvPrice.setText("50만원 이하");
-                rent_car_list_price = "50만원 이하";
-                break;
-            case 6:
-                tvPrice.setText("50만원 이상");
-                rent_car_list_price = "50만원 이상";
-                break;
-            default:
-                break;
-        }
-    }
+//    //적용된 조건에 따라 조건 텍스트뷰에 설정(나이)
+//    public void rental_list_filter_ageSelect(int i) {
+//        switch (i) {
+//            case 0:
+//                tvAge.setText("전체");
+//                rent_car_list_age = "전체";
+//                break;
+//            case 1:
+//                tvAge.setText("만 21세 이상");
+//                rent_car_list_age = "만 21세 이상";
+//                break;
+//            case 2:
+//                tvAge.setText("만 26세 이상");
+//                rent_car_list_age = "만 26세 이상";
+//                break;
+//            default:
+//                break;
+//        }
+//    }
+//
+//    //적용된 조건에 따라 조건 텍스트뷰에 설정(가격)
+//    public void rental_list_filter_priceSelect(int i) {
+//        switch (i) {
+//            case 0:
+//                tvPrice.setText("전체");
+//                rent_car_list_price = "전체";
+//                break;
+//            case 1:
+//                tvPrice.setText("10만원 이하");
+//                rent_car_list_price = "10만원 이하";
+//                break;
+//            case 2:
+//                tvPrice.setText("20만원 이하");
+//                rent_car_list_price = "20만원 이하";
+//                break;
+//            case 3:
+//                tvPrice.setText("30만원 이하");
+//                rent_car_list_price = "30만원 이하";
+//                break;
+//            case 4:
+//                tvPrice.setText("40만원 이하");
+//                rent_car_list_price = "40만원 이하";
+//                break;
+//            case 5:
+//                tvPrice.setText("50만원 이하");
+//                rent_car_list_price = "50만원 이하";
+//                break;
+//            case 6:
+//                tvPrice.setText("50만원 이상");
+//                rent_car_list_price = "50만원 이상";
+//                break;
+//            default:
+//                break;
+//        }
+//    }
 
 }
