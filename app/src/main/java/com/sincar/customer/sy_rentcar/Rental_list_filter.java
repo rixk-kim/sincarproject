@@ -22,6 +22,8 @@ public class Rental_list_filter extends AppCompatActivity {
     TextView tvAge, tvPrice, tvType, tvBrand; //필터로부터 적용될 텍스트뷰
     public static String rent_car_list_age, rent_car_list_price, rent_car_list_type, rent_car_list_brand;
 
+    enum filter { age, price, type, brand}
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -51,7 +53,7 @@ public class Rental_list_filter extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getApplicationContext(), Rental_list_filter_age.class);
-                startActivityForResult(intent, 0);
+                startActivityForResult(intent, filter.age.ordinal());
             }
         });
         //가격조건 필터 액티비티로 전환
@@ -59,7 +61,7 @@ public class Rental_list_filter extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getApplicationContext(), Rental_list_filter_price.class);
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, filter.price.ordinal());
             }
         });
         //외형조건 필터 액티비티로 전환
@@ -67,7 +69,7 @@ public class Rental_list_filter extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getApplicationContext(), Rental_list_filter_type.class);
-                startActivityForResult(intent, 2);
+                startActivityForResult(intent, filter.type.ordinal());
             }
         });
         //브랜드조건 필터 액티비티로 전환
@@ -75,7 +77,7 @@ public class Rental_list_filter extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getApplicationContext(), Rental_list_filter_brand.class);
-                startActivityForResult(intent, 3);
+                startActivityForResult(intent, filter.brand.ordinal());
             }
         });
         //적용된 필터들을 초기화
@@ -123,25 +125,29 @@ public class Rental_list_filter extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         //나이 조건
-        if(requestCode == 0 && resultCode == RESULT_OK) {
+        if(requestCode == filter.age.ordinal() && resultCode == RESULT_OK) {
             int i = data.getIntExtra("age_data", 0);
             rental_list_filter_ageSelect(i);
         }
         //가격 조건
-        else if(requestCode == 1 && resultCode == RESULT_OK) {
+        else if(requestCode == filter.price.ordinal() && resultCode == RESULT_OK) {
             int i = data.getIntExtra("price_data", 0);
             rental_list_filter_priceSelect(i);
         }
         //외형 조건
-        else if(requestCode == 2 && resultCode == RESULT_OK) {
+        else if(requestCode == filter.type.ordinal() && resultCode == RESULT_OK) {
             String type_data = data.getStringExtra("type_data");
             rent_car_list_type = type_data;
             tvType.setText(type_data);
         }
         //브랜드 조건
-        else if(requestCode == 3 && resultCode == RESULT_OK) {
+        else if(requestCode == filter.brand.ordinal() && resultCode == RESULT_OK) {
             String type_data = data.getStringExtra("brand_data");
             rent_car_list_brand= type_data;
+            if(type_data.length() > 25){
+                type_data = type_data.substring(0, 25);
+                type_data += "...";
+            }
             tvBrand.setText(type_data);
         }
 
