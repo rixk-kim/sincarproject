@@ -288,7 +288,8 @@ public class MapsActivity extends FragmentActivity implements
             bundle.putInt("return_timeInt", return_timeInt);
             bundle.putString("current_Address", cAddress);
         }
-        int fm1Height, fm2Height;
+        //렌터카의 메인 화면과 시간 예약 설정에 따른 프래그먼트 크기 조절
+        int fm1Height, fm2Height; //dp사이즈로 입력될 변수
         switch (i) {
 
             // 1번 : 메인프레임레이아웃 2번 : 예약시간 설정(넘버피커) 프레임레이아웃 3번 : 반납시간 설정(넘버피커)
@@ -729,6 +730,7 @@ public class MapsActivity extends FragmentActivity implements
         //화면의 중앙의 위경도 정보를 변수에 대입
         latitude = mapPoint.getMapPointGeoCoord().latitude;
         longitude = mapPoint.getMapPointGeoCoord().longitude;
+        Log.v("map_point", "latitude: " + latitude + " longtitude: " + longitude);
         if (mapCheck) {
             getAddress();
             //현재화면이 렌터카 메인프래그먼트 일때만 현재위치 정보 표시 메소드 실행

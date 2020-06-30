@@ -110,7 +110,6 @@ public class Rental_list_filter extends AppCompatActivity {
             public void onClick(View v) {
                 intent = new Intent(getApplicationContext(), Rental_list_filter_age.class);
                 startActivityForResult(intent, filter.age.ordinal());
-
             }
         });
         //가격조건 필터 액티비티로 전환

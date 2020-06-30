@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -91,7 +92,7 @@ public class Rental_list extends AppCompatActivity {
         return_time = intent.getStringExtra("return_time"); //반납 시간
         curAddress = intent.getStringExtra("current_Address"); //현재 위치
 
-        gCoder = new Geocoder(this, Locale.getDefault());
+//        gCoder = new Geocoder(this, Locale.getDefault());
 //        getAddress();
         //20-06-23 잠시 보류
 //        myLatLng = ConvertGPS(curAddress);
@@ -192,7 +193,6 @@ public class Rental_list extends AppCompatActivity {
                         }
                     }
                 });
-
             }
         });
 
