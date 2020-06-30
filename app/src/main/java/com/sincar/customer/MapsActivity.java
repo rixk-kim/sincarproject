@@ -265,11 +265,14 @@ public class MapsActivity extends FragmentActivity implements
             }
         });
 
-
-
-        ///sy
+        //초기 화면 디스플레이시 가끔 주소 정보가 안나오는 버그가 발생하여 초기화 함수 마지막에 주소 정보가 나오도록 추가함
+        if(rCode == 0) {
+            if((Maps_rent_mainfrag)getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar) != null) {
+                ((Maps_rent_mainfrag) getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar)).AddressChange();
+            }
+        }
     }
-
+    ///sy
     //sy 렌터카 메인 화면 및 예약시간 프래그먼트를 표현하기 위한 메소드
     public void replaceFragment(int i) {
 
@@ -448,10 +451,10 @@ public class MapsActivity extends FragmentActivity implements
                         bundle.putString("current_address", cAddress);
                         mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true); //맵뷰의 시점을 gps기준으로 현재위치로 이동
                         //현재화면이 렌터카 메인프래그먼트 일때만 현재위치 정보 표시 메소드 실행
-                        if(rCode == 0) {
-                            if (((Maps_rent_mainfrag) getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar)) != null)
-                                ((Maps_rent_mainfrag) getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar)).AddressChange();
-                        }
+//                        if(rCode == 0) {
+//                            if (((Maps_rent_mainfrag) getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar)) != null)
+//                                ((Maps_rent_mainfrag) getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar)).AddressChange();
+//                        }
                     } else {
                         mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
                     }
