@@ -277,6 +277,11 @@ public class ShareActivity extends FragmentActivity implements
             }
         });
 
+        if(rCode == 0) {
+            if((Maps_rent_mainfrag)getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar) != null) {
+                ((Maps_rent_mainfrag) getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar)).AddressChange();
+            }
+        }
         ///sy
     }
 

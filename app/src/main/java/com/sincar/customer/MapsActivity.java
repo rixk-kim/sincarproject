@@ -266,6 +266,8 @@ public class MapsActivity extends FragmentActivity implements
         });
 
         //초기 화면 디스플레이시 가끔 주소 정보가 안나오는 버그가 발생하여 초기화 함수 마지막에 주소 정보가 나오도록 추가함
+        //mapView의 맵 움직임이 끝나면 호출되는 메소드에 주소 정보 표시하는 메소드를 추가하였으나
+        //map_rent_mainfrag의 framelayout보다 mapView의 움직임이 먼저 끝나면 안나오는듯
         if(rCode == 0) {
             if((Maps_rent_mainfrag)getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar) != null) {
                 ((Maps_rent_mainfrag) getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar)).AddressChange();
