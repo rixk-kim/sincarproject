@@ -20,6 +20,7 @@ import com.sincar.customer.adapter.CouponeContentRecyclerViewAdapter;
 import com.sincar.customer.adapter.content.CouponeContent;
 import com.sincar.customer.item.CouponeResult;
 import com.sincar.customer.network.VolleyNetwork;
+import com.sincar.customer.sy_rentcar.Rental_payment;
 import com.sincar.customer.util.Util;
 
 import java.util.ArrayList;
@@ -70,7 +71,7 @@ public class CouponeActivity extends AppCompatActivity implements View.OnClickLi
         couponeLayout = (LinearLayout)findViewById(R.id.coupone_confirm_layout);
 
         //진입경로에 따라 하단 버튼 활성화
-        if("payment".equals(path)){
+        if("payment".equals(path) || "rental_payment".equals(path)){
             couponeLayout.setVisibility(View.VISIBLE);
         }else{
             couponeLayout.setVisibility(View.GONE);
@@ -219,13 +220,28 @@ public class CouponeActivity extends AppCompatActivity implements View.OnClickLi
                 onBackPressed();
                 break;
             case R.id.coupone_confirm_btn:
-                if("payment".equals(path)){
+                if("payment".equals(path)) {
                     intent = new Intent(this, PaymentActivity.class);
-                    intent.putExtra("coupone_seq", mCouponeContentRecyclerViewAdapter.getCouponeSeq());
-                    intent.putExtra("coupone_pay", mCouponeContentRecyclerViewAdapter.getCouponePay());
+                    if(CouponeContent.ITEMS.size() > 0) {
+                        intent.putExtra("coupone_seq", mCouponeContentRecyclerViewAdapter.getCouponeSeq());
+                        intent.putExtra("coupone_pay", mCouponeContentRecyclerViewAdapter.getCouponePay());
+                    }else{
+                        intent.putExtra("coupone_seq", "");
+                        intent.putExtra("coupone_pay", "");
+                    }
                     setResult(RESULT_OK, intent);
                     finish();
-
+                }else if("rental_payment".equals(path)){
+                    intent = new Intent(this, Rental_payment.class);
+                    if(CouponeContent.ITEMS.size() > 0) {
+                        intent.putExtra("coupone_seq", mCouponeContentRecyclerViewAdapter.getCouponeSeq());
+                        intent.putExtra("coupone_pay", mCouponeContentRecyclerViewAdapter.getCouponePay());
+                    }else{
+                        intent.putExtra("coupone_seq", "");
+                        intent.putExtra("coupone_pay", "");
+                    }
+                    setResult(RESULT_OK, intent);
+                    finish();
                 }else {
                     //  내정보
                     intent = new Intent(this, MyProfileSettingsActivity.class);
@@ -243,7 +259,12 @@ public class CouponeActivity extends AppCompatActivity implements View.OnClickLi
         Intent intent;
         if("payment".equals(path)){
             intent = new Intent(this, PaymentActivity.class);
-            intent.putExtra("coupone_seq", mCouponeContentRecyclerViewAdapter.getCouponeSeq());
+            intent.putExtra("coupone_pay", "");
+            setResult(RESULT_OK, intent);
+            finish();
+        }else if("rental_payment".equals(path)){
+            intent = new Intent(this, Rental_payment.class);
+            intent.putExtra("coupone_pay", "");
             setResult(RESULT_OK, intent);
             finish();
         }else{

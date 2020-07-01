@@ -37,7 +37,7 @@ import static com.sincar.customer.HWApplication.voLoginItem;
 import static com.sincar.customer.util.Util.setAddMoneyDot;
 
 public class Rental_payment extends AppCompatActivity implements View.OnClickListener {
-    public final static int PAYMENT_REQ_CODE = 1004;
+    public final static int RENTAL_PAYMENT_REQ_CODE = 1006;
     private TextView amount_TextView;
     private TextView branch_name, wash_address, reservation_time, my_point;
     private EditText use_point;
@@ -68,7 +68,13 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
     private String car_wash_option = ""; //옵션
     private int car_wash_option_pay = 0;    //옵션비용
 
-    public static com.sincar.customer.PaymentActivity _paymentActivity;
+    //20200630
+    private TextView rental_use_amount, rental_use_delivery, rental_use_insurance;
+    private int rental_pay      = 0;        //차량대여료
+    private int delivery_pay    = 0;        //딜리버리 금액
+    private int insurance_pay   = 0;        //보험 금액
+
+    private int product_pay = 0 ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +82,17 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_rental_payment);
         pContext = this;
 //
-//        Intent intent = getIntent(); /*데이터 수신*/
+        Intent intent = getIntent(); /*데이터 수신*/
+
+        rental_pay     = Integer.parseInt(intent.getExtras().getString("rental_pay"));          /*String형*/
+        delivery_pay   = Integer.parseInt(intent.getExtras().getString("delivery_pay"));        /*String형*/
+        insurance_pay  = Integer.parseInt(intent.getExtras().getString("insurance_pay"));       /*String형*/
+//        rental_pay = 160000;
+//        delivery_pay = 0;
+//        insurance_pay = 10000;
+
+        product_pay = rental_pay + delivery_pay + insurance_pay;
+
 //        reserve_address     = intent.getExtras().getString("reserve_address");  /*String형*/
 //        reserve_year        = intent.getExtras().getString("reserve_year");     /*String형*/
 //        reserve_month       = intent.getExtras().getString("reserve_month");    /*String형*/
@@ -109,6 +125,15 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
         findViewById(R.id.rental_btnCancelDesc).setOnClickListener(this);    //취소정책 : 자세히
 
 
+        rental_use_amount = (TextView) findViewById(R.id.rental_use_amount);
+        rental_use_amount.setText(Util.setAddMoneyDot(String.valueOf(rental_pay)) + "원");
+
+        rental_use_delivery = (TextView) findViewById(R.id.rental_use_delivery);
+        rental_use_delivery.setText(Util.setAddMoneyDot(String.valueOf(delivery_pay)) + "원");
+
+        rental_use_insurance = (TextView) findViewById(R.id.rental_use_insurance);
+        rental_use_insurance.setText(Util.setAddMoneyDot(String.valueOf(insurance_pay)) + "원");
+
 //        findViewById(R.id.btnNext).setVisibility(View.INVISIBLE);
         findViewById(R.id.rental_btnCouponRegister).setOnClickListener(this);
         amount_TextView = (TextView) findViewById(R.id.rental_coupon_amount);
@@ -140,48 +165,49 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
         use_point.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//                if (actionId == EditorInfo.IME_ACTION_DONE) {
-//                    // 확인 버튼 눌렀을 때
-//                    String value = use_point.getText().toString().trim();
-//                    //특정 문자열 제거(, / 원)
-//                    value = value.replaceAll(",","");
-//                    value = value.replaceAll("원","");
-//                    if(!TextUtils.isEmpty(value))
-//                    {
-//                        int mPoint = Integer.parseInt(voLoginItem.MY_POINT);    //내 포인트
-//                        int input_point = Integer.parseInt(value);              //사용 포인트
-//
-//                        //car_wash_pay  -> 기본 세차비용
-//                        //use_coupone_pay -> 쿠폰 비용
-//
-//                        if(input_point > mPoint)
-//                        {
-//                            //보유 포인트보다 크게 입력한 상태
-////                            Toast.makeText(com.sincar.customer.PaymentActivity.this, "보유 포인트보다 초과 입력하였습니다.", Toast.LENGTH_LONG).show();
-//                            use_point.setText("0원");
-//                            mButton.setText(setAddMoneyDot(String.valueOf(Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay)) + "원 결재하기");
-//                        }else{
-//                            if(input_point > (Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay))
-//                            {
-//                                //입력 포인트가 기본 비용보다 클경우
-//                                int pay_result = input_point - (Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay);
-//                                use_my_point = (Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay);
-//                                use_point.setText(setAddMoneyDot(String.valueOf(Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay)) + "원");
-//                                mButton.setText("0원 결제하기");
-//                            }else{
-//                                int pay_result = (Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay) - input_point;
-//                                use_my_point = input_point;
-//                                use_point.setText(setAddMoneyDot(String.valueOf(input_point)) + "원");
-//                                mButton.setText(setAddMoneyDot(String.valueOf(pay_result)) + "원 결재하기");
-//                            }
-//                        }
-//                    }
-//                }
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    // 확인 버튼 눌렀을 때
+                    String value = use_point.getText().toString().trim();
+                    //특정 문자열 제거(, / 원)
+                    value = value.replaceAll(",","");
+                    value = value.replaceAll("원","");
+                    if(!TextUtils.isEmpty(value))
+                    {
+                        int mPoint = Integer.parseInt(voLoginItem.MY_POINT);    //내 포인트
+                        int input_point = Integer.parseInt(value);              //사용 포인트
+
+                        //car_wash_pay  -> 기본 세차비용
+                        //use_coupone_pay -> 쿠폰 비용
+
+                        if(input_point > mPoint)
+                        {
+                            //보유 포인트보다 크게 입력한 상태
+//                            Toast.makeText(com.sincar.customer.PaymentActivity.this, "보유 포인트보다 초과 입력하였습니다.", Toast.LENGTH_LONG).show();
+                            use_point.setText("0원");
+                            mButton.setText(setAddMoneyDot(String.valueOf(product_pay - use_coupone_pay)) + "원 결재하기");
+                        }else{
+                            if(input_point > (product_pay - use_coupone_pay))
+                            {
+                                //입력 포인트가 기본 비용보다 클경우
+                                int pay_result = input_point - (product_pay - use_coupone_pay);
+                                use_my_point = (product_pay - use_coupone_pay);
+                                use_point.setText(setAddMoneyDot(String.valueOf(product_pay - use_coupone_pay)) + "원");
+                                mButton.setText("0원 결제하기");
+                            }else{
+                                int pay_result = (product_pay - use_coupone_pay) - input_point;
+                                use_my_point = input_point;
+                                use_point.setText(setAddMoneyDot(String.valueOf(input_point)) + "원");
+                                mButton.setText(setAddMoneyDot(String.valueOf(pay_result)) + "원 결재하기");
+                            }
+                        }
+                    }
+                }
                 return false;
             }
         });
 
-         mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결제하기");
+        total_amt = product_pay;
+        mButton.setText(setAddMoneyDot(String.valueOf(total_amt)) + "원 결제하기");
     }
 
     @Override
@@ -207,8 +233,8 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
                 }
 
                 intent = new Intent(this, CouponeActivity.class);
-                intent.putExtra("path", "payment");
-                startActivityForResult(intent, PAYMENT_REQ_CODE);
+                intent.putExtra("path", "rental_payment");
+                startActivityForResult(intent, RENTAL_PAYMENT_REQ_CODE);
                 break;
 
             case R.id.rental_reserve_confirm_btn:
@@ -260,21 +286,21 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
 
                 break;
             case R.id.rental_btnPointUse:  //포인트 전액 사용하기
-//                int mPoint = Integer.parseInt(voLoginItem.MY_POINT);    //내포인트
-//
-//                if(mPoint > (Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay))
-//                {
-//                    //내 포인트가 기본 비용보다 클경우
-//                    int pay_result = mPoint - (Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay);
-//                    use_my_point = Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay;
-//                    use_point.setText(setAddMoneyDot(String.valueOf(Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay)) + "원");
-//                    mButton.setText("0원 결재하기");
-//                }else{
-//                    int pay_result = (Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay) - mPoint;
-//                    use_my_point = mPoint;
-//                    use_point.setText(setAddMoneyDot(String.valueOf(mPoint)) + "원");
-//                    mButton.setText(setAddMoneyDot(String.valueOf(pay_result)) + "원 결제하기");
-//                }
+                int mPoint = Integer.parseInt(voLoginItem.MY_POINT);    //내포인트
+
+                if(mPoint > (product_pay - use_coupone_pay))
+                {
+                    //내 포인트가 기본 비용보다 클경우
+                    int pay_result = mPoint - (product_pay - use_coupone_pay);
+                    use_my_point = product_pay - use_coupone_pay;
+                    use_point.setText(setAddMoneyDot(String.valueOf(product_pay - use_coupone_pay)) + "원");
+                    mButton.setText("0원 결재하기");
+                }else{
+                    int pay_result = (product_pay - use_coupone_pay) - mPoint;
+                    use_my_point = mPoint;
+                    use_point.setText(setAddMoneyDot(String.valueOf(mPoint)) + "원");
+                    mButton.setText(setAddMoneyDot(String.valueOf(pay_result)) + "원 결제하기");
+                }
                 break;
 
             case R.id.rental_btnCancelDesc:
@@ -306,15 +332,15 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
                             int input_point = Integer.parseInt(value);
 
                             if (input_point <= mPoint) {
-                                if (input_point >= (Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay)) {
-                                    use_my_point = input_point - (Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay);
+                                if (input_point >= (product_pay - use_coupone_pay)) {
+                                    use_my_point = input_point - (product_pay - use_coupone_pay);
                                 } else {
                                     use_my_point = input_point;
                                 }
                                 my_point.setText(String.valueOf(mPoint-input_point) + "원 보유");
                                 use_point.setText(String.valueOf(use_my_point) + "원");
                                 total_amt -= use_my_point;
-                                mButton.setText(setAddMoneyDot(String.valueOf((Integer.parseInt(car_wash_pay) + car_wash_option_pay - use_coupone_pay))) + "원 결재하기");
+                                mButton.setText(setAddMoneyDot(String.valueOf((product_pay - use_coupone_pay))) + "원 결재하기");
                             } else {
                                 Toast.makeText(com.sincar.customer.sy_rentcar.Rental_payment.this, "포인트를 초과 사용하였습니다.", Toast.LENGTH_LONG).show();
                             }
@@ -337,36 +363,36 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PAYMENT_REQ_CODE) {
+        if (requestCode == RENTAL_PAYMENT_REQ_CODE) {
             if (resultCode == RESULT_OK) {
-//                if(!TextUtils.isEmpty(data.getStringExtra("coupone_pay"))) {
-//                    String value = use_point.getText().toString().trim();
-//                    int input_point = 0;
-//                    //특정 문자열 제거(, / 원)
-//                    value = value.replaceAll(",","");
-//                    value = value.replaceAll("원","");
-//                    if(!TextUtils.isEmpty(value))
-//                    {
-//                        input_point = Integer.parseInt(value);              //사용 포인트
-//                    }
-//
-//                    use_coupone_pay = Integer.parseInt(data.getStringExtra("coupone_pay"));
-//
-//                    if((input_point + use_coupone_pay) > (Integer.parseInt(car_wash_pay) + car_wash_option_pay))
-//                    {
-//                        amount_TextView.setText(String.valueOf(use_coupone_pay) + "원");
-//                        coupone_seq = data.getStringExtra("coupone_seq");
-//
-//                        mButton.setText("0원 결제하기");
-//                    }else{
-//                        amount_TextView.setText(String.valueOf(use_coupone_pay) + "원");
-//                        coupone_seq = data.getStringExtra("coupone_seq");
-//                        int total_amount = (Integer.parseInt(car_wash_pay) + car_wash_option_pay) - (input_point + use_coupone_pay);
-//                        mButton.setText(setAddMoneyDot(String.valueOf(total_amount)) + "원 결제하기");
-//
-//                    }
-//
-//                }
+                if(!TextUtils.isEmpty(data.getStringExtra("coupone_pay"))) {
+                    String value = use_point.getText().toString().trim();
+                    int input_point = 0;
+                    //특정 문자열 제거(, / 원)
+                    value = value.replaceAll(",","");
+                    value = value.replaceAll("원","");
+                    if(!TextUtils.isEmpty(value))
+                    {
+                        input_point = Integer.parseInt(value);              //사용 포인트
+                    }
+
+                    use_coupone_pay = Integer.parseInt(data.getStringExtra("coupone_pay"));
+
+                    if((input_point + use_coupone_pay) > (product_pay))
+                    {
+                        amount_TextView.setText(String.valueOf(use_coupone_pay) + "원");
+                        coupone_seq = data.getStringExtra("coupone_seq");
+
+                        mButton.setText("0원 결제하기");
+                    }else{
+                        amount_TextView.setText(String.valueOf(use_coupone_pay) + "원");
+                        coupone_seq = data.getStringExtra("coupone_seq");
+                        int total_amount = (product_pay) - (input_point + use_coupone_pay);
+                        mButton.setText(setAddMoneyDot(String.valueOf(total_amount)) + "원 결제하기");
+
+                    }
+
+                }
             } else {   // RESULT_CANCEL
                 Toast.makeText(com.sincar.customer.sy_rentcar.Rental_payment.this, "쿠폰 정보를 가져오지 못했습니다.", Toast.LENGTH_SHORT).show();
             }
