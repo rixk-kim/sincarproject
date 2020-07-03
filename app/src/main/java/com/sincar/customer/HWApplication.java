@@ -57,6 +57,7 @@ import com.sincar.customer.item.RecommandResult;
 import com.sincar.customer.item.RentCarAgentDataItem;
 import com.sincar.customer.item.RentCarAgentItem;
 import com.sincar.customer.item.RentCarAgentResult;
+import com.sincar.customer.item.RentCarDetailResult;
 import com.sincar.customer.item.ReserveCancelItem;
 import com.sincar.customer.item.ReserveCancelResult;
 import com.sincar.customer.item.ReserveItem;
@@ -116,7 +117,7 @@ public class HWApplication extends MultiDexApplication {
     public static ArrayList<OptionDataItem> voOptionDataItem;               //부가서비스 리스트
     public static ArrayList<PointDataItem> voPointDataItem;                 //포인트 리스트
 
-    public static ArrayList<RentCarAgentDataItem> voRentCarAgentDataItem;   //렌트카 대리점 정보 리스트
+    public static ArrayList<RentCarAgentDataItem> voRentCarAgentDataItem;   //렌트카 차량 정보 리스트
 
     //공지사항
     public static NoticeResult noticeResult;
@@ -204,10 +205,12 @@ public class HWApplication extends MultiDexApplication {
     public static MemberItem voMemberItem;
 
     //sy
-    //RentCar 관련
+    //RentCar list 호출
     public static RentCarAgentItem voRentCarAgentItem;
     public static RentCarAgentResult rentCarAgentResult;
 
+    //RentCar list detail 호출
+    public static RentCarDetailResult rentCarDetailResult;
 
     ///sy
     public static DBAdapter dbConnect;

@@ -89,7 +89,7 @@ public class MapsActivity extends FragmentActivity implements
     Maps_rent_time_java maps_rent_time_reserve, maps_rent_time_return; //렌트카 메뉴 선택중 예약 시간 설정 디스플레이를 위한 클래스(예약,반납)
     Maps_rent_mainfrag maps_rent_mainfrag; //렌트카 메뉴 선택시 하단 메인메뉴 디스플레이를 위한 클래스
     static String start_date, start_time, return_date, return_time; //예약 날짜,시간 과 반납 날짜 시간
-    int now_timeInt, start_timeInt, return_timeInt; //현재시간,예약시간,반납시간 인트화
+    int now_timeInt, start_timeInt, return_timeInt, start_yearInt, return_yearInt; //현재시간,예약시간,반납시간 인트화
     ImageView btnCurrent;
     Bundle bundle = new Bundle(); //메인프래그먼트에 데이터 전달을 위한 번들
     int rCode = 0;  //렌터카 프래그먼트 활성화중 메인화면,예약시간화면,반납시간화면을 구분 짓기 위한 변수
@@ -173,6 +173,7 @@ public class MapsActivity extends FragmentActivity implements
 
         now_timeInt = Integer.parseInt(timeIntFormat.format(currentTime));
         start_timeInt = return_timeInt = now_timeInt; //초기화 중엔 초기화면 설정을 위해서 현재시간 예약시간 반납시간 동일화
+        start_yearInt = return_yearInt = 2020;
 
         ///sy
         findViewById(R.id.btnMapHome).setOnClickListener(this);
@@ -291,7 +292,11 @@ public class MapsActivity extends FragmentActivity implements
             //예약시간과 반납시간의 인트화를 데이터 패스
             bundle.putInt("start_timeInt", start_timeInt);
             bundle.putInt("return_timeInt", return_timeInt);
-            bundle.putString("current_Address", cAddress);
+            bundle.putString("reserve_address", cAddress);
+            bundle.putDouble("reserve_lat", latitude);
+            bundle.putDouble("reserve_lon", longitude);
+            bundle.putInt("start_yearInt", start_yearInt);
+            bundle.putInt("return_yearInt", return_yearInt);
         }
         //렌터카의 메인 화면과 시간 예약 설정에 따른 프래그먼트 크기 조절
         int fm1Height, fm2Height; //dp사이즈로 입력될 변수
@@ -404,7 +409,7 @@ public class MapsActivity extends FragmentActivity implements
                     currentTextView.setText(cAddress);
                     //sy
                 else
-                    bundle.putString("current_Address", cAddress);
+                    bundle.putString("reserve_address", cAddress);
                 ///sy
                 Log.d("MapActivity", "address ==>" + address);
 
@@ -450,7 +455,7 @@ public class MapsActivity extends FragmentActivity implements
                         mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
                         //sy
                     } else if("driver".equals(main_path)) {
-                        bundle.putString("current_address", cAddress);
+                        bundle.putString("reserve_address", cAddress);
                         mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true); //맵뷰의 시점을 gps기준으로 현재위치로 이동
                         //현재화면이 렌터카 메인프래그먼트 일때만 현재위치 정보 표시 메소드 실행
 //                        if(rCode == 0) {
@@ -599,7 +604,7 @@ public class MapsActivity extends FragmentActivity implements
                     currentTextView.setText(cAddress);
                     //sy
                 else if("driver".equals(main_path))
-                    bundle.putString("current_address", cAddress);
+                    bundle.putString("reserve_address", cAddress);
                 else {}
                 ///sy
                 ///sy
@@ -631,15 +636,17 @@ public class MapsActivity extends FragmentActivity implements
      날짜,시간,r코드에 따라 예약시간이나 반납시간 구분
      */
     @Override
-    public void onDateNTimePickerSet(String date, String time, int timeCheck) {
+    public void onDateNTimePickerSet(String date, String time, int timeCheck, int yearCheck) {
         if (rCode == 1) {
             start_date = date;
             start_time = time;
             start_timeInt = timeCheck + now_timeInt;
+            start_yearInt = yearCheck;
         } else if (rCode == 2){
             return_date = date;
             return_time = time;
             return_timeInt = timeCheck + now_timeInt;
+            return_yearInt = yearCheck;
         }
     }
 

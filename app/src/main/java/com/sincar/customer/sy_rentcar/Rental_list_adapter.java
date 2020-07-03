@@ -101,31 +101,31 @@ public class Rental_list_adapter extends RecyclerView.Adapter<Rental_list_adapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         if(rentalValue1.size() > position) {
-            String ivUrl1 = rentalValue1.get(position).imgUrl;
-            String tvRental_Shop1 = rentalValue1.get(position).rental_Shop_Name;
-            String tvRental_CarName1 = rentalValue1.get(position).rental_Car_Name;
-            String tvRental_dis1 = rentalValue1.get(position).discount_Per;
-            String tvRental_Price1 = rentalValue1.get(position).rental_Price;
+            String ivUrl1 = rentalValue1.get(position).rentcar_img_url;
+            String tvRental_Shop1 = rentalValue1.get(position).rentcar_agent;
+            String tvRental_CarName1 = rentalValue1.get(position).rentcar_name;
+            String tvRental_dis1 = rentalValue1.get(position).rentcar_discount;
+            String tvRental_Price1 = rentalValue1.get(position).rentcar_price;
 
             Glide.with(mContext).load(ivUrl1).into(holder.ivRental_Car1);
             holder.tvRental_Shop1.setText(tvRental_Shop1);
             holder.tvRental_CarName1.setText(tvRental_CarName1);
             holder.tvRental_Dis1.setText(tvRental_dis1);
-            holder.tvRental_Price1.setText(tvRental_Price1);
+            holder.tvRental_Price1.setText(tvRental_Price1 + "원");
         }
 
         if(rentalValue2.size() > position) {
-            String ivUrl2 = rentalValue2.get(position).imgUrl;
-            String tvRental_Shop2 = rentalValue2.get(position).rental_Shop_Name;
-            String tvRental_CarName2 = rentalValue2.get(position).rental_Car_Name;
-            String tvRental_dis2 = rentalValue2.get(position).discount_Per;
-            String tvRental_Price2 = rentalValue2.get(position).rental_Price;
+            String ivUrl2 = rentalValue2.get(position).rentcar_img_url;
+            String tvRental_Shop2 = rentalValue2.get(position).rentcar_agent;
+            String tvRental_CarName2 = rentalValue2.get(position).rentcar_name;
+            String tvRental_dis2 = rentalValue2.get(position).rentcar_discount;
+            String tvRental_Price2 = rentalValue2.get(position).rentcar_price;
 
             Glide.with(mContext).load(ivUrl2).into(holder.ivRental_Car2);
             holder.tvRental_Shop2.setText(tvRental_Shop2);
             holder.tvRental_CarName2.setText(tvRental_CarName2);
             holder.tvRental_Dis2.setText(tvRental_dis2);
-            holder.tvRental_Price2.setText(tvRental_Price2);
+            holder.tvRental_Price2.setText(tvRental_Price2 + "원");
         }
 
         //아이템 수가 홀수일 때 마지막 아이템의 오른쪽 Constrainlayout을 삭제

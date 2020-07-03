@@ -55,6 +55,9 @@ public class Constants {
     public static final String PAYMEMNT_REQUEST             = PAY_BASE_URL + "/IF_SINCAR_AGENT_028.asp";   //결재 호출
     public static final String APPVERSION_REQUEST           = REAL_SERVER + "/IF_SINCAR_AGENT_029.asp";    //버전체크
     public static final String PAYMEMNT_REQUEST1            = PAY_BASE_URL + "/IF_SINCAR_AGENT_030.asp";   //결재 호출
+    public static final String RENTCAR_LIST_REQUEST         = REAL_SERVER + "/IF_SINCAR_AGENT_031.asp";    //렌터카 리스트 호출
+    public static final String RENTCAR_LIST_DETAIL_REQUEST  = REAL_SERVER + "/IF_SINCAR_AGENT_032.asp";    //렌터카 차량 정보 호출
+    public static final String RENTCAR_PAY_REQUEST          = PAY_BASE_URL + "/IF_SINCAR_AGENT_033.asp";   //렌터카 결재 호출
 
     public static final String TEST_REQUEST                 = REAL_SERVER + "/IF_SINCAR_AGENT_925.asp?";   //테스트
 

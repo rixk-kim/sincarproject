@@ -43,23 +43,36 @@ public class Rental_list_adapterItem {
     }
 
     public static class Rental_List_Item {
-        public final String imgUrl;
-        public final String rental_Shop_Name;
-        public final String rental_Car_Name;
-        public final String discount_Per;
-        public final String rental_Price;
-       public final String rental_posi;
-        public final double distance;
+        public final int id;
+        public final String rentcar_seq;
+        public final String rentcar_name;
+        public final String rentcar_img_url;
+        public final String rentcar_agent;
+        public final String rentcar_agent_add;
+        public final String rentcar_discount;
+        public final String rentcar_price;
+        public final String rentcar_fil_age;
+        public final String rentcar_fil_type;
+        public final String rentcar_fil_brand;
+        public final String rentcar_sort_dist;
+        public final String rentcar_sort_popu;
 
-        public Rental_List_Item(String imgUrl, String rental_Shop_Name, String rental_Car_Name, String discount_Per, String rental_Price
-                , String rental_posi, double distance) {
-            this.imgUrl = imgUrl;
-            this.rental_Shop_Name = rental_Shop_Name;
-            this.rental_Car_Name = rental_Car_Name;
-            this.discount_Per = discount_Per;
-            this.rental_Price = rental_Price;
-            this.rental_posi = rental_posi;
-            this.distance = distance;
+        public Rental_List_Item(int id, String rentcar_seq, String rentcar_name, String rentcar_img_url, String rentcar_agent,
+                                String rentcar_agent_add, String rentcar_discount, String rentcar_price, String rentcar_fil_age,
+                                String rentcar_fil_type, String rentcar_fil_brand, String rentcar_sort_dist, String rentcar_sort_popu) {
+            this.id = id;
+            this.rentcar_seq = rentcar_seq;
+            this.rentcar_name = rentcar_name;
+            this.rentcar_img_url = rentcar_img_url;
+            this.rentcar_agent = rentcar_agent;
+            this.rentcar_agent_add = rentcar_agent_add;
+            this.rentcar_discount = rentcar_discount;
+            this.rentcar_price = rentcar_price;
+            this.rentcar_fil_age = rentcar_fil_age;
+            this.rentcar_fil_type = rentcar_fil_type;
+            this.rentcar_fil_brand = rentcar_fil_brand;
+            this.rentcar_sort_dist = rentcar_sort_dist;
+            this.rentcar_sort_popu = rentcar_sort_popu;
         }
 
     }

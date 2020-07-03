@@ -20,7 +20,6 @@ import com.sincar.customer.ReservationAddressActivity;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 
 public class Maps_rent_mainfrag extends Fragment {
 
@@ -28,7 +27,8 @@ public class Maps_rent_mainfrag extends Fragment {
     TextView tvReserveDate, tvReserveTime, tvReturnDate, tvReturnTime, currentAddress; //예약날짜,시간, 반납날짜,시간, 맵표시 주소텍스트
     Button btnCheck;    //최종 확인 버튼
     Date reserverDateNTime, returnDateNTime; //예약날짜,반납날짜의 Date
-    String start_date, start_time, return_date, return_time, curAddress; // 예약날짜,시간, 반납날짜,시간, 맵표시 주소 String
+    String start_date, start_time, return_date, return_time, reserve_address, start_year, return_year; // 예약날짜,시간, 반납날짜,시간, 맵표시 주소 String
+    double latitude, longitude; // 맵표시 주소 위경도
 
     @Nullable
     @Override
@@ -47,19 +47,23 @@ public class Maps_rent_mainfrag extends Fragment {
         tvReturnDate = (TextView) view.findViewById(R.id.return_date);
         tvReturnTime = (TextView) view.findViewById(R.id.return_time);
 
-        //Bundle로부터 데이터를 받아옴
+        //MapsActivity의 Bundle로부터 데이터를 받아옴
         if (getArguments() != null) {
             start_date = getArguments().getString("start_date");
             start_time = getArguments().getString("start_time");
             return_date = getArguments().getString("return_date");
             return_time = getArguments().getString("return_time");
-            curAddress = getArguments().getString("current_Address");
+            reserve_address = getArguments().getString("reserve_address");
+            latitude = getArguments().getDouble("reserve_lat");
+            longitude = getArguments().getDouble("reserve_lon");
+            start_year = String.valueOf(getArguments().getInt("start_yearInt"));
+            return_year = String.valueOf(getArguments().getInt("return_yearInt"));
             //받아온 데이터를 텍스트뷰에 표시
             tvReserveDate.setText(start_date);
             tvReserveTime.setText(start_time);
             tvReturnDate.setText(return_date);
             tvReturnTime.setText(return_time);
-            currentAddress.setText(curAddress);
+            currentAddress.setText(reserve_address);
 
             //예약 날짜,시간 과 반납 날짜,시간의 String을 파싱
             SimpleDateFormat dateNtimeFormat = new SimpleDateFormat("MMM d일 (E)HH:00");
@@ -114,7 +118,11 @@ public class Maps_rent_mainfrag extends Fragment {
                     intent.putExtra("start_time", start_time);
                     intent.putExtra("return_date", return_date);
                     intent.putExtra("return_time", return_time);
-                    intent.putExtra("current_Address", curAddress);
+                    intent.putExtra("reserve_address", reserve_address);
+                    intent.putExtra("reserve_lat", latitude);
+                    intent.putExtra("reserve_lon", longitude);
+                    intent.putExtra("start_year", start_year);
+                    intent.putExtra("return_year", return_year);
                     getActivity().startActivity(intent);
 //                Toast.makeText(getContext(), "서비스 준비중입니다.", Toast.LENGTH_SHORT).show();
                 }

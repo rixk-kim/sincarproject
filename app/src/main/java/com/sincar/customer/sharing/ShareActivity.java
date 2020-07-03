@@ -93,7 +93,7 @@ public class ShareActivity extends FragmentActivity implements
     Maps_rent_time maps_rent_time_reserve, maps_rent_time_return; //렌트카 메뉴 선택중 예약 시간 설정 디스플레이를 위한 클래스(예약,반납)
     Maps_rent_mainfrag maps_rent_mainfrag; //렌트카 메뉴 선택시 하단 메인메뉴 디스플레이를 위한 클래스
     String start_date, start_time, return_date, return_time; //예약 날짜,시간 과 반납 날짜 시간
-    int now_timeInt, start_timeInt, return_timeInt; //현재시간,예약시간,반납시간 인트화
+    int now_timeInt, start_timeInt, return_timeInt, start_yearInt, return_yearInt; //현재시간,예약시간,반납시간 인트화
     ImageView btnCurrent;
     Bundle bundle = new Bundle(); //메인프래그먼트에 데이터 전달을 위한 번들
     int rCode = 0;  //렌터카 프래그먼트 활성화중 메인화면,예약시간화면,반납시간화면을 구분 짓기 위한 변수
@@ -622,15 +622,17 @@ public class ShareActivity extends FragmentActivity implements
      날짜,시간,r코드에 따라 예약시간이나 반납시간 구분
      */
     @Override
-    public void onDateNTimePickerSet(String date, String time, int timeCheck) {
+    public void onDateNTimePickerSet(String date, String time, int timeCheck, int yearCheck) {
         if (rCode == 1) {
             start_date = date;
             start_time = time;
             start_timeInt = timeCheck + now_timeInt;
+            start_yearInt = yearCheck;
         } else if (rCode == 2){
             return_date = date;
             return_time = time;
             return_timeInt = timeCheck + now_timeInt;
+            return_yearInt = yearCheck;
         }
     }
 

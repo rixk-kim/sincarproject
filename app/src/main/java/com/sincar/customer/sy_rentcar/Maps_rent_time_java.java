@@ -70,6 +70,8 @@ public class Maps_rent_time_java extends Fragment {
         final Date curDate = new Date(System.currentTimeMillis());
         final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d일 (E)");
         final SimpleDateFormat timeFormat = new SimpleDateFormat("HH");
+        final SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
+        final int curYear = Integer.parseInt(yearFormat.format(curDate));
 
         //예약, 반납 시간 설정을 위한 변수 선언
         int rCode = 0;
@@ -126,38 +128,56 @@ public class Maps_rent_time_java extends Fragment {
             public void onClick(View v) {
                 String date = binding.nPick1.getCurrentItem();
                 String time = binding.nPick2.getCurrentItem();
+                int currentYear = curYear;
 
                 try {
                     Date date_check = dateFormat.parse(date);
                     Date time_check = timeFormat.parse(time);
 
-                    //현재 날짜, 시간과 체크된 날짜, 시간 차이 비교
+                    //현재 날짜 인트화
                     Date date_now = dateFormat.parse(dateFormat.format(curDate));
-                    int now_dffdayCheck = (int)((date_check.getTime() - date_now.getTime()) / (24 * 60 * 60 * 1000));
+                    int now_dayCheck = (int)(date_now.getTime()/ (24 * 60 * 60 * 1000));
+                    //현재 시간 인트화
                     Date time_now = timeFormat.parse(timeFormat.format(curDate));
                     int now_dfftimeCheck = (int)((time_check.getTime() - time_now.getTime()) / (60 * 60 * 1000));
 
-                    //예약시간 날짜, 시간과 체크된 날짜, 시간 차이 비교
-                    Date date_reserve = dateFormat.parse(finalStart_dateCheck);
-                    int resToret_DayCheck = (int)((date_check.getTime() - date_reserve.getTime()) / (24 * 60 * 60 * 1000));
-                    Date time_reserve = timeFormat.parse(finalStart_timeCheck);
-                    int resToret_TimCheck = (int)((time_check.getTime() - time_reserve.getTime()) / (60 * 60 * 1000));
-
                     //예약 프래그먼트일 경우
                     if (finalRCode == 1) {
+                        //현재 날짜, 시간과 체크된 날짜, 시간 차이 비교
+                        int chk_dayCheck = (int)(date_check.getTime()/ (24 * 60 * 60 * 1000));
+                        int now_dffdayCheck = chk_dayCheck - now_dayCheck;
+                        if(now_dffdayCheck < 0 && 365 - now_dayCheck < 90) {
+                            chk_dayCheck += 365;
+                            now_dffdayCheck = chk_dayCheck - now_dayCheck;
+                            currentYear++;
+                        }
+
                         if(now_dffdayCheck == 0) {
                             //예약날짜가 현재시간과 같고 예약시간이 현재시간과 같거나 작을 경우 화면 전환 하지 않음
                             if(now_dfftimeCheck < 0) {
                                 Toast.makeText(getContext(), "현재 시간 이후의 시간으로 설정하십시오.", Toast.LENGTH_LONG).show();
                             } else {
-                                onDateNTimeSetListener.onDateNTimePickerSet(date, time, now_dfftimeCheck);
+                                onDateNTimeSetListener.onDateNTimePickerSet(date, time, now_dfftimeCheck, currentYear);
                                 ((MapsActivity)getActivity()).replaceFragment(1);
                             }
                         } else {
-                            onDateNTimeSetListener.onDateNTimePickerSet(date, time, now_dfftimeCheck);
+                            onDateNTimeSetListener.onDateNTimePickerSet(date, time, now_dfftimeCheck, currentYear);
                             ((MapsActivity)getActivity()).replaceFragment(1);
                         }
+                        //반납 프래그먼트일 경우
                     } else if(finalRCode == 2) {
+
+                        //예약시간 날짜, 시간과 체크된 날짜, 시간 차이 비교
+                        Date date_reserve = dateFormat.parse(finalStart_dateCheck);
+                        int resToret_DayCheck = (int)((date_check.getTime() - date_reserve.getTime()) / (24 * 60 * 60 * 1000));
+                        int return_dayCheck = (int)(date_check.getTime()/ (24 * 60 * 60 * 1000));
+                        int return_dffdayCheck = return_dayCheck - now_dayCheck;
+                        if(return_dffdayCheck < 0 && 365 - now_dayCheck < 90) {
+                            currentYear++;
+                        }
+                        Date time_reserve = timeFormat.parse(finalStart_timeCheck);
+                        int resToret_TimCheck = (int)((time_check.getTime() - time_reserve.getTime()) / (60 * 60 * 1000));
+
                         String strMent;
                         if(resToret_DayCheck < 0) {
                             strMent = "예약 날짜보다 반납 날짜가 더 빠릅니다. \n예약 시간은 ";
@@ -169,11 +189,11 @@ public class Maps_rent_time_java extends Fragment {
                                 strMent = "예약 시간으로부터 최소한 1시간 경과된 시간으로 설정하십시오.\n예약 시간은 ";
                                 Toast.makeText(getContext(), strMent + finalStart_dateCheck + finalStart_timeCheck + "입니다", Toast.LENGTH_LONG).show();
                             } else {
-                                onDateNTimeSetListener.onDateNTimePickerSet(date, time, now_dfftimeCheck);
+                                onDateNTimeSetListener.onDateNTimePickerSet(date, time, now_dfftimeCheck, currentYear);
                                 ((MapsActivity)getActivity()).replaceFragment(1);
                             }
                         } else {
-                            onDateNTimeSetListener.onDateNTimePickerSet(date, time, now_dfftimeCheck);
+                            onDateNTimeSetListener.onDateNTimePickerSet(date, time, now_dfftimeCheck, currentYear);
                             ((MapsActivity)getActivity()).replaceFragment(1);
                         }
                     }

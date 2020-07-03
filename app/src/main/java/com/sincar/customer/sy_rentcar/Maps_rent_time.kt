@@ -67,6 +67,7 @@ class Maps_rent_time : Fragment() {
 
         var dateCheck: String? = null
         var timeCheck: Int = 0
+        var yearCheck: Int = 0
 
         //번들로부터 넘어온 데이터를 변수에 대입
         if (getArguments() != null) {
@@ -125,11 +126,11 @@ class Maps_rent_time : Fragment() {
                     if (now_dfftimeCheck < 0)
                         Toast.makeText(context, "현재 시간 이후의 시간으로 설정하십시오.", Toast.LENGTH_LONG).show();
                     else {
-                        onDateNTimeSetListener?.onDateNTimePickerSet(date, time, now_dfftimeCheck)
+                        onDateNTimeSetListener?.onDateNTimePickerSet(date, time, now_dfftimeCheck, yearCheck)
                         (activity as MapsActivity?)!!.replaceFragment(1)
                     }
                 } else {
-                    onDateNTimeSetListener?.onDateNTimePickerSet(date, time, now_dfftimeCheck)
+                    onDateNTimeSetListener?.onDateNTimePickerSet(date, time, now_dfftimeCheck, yearCheck)
                     (activity as MapsActivity?)!!.replaceFragment(1)
                 }
                 //반납 프래그먼트일 경우
@@ -147,11 +148,11 @@ class Maps_rent_time : Fragment() {
 
                     }
                     else {
-                        onDateNTimeSetListener?.onDateNTimePickerSet(date, time, now_dfftimeCheck)
+                        onDateNTimeSetListener?.onDateNTimePickerSet(date, time, now_dfftimeCheck, yearCheck)
                         (activity as MapsActivity?)!!.replaceFragment(1)
                     }
                 } else {
-                    onDateNTimeSetListener?.onDateNTimePickerSet(date, time, now_dfftimeCheck)
+                    onDateNTimeSetListener?.onDateNTimePickerSet(date, time, now_dfftimeCheck, yearCheck)
                     (activity as MapsActivity?)!!.replaceFragment(1)
                 }
             }
