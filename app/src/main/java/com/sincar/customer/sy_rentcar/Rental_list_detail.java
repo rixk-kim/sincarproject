@@ -280,6 +280,10 @@ public class Rental_list_detail extends FragmentActivity implements
                             Toast.makeText(getApplicationContext(), "먼저 반납 위치를 정해주세요",Toast.LENGTH_LONG).show();
                         } else {
                             intent = new Intent(this, Rental_payment.class);
+                            //TODO - 파라메터 추가
+                            intent.putExtra("rental_pay", "160000");    // 차량대여료
+                            intent.putExtra("delivery_pay", "0");       // 딜리버리금액
+                            intent.putExtra("insurance_pay", "10000");  // 보험 금액
                             startActivity(intent);
                         }
                         break;
@@ -288,6 +292,10 @@ public class Rental_list_detail extends FragmentActivity implements
                             Toast.makeText(getApplicationContext(), "먼저 배차 위치를 정해주세요",Toast.LENGTH_LONG).show();
                         } else {
                             intent = new Intent(this, Rental_payment.class);
+                            //TODO - 파라메터 추가
+                            intent.putExtra("rental_pay", "160000");    // 차량대여료
+                            intent.putExtra("delivery_pay", "0");       // 딜리버리금액
+                            intent.putExtra("insurance_pay", "10000");  // 보험 금액
                             startActivity(intent);
                         }
                         break;
@@ -296,11 +304,19 @@ public class Rental_list_detail extends FragmentActivity implements
                             Toast.makeText(getApplicationContext(), "먼저 배차 위치를 정해주세요",Toast.LENGTH_LONG).show();
                         } else {
                             intent = new Intent(this, Rental_payment.class);
+                            //TODO - 파라메터 추가
+                            intent.putExtra("rental_pay", "160000");    // 차량대여료
+                            intent.putExtra("delivery_pay", "0");       // 딜리버리금액
+                            intent.putExtra("insurance_pay", "10000");  // 보험 금액
                             startActivity(intent);
                         }
                         break;
                     default:
                         intent = new Intent(this, Rental_payment.class);
+                        //TODO - 파라메터 추가
+                        intent.putExtra("rental_pay", "160000");    // 차량대여료
+                        intent.putExtra("delivery_pay", "0");       // 딜리버리금액
+                        intent.putExtra("insurance_pay", "10000");  // 보험 금액
                         startActivity(intent);
                         break;
                 }

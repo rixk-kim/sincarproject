@@ -24,8 +24,8 @@ public class CouponeContentRecyclerViewAdapter extends RecyclerView.Adapter<com.
     private LinearLayout mLayout;
     private Context mContext;
 
-    private String coupone_seq;     //쿠폰 SEQ
-    private String coupone_pay;     //쿠폰 이용요금
+    private String coupone_seq = "";     //쿠폰 SEQ
+    private String coupone_pay = "";     //쿠폰 이용요금
     private String path;
     private int pre_position = -1;
 
