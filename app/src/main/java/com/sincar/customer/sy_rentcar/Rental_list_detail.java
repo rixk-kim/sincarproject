@@ -35,7 +35,6 @@ import java.util.HashMap;
 
 import static com.sincar.customer.HWApplication.rentCarDetailResult;
 import static com.sincar.customer.HWApplication.voLoginItem;
-import static com.sincar.customer.common.Constants.RENTCAR_LIST_REQUEST;
 
 public class Rental_list_detail extends FragmentActivity implements
         View.OnClickListener {
@@ -53,8 +52,8 @@ public class Rental_list_detail extends FragmentActivity implements
     public final static int CAR_END_REQ_CODE = 1031;
 
     //디테일 정보 변수
-    String start_date, start_time, return_date, return_time, start_address, end_address, reserve_address;
-    String agent_name, rentcar_name, rentcar_seq;
+    String start_date, start_time, return_date, return_time, start_year, return_year, start_address, end_address, reserve_address;
+    String agent_name, rentcar_name, rentcar_num, rentcar_seq;
     private TextView rental_car_start_date, rental_car_start_time, rental_car_end_date, rental_car_end_time;
     private TextView tvAgent_name, tvAgent_name_small, tvRental_car_name;
     private TextView btn_rental_allocate, btn_rental_return;
@@ -185,6 +184,8 @@ public class Rental_list_detail extends FragmentActivity implements
         start_time = intent.getStringExtra("start_time");
         return_date = intent.getStringExtra("return_date");
         return_time = intent.getStringExtra("return_time");
+        start_year = intent.getStringExtra("start_year");
+        return_year = intent.getStringExtra("return_year");
         agent_name = intent.getStringExtra("REQUEST_AGENT");
         rentcar_name = intent.getStringExtra("REQUEST_RENTCAR");
         rentcar_seq = intent.getStringExtra("REQUEST_SEQ");
@@ -239,10 +240,10 @@ public class Rental_list_detail extends FragmentActivity implements
         HashMap<String, String> postParams = new HashMap<String, String>();
         postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);
         postParams.put("RESERVE_ADDRESS", reserve_address);
-        postParams.put("RESRERVE_YEAR", "2020");
+        postParams.put("RESRERVE_YEAR", start_year);
         postParams.put("RESERVE_DATE", start_date);
         postParams.put("RESERVE_TIME", start_time);
-        postParams.put("RETURN_YEAR", "2020");
+        postParams.put("RETURN_YEAR", return_year);
         postParams.put("RETURN_DATE", return_date);
         postParams.put("RETURN_TIME", return_time);
         postParams.put("REQUEST_AGENT", agent_name);
@@ -259,7 +260,7 @@ public class Rental_list_detail extends FragmentActivity implements
 
     @Override
     public void onClick(View v) {
-        Intent intent;
+        Intent intent = null;
 
         switch (v.getId()) {
             case R.id.rental_detail_btnPrev_layout:
@@ -284,7 +285,7 @@ public class Rental_list_detail extends FragmentActivity implements
                             intent.putExtra("rental_pay", "160000");    // 차량대여료
                             intent.putExtra("delivery_pay", "0");       // 딜리버리금액
                             intent.putExtra("insurance_pay", "10000");  // 보험 금액
-                            startActivity(intent);
+
                         }
                         break;
                     case 2:
@@ -296,7 +297,7 @@ public class Rental_list_detail extends FragmentActivity implements
                             intent.putExtra("rental_pay", "160000");    // 차량대여료
                             intent.putExtra("delivery_pay", "0");       // 딜리버리금액
                             intent.putExtra("insurance_pay", "10000");  // 보험 금액
-                            startActivity(intent);
+
                         }
                         break;
                     case 3:
@@ -308,7 +309,7 @@ public class Rental_list_detail extends FragmentActivity implements
                             intent.putExtra("rental_pay", "160000");    // 차량대여료
                             intent.putExtra("delivery_pay", "0");       // 딜리버리금액
                             intent.putExtra("insurance_pay", "10000");  // 보험 금액
-                            startActivity(intent);
+
                         }
                         break;
                     default:
@@ -317,9 +318,24 @@ public class Rental_list_detail extends FragmentActivity implements
                         intent.putExtra("rental_pay", "160000");    // 차량대여료
                         intent.putExtra("delivery_pay", "0");       // 딜리버리금액
                         intent.putExtra("insurance_pay", "10000");  // 보험 금액
-                        startActivity(intent);
+
                         break;
                 }
+                //rental_payment액티비티에 전달할 데이터 입력
+
+                intent.putExtra("RESERVE_YEAR", start_year);
+                intent.putExtra("RESERVE_DATE", start_date);
+                intent.putExtra("RESERVE_TIME", start_time);
+                intent.putExtra("RETURN_YEAR", return_year);
+                intent.putExtra("RETURN_DATE", return_date);
+                intent.putExtra("RETURN_TIME", return_time);
+                intent.putExtra("RENTCAR_CAR", rentcar_name);
+                intent.putExtra("RENTCAR_NUM", rentcar_num);
+                intent.putExtra("RENTCAR_AGENT", agent_name);
+                intent.putExtra("RENTCAR_RES_ADD", start_address);
+                intent.putExtra("RENTCAR_RET_ADD", end_address);
+                if(intent != null)
+                    startActivity(intent);
                 //지도 타일 이미지 캐쉬 데이터 삭제 (메모리 확보용)
                 mapView.releaseUnusedMapTileImageResources();
                 break;
@@ -349,13 +365,13 @@ public class Rental_list_detail extends FragmentActivity implements
                 if(deleteCheck.isChecked()){
                     insuPrice = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE);
                     total = insuPrice + deliPrice + totalPrice;
-                    tvInsurance2.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE + "원");
-                    tvTotalPrice.setText(String.valueOf(total) + "원");
+                    tvInsurance2.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE) + "원");
+                    tvTotalPrice.setText(Util.setAddMoneyDot(String.valueOf(total)) + "원");
                 } else {
                     insuPrice = 0;
                     total = insuPrice + deliPrice + totalPrice;
                     tvInsurance2.setText("0원");
-                    tvTotalPrice.setText(String.valueOf(total) + "원");
+                    tvTotalPrice.setText(Util.setAddMoneyDot(String.valueOf(total)) + "원");
                 }
 
                 break;
@@ -411,7 +427,7 @@ public class Rental_list_detail extends FragmentActivity implements
                 deliPrice = 0;
                 total = deliPrice + insuPrice + totalPrice;
                 tvDelPrice.setText("0원");
-                tvTotalPrice.setText(String.valueOf(total) + "원");
+                tvTotalPrice.setText(Util.setAddMoneyDot(String.valueOf(total)) + "원");
                 break;
             case 1:
                 btn_rental_allocate.setVisibility(View.VISIBLE);
@@ -419,8 +435,8 @@ public class Rental_list_detail extends FragmentActivity implements
                 text_Selected(start_address, end_address);
                 deliPrice = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI);
                 total = deliPrice + insuPrice + totalPrice;
-                tvTotalPrice.setText(String.valueOf(total) + "원");
-                tvDelPrice.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI + "원");
+                tvTotalPrice.setText(Util.setAddMoneyDot(String.valueOf(total)) + "원");
+                tvDelPrice.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI) + "원");
                 break;
             case 2:
                 btn_rental_allocate.setVisibility(View.VISIBLE);
@@ -428,8 +444,8 @@ public class Rental_list_detail extends FragmentActivity implements
                 text_Selected(start_address, "사용하지 않음");
                 deliPrice = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI);
                 total = deliPrice + insuPrice + totalPrice;
-                tvTotalPrice.setText(String.valueOf(total) + "원");
-                tvDelPrice.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI + "원");
+                tvTotalPrice.setText(Util.setAddMoneyDot(String.valueOf(total)) + "원");
+                tvDelPrice.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI) + "원");
                 break;
             case 3:
                 btn_rental_allocate.setVisibility(View.INVISIBLE);
@@ -437,8 +453,8 @@ public class Rental_list_detail extends FragmentActivity implements
                 text_Selected("사용하지 않음", end_address);
                 deliPrice = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI);
                 total = deliPrice + insuPrice + totalPrice;
-                tvTotalPrice.setText(String.valueOf(total) + "원");
-                tvDelPrice.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI + "원");
+                tvTotalPrice.setText(Util.setAddMoneyDot(String.valueOf(total)) + "원");
+                tvDelPrice.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI) + "원");
                 break;
             default:
                 break;
@@ -463,10 +479,11 @@ public class Rental_list_detail extends FragmentActivity implements
         }
     }
 
+    //발리 네트워크 적용후 리퀘스트 받은 데이터 적용
     private void setDetailText() {
 
-        //데이터 적용
-        tvCarNum.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_CAR_NUM);
+        rentcar_num = rentCarDetailResult.rentcar_detail.get(0).CURRENT_CAR_NUM;
+        tvCarNum.setText(rentcar_num);
         tvCarFuel.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_CAR_FUEL);
         tvCarFpy.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_CAR_FPY);
         tvCarCol.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_CAR_COLOR);
@@ -491,14 +508,14 @@ public class Rental_list_detail extends FragmentActivity implements
         tvAgentTime.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_TIME);
         tvAgentDel.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DELI);
 
-        tvDelPri.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI);
+        tvDelPri.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI) + "원");
         tvDelTime.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_TIM);
         tvDelArea.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_POS);
 
-        tvInsurance1.setText("1일 " + rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE + "원");
+        tvInsurance1.setText("1일 " + Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE) + "원");
         tvInsurance2.setText("0원");
         tvDelPrice.setText("0원");
-        tvCarPrice.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_PRICE + "원");
+        tvCarPrice.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_PRICE) + "원");
 
         lat = Double.parseDouble(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_ADD_LAT);
         lng = Double.parseDouble(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_ADD_LON);
@@ -509,7 +526,7 @@ public class Rental_list_detail extends FragmentActivity implements
 
         insuPrice = 0; deliPrice = 0;
         totalPrice = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_PRICE);
-        tvTotalPrice.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_PRICE + "원");
+        tvTotalPrice.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_PRICE) + "원");
     }
 
     VolleyNetwork.OnResponseListener onRentalListInteractionListener = new VolleyNetwork.OnResponseListener() {

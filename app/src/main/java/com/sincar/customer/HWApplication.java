@@ -58,6 +58,8 @@ import com.sincar.customer.item.RentCarAgentDataItem;
 import com.sincar.customer.item.RentCarAgentItem;
 import com.sincar.customer.item.RentCarAgentResult;
 import com.sincar.customer.item.RentCarDetailResult;
+import com.sincar.customer.item.RentcarReserveItem;
+import com.sincar.customer.item.RentcarReserveResult;
 import com.sincar.customer.item.ReserveCancelItem;
 import com.sincar.customer.item.ReserveCancelResult;
 import com.sincar.customer.item.ReserveItem;
@@ -212,6 +214,11 @@ public class HWApplication extends MultiDexApplication {
     //RentCar list detail 호출
     public static RentCarDetailResult rentCarDetailResult;
 
+    //RentCar 예약 결과
+    public static RentcarReserveResult rentcarReserveResult;
+    public static RentcarReserveItem voRentcarReserveItem;
+
+
     ///sy
     public static DBAdapter dbConnect;
 
@@ -265,6 +272,7 @@ public class HWApplication extends MultiDexApplication {
         voMemberItem    = new MemberItem();
 
         voRentCarAgentItem = new RentCarAgentItem();
+        voRentcarReserveItem = new RentcarReserveItem();
 
 //        dbConnect = new DBAdapter(context);
 //        dbConnect.openTransjection();

@@ -23,17 +23,31 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 import com.sincar.customer.CouponeActivity;
 import com.sincar.customer.PayApproveActivity;
+import com.sincar.customer.PayApproveResult;
 import com.sincar.customer.R;
 import com.sincar.customer.UseTerms2Activity;
 import com.sincar.customer.adapter.ChargeContentRecyclerViewAdapter;
 import com.sincar.customer.adapter.content.ChargeContent;
 import com.sincar.customer.adapter.content.CouponeContent;
 import com.sincar.customer.adapter.content.OptionContent;
+import com.sincar.customer.item.RentcarReserveResult;
+import com.sincar.customer.item.ReserveResult;
+import com.sincar.customer.network.VolleyNetwork;
 import com.sincar.customer.util.Util;
 
+import java.util.HashMap;
+
+import static com.sincar.customer.HWApplication.rentcarReserveResult;
+import static com.sincar.customer.HWApplication.reserveResult;
 import static com.sincar.customer.HWApplication.voLoginItem;
+import static com.sincar.customer.HWApplication.voRentcarReserveItem;
+import static com.sincar.customer.HWApplication.voReserveItem;
+import static com.sincar.customer.common.Constants.PAY_APPROVE_REQUEST;
+import static com.sincar.customer.common.Constants.RENTCAR_PAY_REQUEST;
 import static com.sincar.customer.util.Util.setAddMoneyDot;
 
 public class Rental_payment extends AppCompatActivity implements View.OnClickListener {
@@ -47,19 +61,19 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
     private Button mButton;
     private ConstraintLayout clause_layout;
 
-    private String reserve_address = ""; //예약주소
-    private String reserve_year = "";    //예약년도
-    private String reserve_month = "";   //예약월
-    private String reserve_day = "";     //예약일
-    private String agent_seq = "";       //예약한 대리점주 SEQ
-    private String agent_company = "";   //대리점 정보
-
-    private String agent_time = "";      //예약한 대리점주 시간
-    private String wash_area = "";       //세차장소
-    private String car_company = "";     //제조사
-    private String car_name = "";        //차량 이름
-    private String car_number = "";      //차번호
-    private String car_wash_pay = "";    //차량 기본 세차 금액
+//    private String reserve_address = ""; //예약주소
+//    private String reserve_year = "";    //예약년도
+//    private String reserve_month = "";   //예약월
+//    private String reserve_day = "";     //예약일
+//    private String agent_seq = "";       //예약한 대리점주 SEQ
+//    private String agent_company = "";   //대리점 정보
+//
+//    private String agent_time = "";      //예약한 대리점주 시간
+//    private String wash_area = "";       //세차장소
+//    private String car_company = "";     //제조사
+//    private String car_name = "";        //차량 이름
+//    private String car_number = "";      //차번호
+//    private String car_wash_pay = "";    //차량 기본 세차 금액
 
     private int total_amt = 0;          //세차비용
     private int use_coupone_seq = 0;    //사용 쿠폰
@@ -67,6 +81,24 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
     private int use_my_point = 0;       //사용 포인트
     private String car_wash_option = ""; //옵션
     private int car_wash_option_pay = 0;    //옵션비용
+
+    private String rent_approve_number = ""; // 예약번호
+    private String rent_amount = ""; // 결제금액
+    private String rent_delivery_amount = ""; // 딜리버리 금액
+    private String rent_insurance_amount = ""; // 보험 금액
+    private String rent_coupon_amount = ""; //쿠폰 seq
+    private String rent_point_amount = ""; //포인트 사용
+    private String rent_reserve_year = ""; //예약연도
+    private String rent_reserve_date = ""; //예약날짜(월포함)
+    private String rent_reserve_time = ""; //예약시간
+    private String rent_return_year = ""; //반납연도
+    private String rent_return_date = ""; //반납날짜(월포함)
+    private String rent_return_time = ""; //반납시간
+    private String rent_rentcar_car = ""; //대여차량
+    private String rent_rentcar_num = ""; //대여 차량 번호
+    private String rent_rentcar_agent = ""; //지점 정보
+    private String rent_rentcar_res_add = null; //배차위치 (없을때 null)
+    private String rent_rentcar_ret_add = null; // 반납위치 (없을때 null)
 
     //20200630
     private TextView rental_use_amount, rental_use_delivery, rental_use_insurance;
@@ -92,6 +124,23 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
 //        insurance_pay = 10000;
 
         product_pay = rental_pay + delivery_pay + insurance_pay;
+
+        rent_amount = intent.getStringExtra("rental_pay");
+        rent_delivery_amount = intent.getStringExtra("deliverY_pay");
+        rent_insurance_amount = intent.getStringExtra("insurance_pay");
+//        rent_coupon_amount = intent.getStringExtra("");
+//        rent_point_amount = intent.getStringExtra("");
+        rent_reserve_year = intent.getStringExtra("RESERVE_YEAR");
+        rent_reserve_date = intent.getStringExtra("RESERVE_DATE");
+        rent_reserve_time = intent.getStringExtra("RESERVE_TIME");
+        rent_return_year = intent.getStringExtra("RETURN_YEAR");
+        rent_return_date = intent.getStringExtra("RETURN_DATE");
+        rent_return_time = intent.getStringExtra("RETURN_TIME");
+        rent_rentcar_car = intent.getStringExtra("RENTCAR_CAR");
+        rent_rentcar_num = intent.getStringExtra("RENCAR_NUM");
+        rent_rentcar_agent = intent.getStringExtra("RENTCAR_AGENT");
+        rent_rentcar_res_add = intent.getStringExtra("RENTCAR_RES_ADD");
+        rent_rentcar_ret_add = intent.getStringExtra("RENTCAR_RET_ADD");
 
 //        reserve_address     = intent.getExtras().getString("reserve_address");  /*String형*/
 //        reserve_year        = intent.getExtras().getString("reserve_year");     /*String형*/
@@ -278,6 +327,9 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
 //                    intent.putExtras(bundle);
 //                    startActivity(intent);
 
+                    //인터페이스 적용후 활성화 예정
+                   // rentCarRequestReserveInfo(); //결제정보를 DB에 저장하는 메소드
+
                     intent = new Intent(pContext, Rental_approve.class);
                     startActivity(intent);
                 }else {
@@ -309,7 +361,6 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
                 startActivity(intent);
                 break;
         }
-
     }
 
     private void setPointPopup()
@@ -399,4 +450,117 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
 
         }
     }
+
+    //결재 정보 DB입력
+    private void rentCarRequestReserveInfo() {
+        HashMap<String, String> postParams = new HashMap<String, String>();
+
+        rent_approve_number =  voLoginItem.MEMBER_NO + "R" + Util.getYearMonthDay1();
+
+        postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);         // 회원번호
+        postParams.put("AMOUNT", rent_amount);                      // 결재 금액
+        postParams.put("APPROVE_NUMBER", rent_approve_number);      // 예약번호
+        postParams.put("DELIVERY_AMOUNT", rent_delivery_amount);    // 딜리버리 금액
+        postParams.put("INSURANCE_AMOUNT", rent_insurance_amount);  // 보험 금액
+        postParams.put("COUPON_AMOUNT", rent_coupon_amount);        // 쿠폰 사용
+        postParams.put("POINT_AMOUNT", rent_point_amount);          // 포인트 사용양
+        postParams.put("RESERVE_YEAR", rent_reserve_year);          // 예약 연도
+        postParams.put("RESERVE_DATE", rent_reserve_date);          // 예약 날짜
+        postParams.put("RESERVE_TIME", rent_reserve_time);          // 예약 시간
+        postParams.put("RETURN_YEAR", rent_return_year);            // 반납 연도
+        postParams.put("RETURN_DATE", rent_return_date);            // 반납 날짜
+        postParams.put("RETURN_TIME", rent_return_time);            // 반납 시간
+        postParams.put("RENTCAR_CAR", rent_rentcar_car);            // 대여 차량
+        postParams.put("RENTCAR_NUM", rent_rentcar_num);            // 대여 차량 번호
+        postParams.put("RENTCAR_AGENT", rent_rentcar_agent);        // 대여 지점 이름
+        postParams.put("RENTCAR_RES_ADD", rent_rentcar_res_add);    // 딜리버리 배차 위치
+        postParams.put("RENTCAR_RET_ADD", rent_rentcar_ret_add);    // 딜리버리 반납 위치
+
+
+
+        //프로그래스바 시작
+        Util.showDialog(this);
+        //사용내역 요청
+        VolleyNetwork.getInstance(this).serverDataRequest(RENTCAR_PAY_REQUEST, postParams, onReserveResponseListener);
+
+        //test
+        //VolleyNetwork.getInstance(this).serverDataRequest(TEST_REQUEST, postParams, onReserveResponseListener);
+
+    }
+
+    VolleyNetwork.OnResponseListener onReserveResponseListener = new VolleyNetwork.OnResponseListener() {
+        @Override
+        public void onResponseSuccessListener(String serverData) {
+            /*
+                  {"reserve": [{"RESERVE_RESULT":"0","CAUSE":"","MY_POINT":"24000"}]}
+                  {"reserve": [{"RESERVE_RESULT":"1","CAUSE":"형식에 맞지 않습니다.","MY_POINT":""}]}
+             */
+
+            //서버 저장하고 다음 이동
+            Gson gSon = new Gson();
+            try {
+                rentcarReserveResult = gSon.fromJson(serverData, RentcarReserveResult.class);
+
+                voRentcarReserveItem.RENTCAR_response = rentcarReserveResult.rentcarReserve.get(0).RENTCAR_response;
+                voRentcarReserveItem.RENTCAR_message = rentcarReserveResult.rentcarReserve.get(0).RENTCAR_message;
+                voRentcarReserveItem.RENTCAR_MYPOINT = rentcarReserveResult.rentcarReserve.get(0).RENTCAR_MYPOINT;
+
+                //프로그래스바 종료
+                Util.dismiss();
+
+                System.out.println("[spirit]RENTCAR_RESERVE_RESULT ====>" + voRentcarReserveItem.RENTCAR_response);
+                if ("0".equals(voRentcarReserveItem.RENTCAR_response)) {
+                    voLoginItem.MY_POINT = voRentcarReserveItem.RENTCAR_MYPOINT;  //포인트 갱신
+
+                    //성공화면 이동
+                    Intent intent = new Intent(pContext, Rental_approve.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(pContext, voReserveItem.CAUSE + "\n다시 예약 부탁 드립니다.", Toast.LENGTH_SHORT).show();
+
+                    finish();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+
+                //프로그래스바 종료
+                Util.dismiss();
+
+                Toast.makeText(pContext, "오류 발생하였습니다. 다시 예약 부탁 드립니다.", Toast.LENGTH_SHORT).show();
+
+                //기존 activity 종료
+//                MapsActivity mapActivity = (MapsActivity)MapsActivity._mMapsActivity;
+//                mapActivity.finish();
+//
+//                if(ReservationCalendarActivity._reservationCalendarActivity != null) {
+//                    ReservationCalendarActivity reservationCalendarActivity = (ReservationCalendarActivity) ReservationCalendarActivity._reservationCalendarActivity;
+//                    reservationCalendarActivity.finish();
+//                }
+//                ReservationTimeActivity reservationTimeActivity = (ReservationTimeActivity)ReservationTimeActivity._reservationTimeActivity;
+//                reservationTimeActivity.finish();
+//
+//                ReservationMainActivity reservationMainActivity = (ReservationMainActivity)ReservationMainActivity._reservationMainActivity;
+//                reservationMainActivity.finish();
+//
+//                PaymentActivity paymentActivity = (PaymentActivity)PaymentActivity._paymentActivity;
+//                paymentActivity.finish();
+
+//                Toast.makeText(pContext, "예약 정보가 초기화 됩니다. 다시 진행 부탁 드립니다.", Toast.LENGTH_SHORT).show();
+//
+//                Intent intent = new Intent(pContext, MainActivity.class);
+//                startActivity(intent);
+//                finish();
+//
+                finish();
+            }
+        }
+
+        @Override
+        public void onResponseFailListener(VolleyError it) {
+            //프로그래스바 종료
+            Util.dismiss();
+        }
+    };
+
 }

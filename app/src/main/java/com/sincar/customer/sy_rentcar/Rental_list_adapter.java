@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.sincar.customer.R;
+import com.sincar.customer.util.Util;
 
 import java.util.List;
 
@@ -111,7 +112,7 @@ public class Rental_list_adapter extends RecyclerView.Adapter<Rental_list_adapte
             holder.tvRental_Shop1.setText(tvRental_Shop1);
             holder.tvRental_CarName1.setText(tvRental_CarName1);
             holder.tvRental_Dis1.setText(tvRental_dis1);
-            holder.tvRental_Price1.setText(tvRental_Price1 + "원");
+            holder.tvRental_Price1.setText(Util.setAddMoneyDot(tvRental_Price1) + "원");
         }
 
         if(rentalValue2.size() > position) {
@@ -125,7 +126,7 @@ public class Rental_list_adapter extends RecyclerView.Adapter<Rental_list_adapte
             holder.tvRental_Shop2.setText(tvRental_Shop2);
             holder.tvRental_CarName2.setText(tvRental_CarName2);
             holder.tvRental_Dis2.setText(tvRental_dis2);
-            holder.tvRental_Price2.setText(tvRental_Price2 + "원");
+            holder.tvRental_Price2.setText(Util.setAddMoneyDot(tvRental_Price2) + "원");
         }
 
         //아이템 수가 홀수일 때 마지막 아이템의 오른쪽 Constrainlayout을 삭제

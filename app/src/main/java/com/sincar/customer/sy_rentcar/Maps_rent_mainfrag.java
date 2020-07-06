@@ -133,7 +133,7 @@ public class Maps_rent_mainfrag extends Fragment {
 
     //MapsActivity에서 화면중앙 위치의 주소를 표현하기 위한 메소드
     public void AddressChange() {
-        String curAddress = getArguments().getString("current_Address");
+        String curAddress = getArguments().getString("reserve_address");
         if(curAddress != null && currentAddress != null)
             currentAddress.setText(curAddress);
     }

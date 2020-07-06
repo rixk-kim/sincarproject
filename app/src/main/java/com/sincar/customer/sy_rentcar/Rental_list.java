@@ -126,7 +126,7 @@ public class Rental_list extends AppCompatActivity {
         //Util.showDialog(rental_list_context);
 
         //발리네트워크 연결
-        VolleyNetwork.getInstance(this).serverDataRequest(RENTCAR_LIST_REQUEST, postParams, onRentalListInteractionListener);
+        //VolleyNetwork.getInstance(this).serverDataRequest(RENTCAR_LIST_REQUEST, postParams, onRentalListInteractionListener);
 
         //테스트 메소드
         listNetworkTest();
@@ -320,6 +320,8 @@ public class Rental_list extends AppCompatActivity {
                     intent.putExtra("return_date", return_date);
                     intent.putExtra("return_time", return_time);
                     intent.putExtra("reserve_address", reserve_address);
+                    intent.putExtra("start_year", start_year);
+                    intent.putExtra("return_year", return_year);
                     intent.putExtra("REQUEST_AGENT", rental_Item.rentcar_agent);
                     intent.putExtra("REQUEST_RENTCAR", rental_Item.rentcar_name);
                     intent.putExtra("REQUEST_SEQ", rental_Item.rentcar_seq);
@@ -346,6 +348,7 @@ public class Rental_list extends AppCompatActivity {
     //짝수번째는 왼쪽 홀수번째는 오른쪽에 추가하는 방식으로 함
     private void putItemToList() {
 
+        Rental_list_adapterItem.clearItem();
         int list1id = 0, list2id = 0;
         for (int i = 0; i < voRentCarAgentDataItem.size(); i++) {
 
