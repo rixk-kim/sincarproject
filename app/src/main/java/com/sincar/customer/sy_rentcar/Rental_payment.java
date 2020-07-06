@@ -462,8 +462,8 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
         postParams.put("APPROVE_NUMBER", rent_approve_number);      // 예약번호
         postParams.put("DELIVERY_AMOUNT", rent_delivery_amount);    // 딜리버리 금액
         postParams.put("INSURANCE_AMOUNT", rent_insurance_amount);  // 보험 금액
-        postParams.put("COUPON_AMOUNT", rent_coupon_amount);        // 쿠폰 사용
-        postParams.put("POINT_AMOUNT", rent_point_amount);          // 포인트 사용양
+        postParams.put("COUPON_AMOUNT", coupone_seq);        // 쿠폰 사용
+        postParams.put("POINT_AMOUNT", String.valueOf(use_my_point));          // 포인트 사용양
         postParams.put("RESERVE_YEAR", rent_reserve_year);          // 예약 연도
         postParams.put("RESERVE_DATE", rent_reserve_date);          // 예약 날짜
         postParams.put("RESERVE_TIME", rent_reserve_time);          // 예약 시간
@@ -509,7 +509,7 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
                 Util.dismiss();
 
                 System.out.println("[spirit]RENTCAR_RESERVE_RESULT ====>" + voRentcarReserveItem.RENTCAR_response);
-                if ("0".equals(voRentcarReserveItem.RENTCAR_response)) {
+                if ("success".equals(voRentcarReserveItem.RENTCAR_response)) {
                     voLoginItem.MY_POINT = voRentcarReserveItem.RENTCAR_MYPOINT;  //포인트 갱신
 
                     //성공화면 이동
@@ -517,7 +517,7 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
                     startActivity(intent);
                     finish();
                 } else {
-                    Toast.makeText(pContext, voReserveItem.CAUSE + "\n다시 예약 부탁 드립니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(pContext, voRentcarReserveItem.RENTCAR_message + "\n다시 예약 부탁 드립니다.", Toast.LENGTH_SHORT).show();
 
                     finish();
                 }
