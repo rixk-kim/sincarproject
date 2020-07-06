@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
@@ -19,7 +18,6 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.sincar.customer.R;
 import com.sincar.customer.item.RentCarDetailResult;
@@ -28,8 +26,6 @@ import com.sincar.customer.util.Util;
 
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
-
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 
@@ -70,7 +66,7 @@ public class Rental_list_detail extends FragmentActivity implements
     double lat, lng;
     TextView tvDelPri, tvDelTime, tvDelArea;
     TextView tvInsurance1, tvInsurance2, tvDelPrice, tvCarPrice, tvTotalPrice;
-    int insuPrice, deliPrice, totalPrice; // 보험금액, 딜리버리 금액, 총 금액
+    int insuPrice, deliPrice, rentPrice; // 보험금액, 딜리버리 금액, 총 금액
     ///sy
 
     private TextView rental_allocate_text, rental_return_text; //대여 딜리버리, 반납 딜리버리 텍스트뷰
@@ -176,7 +172,7 @@ public class Rental_list_detail extends FragmentActivity implements
         tvAgent_name_small = (TextView)findViewById(R.id.rental_agent_name);
         tvRental_car_name = (TextView)findViewById(R.id.rental_car_name);
         insuranceCheck = (LinearLayout)findViewById(R.id.rental_car_insu_check);
-        deleteCheck = (CheckBox)findViewById(R.id.delete_checkbox);
+        deleteCheck = (CheckBox)findViewById(R.id.delete2_checkbox);
 
         Intent intent = getIntent(); //Rental_list에서 넘어온 데이터 수신
 
@@ -269,60 +265,9 @@ public class Rental_list_detail extends FragmentActivity implements
 
             case R.id.rental_confirm_btn:
                 // TODO : 예약하기
-                switch (select_delivery) {
-                    //딜리버리 선택에 따른 확인 버튼 활성화
-                    // case 0은 지점 방문이기에 default 값으로 대체
-                    case 1:
-                        if(rental_allocate_text.getText() == "배차 위치를 정해주세요" && rental_return_text.getText() == "반납 위치를 정해주세요") {
-                            Toast.makeText(getApplicationContext(), "먼저 배차 및 위치를 정해주세요",Toast.LENGTH_LONG).show();
-                        } else if(rental_allocate_text.getText() == "배차 위치를 정해주세요") {
-                            Toast.makeText(getApplicationContext(), "먼저 배차 위치를 정해주세요",Toast.LENGTH_LONG).show();
-                        } else if (rental_return_text.getText() == "반납 위치를 정해주세요") {
-                            Toast.makeText(getApplicationContext(), "먼저 반납 위치를 정해주세요",Toast.LENGTH_LONG).show();
-                        } else {
-                            intent = new Intent(this, Rental_payment.class);
-                            //TODO - 파라메터 추가
-                            intent.putExtra("rental_pay", "160000");    // 차량대여료
-                            intent.putExtra("delivery_pay", "0");       // 딜리버리금액
-                            intent.putExtra("insurance_pay", "10000");  // 보험 금액
 
-                        }
-                        break;
-                    case 2:
-                        if(rental_allocate_text.getText() == "배차 위치를 정해주세요") {
-                            Toast.makeText(getApplicationContext(), "먼저 배차 위치를 정해주세요",Toast.LENGTH_LONG).show();
-                        } else {
-                            intent = new Intent(this, Rental_payment.class);
-                            //TODO - 파라메터 추가
-                            intent.putExtra("rental_pay", "160000");    // 차량대여료
-                            intent.putExtra("delivery_pay", "0");       // 딜리버리금액
-                            intent.putExtra("insurance_pay", "10000");  // 보험 금액
-
-                        }
-                        break;
-                    case 3:
-                        if (rental_return_text.getText() == "반납 위치를 정해주세요") {
-                            Toast.makeText(getApplicationContext(), "먼저 배차 위치를 정해주세요",Toast.LENGTH_LONG).show();
-                        } else {
-                            intent = new Intent(this, Rental_payment.class);
-                            //TODO - 파라메터 추가
-                            intent.putExtra("rental_pay", "160000");    // 차량대여료
-                            intent.putExtra("delivery_pay", "0");       // 딜리버리금액
-                            intent.putExtra("insurance_pay", "10000");  // 보험 금액
-
-                        }
-                        break;
-                    default:
-                        intent = new Intent(this, Rental_payment.class);
-                        //TODO - 파라메터 추가
-                        intent.putExtra("rental_pay", "160000");    // 차량대여료
-                        intent.putExtra("delivery_pay", "0");       // 딜리버리금액
-                        intent.putExtra("insurance_pay", "10000");  // 보험 금액
-
-                        break;
-                }
                 //rental_payment액티비티에 전달할 데이터 입력
-
+                intent = new Intent(this, Rental_payment.class);
                 intent.putExtra("RESERVE_YEAR", start_year);
                 intent.putExtra("RESERVE_DATE", start_date);
                 intent.putExtra("RESERVE_TIME", start_time);
@@ -334,8 +279,63 @@ public class Rental_list_detail extends FragmentActivity implements
                 intent.putExtra("RENTCAR_AGENT", agent_name);
                 intent.putExtra("RENTCAR_RES_ADD", start_address);
                 intent.putExtra("RENTCAR_RET_ADD", end_address);
-                if(intent != null)
-                    startActivity(intent);
+                intent.putExtra("rental_pay", String.valueOf(rentPrice));    // 차량대여료
+                intent.putExtra("delivery_pay", String.valueOf(deliPrice));       // 딜리버리금액
+                intent.putExtra("insurance_pay", String.valueOf(insuPrice));  // 보험 금액
+
+                switch (select_delivery) {
+                    //딜리버리 선택에 따른 확인 버튼 활성화
+                    // case 0은 지점 방문이기에 default 값으로 대체
+                    case 1:
+                        if(rental_allocate_text.getText() == "배차 위치를 정해주세요" && rental_return_text.getText() == "반납 위치를 정해주세요") {
+                            Toast.makeText(getApplicationContext(), "먼저 배차 및 위치를 정해주세요",Toast.LENGTH_LONG).show();
+                        } else if(rental_allocate_text.getText() == "배차 위치를 정해주세요") {
+                            Toast.makeText(getApplicationContext(), "먼저 배차 위치를 정해주세요",Toast.LENGTH_LONG).show();
+                        } else if (rental_return_text.getText() == "반납 위치를 정해주세요") {
+                            Toast.makeText(getApplicationContext(), "먼저 반납 위치를 정해주세요",Toast.LENGTH_LONG).show();
+                        } else {
+//                            intent = new Intent(this, Rental_payment.class);
+                            //TODO - 파라메터 추가
+//                            intent.putExtra("rental_pay", "160000");    // 차량대여료
+//                            intent.putExtra("delivery_pay", "0");       // 딜리버리금액
+//                            intent.putExtra("insurance_pay", "10000");  // 보험 금액
+                            startActivity(intent);
+                        }
+                        break;
+                    case 2:
+                        if(rental_allocate_text.getText() == "배차 위치를 정해주세요") {
+                            Toast.makeText(getApplicationContext(), "먼저 배차 위치를 정해주세요",Toast.LENGTH_LONG).show();
+                        } else {
+//                            intent = new Intent(this, Rental_payment.class);
+                            //TODO - 파라메터 추가
+//                            intent.putExtra("rental_pay", "160000");    // 차량대여료
+//                            intent.putExtra("delivery_pay", "0");       // 딜리버리금액
+//                            intent.putExtra("insurance_pay", "10000");  // 보험 금액
+                            startActivity(intent);
+                        }
+                        break;
+                    case 3:
+                        if (rental_return_text.getText() == "반납 위치를 정해주세요") {
+                            Toast.makeText(getApplicationContext(), "먼저 배차 위치를 정해주세요",Toast.LENGTH_LONG).show();
+                        } else {
+//                            intent = new Intent(this, Rental_payment.class);
+                            //TODO - 파라메터 추가
+//                            intent.putExtra("rental_pay", "160000");    // 차량대여료
+//                            intent.putExtra("delivery_pay", "0");       // 딜리버리금액
+//                            intent.putExtra("insurance_pay", "10000");  // 보험 금액
+                            startActivity(intent);
+                        }
+                        break;
+                    default:
+//                        intent = new Intent(this, Rental_payment.class);
+                        //TODO - 파라메터 추가
+//                        intent.putExtra("rental_pay", "160000");    // 차량대여료
+//                        intent.putExtra("delivery_pay", "0");       // 딜리버리금액
+//                        intent.putExtra("insurance_pay", "10000");  // 보험 금액
+                        startActivity(intent);
+                        break;
+                }
+
                 //지도 타일 이미지 캐쉬 데이터 삭제 (메모리 확보용)
                 mapView.releaseUnusedMapTileImageResources();
                 break;
@@ -361,19 +361,7 @@ public class Rental_list_detail extends FragmentActivity implements
             case R.id.rental_car_insu_check:
                 // TODO : 보험 체크
                 deleteCheck.setChecked(!deleteCheck.isChecked());
-                int total;
-                if(deleteCheck.isChecked()){
-                    insuPrice = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE);
-                    total = insuPrice + deliPrice + totalPrice;
-                    tvInsurance2.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE) + "원");
-                    tvTotalPrice.setText(Util.setAddMoneyDot(String.valueOf(total)) + "원");
-                } else {
-                    insuPrice = 0;
-                    total = insuPrice + deliPrice + totalPrice;
-                    tvInsurance2.setText("0원");
-                    tvTotalPrice.setText(Util.setAddMoneyDot(String.valueOf(total)) + "원");
-                }
-
+                insuCheck();
                 break;
         }
     }
@@ -425,7 +413,7 @@ public class Rental_list_detail extends FragmentActivity implements
                 rental_allocate_text.setText("사용하지 않음");
                 rental_return_text.setText("사용하지 않음");
                 deliPrice = 0;
-                total = deliPrice + insuPrice + totalPrice;
+                total = deliPrice + insuPrice + rentPrice;
                 tvDelPrice.setText("0원");
                 tvTotalPrice.setText(Util.setAddMoneyDot(String.valueOf(total)) + "원");
                 break;
@@ -434,7 +422,7 @@ public class Rental_list_detail extends FragmentActivity implements
                 btn_rental_return.setVisibility(View.VISIBLE);
                 text_Selected(start_address, end_address);
                 deliPrice = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI);
-                total = deliPrice + insuPrice + totalPrice;
+                total = deliPrice + insuPrice + rentPrice;
                 tvTotalPrice.setText(Util.setAddMoneyDot(String.valueOf(total)) + "원");
                 tvDelPrice.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI) + "원");
                 break;
@@ -443,7 +431,7 @@ public class Rental_list_detail extends FragmentActivity implements
                 btn_rental_return.setVisibility(View.INVISIBLE);
                 text_Selected(start_address, "사용하지 않음");
                 deliPrice = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI);
-                total = deliPrice + insuPrice + totalPrice;
+                total = deliPrice + insuPrice + rentPrice;
                 tvTotalPrice.setText(Util.setAddMoneyDot(String.valueOf(total)) + "원");
                 tvDelPrice.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI) + "원");
                 break;
@@ -452,7 +440,7 @@ public class Rental_list_detail extends FragmentActivity implements
                 btn_rental_return.setVisibility(View.VISIBLE);
                 text_Selected("사용하지 않음", end_address);
                 deliPrice = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI);
-                total = deliPrice + insuPrice + totalPrice;
+                total = deliPrice + insuPrice + rentPrice;
                 tvTotalPrice.setText(Util.setAddMoneyDot(String.valueOf(total)) + "원");
                 tvDelPrice.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI) + "원");
                 break;
@@ -513,8 +501,8 @@ public class Rental_list_detail extends FragmentActivity implements
         tvDelArea.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_POS);
 
         tvInsurance1.setText("1일 " + Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE) + "원");
-        tvInsurance2.setText("0원");
-        tvDelPrice.setText("0원");
+        insuCheck();
+        // 딜리버리 체크는 spinner_Selected 메소드로 이미 함
         tvCarPrice.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_PRICE) + "원");
 
         lat = Double.parseDouble(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_ADD_LAT);
@@ -524,9 +512,24 @@ public class Rental_list_detail extends FragmentActivity implements
         //자동차 이미지
         Glide.with(this).load(rentCarDetailResult.rentcar_detail.get(0).CURRENT_CAR_URL).into(car_image);
 
-        insuPrice = 0; deliPrice = 0;
-        totalPrice = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_PRICE);
+        rentPrice = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_PRICE);
         tvTotalPrice.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_PRICE) + "원");
+    }
+
+    //보험 체크박스 체크 여부 확인후 텍스트뷰 설정
+    private void insuCheck () {
+        int total;
+        if(deleteCheck.isChecked()){
+            insuPrice = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE);
+            total = insuPrice + deliPrice + rentPrice;
+            tvInsurance2.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE) + "원");
+            tvTotalPrice.setText(Util.setAddMoneyDot(String.valueOf(total)) + "원");
+        } else {
+            insuPrice = 0;
+            total = insuPrice + deliPrice + rentPrice;
+            tvInsurance2.setText("0원");
+            tvTotalPrice.setText(Util.setAddMoneyDot(String.valueOf(total)) + "원");
+        }
     }
 
     VolleyNetwork.OnResponseListener onRentalListInteractionListener = new VolleyNetwork.OnResponseListener() {
