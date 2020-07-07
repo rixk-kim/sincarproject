@@ -14,6 +14,9 @@ import com.sincar.customer.R;
 import com.sincar.customer.sy_rentcar.Rental_list_filter.kuk_brand_filter;
 import com.sincar.customer.sy_rentcar.Rental_list_filter.su_brand_filter;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class Rental_list_filter_brand extends AppCompatActivity {
 
     ImageButton imBack;
@@ -85,15 +88,19 @@ public class Rental_list_filter_brand extends AppCompatActivity {
 
                 kuk_brand_filter[] kuk_brand_filterArr = kuk_brand_filter.values();
                 su_brand_filter[] su_brand_filtersArr = su_brand_filter.values();
+                ArrayList<kuk_brand_filter> kukBrandArrayList = new ArrayList<>();
+                ArrayList<su_brand_filter> suBrandArrayList = new ArrayList<>();
 
                 for(kuk_brand_filter d: kuk_brand_filterArr) {
                     if(rb1[d.ordinal()].isChecked()){
+                        kukBrandArrayList.add(d);
                         brandStrData += d.getValue();
                         brandStrData += ",";
                     }
                 }
                 for(su_brand_filter d: su_brand_filtersArr) {
                     if(rb2[d.ordinal()].isChecked()) {
+                        suBrandArrayList.add(d);
                         brandStrData += d.getValue();
                         brandStrData += ",";
                     }
@@ -102,9 +109,12 @@ public class Rental_list_filter_brand extends AppCompatActivity {
                 brandStrData = brandStrData.substring(0, brandStrData.length()-1);
                 Intent intent = new Intent();
                 intent.putExtra("brand_data", brandStrData);
+                kuk_brand_filter[] kukBrand = kukBrandArrayList.toArray(new kuk_brand_filter[kukBrandArrayList.size()]);
+                su_brand_filter[] suBrand = suBrandArrayList.toArray(new su_brand_filter[suBrandArrayList.size()]);
+                intent.putExtra("kukBrand", kukBrand);
+                intent.putExtra("suBrand", suBrand);
                 setResult(RESULT_OK, intent);
                 finish();
-
             }
         });
     }

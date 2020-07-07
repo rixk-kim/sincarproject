@@ -13,6 +13,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.sincar.customer.R;
 
+import java.util.ArrayList;
+import java.util.EnumSet;
+
 public class Rental_list_filter extends AppCompatActivity {
 
     ConstraintLayout btnAge, btnBrand, btnPrice, btnType; //4개의 레이아웃을 버튼으로 활성화
@@ -80,6 +83,13 @@ public class Rental_list_filter extends AppCompatActivity {
         public String getValue() { return su_brand_str; }
     }
 
+    //Rental_list액티비티에 넘길 데이터
+    age_filter age;
+    price_filter price;
+    type_filter type[];
+    kuk_brand_filter kukBrand[];
+    su_brand_filter suBrand[];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -90,6 +100,15 @@ public class Rental_list_filter extends AppCompatActivity {
         rent_car_list_price = "전체";
         rent_car_list_type = "전체";
         rent_car_list_brand= "전체";
+
+        age = age_filter.all;
+        price = price_filter.all;
+        ArrayList<type_filter> tfArrayList = new ArrayList<type_filter>(EnumSet.allOf(type_filter.class));
+        type = tfArrayList.toArray(new type_filter[tfArrayList.size()]);
+        ArrayList<kuk_brand_filter> kbfArrayList = new ArrayList<kuk_brand_filter>(EnumSet.allOf(kuk_brand_filter.class));
+        ArrayList<su_brand_filter> sbfArrayList = new ArrayList<su_brand_filter>(EnumSet.allOf(su_brand_filter.class));
+        kukBrand = kbfArrayList.toArray(new kuk_brand_filter[kbfArrayList.size()]);
+        suBrand = sbfArrayList.toArray(new su_brand_filter[sbfArrayList.size()]);
 
         btnAge = (ConstraintLayout) findViewById(R.id.btnAge);
         btnBrand = (ConstraintLayout) findViewById(R.id.btnBrand);
@@ -144,10 +163,20 @@ public class Rental_list_filter extends AppCompatActivity {
                 tvPrice.setText("전체");
                 tvType.setText("전체");
                 tvBrand.setText("전체");
+
                 rent_car_list_age = "전체";
                 rent_car_list_price = "전체";
                 rent_car_list_type = "전체";
                 rent_car_list_brand= "전체";
+
+                age = age_filter.all;
+                price = price_filter.all;
+                ArrayList<type_filter> tfArrayList = new ArrayList<type_filter>(EnumSet.allOf(type_filter.class));
+                type = tfArrayList.toArray(new type_filter[tfArrayList.size()]);
+                ArrayList<kuk_brand_filter> kbfArrayList = new ArrayList<kuk_brand_filter>(EnumSet.allOf(kuk_brand_filter.class));
+                ArrayList<su_brand_filter> sbfArrayList = new ArrayList<su_brand_filter>(EnumSet.allOf(su_brand_filter.class));
+                kukBrand = kbfArrayList.toArray(new kuk_brand_filter[kbfArrayList.size()]);
+                suBrand = sbfArrayList.toArray(new su_brand_filter[sbfArrayList.size()]);
             }
         });
 
@@ -169,6 +198,11 @@ public class Rental_list_filter extends AppCompatActivity {
                 backToList.putExtra("price_data", rent_car_list_price);
                 backToList.putExtra("type_data", rent_car_list_type);
                 backToList.putExtra("brand_data", rent_car_list_brand);
+                backToList.putExtra("age", age);
+                backToList.putExtra("price", price);
+                backToList.putExtra("type", type);
+                backToList.putExtra("kukBrand", kukBrand);
+                backToList.putExtra("suBrand", suBrand);
                 setResult(RESULT_OK, backToList);
                 finish();
             }
@@ -185,6 +219,7 @@ public class Rental_list_filter extends AppCompatActivity {
             String age_data = data.getStringExtra("age_data");
             rent_car_list_age = age_data;
             tvAge.setText(age_data);
+            age = (age_filter)data.getSerializableExtra("age");
             //rental_list_filter_ageSelect(i);
         }
         //가격 조건
@@ -192,6 +227,7 @@ public class Rental_list_filter extends AppCompatActivity {
             String price_data = data.getStringExtra("price_data");
             rent_car_list_price = price_data;
             tvPrice.setText(price_data);
+            price = (price_filter) data.getSerializableExtra("price");
             //rental_list_filter_priceSelect(i);
         }
         //외형 조건
@@ -199,16 +235,19 @@ public class Rental_list_filter extends AppCompatActivity {
             String type_data = data.getStringExtra("type_data");
             rent_car_list_type = type_data;
             tvType.setText(type_data);
+            type = (type_filter[]) data.getSerializableExtra("type");
         }
         //브랜드 조건
         else if(requestCode == filter.brand.ordinal() && resultCode == RESULT_OK) {
-            String type_data = data.getStringExtra("brand_data");
-            rent_car_list_brand= type_data;
-            if(type_data.length() > 25){
-                type_data = type_data.substring(0, 25);
-                type_data += "...";
+            String brand_data = data.getStringExtra("brand_data");
+            rent_car_list_brand= brand_data;
+            if(brand_data.length() > 25){
+                brand_data = brand_data.substring(0, 25);
+                brand_data += "...";
             }
-            tvBrand.setText(type_data);
+            tvBrand.setText(brand_data);
+            kukBrand = (kuk_brand_filter[]) data.getSerializableExtra("kukBrand");
+            suBrand = (su_brand_filter[]) data.getSerializableExtra("suBrand");
         }
 
     }

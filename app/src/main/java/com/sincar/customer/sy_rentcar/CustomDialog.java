@@ -92,19 +92,19 @@ public class CustomDialog extends DialogFragment implements View.OnClickListener
         switch (v.getId()) {
             case R.id.dlgBtn1:
                 if(mDialogResult != null) {
-                    mDialogResult.finish(0);
+                    mDialogResult.finish(Rental_list.sortType.distType);
                 }
                 dismiss();
                 break;
             case R.id.dlgBtn2:
                 if(mDialogResult != null) {
-                    mDialogResult.finish(1);
+                    mDialogResult.finish(Rental_list.sortType.priceType);
                 }
                 dismiss();
                 break;
             case R.id.dlgBtn3:
                 if(mDialogResult != null) {
-                    mDialogResult.finish(2);
+                    mDialogResult.finish(Rental_list.sortType.popularType);
                 }
                 dismiss();
                 break;
@@ -132,6 +132,6 @@ public class CustomDialog extends DialogFragment implements View.OnClickListener
     }
 
     public interface OnMyDialogResult {
-        void finish(int result);
+        void finish(Rental_list.sortType sorttype);
     }
 }

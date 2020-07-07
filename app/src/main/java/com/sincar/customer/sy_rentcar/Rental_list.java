@@ -3,8 +3,8 @@ package com.sincar.customer.sy_rentcar;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Geocoder;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,13 +26,20 @@ import com.sincar.customer.item.RentCarAgentResult;
 import com.sincar.customer.network.VolleyNetwork;
 import com.sincar.customer.util.Util;
 
+import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashMap;
 
 import static com.sincar.customer.HWApplication.rentCarAgentResult;
 import static com.sincar.customer.HWApplication.voLoginItem;
 import static com.sincar.customer.HWApplication.voRentCarAgentDataItem;
 import static com.sincar.customer.HWApplication.voRentCarAgentItem;
-import static com.sincar.customer.common.Constants.RENTCAR_LIST_REQUEST;
+
+import com.sincar.customer.sy_rentcar.Rental_list_filter.age_filter;
+import com.sincar.customer.sy_rentcar.Rental_list_filter.price_filter;
+import com.sincar.customer.sy_rentcar.Rental_list_filter.type_filter;
+import com.sincar.customer.sy_rentcar.Rental_list_filter.kuk_brand_filter;
+import com.sincar.customer.sy_rentcar.Rental_list_filter.su_brand_filter;
 
 public class Rental_list extends AppCompatActivity {
     //8개의 샘플 렌탈카 리스트 생성
@@ -40,7 +48,6 @@ public class Rental_list extends AppCompatActivity {
 //            , R.id.rent_list_con5, R.id.rent_list_con6, R.id.rent_list_con7, R.id.rent_list_con8};
 
     CustomDialog dlg; //렌탈 리스트용 커스텀 다이얼로그
-    int dlgCheck = 0; //다이얼로그에 체크된 아이템을 구분 짓기 위한 변수
     String start_date, start_time, return_date, return_time, start_year, return_year, reserve_address; //시간 데이터
     String simpleDate; // yyyyMMdd 타입 날짜
     ImageView ivImage;
@@ -51,10 +58,37 @@ public class Rental_list extends AppCompatActivity {
     private Geocoder gCoder;
     LatLng reserve_LatLng; //예약주소 위경도
     private final static int RENTAL_CAR_LIST_FILTER = 3333;
-    private final int DISTTYPE = 0;     //거리순 정렬
-    private final int PRICETYPE = 1;    //가격순 정렬
-    private final int POPULARTYPE = 2;  //인기순 정렬
+//    private final int DISTTYPE = 0;     //거리순 정렬
+//    private final int PRICETYPE = 1;    //가격순 정렬
+//    private final int POPULARTYPE = 2;  //인기순 정렬
 
+    final HashMap<String, String> postParams = new HashMap<String, String>();
+
+    //필터 파라미터 나이,가격,외형,브랜드 전체 선택 설정
+    age_filter age = age_filter.all;
+    price_filter price = price_filter.all;
+    ArrayList<type_filter> tfArrayList = new ArrayList<type_filter>(EnumSet.allOf(type_filter.class));
+    type_filter[] type = tfArrayList.toArray(new type_filter[tfArrayList.size()]);
+    ArrayList<kuk_brand_filter> kbfArrayList = new ArrayList<kuk_brand_filter>(EnumSet.allOf(kuk_brand_filter.class));
+    ArrayList<su_brand_filter> sbfArrayList = new ArrayList<su_brand_filter>(EnumSet.allOf(su_brand_filter.class));
+    kuk_brand_filter[] kukBrand = kbfArrayList.toArray(new kuk_brand_filter[kbfArrayList.size()]);
+    su_brand_filter[] suBrand = sbfArrayList.toArray(new su_brand_filter[sbfArrayList.size()]);
+
+    //정렬 방식 enum
+    public enum sortType {
+        distType("거리순"), priceType("가격순"), popularType("인기순");
+        private final String sort_str;
+
+        sortType(String sort_str) {
+            this.sort_str = sort_str;
+        }
+
+        public String getValue() {
+            return sort_str;
+        }
+    }
+
+    sortType sort = sortType.distType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,52 +110,12 @@ public class Rental_list extends AppCompatActivity {
         return_time = intent.getStringExtra("return_time"); //반납 시간
         reserve_address = intent.getStringExtra("reserve_address"); //현재 위치
         reserve_LatLng = new LatLng(intent.getDoubleExtra("reserve_lat", 0),
-        intent.getDoubleExtra("reserve_lon", 0));
+                intent.getDoubleExtra("reserve_lon", 0));
         start_year = intent.getStringExtra("start_year");
         return_year = intent.getStringExtra("return_year");
 
-
-//        gCoder = new Geocoder(this, Locale.getDefault());
-//        getAddress();
-        //20-06-23 잠시 보류
-//        myLatLng = ConvertGPS(curAddress);
-
-        //예약 시간을 yyyy타입으로 바꿔줌
-//        SimpleDateFormat ymdFormat = new SimpleDateFormat("MMdd");
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d일 (E)");
-//
-//        try {
-//            simpleDate = ymdFormat.format(dateFormat.parse(start_date));
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//
-//        simpleDate = "2020" + simpleDate;
-//
-//        Rental_list_adapterItem.clearItem(); // 저장되있는 리스트 아이템 클리어
-//
-        //리퀘스트 보낼 키값과 밸류 값들
-        HashMap<String, String> postParams = new HashMap<String, String>();
-        postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);
-        postParams.put("RESERVE_ADDRESS", reserve_address);
-        postParams.put("RESERVE_ADD_PO_LAT", String.valueOf(reserve_LatLng.latitude));
-        postParams.put("RESERVE_ADD_PO_LON", String.valueOf(reserve_LatLng.longitude));
-        postParams.put("RESRERVE_YEAR", start_year);
-        postParams.put("RESERVE_DATE", start_date);
-        postParams.put("RESERVE_TIME", start_time);
-        postParams.put("RETURN_YEAR", return_year);
-        postParams.put("RETURN_DATE", return_date);
-        postParams.put("RETURN_TIME", return_time);
-        postParams.put("REQUEST_PAGE", "1");
-        postParams.put("REQUEST_NUM", "20");
-        postParams.put("REQUEST_SORT", "0");
-        postParams.put("REQUEST_FIL_AGE", "0");
-        postParams.put("REQUEST_FIL_PRICE", "0");
-        postParams.put("REQUEST_FIL_TYPE", "0");
-        postParams.put("REQUEST_FIL_BRAND", "0");
-
-        Log.v("putItem", "reserve_lat : " + String.valueOf(reserve_LatLng.latitude) + " reserve_lon : "
-        + String.valueOf(reserve_LatLng.longitude));
+        //리퀘스트 파라미터 세팅
+        requestSetting();
 
         //Util.showDialog(rental_list_context);
 
@@ -165,38 +159,25 @@ public class Rental_list extends AppCompatActivity {
             public void onClick(View v) {
                 dlg = CustomDialog.getInstance();
                 dlgBundle = new Bundle();
-                dlgBundle.putInt("dlgCheck", dlgCheck); //체크된 아이템 확인용 변수 0:거리순 1:가격순 2:인기순
+                dlgBundle.putInt("dlgCheck", sort.ordinal()); //체크된 아이템 확인용 변수 0:거리순 1:가격순 2:인기순
                 dlg.setArguments(dlgBundle);
                 dlg.show(getSupportFragmentManager(), "dialog_event");
                 dlg.setDialogResult(new CustomDialog.OnMyDialogResult() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
-                    public void finish(int result) { //커스텀 다이얼로그가 종료시 호출되는 메소드
-                        //추후 통신 인터페이스 적용후 대대적 수정 필요
-                        switch (result) {
-                            case 0:
-                                btSort.setText("거리순");
-                                //20-06-23 잠시 보류
-                               //listRefresh(DISTTYPE);
-                                Toast.makeText(getApplicationContext(), "거리순을 선택하셨습니다", Toast.LENGTH_SHORT).show();
-                                dlgCheck = 0;
-                                break;
-                            case 1:
-                                btSort.setText("가격순");
-                                //20-06-23 잠시 보류
-//                                listRefresh(PRICETYPE);
-                                Toast.makeText(getApplicationContext(), "가격순을 선택하셨습니다", Toast.LENGTH_SHORT).show();
-                                dlgCheck = 1;
-                                break;
-                            case 2:
-                                btSort.setText("인기순");
-                                //20-06-23 잠시 보류
-//                                listRefresh(POPULARTYPE);
-                                Toast.makeText(getApplicationContext(), "인기순을 선택하셨습니다", Toast.LENGTH_SHORT).show();
-                                dlgCheck = 2;
-                                break;
-                            default:
-                                break;
-                        }
+                    public void finish(sortType st) { //커스텀 다이얼로그가 종료시 호출되는 메소드
+                        btSort.setText(st.getValue());
+                        sort = st;
+
+                        requestSetting();
+
+                        //Util.showDialog(rental_list_context);
+
+                        //발리네트워크 연결
+                        //VolleyNetwork.getInstance(this).serverDataRequest(RENTCAR_LIST_REQUEST, postParams, onRentalListInteractionListener);
+
+                        Toast.makeText(getApplicationContext(), st.getValue() + "을 선택하셨습니다", Toast.LENGTH_SHORT).show();
+
                     }
                 });
             }
@@ -222,7 +203,45 @@ public class Rental_list extends AppCompatActivity {
 //                }
 //            });
 //        }
+    }
 
+    private void requestSetting() {
+
+        //리퀘스트 보낼 키값과 밸류 값들
+        postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);
+        postParams.put("RESERVE_ADDRESS", reserve_address);
+        postParams.put("RESERVE_ADD_PO_LAT", String.valueOf(reserve_LatLng.latitude));
+        postParams.put("RESERVE_ADD_PO_LON", String.valueOf(reserve_LatLng.longitude));
+        postParams.put("RESRERVE_YEAR", start_year);
+        postParams.put("RESERVE_DATE", start_date);
+        postParams.put("RESERVE_TIME", start_time);
+        postParams.put("RETURN_YEAR", return_year);
+        postParams.put("RETURN_DATE", return_date);
+        postParams.put("RETURN_TIME", return_time);
+        postParams.put("REQUEST_PAGE", "1");
+        postParams.put("REQUEST_NUM", "20");
+        postParams.put("REQUEST_SORT", String.valueOf(sort.ordinal()));
+
+        postParams.put("REQUEST_FIL_AGE", String.valueOf(age.ordinal()));
+        postParams.put("REQUEST_FIL_PRICE", String.valueOf(price.ordinal()));
+        String typeList = "";
+        for (type_filter d : type) {
+            typeList += String.valueOf(d.ordinal());
+            typeList += '/';
+        }
+        typeList = typeList.substring(0, typeList.length() - 1);
+        postParams.put("REQUEST_FIL_TYPE", typeList);
+        String brandList = "";
+        for (kuk_brand_filter d : kukBrand) {
+            brandList += String.valueOf(d.ordinal());
+            brandList += '/';
+        }
+        for (su_brand_filter d : suBrand) {
+            brandList += String.valueOf(d.ordinal() + 6); //국산 브랜드 6개의 순서 더함
+            brandList += '/';
+        }
+        brandList = brandList.substring(0, brandList.length() - 1);
+        postParams.put("REQUEST_FIL_BRAND", brandList);
 
     }
 
@@ -241,34 +260,24 @@ public class Rental_list extends AppCompatActivity {
                 filter_data += "\n브랜드 설정 :";
                 filter_data += " " + data.getStringExtra("brand_data");
                 Toast.makeText(getApplicationContext(), filter_data, Toast.LENGTH_LONG).show();
+
+                age = (age_filter) data.getSerializableExtra("age");
+                price = (price_filter) data.getSerializableExtra("price");
+                type = (type_filter[]) data.getSerializableExtra("type");
+                kukBrand = (kuk_brand_filter[]) data.getSerializableExtra("kukBrand");
+                suBrand = (su_brand_filter[]) data.getSerializableExtra("suBrand");
+
+                requestSetting();
+
+                //Util.showDialog(rental_list_context);
+
+                //발리네트워크 연결
+                //VolleyNetwork.getInstance(this).serverDataRequest(RENTCAR_LIST_REQUEST, postParams, onRentalListInteractionListener);
+
             }
         }
     }
 
-    //20-06-23 잠시 보류
-//    //정렬 방식 설정 거리순, 가격순, 인기순순
-//    //거리순
-//    class distCompare implements Comparator<Rental_list_adapterItem.Rental_List_Item> {
-//        @Override
-//        public int compare(Rental_list_adapterItem.Rental_List_Item o1, Rental_list_adapterItem.Rental_List_Item o2) {
-//            return o1.distance > o2.distance ? 1 : o1.distance < o2.distance ? -1 : 0; //4항 연산자
-//        }
-//    }
-//
-//    //가격순
-//    class priceCompare implements Comparator<Rental_list_adapterItem.Rental_List_Item> {
-//        @Override
-//        public int compare(Rental_list_adapterItem.Rental_List_Item o1, Rental_list_adapterItem.Rental_List_Item o2) {
-//            return Integer.parseInt(o1.rental_Price) > Integer.parseInt(o2.rental_Price)
-//                    ? 1 : Integer.parseInt(o1.rental_Price) < Integer.parseInt(o2.rental_Price) ? -1 : 0;
-//        }
-//    }
-//
-//    //인기순
-//    class populCompare {
-//
-//    }
-//
     //발리 네트워크 연결후 Response 성공,실패 메소드
     VolleyNetwork.OnResponseListener onRentalListInteractionListener = new VolleyNetwork.OnResponseListener() {
         @Override
@@ -348,7 +357,7 @@ public class Rental_list extends AppCompatActivity {
     //짝수번째는 왼쪽 홀수번째는 오른쪽에 추가하는 방식으로 함
     private void putItemToList() {
 
-        Rental_list_adapterItem.clearItem();
+        Rental_list_adapterItem.clearItem(); //아이템 초기화(비워줌)
         int list1id = 0, list2id = 0;
         for (int i = 0; i < voRentCarAgentDataItem.size(); i++) {
 
@@ -438,6 +447,31 @@ public class Rental_list extends AppCompatActivity {
 //        return (rad * 180 / Math.PI);
 //    }
 
+    //20-06-23 잠시 보류
+//    //정렬 방식 설정 거리순, 가격순, 인기순순
+//    //거리순
+//    class distCompare implements Comparator<Rental_list_adapterItem.Rental_List_Item> {
+//        @Override
+//        public int compare(Rental_list_adapterItem.Rental_List_Item o1, Rental_list_adapterItem.Rental_List_Item o2) {
+//            return o1.distance > o2.distance ? 1 : o1.distance < o2.distance ? -1 : 0; //4항 연산자
+//        }
+//    }
+//
+//    //가격순
+//    class priceCompare implements Comparator<Rental_list_adapterItem.Rental_List_Item> {
+//        @Override
+//        public int compare(Rental_list_adapterItem.Rental_List_Item o1, Rental_list_adapterItem.Rental_List_Item o2) {
+//            return Integer.parseInt(o1.rental_Price) > Integer.parseInt(o2.rental_Price)
+//                    ? 1 : Integer.parseInt(o1.rental_Price) < Integer.parseInt(o2.rental_Price) ? -1 : 0;
+//        }
+//    }
+//
+//    //인기순
+//    class populCompare {
+//
+//    }
+//
+
     //네트워크 연결 전 테스트용 메소드
     private void listNetworkTest() {
         String it;
@@ -490,8 +524,6 @@ public class Rental_list extends AppCompatActivity {
         //프로그래스바 종료
         //Util.dismiss();
     }
-
-
 }
 
 

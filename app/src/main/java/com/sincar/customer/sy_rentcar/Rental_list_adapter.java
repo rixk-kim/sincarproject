@@ -53,7 +53,7 @@ public class Rental_list_adapter extends RecyclerView.Adapter<Rental_list_adapte
             conRental_1st = itemView.findViewById(R.id.rent_list_con1);
             conRental_2nd = itemView.findViewById(R.id.rent_list_con2);
 
-            //아이템 클릭시 이벤트 추후 데이터 전달 필요
+            //아이템 클릭시 이벤트
             conRental_1st.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

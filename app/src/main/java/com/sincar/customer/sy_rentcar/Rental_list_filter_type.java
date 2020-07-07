@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.sincar.customer.R;
 import com.sincar.customer.sy_rentcar.Rental_list_filter.type_filter;
 
+import java.util.ArrayList;
+
 public class Rental_list_filter_type extends AppCompatActivity {
 
     ImageButton imBack;
@@ -65,8 +67,10 @@ public class Rental_list_filter_type extends AppCompatActivity {
 //                    }
 //                }
                 type_filter[] typeArr = type_filter.values();
+                ArrayList<type_filter> typeArrayList = new ArrayList<>();
                 for(type_filter d: typeArr) {
                     if(rb[d.ordinal()].isChecked()) {
+                        typeArrayList.add(d);
                         typeStrData += d.getValue();
                         typeStrData += ",";
                     }
@@ -75,6 +79,8 @@ public class Rental_list_filter_type extends AppCompatActivity {
                 typeStrData = typeStrData.substring(0, typeStrData.length()-1);
                 Intent intent = new Intent();
                 intent.putExtra("type_data", typeStrData);
+                type_filter[] type = typeArrayList.toArray(new type_filter[typeArrayList.size()]);
+                intent.putExtra("type", type);
                 setResult(RESULT_OK, intent);
                 finish();
 

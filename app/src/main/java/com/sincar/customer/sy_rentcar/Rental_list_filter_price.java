@@ -181,6 +181,7 @@ public class Rental_list_filter_price extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.putExtra("price_data", rbPriceChange.getValue());
+                intent.putExtra("price", rbPriceChange);
                 setResult(RESULT_OK, intent);
                 finish();
             }
