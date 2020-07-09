@@ -86,8 +86,6 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
     private String rent_amount = ""; // 결제금액
     private String rent_delivery_amount = ""; // 딜리버리 금액
     private String rent_insurance_amount = ""; // 보험 금액
-    private String rent_coupon_amount = ""; //쿠폰 seq
-    private String rent_point_amount = ""; //포인트 사용
     private String rent_reserve_year = ""; //예약연도
     private String rent_reserve_date = ""; //예약날짜(월포함)
     private String rent_reserve_time = ""; //예약시간
@@ -99,6 +97,9 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
     private String rent_rentcar_agent = ""; //지점 정보
     private String rent_rentcar_res_add = null; //배차위치 (없을때 null)
     private String rent_rentcar_ret_add = null; // 반납위치 (없을때 null)
+    private String insu_seq = "";   //보험 seq
+    private String insu_name = "";  //보험 명
+    private int select_delivery; // 딜리버리 선택
 
     //20200630
     private TextView rental_use_amount, rental_use_delivery, rental_use_insurance;
@@ -124,23 +125,26 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
 //        insurance_pay = 10000;
 
         product_pay = rental_pay + delivery_pay + insurance_pay;
-
-        rent_amount = intent.getStringExtra("rental_pay");
-        rent_delivery_amount = intent.getStringExtra("deliverY_pay");
-        rent_insurance_amount = intent.getStringExtra("insurance_pay");
+                                                                                       //Rental_list_detail에서 넘어오느 데이터
+        rent_amount = intent.getStringExtra("rental_pay");                      //결제 금액(보험,딜리버리 금액 제외)
+        rent_delivery_amount = intent.getStringExtra("deliverY_pay");           //딜리버리 금액
+        rent_insurance_amount = intent.getStringExtra("insurance_pay");         //보험 금액
 //        rent_coupon_amount = intent.getStringExtra("");
 //        rent_point_amount = intent.getStringExtra("");
-        rent_reserve_year = intent.getStringExtra("RESERVE_YEAR");
-        rent_reserve_date = intent.getStringExtra("RESERVE_DATE");
-        rent_reserve_time = intent.getStringExtra("RESERVE_TIME");
-        rent_return_year = intent.getStringExtra("RETURN_YEAR");
-        rent_return_date = intent.getStringExtra("RETURN_DATE");
-        rent_return_time = intent.getStringExtra("RETURN_TIME");
-        rent_rentcar_car = intent.getStringExtra("RENTCAR_CAR");
-        rent_rentcar_num = intent.getStringExtra("RENCAR_NUM");
-        rent_rentcar_agent = intent.getStringExtra("RENTCAR_AGENT");
-        rent_rentcar_res_add = intent.getStringExtra("RENTCAR_RES_ADD");
-        rent_rentcar_ret_add = intent.getStringExtra("RENTCAR_RET_ADD");
+        rent_reserve_year = intent.getStringExtra("RESERVE_YEAR");              //예약 연도
+        rent_reserve_date = intent.getStringExtra("RESERVE_DATE");              //예약 날짜
+        rent_reserve_time = intent.getStringExtra("RESERVE_TIME");              //예약 시간
+        rent_return_year = intent.getStringExtra("RETURN_YEAR");                //반납 연도
+        rent_return_date = intent.getStringExtra("RETURN_DATE");                //반납 날짜
+        rent_return_time = intent.getStringExtra("RETURN_TIME");                //반납 시간
+        rent_rentcar_car = intent.getStringExtra("RENTCAR_CAR");                //대여 차종
+        rent_rentcar_num = intent.getStringExtra("RENCAR_NUM");                 //대여 차량 번호
+        rent_rentcar_agent = intent.getStringExtra("RENTCAR_AGENT");            //지점 이름
+        rent_rentcar_res_add = intent.getStringExtra("RENTCAR_RES_ADD");        //딜리버리 배차 위치(없으면 Null)
+        rent_rentcar_ret_add = intent.getStringExtra("RENTCAR_RET_ADD");        //딜리버리 반납 위치(없으면 Null)
+        insu_seq = intent.getStringExtra("CURRENT_INSU_SEQ");
+        insu_name = intent.getStringExtra("CURRENT_INSU_NAME");
+        select_delivery = intent.getIntExtra("select_delivery",0);
 
 //        reserve_address     = intent.getExtras().getString("reserve_address");  /*String형*/
 //        reserve_year        = intent.getExtras().getString("reserve_year");     /*String형*/
@@ -460,7 +464,10 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
         postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);         // 회원번호
         postParams.put("AMOUNT", rent_amount);                      // 결재 금액
         postParams.put("APPROVE_NUMBER", rent_approve_number);      // 예약번호
+        postParams.put("RENTCAR_DEL_TYPE", String.valueOf(select_delivery)); //딜리버리 선택방식
         postParams.put("DELIVERY_AMOUNT", rent_delivery_amount);    // 딜리버리 금액
+        postParams.put("INSURANCE_SEQ", insu_seq);                  //보험 seq
+        postParams.put("INSURANCE_NAME", insu_name);                //보험 명
         postParams.put("INSURANCE_AMOUNT", rent_insurance_amount);  // 보험 금액
         postParams.put("COUPON_AMOUNT", coupone_seq);        // 쿠폰 사용
         postParams.put("POINT_AMOUNT", String.valueOf(use_my_point));          // 포인트 사용양

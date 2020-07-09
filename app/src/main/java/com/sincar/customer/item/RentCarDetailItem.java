@@ -17,11 +17,19 @@ public class RentCarDetailItem {
     public String CURRENT_AGENT_ADD_LON;
     public String CURRENT_AGENT_TIME;
     public String CURRENT_AGENT_DELI;
-    public String CURRENT_AGENT_DEL_PRI;
+    public Current_agent_del_pri CURRENT_AGENT_DEL_PRI;
     public String CURRENT_AGENT_DEL_TIM;
     public String CURRENT_AGENT_DEL_POS;
     public String CURRENT_PRICE;
     public String CURRENT_INSURANCE;
+    public String CURRENT_INSU_SEQ;
+    public String CURRENT_INSU_NAME;
+
+    public class Current_agent_del_pri {
+        public String ROUND_TRIP;
+        public String DISPATCH;
+        public String RETURN;
+    }
 
     @NonNull
     @Override

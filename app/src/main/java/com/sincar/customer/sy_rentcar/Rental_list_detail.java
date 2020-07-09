@@ -50,6 +50,7 @@ public class Rental_list_detail extends FragmentActivity implements
     //디테일 정보 변수
     String start_date, start_time, return_date, return_time, start_year, return_year, start_address, end_address, reserve_address;
     String agent_name, rentcar_name, rentcar_num, rentcar_seq;
+    String start_date_volley, return_date_volley;
     private TextView rental_car_start_date, rental_car_start_time, rental_car_end_date, rental_car_end_time;
     private TextView tvAgent_name, tvAgent_name_small, tvRental_car_name;
     private TextView btn_rental_allocate, btn_rental_return;
@@ -66,6 +67,7 @@ public class Rental_list_detail extends FragmentActivity implements
     double lat, lng;
     TextView tvDelPri, tvDelTime, tvDelArea;
     TextView tvInsurance1, tvInsurance2, tvDelPrice, tvCarPrice, tvTotalPrice;
+    TextView tvDelipossible;
     int insuPrice, deliPrice, rentPrice; // 보험금액, 딜리버리 금액, 총 금액
     ///sy
 
@@ -126,43 +128,6 @@ public class Rental_list_detail extends FragmentActivity implements
         //딜리버리 설정 다이얼로그 호출용 텍스트뷰
         tvDelivery_dialog = findViewById(R.id.rental_spinner);
 
-        tvDelivery_dialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                customSpinnerDialog = CustomDialogInListDetail.getInstance();
-                dlgSpinnerBundle = new Bundle();
-                //체크된 딜리버리 아이템 구분 변수 전달 0: 지점방문 1: 왕복 딜리버리 2: 배차시 딜리버리 3: 반납시 딜리버리
-                dlgSpinnerBundle.putInt("dlgSpinnerCheck", select_delivery);
-                customSpinnerDialog.setArguments(dlgSpinnerBundle);
-                customSpinnerDialog.show(getSupportFragmentManager(), "spinnerDialog_event");
-                customSpinnerDialog.setDialogResult(new CustomDialogInListDetail.OnMySpinnerDialogResult() {
-                    @Override
-                    public void finish(int result) {
-                        //다이얼로그 종료후 선택된 딜리버리 아이템에 따라 딜리버리 시스템 설정 변경
-                        select_delivery = result;
-                        spinner_Selected(select_delivery);
-                        switch (select_delivery) {
-                            case 0:
-                                tvDelivery_dialog.setText("지점 방문");
-                                break;
-                            case 1:
-                                tvDelivery_dialog.setText("왕복 딜리버리");
-                                break;
-                            case 2:
-                                tvDelivery_dialog.setText("배차시 딜리버리");
-                                break;
-                            case 3:
-                                tvDelivery_dialog.setText("반납시 딜리버리");
-                                break;
-                            default:
-                                break;
-                        }
-                        Toast.makeText(getApplicationContext(), tvDelivery_dialog.getText().toString() + " 선택되었습니다.",Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
-
         //sy
         rental_car_start_date = (TextView)findViewById(R.id.rental_car_start_date);
         rental_car_start_time = (TextView)findViewById(R.id.rental_car_start_time);
@@ -173,6 +138,7 @@ public class Rental_list_detail extends FragmentActivity implements
         tvRental_car_name = (TextView)findViewById(R.id.rental_car_name);
         insuranceCheck = (LinearLayout)findViewById(R.id.rental_car_insu_check);
         deleteCheck = (CheckBox)findViewById(R.id.delete2_checkbox);
+        tvDelipossible = (TextView)findViewById(R.id.rental_car_delivery);
 
         Intent intent = getIntent(); //Rental_list에서 넘어온 데이터 수신
 
@@ -182,6 +148,9 @@ public class Rental_list_detail extends FragmentActivity implements
         return_time = intent.getStringExtra("return_time");
         start_year = intent.getStringExtra("start_year");
         return_year = intent.getStringExtra("return_year");
+        start_date_volley = intent.getStringExtra("start_date_volley");
+        return_date_volley = intent.getStringExtra("return_date_volley");
+
         agent_name = intent.getStringExtra("REQUEST_AGENT");
         rentcar_name = intent.getStringExtra("REQUEST_RENTCAR");
         rentcar_seq = intent.getStringExtra("REQUEST_SEQ");
@@ -227,9 +196,6 @@ public class Rental_list_detail extends FragmentActivity implements
         tvCarPrice = (TextView)findViewById(R.id.rental_use_amount);
         tvTotalPrice = (TextView)findViewById(R.id.rental_use_total);
 
-        //딜리버리 선택에 따른 배차,반납 위치 텍스트와 버튼 활성화 여부 설정
-        spinner_Selected(select_delivery);
-
         detailNetworkTest();
 
         //리퀘스트 보낼 키값과 밸류 값들
@@ -237,10 +203,10 @@ public class Rental_list_detail extends FragmentActivity implements
         postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);
         postParams.put("RESERVE_ADDRESS", reserve_address);
         postParams.put("RESRERVE_YEAR", start_year);
-        postParams.put("RESERVE_DATE", start_date);
+        postParams.put("RESERVE_DATE", start_date_volley);
         postParams.put("RESERVE_TIME", start_time);
         postParams.put("RETURN_YEAR", return_year);
-        postParams.put("RETURN_DATE", return_date);
+        postParams.put("RETURN_DATE", return_date_volley);
         postParams.put("RETURN_TIME", return_time);
         postParams.put("REQUEST_AGENT", agent_name);
         postParams.put("REQUEST_RENTCAR", rentcar_name);
@@ -252,6 +218,52 @@ public class Rental_list_detail extends FragmentActivity implements
 //        VolleyNetwork.getInstance(this).serverDataRequest(RENTCAR_LIST_REQUEST, postParams, onRentalListInteractionListener);
 
         ///sy
+
+        //딜리버리 선택에 따른 배차,반납 위치 텍스트와 버튼 활성화 여부 설정
+        spinner_Selected(select_delivery);
+
+        tvDelivery_dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ("1".equals(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DELI)) {
+                    Toast.makeText(getApplicationContext(), "이 차의 대리점은 딜리버리를 지원하지 않습니다.", Toast.LENGTH_LONG).show();
+                } else {
+                    customSpinnerDialog = CustomDialogInListDetail.getInstance();
+                    dlgSpinnerBundle = new Bundle();
+                    //체크된 딜리버리 아이템 구분 변수 전달 0: 지점방문 1: 왕복 딜리버리 2: 배차시 딜리버리 3: 반납시 딜리버리
+                    dlgSpinnerBundle.putInt("dlgSpinnerCheck", select_delivery);
+                    customSpinnerDialog.setArguments(dlgSpinnerBundle);
+                    customSpinnerDialog.show(getSupportFragmentManager(), "spinnerDialog_event");
+                    customSpinnerDialog.setDialogResult(new CustomDialogInListDetail.OnMySpinnerDialogResult() {
+                        @Override
+                        public void finish(int result) {
+                            //다이얼로그 종료후 선택된 딜리버리 아이템에 따라 딜리버리 시스템 설정 변경
+                            select_delivery = result;
+                            spinner_Selected(select_delivery);
+                            switch (select_delivery) {
+                                case 0:
+                                    tvDelivery_dialog.setText("지점 방문");
+                                    break;
+                                case 1:
+                                    tvDelivery_dialog.setText("왕복 딜리버리");
+                                    break;
+                                case 2:
+                                    tvDelivery_dialog.setText("배차시 딜리버리");
+                                    break;
+                                case 3:
+                                    tvDelivery_dialog.setText("반납시 딜리버리");
+                                    break;
+                                default:
+                                    break;
+                            }
+                            Toast.makeText(getApplicationContext(), tvDelivery_dialog.getText().toString() + " 선택되었습니다.", Toast.LENGTH_SHORT).show();
+                        }
+
+                    });
+                }
+            }
+        });
+
     }
 
     @Override
@@ -266,13 +278,14 @@ public class Rental_list_detail extends FragmentActivity implements
             case R.id.rental_confirm_btn:
                 // TODO : 예약하기
 
+                //TODO - 파라메터 추가
                 //rental_payment액티비티에 전달할 데이터 입력
                 intent = new Intent(this, Rental_payment.class);
                 intent.putExtra("RESERVE_YEAR", start_year);
-                intent.putExtra("RESERVE_DATE", start_date);
+                intent.putExtra("RESERVE_DATE", start_date_volley);
                 intent.putExtra("RESERVE_TIME", start_time);
                 intent.putExtra("RETURN_YEAR", return_year);
-                intent.putExtra("RETURN_DATE", return_date);
+                intent.putExtra("RETURN_DATE", return_date_volley);
                 intent.putExtra("RETURN_TIME", return_time);
                 intent.putExtra("RENTCAR_CAR", rentcar_name);
                 intent.putExtra("RENTCAR_NUM", rentcar_num);
@@ -282,6 +295,9 @@ public class Rental_list_detail extends FragmentActivity implements
                 intent.putExtra("rental_pay", String.valueOf(rentPrice));    // 차량대여료
                 intent.putExtra("delivery_pay", String.valueOf(deliPrice));       // 딜리버리금액
                 intent.putExtra("insurance_pay", String.valueOf(insuPrice));  // 보험 금액
+                intent.putExtra("CURRENT_INSU_SEQ", rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSU_SEQ);
+                intent.putExtra("CURRENT_INSU_NAME", rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSU_NAME);
+                intent.putExtra("select_delivery", select_delivery);
 
                 switch (select_delivery) {
                     //딜리버리 선택에 따른 확인 버튼 활성화
@@ -294,11 +310,6 @@ public class Rental_list_detail extends FragmentActivity implements
                         } else if (rental_return_text.getText() == "반납 위치를 정해주세요") {
                             Toast.makeText(getApplicationContext(), "먼저 반납 위치를 정해주세요",Toast.LENGTH_LONG).show();
                         } else {
-//                            intent = new Intent(this, Rental_payment.class);
-                            //TODO - 파라메터 추가
-//                            intent.putExtra("rental_pay", "160000");    // 차량대여료
-//                            intent.putExtra("delivery_pay", "0");       // 딜리버리금액
-//                            intent.putExtra("insurance_pay", "10000");  // 보험 금액
                             startActivity(intent);
                         }
                         break;
@@ -306,11 +317,6 @@ public class Rental_list_detail extends FragmentActivity implements
                         if(rental_allocate_text.getText() == "배차 위치를 정해주세요") {
                             Toast.makeText(getApplicationContext(), "먼저 배차 위치를 정해주세요",Toast.LENGTH_LONG).show();
                         } else {
-//                            intent = new Intent(this, Rental_payment.class);
-                            //TODO - 파라메터 추가
-//                            intent.putExtra("rental_pay", "160000");    // 차량대여료
-//                            intent.putExtra("delivery_pay", "0");       // 딜리버리금액
-//                            intent.putExtra("insurance_pay", "10000");  // 보험 금액
                             startActivity(intent);
                         }
                         break;
@@ -318,20 +324,10 @@ public class Rental_list_detail extends FragmentActivity implements
                         if (rental_return_text.getText() == "반납 위치를 정해주세요") {
                             Toast.makeText(getApplicationContext(), "먼저 배차 위치를 정해주세요",Toast.LENGTH_LONG).show();
                         } else {
-//                            intent = new Intent(this, Rental_payment.class);
-                            //TODO - 파라메터 추가
-//                            intent.putExtra("rental_pay", "160000");    // 차량대여료
-//                            intent.putExtra("delivery_pay", "0");       // 딜리버리금액
-//                            intent.putExtra("insurance_pay", "10000");  // 보험 금액
                             startActivity(intent);
                         }
                         break;
                     default:
-//                        intent = new Intent(this, Rental_payment.class);
-                        //TODO - 파라메터 추가
-//                        intent.putExtra("rental_pay", "160000");    // 차량대여료
-//                        intent.putExtra("delivery_pay", "0");       // 딜리버리금액
-//                        intent.putExtra("insurance_pay", "10000");  // 보험 금액
                         startActivity(intent);
                         break;
                 }
@@ -421,28 +417,31 @@ public class Rental_list_detail extends FragmentActivity implements
                 btn_rental_allocate.setVisibility(View.VISIBLE);
                 btn_rental_return.setVisibility(View.VISIBLE);
                 text_Selected(start_address, end_address);
-                deliPrice = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI);
+                deliPrice = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI.ROUND_TRIP);
                 total = deliPrice + insuPrice + rentPrice;
                 tvTotalPrice.setText(Util.setAddMoneyDot(String.valueOf(total)) + "원");
-                tvDelPrice.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI) + "원");
+                tvDelPrice.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI.ROUND_TRIP) + "원");
+                tvDelPri.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI.ROUND_TRIP) + "원");
                 break;
             case 2:
                 btn_rental_allocate.setVisibility(View.VISIBLE);
                 btn_rental_return.setVisibility(View.INVISIBLE);
                 text_Selected(start_address, "사용하지 않음");
-                deliPrice = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI);
+                deliPrice = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI.DISPATCH);
                 total = deliPrice + insuPrice + rentPrice;
                 tvTotalPrice.setText(Util.setAddMoneyDot(String.valueOf(total)) + "원");
-                tvDelPrice.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI) + "원");
+                tvDelPrice.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI.DISPATCH) + "원");
+                tvDelPri.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI.DISPATCH) + "원");
                 break;
             case 3:
                 btn_rental_allocate.setVisibility(View.INVISIBLE);
                 btn_rental_return.setVisibility(View.VISIBLE);
                 text_Selected("사용하지 않음", end_address);
-                deliPrice = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI);
+                deliPrice = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI.RETURN);
                 total = deliPrice + insuPrice + rentPrice;
                 tvTotalPrice.setText(Util.setAddMoneyDot(String.valueOf(total)) + "원");
-                tvDelPrice.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI) + "원");
+                tvDelPrice.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI.RETURN) + "원");
+                tvDelPri.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI.RETURN) + "원");
                 break;
             default:
                 break;
@@ -496,7 +495,7 @@ public class Rental_list_detail extends FragmentActivity implements
         tvAgentTime.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_TIME);
         tvAgentDel.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DELI);
 
-        tvDelPri.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_PRI) + "원");
+        tvDelPri.setText("0원");
         tvDelTime.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_TIM);
         tvDelArea.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_POS);
 
@@ -514,6 +513,11 @@ public class Rental_list_detail extends FragmentActivity implements
 
         rentPrice = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_PRICE);
         tvTotalPrice.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_PRICE) + "원");
+        if("1".equals(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DELI)) {
+            tvDelipossible.setText("불가능");
+        } else {
+            tvDelipossible.setText("가능");
+        }
     }
 
     //보험 체크박스 체크 여부 확인후 텍스트뷰 설정
@@ -558,9 +562,8 @@ public class Rental_list_detail extends FragmentActivity implements
                 it =  "{\"rentcar_detail\": [{\"CURRENT_CAR_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271113552281.jpg\"," +
                         "\"CURRENT_CAR_NUM\":\"20하9182\",\"CURRENT_CAR_FUEL\":\"가솔린(G),디젤(D)\",\"CURRENT_CAR_FPY\":\"10.6-18.4 KM/L\",\"CURRENT_CAR_COLOR\":\"와인레드\"," +
                         "\"CURRENT_CAR_MADE\":\"2018\",\"CURRENT_CAR_AGE\":\"0\",\"CURRENT_CAR_MAN\":\"4\",\"CURRENT_AGENT_ADDRESS\":\"제주 지점\",\"CURRENT_AGENT_ADD_LAT\":\"33.49997329711914\"," +
-                        "\"CURRENT_AGENT_ADD_LON\":\"126.53034973144531\",\"CURRENT_AGENT_TIME\":\"09:00-19:00\",\"CURRENT_AGENT_DELI\":\"0\"," +
-                        "\"CURRENT_AGENT_DEL_PRI\":\"10000\",\"CURRENT_AGENT_DEL_TIM\":\"10:00-19:00\"," +
-                        "\"CURRENT_AGENT_DEL_POS\":\"제주시, 서귀포시\",\"CURRENT_PRICE\":\"60000\", \"CURRENT_INSURANCE\": \"10000\"}]}";
+                        "\"CURRENT_AGENT_ADD_LON\":\"126.53034973144531\",\"CURRENT_AGENT_TIME\":\"09:00-19:00\", \"CURRENT_AGENT_DELI\" : \"1\", " +
+                        "\"CURRENT_PRICE\":\"60000\", \"CURRENT_INSURANCE\": \"10000\", \"CURRENT_INSU_SEQ\" : \"0\", \"CURRENT_INSU_NAME\" : \"일일 손해 보험\"}]}";
                 break;
             case "2":
             case "7":
@@ -568,8 +571,8 @@ public class Rental_list_detail extends FragmentActivity implements
                         "\"CURRENT_CAR_NUM\":\"19하1234\",\"CURRENT_CAR_FUEL\":\"가솔린(G)\",\"CURRENT_CAR_FPY\":\"8.0-13.8 KM/L\",\"CURRENT_CAR_COLOR\":\"브라운\"," +
                         "\"CURRENT_CAR_MADE\":\"2019\",\"CURRENT_CAR_AGE\":\"2\",\"CURRENT_CAR_MAN\":\"4\",\"CURRENT_AGENT_ADDRESS\":\"제주 지점\",\"CURRENT_AGENT_ADD_LAT\":\"33.49997329711914\"," +
                         "\"CURRENT_AGENT_ADD_LON\":\"126.53034973144531\",\"CURRENT_AGENT_TIME\":\"08:00-19:00\",\"CURRENT_AGENT_DELI\":\"0\"," +
-                        "\"CURRENT_AGENT_DEL_PRI\":\"20000\",\"CURRENT_AGENT_DEL_TIM\":\"09:00-18:00\"," +
-                        "\"CURRENT_AGENT_DEL_POS\":\"제주시, 서귀포시\",\"CURRENT_PRICE\":\"200000\", \"CURRENT_INSURANCE\": \"20000\"}]}";
+                        "\"CURRENT_AGENT_DEL_PRI\": {\"ROUND_TRIP\" : \"20000\",\"DISPATCH\" : \"10000\", \"RETURN\" : \"10000\" },\"CURRENT_AGENT_DEL_TIM\":\"09:00-18:00\"," +
+                        "\"CURRENT_AGENT_DEL_POS\":\"제주시, 서귀포시\",\"CURRENT_PRICE\":\"200000\", \"CURRENT_INSURANCE\": \"20000\", \"CURRENT_INSU_SEQ\" : \"0\", \"CURRENT_INSU_NAME\" : \"손해 보험\"}]}";
                 break;
             case "3":
             case "8":
@@ -577,8 +580,8 @@ public class Rental_list_detail extends FragmentActivity implements
                         "\"CURRENT_CAR_NUM\":\"18하5678\",\"CURRENT_CAR_FUEL\":\"가솔린(G),디젤(D)\",\"CURRENT_CAR_FPY\":\"8.7-13.8 KM/L\",\"CURRENT_CAR_COLOR\":\"화이트그레이\"," +
                         "\"CURRENT_CAR_MADE\":\"2018\",\"CURRENT_CAR_AGE\":\"2\",\"CURRENT_CAR_MAN\":\"6\",\"CURRENT_AGENT_ADDRESS\":\"제주 지점\",\"CURRENT_AGENT_ADD_LAT\":\"33.49997329711914\"," +
                         "\"CURRENT_AGENT_ADD_LON\":\"126.53034973144531\",\"CURRENT_AGENT_TIME\":\"09:00-19:00\",\"CURRENT_AGENT_DELI\":\"0\"," +
-                        "\"CURRENT_AGENT_DEL_PRI\":\"20000\",\"CURRENT_AGENT_DEL_TIM\":\"10:00-19:00\"," +
-                        "\"CURRENT_AGENT_DEL_POS\":\"제주시, 서귀포시\",\"CURRENT_PRICE\":\"120000\", \"CURRENT_INSURANCE\": \"30000\"}]}";
+                        "\"CURRENT_AGENT_DEL_PRI\": {\"ROUND_TRIP\" : \"30000\",\"DISPATCH\" : \"15000\", \"RETURN\" : \"15000\" },\"CURRENT_AGENT_DEL_TIM\":\"10:00-19:00\"," +
+                        "\"CURRENT_AGENT_DEL_POS\":\"제주시, 서귀포시\",\"CURRENT_PRICE\":\"120000\", \"CURRENT_INSURANCE\": \"30000\", \"CURRENT_INSU_SEQ\" : \"0\", \"CURRENT_INSU_NAME\" : \"일일보험\"}]}";
                 break;
             case "4":
             case "9":
@@ -586,8 +589,8 @@ public class Rental_list_detail extends FragmentActivity implements
                         "\"CURRENT_CAR_NUM\":\"17하9012\",\"CURRENT_CAR_FUEL\":\"가솔린(G),디젤(D),LPG(L)\",\"CURRENT_CAR_FPY\":\"7.4-14.8 KM/L\",\"CURRENT_CAR_COLOR\":\"라이트블랙\"," +
                         "\"CURRENT_CAR_MADE\":\"2017\",\"CURRENT_CAR_AGE\":\"2\",\"CURRENT_CAR_MAN\":\"4\",\"CURRENT_AGENT_ADDRESS\":\"제주 지점\",\"CURRENT_AGENT_ADD_LAT\":\"33.49997329711914\"," +
                         "\"CURRENT_AGENT_ADD_LON\":\"126.53034973144531\",\"CURRENT_AGENT_TIME\":\"09:00-19:00\",\"CURRENT_AGENT_DELI\":\"0\"," +
-                        "\"CURRENT_AGENT_DEL_PRI\":\"10000\",\"CURRENT_AGENT_DEL_TIM\":\"10:00-19:00\"," +
-                        "\"CURRENT_AGENT_DEL_POS\":\"제주시, 서귀포시\",\"CURRENT_PRICE\":\"115000\", \"CURRENT_INSURANCE\": \"15000\"}]}";
+                        "\"CURRENT_AGENT_DEL_PRI\": {\"ROUND_TRIP\" : \"10000\",\"DISPATCH\" : \"5000\", \"RETURN\" : \"5000\" },\"CURRENT_AGENT_DEL_TIM\":\"10:00-19:00\"," +
+                        "\"CURRENT_AGENT_DEL_POS\":\"제주시, 서귀포시\",\"CURRENT_PRICE\":\"115000\", \"CURRENT_INSURANCE\": \"15000\", \"CURRENT_INSU_SEQ\" : \"0\", \"CURRENT_INSU_NAME\" : \"일일손해 보험\"}]}";
                 break;
             case "5":
             case "10":
@@ -595,8 +598,8 @@ public class Rental_list_detail extends FragmentActivity implements
                         "\"CURRENT_CAR_NUM\":\"16하3456\",\"CURRENT_CAR_FUEL\":\"가솔린(G),디젤(D)\",\"CURRENT_CAR_FPY\":\"10.7-16.1 KM/L\",\"CURRENT_CAR_COLOR\":\"골드\"," +
                         "\"CURRENT_CAR_MADE\":\"2016\",\"CURRENT_CAR_AGE\":\"2\",\"CURRENT_CAR_MAN\":\"4\",\"CURRENT_AGENT_ADDRESS\":\"제주 지점\",\"CURRENT_AGENT_ADD_LAT\":\"33.49997329711914\"," +
                         "\"CURRENT_AGENT_ADD_LON\":\"126.53034973144531\",\"CURRENT_AGENT_TIME\":\"09:00-19:00\",\"CURRENT_AGENT_DELI\":\"0\"," +
-                        "\"CURRENT_AGENT_DEL_PRI\":\"10000\",\"CURRENT_AGENT_DEL_TIM\":\"10:00-19:00\"," +
-                        "\"CURRENT_AGENT_DEL_POS\":\"제주시, 서귀포시\",\"CURRENT_PRICE\":\"65000\", \"CURRENT_INSURANCE\": \"5000\"}]}";
+                        "\"CURRENT_AGENT_DEL_PRI\": {\"ROUND_TRIP\" : \"150000\",\"DISPATCH\" : \"10000\", \"RETURN\" : \"10000\" },\"CURRENT_AGENT_DEL_TIM\":\"10:00-19:00\"," +
+                        "\"CURRENT_AGENT_DEL_POS\":\"제주시, 서귀포시\",\"CURRENT_PRICE\":\"65000\", \"CURRENT_INSURANCE\": \"5000\", \"CURRENT_INSU_SEQ\" : \"0\", \"CURRENT_INSU_NAME\" : \"일일손해보험\"}]}";
                 break;
             default:
                 break;

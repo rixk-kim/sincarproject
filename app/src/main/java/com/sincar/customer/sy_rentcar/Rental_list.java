@@ -26,6 +26,8 @@ import com.sincar.customer.item.RentCarAgentResult;
 import com.sincar.customer.network.VolleyNetwork;
 import com.sincar.customer.util.Util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -34,6 +36,7 @@ import static com.sincar.customer.HWApplication.rentCarAgentResult;
 import static com.sincar.customer.HWApplication.voLoginItem;
 import static com.sincar.customer.HWApplication.voRentCarAgentDataItem;
 import static com.sincar.customer.HWApplication.voRentCarAgentItem;
+import static com.sincar.customer.common.Constants.RENTCAR_LIST_REQUEST;
 
 import com.sincar.customer.sy_rentcar.Rental_list_filter.age_filter;
 import com.sincar.customer.sy_rentcar.Rental_list_filter.price_filter;
@@ -49,6 +52,7 @@ public class Rental_list extends AppCompatActivity {
 
     CustomDialog dlg; //렌탈 리스트용 커스텀 다이얼로그
     String start_date, start_time, return_date, return_time, start_year, return_year, reserve_address; //시간 데이터
+    String start_date_volley, return_date_volley;
     String simpleDate; // yyyyMMdd 타입 날짜
     ImageView ivImage;
     Bundle dlgBundle; //다이얼로그용 번들
@@ -114,13 +118,22 @@ public class Rental_list extends AppCompatActivity {
         start_year = intent.getStringExtra("start_year");
         return_year = intent.getStringExtra("return_year");
 
+        SimpleDateFormat volleyformat = new SimpleDateFormat("MM-dd");
+        try {
+            start_date_volley = volleyformat.format(volleyformat.parse(start_date));
+            return_date_volley = volleyformat.format(volleyformat.parse(return_date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
         //리퀘스트 파라미터 세팅
         requestSetting();
 
-        //Util.showDialog(rental_list_context);
-
-        //발리네트워크 연결
-        //VolleyNetwork.getInstance(this).serverDataRequest(RENTCAR_LIST_REQUEST, postParams, onRentalListInteractionListener);
+//        Util.showDialog(rental_list_context);
+//
+//        //발리네트워크 연결
+//        VolleyNetwork.getInstance(this).serverDataRequest(RENTCAR_LIST_REQUEST, postParams, onRentalListInteractionListener);
 
         //테스트 메소드
         listNetworkTest();
@@ -213,10 +226,10 @@ public class Rental_list extends AppCompatActivity {
         postParams.put("RESERVE_ADD_PO_LAT", String.valueOf(reserve_LatLng.latitude));
         postParams.put("RESERVE_ADD_PO_LON", String.valueOf(reserve_LatLng.longitude));
         postParams.put("RESRERVE_YEAR", start_year);
-        postParams.put("RESERVE_DATE", start_date);
+        postParams.put("RESERVE_DATE", start_date_volley);
         postParams.put("RESERVE_TIME", start_time);
         postParams.put("RETURN_YEAR", return_year);
-        postParams.put("RETURN_DATE", return_date);
+        postParams.put("RETURN_DATE", return_date_volley);
         postParams.put("RETURN_TIME", return_time);
         postParams.put("REQUEST_PAGE", "1");
         postParams.put("REQUEST_NUM", "20");
@@ -326,8 +339,10 @@ public class Rental_list extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), Rental_list_detail.class);
                     intent.putExtra("start_date", start_date);
                     intent.putExtra("start_time", start_time);
+                    intent.putExtra("start_date_volley", start_date_volley);
                     intent.putExtra("return_date", return_date);
                     intent.putExtra("return_time", return_time);
+                    intent.putExtra("return_date_volley", return_date_volley);
                     intent.putExtra("reserve_address", reserve_address);
                     intent.putExtra("start_year", start_year);
                     intent.putExtra("return_year", return_year);

@@ -243,7 +243,7 @@ public class Rental_list_filter extends AppCompatActivity {
             rent_car_list_brand= brand_data;
             if(brand_data.length() > 25){
                 brand_data = brand_data.substring(0, 25);
-                brand_data += "...";
+                brand_data += "...";    //25자 이상 넘어가면 "..."으로 변환
             }
             tvBrand.setText(brand_data);
             kukBrand = (kuk_brand_filter[]) data.getSerializableExtra("kukBrand");
