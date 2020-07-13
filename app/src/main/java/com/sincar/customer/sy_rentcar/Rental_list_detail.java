@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -31,6 +32,8 @@ import java.util.HashMap;
 
 import static com.sincar.customer.HWApplication.rentCarDetailResult;
 import static com.sincar.customer.HWApplication.voLoginItem;
+import static com.sincar.customer.common.Constants.RENTCAR_LIST_DETAIL_REQUEST;
+import static com.sincar.customer.common.Constants.RENTCAR_LIST_REQUEST;
 
 public class Rental_list_detail extends FragmentActivity implements
         View.OnClickListener {
@@ -151,6 +154,8 @@ public class Rental_list_detail extends FragmentActivity implements
         start_date_volley = intent.getStringExtra("start_date_volley");
         return_date_volley = intent.getStringExtra("return_date_volley");
 
+        reserve_address = intent.getStringExtra("reserve_address");
+
         agent_name = intent.getStringExtra("REQUEST_AGENT");
         rentcar_name = intent.getStringExtra("REQUEST_RENTCAR");
         rentcar_seq = intent.getStringExtra("REQUEST_SEQ");
@@ -196,8 +201,6 @@ public class Rental_list_detail extends FragmentActivity implements
         tvCarPrice = (TextView)findViewById(R.id.rental_use_amount);
         tvTotalPrice = (TextView)findViewById(R.id.rental_use_total);
 
-        detailNetworkTest();
-
         //리퀘스트 보낼 키값과 밸류 값들
         HashMap<String, String> postParams = new HashMap<String, String>();
         postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);
@@ -212,10 +215,12 @@ public class Rental_list_detail extends FragmentActivity implements
         postParams.put("REQUEST_RENTCAR", rentcar_name);
         postParams.put("REQUEST_SEQ", rentcar_seq);
 
-        //Util.showDialog(rental_list_context);
+//        Util.showDialog(this);
+//
+//        //발리네트워크 연결
+//        VolleyNetwork.getInstance(this).serverDataRequest(RENTCAR_LIST_DETAIL_REQUEST, postParams, onRentalListInteractionListener);
 
-        //발리네트워크 연결
-//        VolleyNetwork.getInstance(this).serverDataRequest(RENTCAR_LIST_REQUEST, postParams, onRentalListInteractionListener);
+        detailNetworkTest();
 
         ///sy
 
@@ -545,6 +550,7 @@ public class Rental_list_detail extends FragmentActivity implements
             setDetailText();
             //프로그래스바 종료
             Util.dismiss();
+            Log.i("Volley", it);
         }
 
         @Override
@@ -558,7 +564,7 @@ public class Rental_list_detail extends FragmentActivity implements
         String it = null;
         switch(rentcar_seq) {
             case "1":
-            case "6":
+            case "6": case "11": case "16": case "21": case "26": case "31": case "36": case "41": case "46":
                 it =  "{\"rentcar_detail\": [{\"CURRENT_CAR_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271113552281.jpg\"," +
                         "\"CURRENT_CAR_NUM\":\"20하9182\",\"CURRENT_CAR_FUEL\":\"가솔린(G),디젤(D)\",\"CURRENT_CAR_FPY\":\"10.6-18.4 KM/L\",\"CURRENT_CAR_COLOR\":\"와인레드\"," +
                         "\"CURRENT_CAR_MADE\":\"2018\",\"CURRENT_CAR_AGE\":\"0\",\"CURRENT_CAR_MAN\":\"4\",\"CURRENT_AGENT_ADDRESS\":\"제주 지점\",\"CURRENT_AGENT_ADD_LAT\":\"33.49997329711914\"," +
@@ -566,7 +572,7 @@ public class Rental_list_detail extends FragmentActivity implements
                         "\"CURRENT_PRICE\":\"60000\", \"CURRENT_INSURANCE\": \"10000\", \"CURRENT_INSU_SEQ\" : \"0\", \"CURRENT_INSU_NAME\" : \"일일 손해 보험\"}]}";
                 break;
             case "2":
-            case "7":
+            case "7": case "12": case "17": case "22": case "27": case "32": case "37": case "42": case "47":
                 it =  "{\"rentcar_detail\": [{\"CURRENT_CAR_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201805281053589087.jpg\"," +
                         "\"CURRENT_CAR_NUM\":\"19하1234\",\"CURRENT_CAR_FUEL\":\"가솔린(G)\",\"CURRENT_CAR_FPY\":\"8.0-13.8 KM/L\",\"CURRENT_CAR_COLOR\":\"브라운\"," +
                         "\"CURRENT_CAR_MADE\":\"2019\",\"CURRENT_CAR_AGE\":\"2\",\"CURRENT_CAR_MAN\":\"4\",\"CURRENT_AGENT_ADDRESS\":\"제주 지점\",\"CURRENT_AGENT_ADD_LAT\":\"33.49997329711914\"," +
@@ -575,7 +581,7 @@ public class Rental_list_detail extends FragmentActivity implements
                         "\"CURRENT_AGENT_DEL_POS\":\"제주시, 서귀포시\",\"CURRENT_PRICE\":\"200000\", \"CURRENT_INSURANCE\": \"20000\", \"CURRENT_INSU_SEQ\" : \"0\", \"CURRENT_INSU_NAME\" : \"손해 보험\"}]}";
                 break;
             case "3":
-            case "8":
+            case "8": case "13": case "18": case "23": case "28": case "33": case "38": case "43": case "48":
                 it =  "{\"rentcar_detail\": [{\"CURRENT_CAR_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271111488598.jpg\"," +
                         "\"CURRENT_CAR_NUM\":\"18하5678\",\"CURRENT_CAR_FUEL\":\"가솔린(G),디젤(D)\",\"CURRENT_CAR_FPY\":\"8.7-13.8 KM/L\",\"CURRENT_CAR_COLOR\":\"화이트그레이\"," +
                         "\"CURRENT_CAR_MADE\":\"2018\",\"CURRENT_CAR_AGE\":\"2\",\"CURRENT_CAR_MAN\":\"6\",\"CURRENT_AGENT_ADDRESS\":\"제주 지점\",\"CURRENT_AGENT_ADD_LAT\":\"33.49997329711914\"," +
@@ -584,7 +590,7 @@ public class Rental_list_detail extends FragmentActivity implements
                         "\"CURRENT_AGENT_DEL_POS\":\"제주시, 서귀포시\",\"CURRENT_PRICE\":\"120000\", \"CURRENT_INSURANCE\": \"30000\", \"CURRENT_INSU_SEQ\" : \"0\", \"CURRENT_INSU_NAME\" : \"일일보험\"}]}";
                 break;
             case "4":
-            case "9":
+            case "9": case "14": case "19": case "24": case "29": case "34": case "39": case "44": case "49":
                 it =  "{\"rentcar_detail\": [{\"CURRENT_CAR_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/202001091104489284.jpg\"," +
                         "\"CURRENT_CAR_NUM\":\"17하9012\",\"CURRENT_CAR_FUEL\":\"가솔린(G),디젤(D),LPG(L)\",\"CURRENT_CAR_FPY\":\"7.4-14.8 KM/L\",\"CURRENT_CAR_COLOR\":\"라이트블랙\"," +
                         "\"CURRENT_CAR_MADE\":\"2017\",\"CURRENT_CAR_AGE\":\"2\",\"CURRENT_CAR_MAN\":\"4\",\"CURRENT_AGENT_ADDRESS\":\"제주 지점\",\"CURRENT_AGENT_ADD_LAT\":\"33.49997329711914\"," +
@@ -593,7 +599,7 @@ public class Rental_list_detail extends FragmentActivity implements
                         "\"CURRENT_AGENT_DEL_POS\":\"제주시, 서귀포시\",\"CURRENT_PRICE\":\"115000\", \"CURRENT_INSURANCE\": \"15000\", \"CURRENT_INSU_SEQ\" : \"0\", \"CURRENT_INSU_NAME\" : \"일일손해 보험\"}]}";
                 break;
             case "5":
-            case "10":
+            case "10": case "15": case "20": case "25": case "30": case "35": case "40": case "45": case "50":
                 it =  "{\"rentcar_detail\": [{\"CURRENT_CAR_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201908131116037666.jpg\"," +
                         "\"CURRENT_CAR_NUM\":\"16하3456\",\"CURRENT_CAR_FUEL\":\"가솔린(G),디젤(D)\",\"CURRENT_CAR_FPY\":\"10.7-16.1 KM/L\",\"CURRENT_CAR_COLOR\":\"골드\"," +
                         "\"CURRENT_CAR_MADE\":\"2016\",\"CURRENT_CAR_AGE\":\"2\",\"CURRENT_CAR_MAN\":\"4\",\"CURRENT_AGENT_ADDRESS\":\"제주 지점\",\"CURRENT_AGENT_ADD_LAT\":\"33.49997329711914\"," +

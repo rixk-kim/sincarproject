@@ -66,9 +66,6 @@ public class Rental_list extends AppCompatActivity {
     private Geocoder gCoder;
     LatLng reserve_LatLng; //예약주소 위경도
     private final static int RENTAL_CAR_LIST_FILTER = 3333;
-//    private final int DISTTYPE = 0;     //거리순 정렬
-//    private final int PRICETYPE = 1;    //가격순 정렬
-//    private final int POPULARTYPE = 2;  //인기순 정렬
 
     int rentcarPage_chk = 0, rentcarItem_chk = 0, list1id = 0, list2id = 0;
 
@@ -110,10 +107,6 @@ public class Rental_list extends AppCompatActivity {
         setContentView(R.layout.activity_rental_list);
         rental_list_context = this;
 
-//        ivImage = (ImageView) findViewById(R.id.rent_list_iv1);
-//        Glide.with(this).load("https://www.sincar.co.kr/upload/program/goods/list/201912241503214320.jpg")
-//                .into(ivImage);
-
         Intent intent = getIntent(); //Maps_rent_mainfrag에서 넘어온 데이터 수신
         start_date = intent.getStringExtra("start_date");   //예약 날짜
         start_time = intent.getStringExtra("start_time");   //예약 시간
@@ -138,13 +131,13 @@ public class Rental_list extends AppCompatActivity {
         //리퀘스트 파라미터 세팅
         requestSetting();
 
-//        Util.showDialog(rental_list_context);
-//
-//        //발리네트워크 연결
-//        VolleyNetwork.getInstance(this).serverDataRequest(RENTCAR_LIST_REQUEST, postParams, onRentalListInteractionListener);
+        Util.showDialog(rental_list_context);
 
-        //테스트 메소드
-        listNetworkTest();
+        //발리네트워크 연결
+        VolleyNetwork.getInstance(this).serverDataRequest(RENTCAR_LIST_REQUEST, postParams, onRentalListInteractionListener);
+
+//        //테스트 메소드
+//        listNetworkTest();
 
         // TODO 상단바 아이콘 설정
         ImageButton ibBack = (ImageButton) findViewById(R.id.ibBack1);
@@ -192,10 +185,13 @@ public class Rental_list extends AppCompatActivity {
 
                         requestSetting();
 
-                        //Util.showDialog(rental_list_context);
+                        rentcarPage_chk = 0; //아이템 리스트 페이지 체크 변수 초기화
+                        rentcarItem_chk = 0; //아이템 리스트 체크 변수 초기화
+
+                        Util.showDialog(rental_list_context);
 
                         //발리네트워크 연결
-                        //VolleyNetwork.getInstance(this).serverDataRequest(RENTCAR_LIST_REQUEST, postParams, onRentalListInteractionListener);
+                        VolleyNetwork.getInstance(rental_list_context).serverDataRequest(RENTCAR_LIST_REQUEST, postParams, onRentalListInteractionListener);
 
                         Toast.makeText(getApplicationContext(), st.getValue() + "을 선택하셨습니다", Toast.LENGTH_SHORT).show();
 
@@ -290,10 +286,13 @@ public class Rental_list extends AppCompatActivity {
 
                 requestSetting();
 
-                //Util.showDialog(rental_list_context);
+                rentcarPage_chk = 0; //아이템 리스트 페이지 체크 변수 초기화
+                rentcarItem_chk = 0; //아이템 리스트 체크 변수 초기화
+
+                Util.showDialog(rental_list_context);
 
                 //발리네트워크 연결
-                //VolleyNetwork.getInstance(this).serverDataRequest(RENTCAR_LIST_REQUEST, postParams, onRentalListInteractionListener);
+                VolleyNetwork.getInstance(this).serverDataRequest(RENTCAR_LIST_REQUEST, postParams, onRentalListInteractionListener);
 
             }
         }
@@ -316,6 +315,7 @@ public class Rental_list extends AppCompatActivity {
 
                 voRentCarAgentDataItem = rentCarAgentResult.data;
 
+                Rental_list_adapterItem.clearItem(); //아이템 초기화(비워줌)
                 putItemToList();
                 callRentalListRecyclerViewAdapter();
             } catch (Exception e) {
@@ -340,8 +340,16 @@ public class Rental_list extends AppCompatActivity {
     private void callRentalListRecyclerViewAdapter() {
 
         if (Rental_list_adapterItem.RENTAL_LIST_ITEM1.size() > 0) {
+
             recyclerview = findViewById(R.id.rental_list_recyclerview);
             nestedScrollView = findViewById(R.id.scr_rent_List);
+            LinearLayout view1 = findViewById(R.id.rental_list_empty);
+            if(view1.getVisibility() == View.VISIBLE)
+                view1.setVisibility(View.GONE);
+            if(nestedScrollView.getVisibility() == View.GONE)
+                nestedScrollView.setVisibility(View.VISIBLE);
+
+
             final LinearLayoutManager mLayoutManager;
             mLayoutManager = new LinearLayoutManager(this);
             recyclerview.setLayoutManager(mLayoutManager);
@@ -390,11 +398,11 @@ public class Rental_list extends AppCompatActivity {
 
             LinearLayout view1 = findViewById(R.id.rental_list_empty);
             view1.setVisibility(View.VISIBLE);
-            Button btSort, btFil;
-            btSort = findViewById(R.id.btn_rentalCar_Sort);
-            btSort.setClickable(false);
-            btFil = findViewById(R.id.btn_rentalCar_Fil);
-            btFil.setClickable(false);
+//            Button btSort, btFil;
+//            btSort = findViewById(R.id.btn_rentalCar_Sort);
+//            btSort.setClickable(false);
+//            btFil = findViewById(R.id.btn_rentalCar_Fil);
+//            btFil.setClickable(false);
         }
     }
 
@@ -450,10 +458,6 @@ public class Rental_list extends AppCompatActivity {
             }
         }
         rentcarPage_chk++;
-
-//        if(Util.mProgress != null) {
-//            Util.dismiss();
-//        }
     }
 
 //    //정렬 다이얼로그에서 정렬시 실행되는 메소드
@@ -532,7 +536,7 @@ public class Rental_list extends AppCompatActivity {
     private void listNetworkTest() {
         String it;
         //테스트용 더미데이터
-        it = "{\"rentcar_list\": [{\"TOTAL\":\"50\",\"CURRENT_PAGE\":\"3\",\"CURRENT_NUM\":\"20\"}]," +
+        it = "{\"rentcar_list\": [{\"TOTAL\":\"50\",\"CURRENT_PAGE\":\"5\",\"CURRENT_NUM\":\"10\"}]," +
                 "\"data\": [{" +
                 "\"RENTCAR_SEQ\":\"1\",\"RENTCAR_NAME\":\"아반떼\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271113552281.jpg\"," +
                 "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"65000\",\"RENTCAR_FIL_AGE\":\"1\"," +
