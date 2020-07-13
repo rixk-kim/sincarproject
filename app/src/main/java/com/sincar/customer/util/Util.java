@@ -658,4 +658,41 @@ public class Util {
         }
         return TYPE_NOT_CONNECTED;  //연결이 되지않은 상태
     }
+
+
+    /**
+     * 프로그래스 다이얼로그 보여주기
+     * 렌트카 리스트 불러오기 전용 dismiss를 사용하지 않음
+     */
+    public static void showDialogRentList(final Context mContext) {
+        //네트웍 연결상태 체크하여 연결된 네트웍이 있을때만 진행.
+        if(getConnectivityStatus(mContext) < 3) {
+            mProgress = null;
+            mProgress = new LoadingProgress(mContext);
+
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    mProgress.show();
+
+                    TimerTask task = new TimerTask() {
+                        @Override
+                        public void run() {
+                            dismiss();
+                        }
+                    };
+
+                    //Timer timer = new Timer();
+                    timer = new Timer();
+                    timer.schedule(task, 1000);
+
+                    //timer.cancel();
+                }
+            });
+        }else{
+            Toast.makeText(mContext, "네트웍 설정을 확인한 후 다시 시도하세요.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

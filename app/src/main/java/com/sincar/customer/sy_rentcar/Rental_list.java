@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.location.Geocoder;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -12,9 +13,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -57,7 +60,8 @@ public class Rental_list extends AppCompatActivity {
     ImageView ivImage;
     Bundle dlgBundle; //다이얼로그용 번들
     Context rental_list_context;
-    RecyclerView recyclerView; //리사이클러뷰
+    RecyclerView recyclerview; //리사이클러뷰
+    NestedScrollView nestedScrollView;
     //위경도 확인후 계산시 필요
     private Geocoder gCoder;
     LatLng reserve_LatLng; //예약주소 위경도
@@ -65,6 +69,8 @@ public class Rental_list extends AppCompatActivity {
 //    private final int DISTTYPE = 0;     //거리순 정렬
 //    private final int PRICETYPE = 1;    //가격순 정렬
 //    private final int POPULARTYPE = 2;  //인기순 정렬
+
+    int rentcarPage_chk = 0, rentcarItem_chk = 0, list1id = 0, list2id = 0;
 
     final HashMap<String, String> postParams = new HashMap<String, String>();
 
@@ -94,6 +100,7 @@ public class Rental_list extends AppCompatActivity {
 
     sortType sort = sortType.distType;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -118,10 +125,11 @@ public class Rental_list extends AppCompatActivity {
         start_year = intent.getStringExtra("start_year");
         return_year = intent.getStringExtra("return_year");
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d일 (E)");
         SimpleDateFormat volleyformat = new SimpleDateFormat("MM-dd");
         try {
-            start_date_volley = volleyformat.format(volleyformat.parse(start_date));
-            return_date_volley = volleyformat.format(volleyformat.parse(return_date));
+            start_date_volley = volleyformat.format(dateFormat.parse(start_date));
+            return_date_volley = volleyformat.format(dateFormat.parse(return_date));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -231,8 +239,8 @@ public class Rental_list extends AppCompatActivity {
         postParams.put("RETURN_YEAR", return_year);
         postParams.put("RETURN_DATE", return_date_volley);
         postParams.put("RETURN_TIME", return_time);
-        postParams.put("REQUEST_PAGE", "1");
-        postParams.put("REQUEST_NUM", "20");
+        postParams.put("REQUEST_PAGE", "5");
+        postParams.put("REQUEST_NUM", "50");
         postParams.put("REQUEST_SORT", String.valueOf(sort.ordinal()));
 
         postParams.put("REQUEST_FIL_AGE", String.valueOf(age.ordinal()));
@@ -293,42 +301,65 @@ public class Rental_list extends AppCompatActivity {
 
     //발리 네트워크 연결후 Response 성공,실패 메소드
     VolleyNetwork.OnResponseListener onRentalListInteractionListener = new VolleyNetwork.OnResponseListener() {
+        @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void onResponseSuccessListener(String it) {
             Gson gson = new Gson();
-            rentCarAgentResult = gson.fromJson(it, RentCarAgentResult.class);
 
-            //Toast.makeText(getApplicationContext(), rentCarAgentResult.agent_list.get(0).toString(), Toast.LENGTH_LONG).show();
-            voRentCarAgentItem.TOTAL = rentCarAgentResult.rentcar_list.get(0).TOTAL;
-            voRentCarAgentItem.CURRENT_PAGE = rentCarAgentResult.rentcar_list.get(0).CURRENT_PAGE;
-            voRentCarAgentItem.CURRENT_NUM = rentCarAgentResult.rentcar_list.get(0).CURRENT_NUM;
+            try {
+                rentCarAgentResult = gson.fromJson(it, RentCarAgentResult.class);
 
-            voRentCarAgentDataItem = rentCarAgentResult.data;
+                //Toast.makeText(getApplicationContext(), rentCarAgentResult.agent_list.get(0).toString(), Toast.LENGTH_LONG).show();
+                voRentCarAgentItem.TOTAL = rentCarAgentResult.rentcar_list.get(0).TOTAL;
+                voRentCarAgentItem.CURRENT_PAGE = rentCarAgentResult.rentcar_list.get(0).CURRENT_PAGE;
+                voRentCarAgentItem.CURRENT_NUM = rentCarAgentResult.rentcar_list.get(0).CURRENT_NUM;
 
-            putItemToList();
-            callRentalListRecyclerViewAdapter();
+                voRentCarAgentDataItem = rentCarAgentResult.data;
 
+                putItemToList();
+                callRentalListRecyclerViewAdapter();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "서버가 정상적이지 않습니다.", Toast.LENGTH_LONG).show();
+            }
             //프로그래스바 종료
             Util.dismiss();
+            Log.i("Volley", it);
         }
 
         @Override
         public void onResponseFailListener(VolleyError it) {
             //프로그래스바 종료
             Util.dismiss();
+            Log.i("Volley", "Response Fail");
         }
     };
 
     //아답터 연결후 레이아웃 표시 메소드
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void callRentalListRecyclerViewAdapter() {
 
         if (Rental_list_adapterItem.RENTAL_LIST_ITEM1.size() > 0) {
-            recyclerView = findViewById(R.id.rental_list_recyclerview);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerview = findViewById(R.id.rental_list_recyclerview);
+            nestedScrollView = findViewById(R.id.scr_rent_List);
+            final LinearLayoutManager mLayoutManager;
+            mLayoutManager = new LinearLayoutManager(this);
+            recyclerview.setLayoutManager(mLayoutManager);
 
-            Rental_list_adapter adapter = new Rental_list_adapter(Rental_list_adapterItem.RENTAL_LIST_ITEM1, Rental_list_adapterItem.RENTAL_LIST_ITEM2, rental_list_context);
-            recyclerView.setAdapter(adapter);
+            final Rental_list_adapter adapter = new Rental_list_adapter(Rental_list_adapterItem.RENTAL_LIST_ITEM1, Rental_list_adapterItem.RENTAL_LIST_ITEM2, rental_list_context);
+            recyclerview.setAdapter(adapter);
 
+            nestedScrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                    if(!nestedScrollView.canScrollVertically(1) && rentcarItem_chk < Integer.parseInt(voRentCarAgentItem.TOTAL)) {
+                        nestedScrollView.smoothScrollBy(0,0); // 스크롤 멈춤
+                        Util.showDialogRentList(rental_list_context);
+                        putItemToList();
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+            });
 
             //Recyclerview 에서 아이템을 클릭했을때 이벤트(상세 페이지 이동)
             adapter.setOnItemClickListener(new Rental_list_adapter.OnRentalListInteractionListener() {
@@ -372,48 +403,57 @@ public class Rental_list extends AppCompatActivity {
     //짝수번째는 왼쪽 홀수번째는 오른쪽에 추가하는 방식으로 함
     private void putItemToList() {
 
-        Rental_list_adapterItem.clearItem(); //아이템 초기화(비워줌)
-        int list1id = 0, list2id = 0;
-        for (int i = 0; i < voRentCarAgentDataItem.size(); i++) {
+        if(rentcarPage_chk <Integer.parseInt(voRentCarAgentItem.CURRENT_PAGE)) {
+
+            for (int i = 0; i < Integer.parseInt(voRentCarAgentItem.CURRENT_NUM); i++) {
 
 //           rental_shop_latlng = ConvertGPS(voRentCarAgentDataItem.get(i).WASH_AREA);
 //            double dist = distance(myLatLng.latitude, myLatLng.longitude, rental_shop_latlng.latitude, rental_shop_latlng.longitude);
-            if (i % 2 == 0) {
-                Rental_list_adapterItem.addItem1(new Rental_list_adapterItem.Rental_List_Item(
-                        list1id,
-                        voRentCarAgentDataItem.get(i).RENTCAR_SEQ,
-                        voRentCarAgentDataItem.get(i).RENTCAR_NAME,
-                        voRentCarAgentDataItem.get(i).RENTCAR_IMG_URL,
-                        voRentCarAgentDataItem.get(i).RENTCAR_AGENT,
-                        voRentCarAgentDataItem.get(i).RENTCAR_AGENT_ADD,
-                        voRentCarAgentDataItem.get(i).RENTCAR_DISCOUNT,
-                        voRentCarAgentDataItem.get(i).RENTCAR_PRICE,
-                        voRentCarAgentDataItem.get(i).RENTCAR_FIL_AGE,
-                        voRentCarAgentDataItem.get(i).RENTCAR_FIL_TYPE,
-                        voRentCarAgentDataItem.get(i).RENTCAR_FIL_BRAND,
-                        voRentCarAgentDataItem.get(i).RENTCAR_SORT_DIST,
-                        voRentCarAgentDataItem.get(i).RENTCAR_SORT_POPU
-                ));
-                list1id++;
-            } else {
-                Rental_list_adapterItem.addItem2(new Rental_list_adapterItem.Rental_List_Item(
-                        list2id,
-                        voRentCarAgentDataItem.get(i).RENTCAR_SEQ,
-                        voRentCarAgentDataItem.get(i).RENTCAR_NAME,
-                        voRentCarAgentDataItem.get(i).RENTCAR_IMG_URL,
-                        voRentCarAgentDataItem.get(i).RENTCAR_AGENT,
-                        voRentCarAgentDataItem.get(i).RENTCAR_AGENT_ADD,
-                        voRentCarAgentDataItem.get(i).RENTCAR_DISCOUNT,
-                        voRentCarAgentDataItem.get(i).RENTCAR_PRICE,
-                        voRentCarAgentDataItem.get(i).RENTCAR_FIL_AGE,
-                        voRentCarAgentDataItem.get(i).RENTCAR_FIL_TYPE,
-                        voRentCarAgentDataItem.get(i).RENTCAR_FIL_BRAND,
-                        voRentCarAgentDataItem.get(i).RENTCAR_SORT_DIST,
-                        voRentCarAgentDataItem.get(i).RENTCAR_SORT_POPU
-                ));
-                list2id++;
+                if (rentcarItem_chk < Integer.parseInt(voRentCarAgentItem.TOTAL)) {
+                    if (i % 2 == 0) {
+                        Rental_list_adapterItem.addItem1(new Rental_list_adapterItem.Rental_List_Item(
+                                list1id,
+                                voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_SEQ,
+                                voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_NAME,
+                                voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_IMG_URL,
+                                voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_AGENT,
+                                voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_AGENT_ADD,
+                                voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_DISCOUNT,
+                                voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_PRICE,
+                                voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_FIL_AGE,
+                                voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_FIL_TYPE,
+                                voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_FIL_BRAND,
+                                voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_SORT_DIST,
+                                voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_SORT_POPU
+                        ));
+                        list1id++;
+                    } else {
+                        Rental_list_adapterItem.addItem2(new Rental_list_adapterItem.Rental_List_Item(
+                                list2id,
+                                voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_SEQ,
+                                voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_NAME,
+                                voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_IMG_URL,
+                                voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_AGENT,
+                                voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_AGENT_ADD,
+                                voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_DISCOUNT,
+                                voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_PRICE,
+                                voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_FIL_AGE,
+                                voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_FIL_TYPE,
+                                voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_FIL_BRAND,
+                                voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_SORT_DIST,
+                                voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_SORT_POPU
+                        ));
+                        list2id++;
+                    }
+                    rentcarItem_chk++;
+                }
             }
         }
+        rentcarPage_chk++;
+
+//        if(Util.mProgress != null) {
+//            Util.dismiss();
+//        }
     }
 
 //    //정렬 다이얼로그에서 정렬시 실행되는 메소드
@@ -488,11 +528,13 @@ public class Rental_list extends AppCompatActivity {
 //
 
     //네트워크 연결 전 테스트용 메소드
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void listNetworkTest() {
         String it;
         //테스트용 더미데이터
-        it = "{\"rentcar_list\": [{\"TOTAL\":\"10\",\"CURRENT_PAGE\":\"2\",\"CURRENT_NUM\":\"5\"}]," +
-                "\"data\": [{\"RENTCAR_SEQ\":\"1\",\"RENTCAR_NAME\":\"아반떼\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271113552281.jpg\"," +
+        it = "{\"rentcar_list\": [{\"TOTAL\":\"50\",\"CURRENT_PAGE\":\"3\",\"CURRENT_NUM\":\"20\"}]," +
+                "\"data\": [{" +
+                "\"RENTCAR_SEQ\":\"1\",\"RENTCAR_NAME\":\"아반떼\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271113552281.jpg\"," +
                 "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"65000\",\"RENTCAR_FIL_AGE\":\"1\"," +
                 "\"RENTCAR_FIL_TYPE\":\"중형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
                 "{\"RENTCAR_SEQ\":\"2\",\"RENTCAR_NAME\":\"제네시스 G80\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201805281053589087.jpg\"," +
@@ -521,7 +563,132 @@ public class Rental_list extends AppCompatActivity {
                 "\"RENTCAR_FIL_TYPE\":\"대형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
                 "{\"RENTCAR_SEQ\":\"10\",\"RENTCAR_NAME\":\"쏘나타\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201908131116037666.jpg\"," +
                 "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"65000\",\"RENTCAR_FIL_AGE\":\"2\"," +
-                "\"RENTCAR_FIL_TYPE\":\"중형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}]}";
+                "\"RENTCAR_FIL_TYPE\":\"중형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+
+                "{\"RENTCAR_SEQ\":\"11\",\"RENTCAR_NAME\":\"아반떼\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271113552281.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"65000\",\"RENTCAR_FIL_AGE\":\"1\"," +
+                "\"RENTCAR_FIL_TYPE\":\"중형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"12\",\"RENTCAR_NAME\":\"제네시스 G80\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201805281053589087.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"200000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"대형\",\"RENTCAR_FIL_BRAND\":\"제네시스\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"13\",\"RENTCAR_NAME\":\"카니발\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271111488598.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"120000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"대형\",\"RENTCAR_FIL_BRAND\":\"기아\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"14\",\"RENTCAR_NAME\":\"그랜저\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/202001091104489284.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"115000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"대형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"15\",\"RENTCAR_NAME\":\"쏘나타\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201908131116037666.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"65000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"중형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"16\",\"RENTCAR_NAME\":\"아반떼\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271113552281.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"65000\",\"RENTCAR_FIL_AGE\":\"1\"," +
+                "\"RENTCAR_FIL_TYPE\":\"중형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"17\",\"RENTCAR_NAME\":\"제네시스 G80\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201805281053589087.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"200000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"대형\",\"RENTCAR_FIL_BRAND\":\"제네시스\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"18\",\"RENTCAR_NAME\":\"카니발\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271111488598.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"120000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"대형\",\"RENTCAR_FIL_BRAND\":\"기아\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"19\",\"RENTCAR_NAME\":\"그랜저\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/202001091104489284.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"115000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"대형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"20\",\"RENTCAR_NAME\":\"쏘나타\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201908131116037666.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"65000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"중형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+
+                "{\"RENTCAR_SEQ\":\"21\",\"RENTCAR_NAME\":\"아반떼\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271113552281.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"65000\",\"RENTCAR_FIL_AGE\":\"1\"," +
+                "\"RENTCAR_FIL_TYPE\":\"중형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"22\",\"RENTCAR_NAME\":\"제네시스 G80\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201805281053589087.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"200000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"대형\",\"RENTCAR_FIL_BRAND\":\"제네시스\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"23\",\"RENTCAR_NAME\":\"카니발\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271111488598.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"120000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"대형\",\"RENTCAR_FIL_BRAND\":\"기아\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"24\",\"RENTCAR_NAME\":\"그랜저\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/202001091104489284.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"115000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"대형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"25\",\"RENTCAR_NAME\":\"쏘나타\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201908131116037666.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"65000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"중형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"26\",\"RENTCAR_NAME\":\"아반떼\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271113552281.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"65000\",\"RENTCAR_FIL_AGE\":\"1\"," +
+                "\"RENTCAR_FIL_TYPE\":\"중형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"27\",\"RENTCAR_NAME\":\"제네시스 G80\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201805281053589087.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"200000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"대형\",\"RENTCAR_FIL_BRAND\":\"제네시스\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"28\",\"RENTCAR_NAME\":\"카니발\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271111488598.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"120000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"대형\",\"RENTCAR_FIL_BRAND\":\"기아\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"29\",\"RENTCAR_NAME\":\"그랜저\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/202001091104489284.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"115000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"대형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"30\",\"RENTCAR_NAME\":\"쏘나타\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201908131116037666.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"65000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"중형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+
+                "{\"RENTCAR_SEQ\":\"31\",\"RENTCAR_NAME\":\"아반떼\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271113552281.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"65000\",\"RENTCAR_FIL_AGE\":\"1\"," +
+                "\"RENTCAR_FIL_TYPE\":\"중형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"32\",\"RENTCAR_NAME\":\"제네시스 G80\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201805281053589087.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"200000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"대형\",\"RENTCAR_FIL_BRAND\":\"제네시스\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"33\",\"RENTCAR_NAME\":\"카니발\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271111488598.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"120000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"대형\",\"RENTCAR_FIL_BRAND\":\"기아\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"34\",\"RENTCAR_NAME\":\"그랜저\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/202001091104489284.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"115000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"대형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"35\",\"RENTCAR_NAME\":\"쏘나타\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201908131116037666.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"65000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"중형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"36\",\"RENTCAR_NAME\":\"아반떼\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271113552281.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"65000\",\"RENTCAR_FIL_AGE\":\"1\"," +
+                "\"RENTCAR_FIL_TYPE\":\"중형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"37\",\"RENTCAR_NAME\":\"제네시스 G80\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201805281053589087.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"200000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"대형\",\"RENTCAR_FIL_BRAND\":\"제네시스\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"38\",\"RENTCAR_NAME\":\"카니발\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271111488598.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"120000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"대형\",\"RENTCAR_FIL_BRAND\":\"기아\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"39\",\"RENTCAR_NAME\":\"그랜저\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/202001091104489284.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"115000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"대형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"40\",\"RENTCAR_NAME\":\"쏘나타\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201908131116037666.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"65000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"중형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+
+                "{\"RENTCAR_SEQ\":\"41\",\"RENTCAR_NAME\":\"아반떼\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271113552281.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"65000\",\"RENTCAR_FIL_AGE\":\"1\"," +
+                "\"RENTCAR_FIL_TYPE\":\"중형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"42\",\"RENTCAR_NAME\":\"제네시스 G80\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201805281053589087.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"200000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"대형\",\"RENTCAR_FIL_BRAND\":\"제네시스\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"43\",\"RENTCAR_NAME\":\"카니발\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271111488598.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"120000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"대형\",\"RENTCAR_FIL_BRAND\":\"기아\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"44\",\"RENTCAR_NAME\":\"그랜저\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/202001091104489284.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"115000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"대형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"45\",\"RENTCAR_NAME\":\"쏘나타\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201908131116037666.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"65000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"중형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"46\",\"RENTCAR_NAME\":\"아반떼\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271113552281.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"65000\",\"RENTCAR_FIL_AGE\":\"1\"," +
+                "\"RENTCAR_FIL_TYPE\":\"중형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"47\",\"RENTCAR_NAME\":\"제네시스 G80\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201805281053589087.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"200000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"대형\",\"RENTCAR_FIL_BRAND\":\"제네시스\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"48\",\"RENTCAR_NAME\":\"카니발\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271111488598.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"120000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"대형\",\"RENTCAR_FIL_BRAND\":\"기아\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"49\",\"RENTCAR_NAME\":\"그랜저\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/202001091104489284.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"115000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"대형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"}," +
+                "{\"RENTCAR_SEQ\":\"50\",\"RENTCAR_NAME\":\"쏘나타\",\"RENTCAR_IMG_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201908131116037666.jpg\"," +
+                "\"RENTCAR_AGENT\":\"제주 지점\",\"RENTCAR_AGENT_ADD\":\"제주특별자치도\",\"RENTCAR_DISCOUNT\":\"75% 할인\",\"RENTCAR_PRICE\":\"65000\",\"RENTCAR_FIL_AGE\":\"2\"," +
+                "\"RENTCAR_FIL_TYPE\":\"중형\",\"RENTCAR_FIL_BRAND\":\"현대\",\"RENTCAR_SORT_DIST\":\"20.12345678\",\"RENTCAR_SORT_POPU\":\"113\"" +
+                "}]}";
 
         Gson gson = new Gson();
         rentCarAgentResult = gson.fromJson(it, RentCarAgentResult.class);
@@ -533,6 +700,7 @@ public class Rental_list extends AppCompatActivity {
 
         voRentCarAgentDataItem = rentCarAgentResult.data;
 
+        Rental_list_adapterItem.clearItem(); //아이템 초기화(비워줌)
         putItemToList();
         callRentalListRecyclerViewAdapter();
 
