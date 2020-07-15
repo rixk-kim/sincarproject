@@ -102,6 +102,8 @@ public class MapsActivity extends FragmentActivity implements
     RelativeLayout reMap;
     boolean mapCheck = false;
     MapPOIItem marker;
+
+    public static boolean homeKeyPressed;
     ///sy
 
     @Override
@@ -274,6 +276,8 @@ public class MapsActivity extends FragmentActivity implements
                 ((Maps_rent_mainfrag) getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar)).AddressChange();
             }
         }
+
+        homeKeyPressed = false;
     }
     ///sy
     //sy 렌터카 메인 화면 및 예약시간 프래그먼트를 표현하기 위한 메소드
@@ -368,15 +372,24 @@ public class MapsActivity extends FragmentActivity implements
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         mapViewContainer.removeView(mapView); //액티비티가 넘어갈때 맵뷰를 컨테이너에서 삭제(오류 방지)
+        if(homeKeyPressed) {
+            start_date = null; start_time = null; return_date = null; return_time = null; //홈키가 눌렸을경우 초기화
+        }
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         start_date = null; start_time = null; return_date = null; return_time = null; //메뉴로 돌아가면 예약,반납 시간 초기화
+    }
+
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        homeKeyPressed = true;
     }
 
     /**

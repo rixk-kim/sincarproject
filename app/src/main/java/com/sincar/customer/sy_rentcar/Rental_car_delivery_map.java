@@ -31,6 +31,8 @@ import java.util.List;
 import java.util.Locale;
 
 import static com.sincar.customer.MapsActivity.MAP_REQ_CODE;
+import static com.sincar.customer.MapsActivity._mMapsActivity;
+import static com.sincar.customer.MapsActivity.homeKeyPressed;
 
 public class Rental_car_delivery_map extends AppCompatActivity implements View.OnClickListener, MapView.MapViewEventListener {
 
@@ -122,6 +124,7 @@ public class Rental_car_delivery_map extends AppCompatActivity implements View.O
                 //주소 검색 액티비티 호출 메소드
             case R.id.con_car_del_address:
                 intent = new Intent(this, ReservationAddressActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
                 startActivityForResult(intent, MAP_REQ_CODE);
                 break;
                 //현재 화면의 중심으로 딜리버리 적용 최종 결정 버튼
@@ -137,6 +140,13 @@ public class Rental_car_delivery_map extends AppCompatActivity implements View.O
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        homeKeyPressed = true;
+        _mMapsActivity.onPause();
     }
 
     /**

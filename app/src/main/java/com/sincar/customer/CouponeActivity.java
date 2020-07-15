@@ -32,6 +32,8 @@ import static com.sincar.customer.HWApplication.voCouponeItem;
 import static com.sincar.customer.HWApplication.voCouponeDataItem;
 
 import static com.sincar.customer.HWApplication.voLoginItem;
+import static com.sincar.customer.MapsActivity._mMapsActivity;
+import static com.sincar.customer.MapsActivity.homeKeyPressed;
 import static com.sincar.customer.common.Constants.COUPONE_LIST_REQUEST;
 
 /**
@@ -272,6 +274,15 @@ public class CouponeActivity extends AppCompatActivity implements View.OnClickLi
             startActivity(intent);
 
             finish();
+        }
+    }
+
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        if (_mMapsActivity != null) {
+            homeKeyPressed = true;
+            _mMapsActivity.onPause();
         }
     }
 }

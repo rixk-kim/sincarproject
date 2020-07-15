@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import static com.sincar.customer.MapsActivity._mMapsActivity;
+import static com.sincar.customer.MapsActivity.homeKeyPressed;
+
 
 public class UseTerms2Activity extends AppCompatActivity implements View.OnClickListener {
     private String vari;
@@ -45,6 +48,15 @@ public class UseTerms2Activity extends AppCompatActivity implements View.OnClick
     public void onBackPressed() {
         //super.onBackPressed();
         finish();
+    }
+
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        if (_mMapsActivity != null) {
+            homeKeyPressed = true;
+            _mMapsActivity.onPause();
+        }
     }
 }
 

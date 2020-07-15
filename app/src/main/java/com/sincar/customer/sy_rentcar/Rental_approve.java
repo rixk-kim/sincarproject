@@ -13,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.sincar.customer.MainActivity;
 import com.sincar.customer.R;
 
+import static com.sincar.customer.MapsActivity._mMapsActivity;
+import static com.sincar.customer.MapsActivity.homeKeyPressed;
+
 public class Rental_approve extends AppCompatActivity implements View.OnClickListener {
 
     private Context dContext;
@@ -61,6 +64,13 @@ public class Rental_approve extends AppCompatActivity implements View.OnClickLis
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        homeKeyPressed = true;
+        _mMapsActivity.onPause();
     }
 }
 

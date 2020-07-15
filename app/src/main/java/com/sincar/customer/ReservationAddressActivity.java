@@ -39,6 +39,8 @@ import static com.sincar.customer.HWApplication.searchWordResult;
 import static com.sincar.customer.HWApplication.voSearchWordDataItem;
 import static com.sincar.customer.HWApplication.voSearchWordItem;
 import static com.sincar.customer.HWApplication.voLoginItem;
+import static com.sincar.customer.MapsActivity._mMapsActivity;
+import static com.sincar.customer.MapsActivity.homeKeyPressed;
 import static com.sincar.customer.common.Constants.CURRENT_SEARCH_REQUEST;
 import static com.sincar.customer.common.Constants.LOGIN_REQUEST;
 import static com.sincar.customer.common.Constants.SEARCH_WORD_REQUEST;
@@ -318,5 +320,13 @@ public class ReservationAddressActivity extends AppCompatActivity implements Vie
         }
     }
 
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        if (_mMapsActivity != null) {
+            homeKeyPressed = true;
+            _mMapsActivity.onPause();
+        }
+    }
 
 }

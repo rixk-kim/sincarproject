@@ -32,6 +32,8 @@ import java.util.HashMap;
 
 import static com.sincar.customer.HWApplication.rentCarDetailResult;
 import static com.sincar.customer.HWApplication.voLoginItem;
+import static com.sincar.customer.MapsActivity._mMapsActivity;
+import static com.sincar.customer.MapsActivity.homeKeyPressed;
 import static com.sincar.customer.common.Constants.RENTCAR_LIST_DETAIL_REQUEST;
 import static com.sincar.customer.common.Constants.RENTCAR_LIST_REQUEST;
 
@@ -286,6 +288,7 @@ public class Rental_list_detail extends FragmentActivity implements
                 //TODO - 파라메터 추가
                 //rental_payment액티비티에 전달할 데이터 입력
                 intent = new Intent(this, Rental_payment.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
                 intent.putExtra("RESERVE_YEAR", start_year);
                 intent.putExtra("RESERVE_DATE", start_date_volley);
                 intent.putExtra("RESERVE_TIME", start_time);
@@ -345,6 +348,7 @@ public class Rental_list_detail extends FragmentActivity implements
                 // TODO : 배차위치 변경하러 가기
                 //sy
                 intent = new Intent(this, Rental_car_delivery_map.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
                 intent.putExtra("delivery_type", select_delivery);
                 startActivityForResult(intent,CAR_START_REQ_CODE);
                 //Toast.makeText(getApplicationContext(),"배차위치 변경하러 가기",Toast.LENGTH_SHORT).show();
@@ -353,6 +357,7 @@ public class Rental_list_detail extends FragmentActivity implements
             case R.id.rental_return_position:
                 // TODO : 반납위치 변경하러 가기
                 intent = new Intent(this, Rental_car_delivery_map.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
                 intent.putExtra("delivery_type", select_delivery);
                 startActivityForResult(intent,CAR_END_REQ_CODE);
                 //Toast.makeText(getApplicationContext(),"반납위치 변경하러 가기",Toast.LENGTH_SHORT).show();
@@ -559,6 +564,13 @@ public class Rental_list_detail extends FragmentActivity implements
             Util.dismiss();
         }
     };
+
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        homeKeyPressed = true;
+        _mMapsActivity.onPause();
+    }
 
     private void detailNetworkTest() {
         String it = null;

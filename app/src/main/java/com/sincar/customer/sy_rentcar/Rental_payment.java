@@ -46,6 +46,8 @@ import static com.sincar.customer.HWApplication.reserveResult;
 import static com.sincar.customer.HWApplication.voLoginItem;
 import static com.sincar.customer.HWApplication.voRentcarReserveItem;
 import static com.sincar.customer.HWApplication.voReserveItem;
+import static com.sincar.customer.MapsActivity._mMapsActivity;
+import static com.sincar.customer.MapsActivity.homeKeyPressed;
 import static com.sincar.customer.common.Constants.PAY_APPROVE_REQUEST;
 import static com.sincar.customer.common.Constants.RENTCAR_PAY_REQUEST;
 import static com.sincar.customer.util.Util.setAddMoneyDot;
@@ -286,6 +288,7 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
                 }
 
                 intent = new Intent(this, CouponeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
                 intent.putExtra("path", "rental_payment");
                 startActivityForResult(intent, RENTAL_PAYMENT_REQ_CODE);
                 break;
@@ -335,6 +338,7 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
                    // rentCarRequestReserveInfo(); //결제정보를 DB에 저장하는 메소드
 
                     intent = new Intent(pContext, Rental_approve.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
                     startActivity(intent);
                 }else {
                     Toast.makeText(com.sincar.customer.sy_rentcar.Rental_payment.this, "약관 동의를 체크해 주세요.", Toast.LENGTH_LONG).show();
@@ -362,6 +366,7 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
             case R.id.rental_btnCancelDesc:
                 //취소 정책 자세히
                 intent = new Intent(this, UseTerms2Activity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
                 startActivity(intent);
                 break;
         }
@@ -521,6 +526,7 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
 
                     //성공화면 이동
                     Intent intent = new Intent(pContext, Rental_approve.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
                     startActivity(intent);
                     finish();
                 } else {
@@ -569,5 +575,12 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
             Util.dismiss();
         }
     };
+
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        homeKeyPressed = true;
+        _mMapsActivity.onPause();
+    }
 
 }

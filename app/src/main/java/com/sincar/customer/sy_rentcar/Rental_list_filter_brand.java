@@ -17,6 +17,9 @@ import com.sincar.customer.sy_rentcar.Rental_list_filter.su_brand_filter;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import static com.sincar.customer.MapsActivity._mMapsActivity;
+import static com.sincar.customer.MapsActivity.homeKeyPressed;
+
 public class Rental_list_filter_brand extends AppCompatActivity {
 
     ImageButton imBack;
@@ -117,5 +120,13 @@ public class Rental_list_filter_brand extends AppCompatActivity {
                 finish();
             }
         });
+
+    }
+
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        homeKeyPressed = true;
+        _mMapsActivity.onPause();
     }
 }

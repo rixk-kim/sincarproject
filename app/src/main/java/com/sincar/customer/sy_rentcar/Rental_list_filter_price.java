@@ -13,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.sincar.customer.R;
 import com.sincar.customer.sy_rentcar.Rental_list_filter.price_filter;
 
+import static com.sincar.customer.MapsActivity._mMapsActivity;
+import static com.sincar.customer.MapsActivity.homeKeyPressed;
+
 public class Rental_list_filter_price extends AppCompatActivity {
 
     ImageButton imBack;
@@ -186,5 +189,12 @@ public class Rental_list_filter_price extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        homeKeyPressed = true;
+        _mMapsActivity.onPause();
     }
 }

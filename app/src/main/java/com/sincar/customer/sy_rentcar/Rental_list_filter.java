@@ -16,6 +16,9 @@ import com.sincar.customer.R;
 import java.util.ArrayList;
 import java.util.EnumSet;
 
+import static com.sincar.customer.MapsActivity._mMapsActivity;
+import static com.sincar.customer.MapsActivity.homeKeyPressed;
+
 public class Rental_list_filter extends AppCompatActivity {
 
     ConstraintLayout btnAge, btnBrand, btnPrice, btnType; //4개의 레이아웃을 버튼으로 활성화
@@ -128,6 +131,7 @@ public class Rental_list_filter extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getApplicationContext(), Rental_list_filter_age.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
                 startActivityForResult(intent, filter.age.ordinal());
             }
         });
@@ -136,6 +140,7 @@ public class Rental_list_filter extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getApplicationContext(), Rental_list_filter_price.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
                 startActivityForResult(intent, filter.price.ordinal());
             }
         });
@@ -144,6 +149,7 @@ public class Rental_list_filter extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getApplicationContext(), Rental_list_filter_type.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
                 startActivityForResult(intent, filter.type.ordinal());
             }
         });
@@ -152,6 +158,7 @@ public class Rental_list_filter extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getApplicationContext(), Rental_list_filter_brand.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
                 startActivityForResult(intent, filter.brand.ordinal());
             }
         });
@@ -194,6 +201,7 @@ public class Rental_list_filter extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                backToList.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
                 backToList.putExtra("age_data", rent_car_list_age);
                 backToList.putExtra("price_data", rent_car_list_price);
                 backToList.putExtra("type_data", rent_car_list_type);
@@ -250,6 +258,13 @@ public class Rental_list_filter extends AppCompatActivity {
             suBrand = (su_brand_filter[]) data.getSerializableExtra("suBrand");
         }
 
+    }
+
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        homeKeyPressed = true;
+        _mMapsActivity.onPause();
     }
 
 //    //적용된 조건에 따라 조건 텍스트뷰에 설정(나이)
