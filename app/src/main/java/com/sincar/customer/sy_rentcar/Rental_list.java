@@ -471,6 +471,7 @@ public class Rental_list extends AppCompatActivity {
         rentcarPage_chk++;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();

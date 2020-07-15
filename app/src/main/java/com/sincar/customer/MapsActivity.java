@@ -8,6 +8,7 @@ import android.content.pm.Signature;
 import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -23,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.FragmentActivity;
@@ -376,7 +378,7 @@ public class MapsActivity extends FragmentActivity implements
         super.onPause();
         mapViewContainer.removeView(mapView); //액티비티가 넘어갈때 맵뷰를 컨테이너에서 삭제(오류 방지)
         if(homeKeyPressed) {
-            start_date = null; start_time = null; return_date = null; return_time = null; //홈키가 눌렸을경우 초기화
+            start_date = null; start_time = null; return_date = null; return_time = null; //홈버튼 누른후 다시 시작시 초기화
         }
     }
 
@@ -386,11 +388,13 @@ public class MapsActivity extends FragmentActivity implements
         start_date = null; start_time = null; return_date = null; return_time = null; //메뉴로 돌아가면 예약,반납 시간 초기화
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
         homeKeyPressed = true;
     }
+
 
     /**
      * 현 위치 호출시 주소 갱신
@@ -442,6 +446,7 @@ public class MapsActivity extends FragmentActivity implements
             case R.id.btnMapHome:
                 // 지도 home button -> 메인이동
                 intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
                 //메뉴로 돌아가면 예약,반납 시간 초기화
                 start_date = null; start_time = null; return_date = null; return_time = null;
                 startActivity(intent);
@@ -490,6 +495,7 @@ public class MapsActivity extends FragmentActivity implements
                 // "주소 검색" 설정
                 //startActivity(new Intent(this, ReservationAddressActivity.class));
                 intent = new Intent(this, ReservationAddressActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
                 startActivityForResult(intent, MAP_REQ_CODE);
                 break;
 
@@ -502,6 +508,7 @@ public class MapsActivity extends FragmentActivity implements
 
                 // "예약일자" 설정
                 intent = new Intent(this, ReservationCalendarActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
                 startActivityForResult(intent, CALENDA_REQ_CODE);
                 break;
             case R.id.btnNext:
@@ -511,6 +518,7 @@ public class MapsActivity extends FragmentActivity implements
                     if ("steam".equals(main_path) || "driver".equals(main_path)) {
                         //시간선택으로 바로가기
                         intent = new Intent(this, ReservationTimeActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
                         intent.putExtra("reserve_address", cAddress);
                         if (TextUtils.isEmpty(search_keyword)) search_keyword = cAddress;
                         intent.putExtra("search_keyword", search_keyword);
