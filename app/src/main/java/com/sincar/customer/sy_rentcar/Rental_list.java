@@ -71,7 +71,7 @@ public class Rental_list extends AppCompatActivity {
     LatLng reserve_LatLng; //예약주소 위경도
     private final static int RENTAL_CAR_LIST_FILTER = 3333;
 
-    int rentcarPage_chk = 0,rentcarPage_max = 1, rentcarItem_chk = 0, list1id = 0, list2id = 0;
+    int rentcarPage_chk = 1,rentcarPage_max = 1, rentcarItem_chk = 0, list1id = 0, list2id = 0;
     int requestNum = 20;
 
     final HashMap<String, String> postParams = new HashMap<String, String>();
@@ -190,11 +190,10 @@ public class Rental_list extends AppCompatActivity {
                         btSort.setText(st.getValue());
                         sort = st;
 
-                        requestSetting();
-
-                        rentcarPage_chk = 0; //아이템 리스트 페이지 체크 변수 초기화
+                        rentcarPage_chk = 1; //아이템 리스트 페이지 체크 변수 초기화
                         rentcarItem_chk = 0; //아이템 리스트 체크 변수 초기화
                         Rental_list_adapterItem.clearItem(); //아이템 초기화(비워줌)
+                        requestSetting();
 
                         Util.showDialog(rental_list_context);
 
@@ -292,12 +291,10 @@ public class Rental_list extends AppCompatActivity {
                 kukBrand = (kuk_brand_filter[]) data.getSerializableExtra("kukBrand");
                 suBrand = (su_brand_filter[]) data.getSerializableExtra("suBrand");
 
-                requestSetting();
-
-                rentcarPage_chk = 0; //아이템 리스트 페이지 체크 변수 초기화
+                rentcarPage_chk = 1; //아이템 리스트 페이지 체크 변수 초기화
                 rentcarItem_chk = 0; //아이템 리스트 체크 변수 초기화
                 Rental_list_adapterItem.clearItem(); //아이템 초기화(비워줌)
-
+                requestSetting();
                 Util.showDialog(rental_list_context);
 
                 //발리네트워크 연결
@@ -366,11 +363,11 @@ public class Rental_list extends AppCompatActivity {
                 @Override
                 public void onRefresh() {
                     Rental_list_adapterItem.clearItem(); //아이템 초기화(비워줌)
-                    rentcarPage_chk = 0;
-                    rentcarPage_max = 1;
+                    rentcarPage_chk = 1;
                     rentcarItem_chk = 0;
                     list1id = 0;
                     list2id = 0;
+                    requestSetting();
 
                     Util.showDialog(rental_list_context);
                     VolleyNetwork.getInstance(rental_list_context).serverDataRequest(RENTCAR_LIST_REQUEST, postParams, onRentalListInteractionListener);
@@ -394,6 +391,9 @@ public class Rental_list extends AppCompatActivity {
                         Util.showDialog(rental_list_context);
                         VolleyNetwork.getInstance(rental_list_context).serverDataRequest(RENTCAR_LIST_REQUEST, postParams, onRentalListInteractionListener);
                         adapter.notifyDataSetChanged();
+                    }
+                    if(!nestedScrollView.canScrollVertically(1) && rentcarPage_chk == rentcarPage_max + 1) {
+                        Toast.makeText(getApplicationContext(), "리스트의 끝입니다.", Toast.LENGTH_LONG).show();
                     }
                 }
             });
@@ -486,8 +486,6 @@ public class Rental_list extends AppCompatActivity {
                 rentcarItem_chk++;
             }
         }
-        if(rentcarItem_chk == Integer.parseInt(voRentCarAgentItem.TOTAL))
-            Toast.makeText(getApplicationContext(), "리스트의 끝입니다.", Toast.LENGTH_LONG).show();
         rentcarPage_chk++;
     }
 

@@ -152,7 +152,7 @@
             android:id="@+id/rent_list_tv2_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="13dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="11dp"
             android:background="@drawable/default_background_type_price"
             android:fontFamily="@font/nanumsquareextrabold"

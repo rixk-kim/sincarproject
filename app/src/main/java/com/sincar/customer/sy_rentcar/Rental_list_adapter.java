@@ -111,7 +111,10 @@ public class Rental_list_adapter extends RecyclerView.Adapter<Rental_list_adapte
             Glide.with(mContext).load(ivUrl1).into(holder.ivRental_Car1);
             holder.tvRental_Shop1.setText(tvRental_Shop1);
             holder.tvRental_CarName1.setText(tvRental_CarName1);
-            holder.tvRental_Dis1.setText(tvRental_dis1);
+            if("".equals(tvRental_dis1))
+                holder.tvRental_Dis1.setVisibility(View.GONE);
+            else
+                holder.tvRental_Dis1.setText(tvRental_dis1);
             holder.tvRental_Price1.setText(Util.setAddMoneyDot(tvRental_Price1) + "원");
         }
 
@@ -125,7 +128,10 @@ public class Rental_list_adapter extends RecyclerView.Adapter<Rental_list_adapte
             Glide.with(mContext).load(ivUrl2).into(holder.ivRental_Car2);
             holder.tvRental_Shop2.setText(tvRental_Shop2);
             holder.tvRental_CarName2.setText(tvRental_CarName2);
-            holder.tvRental_Dis2.setText(tvRental_dis2);
+            if("".equals(tvRental_dis2))
+                holder.tvRental_Dis2.setVisibility(View.GONE);
+            else
+                holder.tvRental_Dis2.setText(tvRental_dis2);
             holder.tvRental_Price2.setText(Util.setAddMoneyDot(tvRental_Price2) + "원");
         }
 
