@@ -77,8 +77,8 @@ public class Rental_list_filter extends AppCompatActivity {
     }
     public enum su_brand_filter {
         nissan("닛산"), toyota("토요타"), mastuda("마츠다"), mitsubishi("미쓰비시"),
-        gm("GM"), chevrolet("쉐보레"), nissan2("닛산"), toyota2("도요타"),
-        mastuda2("마츠다"), mitsubishi2("미쓰비시");
+        gm("GM"), chevrolet("쉐보레")/*, nissan2("닛산"), toyota2("도요타"),
+        mastuda2("마츠다"), mitsubishi2("미쓰비시")*/;
         private final String su_brand_str;
         su_brand_filter (String su_brand_str) {
             this.su_brand_str = su_brand_str;

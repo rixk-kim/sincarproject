@@ -26,12 +26,13 @@ public class Rental_list_filter_brand extends AppCompatActivity {
     Button btnBrandCheck, btnBrandClear;
     //복수 체크 가능
     CheckBox rb1[] = new CheckBox[6];
-    CheckBox rb2[] = new CheckBox[10];
+//    CheckBox rb2[] = new CheckBox[10];
+    CheckBox rb2[] = new CheckBox[6];
     String brandStrData = "";
 //    String[] brandArrayData1 = {"현대", "제네시스", "기아", "쌍용", "르노삼성", "쉐보레"};
 //    String[] brandArrayData2 = {"닛산", "도요타", "마쯔다", "미쓰비시", "GM", "쉐보레", "닛산", "도요타", "마쯔다", "미쓰비시"};
     int[] idList1 = {R.id.rb1_1, R.id.rb1_2, R.id.rb1_3, R.id.rb1_4, R.id.rb1_5, R.id.rb1_6};
-    int[] idList2 = {R.id.rb2_1, R.id.rb2_2, R.id.rb2_3, R.id.rb2_4, R.id.rb2_5, R.id.rb2_6, R.id.rb2_7, R.id.rb2_8, R.id.rb2_9, R.id.rb2_10};
+    int[] idList2 = {R.id.rb2_1, R.id.rb2_2, R.id.rb2_3, R.id.rb2_4, R.id.rb2_5, R.id.rb2_6/*, R.id.rb2_7, R.id.rb2_8, R.id.rb2_9, R.id.rb2_10*/};
 
 
     @Override
@@ -47,7 +48,8 @@ public class Rental_list_filter_brand extends AppCompatActivity {
         for(int i = 0; i < 6; i++) {
             rb1[i] = (CheckBox)findViewById(idList1[i]);
         }
-        for(int i = 0; i < 10; i++) {
+//        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < 6; i++) {
             rb2[i] = (CheckBox)findViewById(idList2[i]);
         }
 
@@ -66,7 +68,8 @@ public class Rental_list_filter_brand extends AppCompatActivity {
                 for(int i = 0; i < 6; i ++) {
                     rb1[i].setChecked(false);
                 }
-                for(int i = 0; i < 10; i ++) {
+//                for(int i = 0; i < 10; i ++) {
+                for(int i = 0; i < 6; i++) {
                     rb2[i].setChecked(false);
                 }
             }

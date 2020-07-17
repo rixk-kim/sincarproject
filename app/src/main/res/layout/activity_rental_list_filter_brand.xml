@@ -217,57 +217,57 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rb2_4" />
 
-    <!-- TODO 국외 아이템7 -->
-    <CheckBox
-        android:id="@+id/rb2_7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="25dp"
-        android:button="@drawable/checkbox_selector"
-        android:fontFamily="@font/nanumsquareregular"
-        android:text="  닛산"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rb2_5" />
+<!--    &lt;!&ndash; TODO 국외 아이템7 &ndash;&gt;-->
+    <!--    <CheckBox-->
+    <!--        android:id="@+id/rb2_7"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="31dp"-->
+    <!--        android:layout_marginTop="25dp"-->
+    <!--        android:button="@drawable/checkbox_selector"-->
+    <!--        android:fontFamily="@font/nanumsquareregular"-->
+    <!--        android:text="  닛산"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/rb2_5" />-->
 
-    <!-- TODO 국외 아이템8 -->
-    <CheckBox
-        android:id="@+id/rb2_8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="201dp"
-        android:layout_marginTop="25dp"
-        android:button="@drawable/checkbox_selector"
-        android:fontFamily="@font/nanumsquareregular"
-        android:text="  도요타"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rb2_6" />
+<!--    &lt;!&ndash; TODO 국외 아이템8 &ndash;&gt;-->
+<!--    <CheckBox-->
+<!--        android:id="@+id/rb2_8"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="201dp"-->
+<!--        android:layout_marginTop="25dp"-->
+<!--        android:button="@drawable/checkbox_selector"-->
+<!--        android:fontFamily="@font/nanumsquareregular"-->
+<!--        android:text="  도요타"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/rb2_6" />-->
 
-    <!-- TODO 국외 아이템9 -->
-    <CheckBox
-        android:id="@+id/rb2_9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="25dp"
-        android:button="@drawable/checkbox_selector"
-        android:fontFamily="@font/nanumsquareregular"
-        android:text="  마쯔다"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rb2_7" />
+<!--    &lt;!&ndash; TODO 국외 아이템9 &ndash;&gt;-->
+<!--    <CheckBox-->
+<!--        android:id="@+id/rb2_9"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="31dp"-->
+<!--        android:layout_marginTop="25dp"-->
+<!--        android:button="@drawable/checkbox_selector"-->
+<!--        android:fontFamily="@font/nanumsquareregular"-->
+<!--        android:text="  마쯔다"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/rb2_7" />-->
 
-    <!-- TODO 국외 아이템10 -->
-    <CheckBox
-        android:id="@+id/rb2_10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="201dp"
-        android:layout_marginTop="25dp"
-        android:button="@drawable/checkbox_selector"
-        android:fontFamily="@font/nanumsquareregular"
-        android:text="  미쓰비시"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rb2_8" />
+<!--    &lt;!&ndash; TODO 국외 아이템10 &ndash;&gt;-->
+<!--    <CheckBox-->
+<!--        android:id="@+id/rb2_10"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="201dp"-->
+<!--        android:layout_marginTop="25dp"-->
+<!--        android:button="@drawable/checkbox_selector"-->
+<!--        android:fontFamily="@font/nanumsquareregular"-->
+<!--        android:text="  미쓰비시"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/rb2_8" />-->
 
     <!-- TODO 최종 적용 버튼 -->
     <Button

@@ -60,7 +60,8 @@ public class Rental_list_detail extends FragmentActivity implements
     private TextView tvAgent_name, tvAgent_name_small, tvRental_car_name;
     private TextView btn_rental_allocate, btn_rental_return;
     private View view_touchless;
-    private LinearLayout insuranceCheck; private CheckBox deleteCheck;
+    private LinearLayout insuranceCheck;
+    private CheckBox deleteCheck;
 
     //렌탈 리스트 디테일용 커스텀 다이얼로그
     CustomDialogInListDetail customSpinnerDialog;
@@ -73,6 +74,8 @@ public class Rental_list_detail extends FragmentActivity implements
     TextView tvDelPri, tvDelTime, tvDelArea;
     TextView tvInsurance1, tvInsurance2, tvDelPrice, tvCarPrice, tvTotalPrice;
     TextView tvDelipossible;
+    TextView tvInsuName;
+    ImageView ivInsuInfo;
     int insuPrice, deliPrice, rentPrice; // 보험금액, 딜리버리 금액, 총 금액
     ///sy
 
@@ -103,7 +106,7 @@ public class Rental_list_detail extends FragmentActivity implements
         findViewById(R.id.rental_detail_btnPrev_layout).setOnClickListener(this);
         findViewById(R.id.rental_confirm_btn).setOnClickListener(this);
 
-        car_image  = (ImageView) findViewById(R.id.rental_car_image);
+        car_image = (ImageView) findViewById(R.id.rental_car_image);
         //디바이스 화면 크기 구하는 메소드
 //        Display display = getWindowManager().getDefaultDisplay();
 //        Point size = new Point();
@@ -113,17 +116,17 @@ public class Rental_list_detail extends FragmentActivity implements
 
         //배차 및 반납 위치
         rental_allocate_text = (TextView) findViewById(R.id.rental_allocate_text);
-        rental_return_text   = (TextView) findViewById(R.id.rental_return_text);
+        rental_return_text = (TextView) findViewById(R.id.rental_return_text);
 
         //배차 및 반납 위치 설정 버튼
-        btn_rental_allocate = (TextView)findViewById(R.id.rental_allocate_position);
-        btn_rental_return = (TextView)findViewById(R.id.rental_return_position);
+        btn_rental_allocate = (TextView) findViewById(R.id.rental_allocate_position);
+        btn_rental_return = (TextView) findViewById(R.id.rental_return_position);
         btn_rental_allocate.setOnClickListener(this);
         btn_rental_return.setOnClickListener(this);
 
         //지도
         mRelativeLayout = (RelativeLayout) findViewById(R.id.rMap);
-        view_touchless = (View)findViewById(R.id.view_touchless);
+        view_touchless = (View) findViewById(R.id.view_touchless);
 
         mapView = new MapView(this);
         mapViewContainer = (ViewGroup) findViewById(R.id.rMap);
@@ -134,16 +137,16 @@ public class Rental_list_detail extends FragmentActivity implements
         tvDelivery_dialog = findViewById(R.id.rental_spinner);
 
         //sy
-        rental_car_start_date = (TextView)findViewById(R.id.rental_car_start_date);
-        rental_car_start_time = (TextView)findViewById(R.id.rental_car_start_time);
-        rental_car_end_date = (TextView)findViewById(R.id.rental_car_end_date);
-        rental_car_end_time = (TextView)findViewById(R.id.rental_car_end_time);
-        tvAgent_name = (TextView)findViewById(R.id.rental_agent);
-        tvAgent_name_small = (TextView)findViewById(R.id.rental_agent_name);
-        tvRental_car_name = (TextView)findViewById(R.id.rental_car_name);
-        insuranceCheck = (LinearLayout)findViewById(R.id.rental_car_insu_check);
-        deleteCheck = (CheckBox)findViewById(R.id.delete2_checkbox);
-        tvDelipossible = (TextView)findViewById(R.id.rental_car_delivery);
+        rental_car_start_date = (TextView) findViewById(R.id.rental_car_start_date);
+        rental_car_start_time = (TextView) findViewById(R.id.rental_car_start_time);
+        rental_car_end_date = (TextView) findViewById(R.id.rental_car_end_date);
+        rental_car_end_time = (TextView) findViewById(R.id.rental_car_end_time);
+        tvAgent_name = (TextView) findViewById(R.id.rental_agent);
+        tvAgent_name_small = (TextView) findViewById(R.id.rental_agent_name);
+        tvRental_car_name = (TextView) findViewById(R.id.rental_car_name);
+        insuranceCheck = (LinearLayout) findViewById(R.id.rental_car_insu_check);
+        deleteCheck = (CheckBox) findViewById(R.id.delete2_checkbox);
+        tvDelipossible = (TextView) findViewById(R.id.rental_car_delivery);
 
         Intent intent = getIntent(); //Rental_list에서 넘어온 데이터 수신
 
@@ -181,33 +184,36 @@ public class Rental_list_detail extends FragmentActivity implements
         insuranceCheck.setOnClickListener(this);
 
         //디테일 정보 바인딩
-        tvCarNum = (TextView)findViewById(R.id.rental_car_number);
-        tvCarFuel = (TextView)findViewById(R.id.rental_car_fuel);
-        tvCarFpy = (TextView)findViewById(R.id.rental_car_mileage);
-        tvCarCol = (TextView)findViewById(R.id.rental_car_color);
-        tvCarMade = (TextView)findViewById(R.id.rental_car_model);
-        tvCarAge = (TextView)findViewById(R.id.rental_car_age);
-        tvCarMan = (TextView)findViewById(R.id.rental_car_boarding);
+        tvCarNum = (TextView) findViewById(R.id.rental_car_number);
+        tvCarFuel = (TextView) findViewById(R.id.rental_car_fuel);
+        tvCarFpy = (TextView) findViewById(R.id.rental_car_mileage);
+        tvCarCol = (TextView) findViewById(R.id.rental_car_color);
+        tvCarMade = (TextView) findViewById(R.id.rental_car_model);
+        tvCarAge = (TextView) findViewById(R.id.rental_car_age);
+        tvCarMan = (TextView) findViewById(R.id.rental_car_boarding);
 
-        tvAgentAddress = (TextView)findViewById(R.id.rental_car_address);
-        tvAgentTime = (TextView)findViewById(R.id.rental_car_sales_time);
-        tvAgentDel = (TextView)findViewById(R.id.rental_car_sales_area);
+        tvAgentAddress = (TextView) findViewById(R.id.rental_car_address);
+        tvAgentTime = (TextView) findViewById(R.id.rental_car_sales_time);
+        tvAgentDel = (TextView) findViewById(R.id.rental_car_sales_area);
 
-        tvDelPri = (TextView)findViewById(R.id.rental_use_money);
-        tvDelTime = (TextView)findViewById(R.id.rental_use_time);
-        tvDelArea = (TextView)findViewById(R.id.rental_car_sales_area);
+        tvDelPri = (TextView) findViewById(R.id.rental_use_money);
+        tvDelTime = (TextView) findViewById(R.id.rental_use_time);
+        tvDelArea = (TextView) findViewById(R.id.rental_car_sales_area);
 
-        tvInsurance1 = (TextView)findViewById(R.id.rental_car_insurance);
-        tvInsurance2 = (TextView)findViewById(R.id.rental_use_insurance);
-        tvDelPrice = (TextView)findViewById(R.id.rental_use_delivery);
-        tvCarPrice = (TextView)findViewById(R.id.rental_use_amount);
-        tvTotalPrice = (TextView)findViewById(R.id.rental_use_total);
+        tvInsuName = (TextView) findViewById(R.id.rental_insu_name);
+        ivInsuInfo = (ImageView)findViewById(R.id.rental_insu_info);
+        //가격 관련
+        tvInsurance1 = (TextView) findViewById(R.id.rental_car_insurance);
+        tvInsurance2 = (TextView) findViewById(R.id.rental_use_insurance);
+        tvDelPrice = (TextView) findViewById(R.id.rental_use_delivery);
+        tvCarPrice = (TextView) findViewById(R.id.rental_use_amount);
+        tvTotalPrice = (TextView) findViewById(R.id.rental_use_total);
 
         //리퀘스트 보낼 키값과 밸류 값들
         HashMap<String, String> postParams = new HashMap<String, String>();
         postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);
         postParams.put("RESERVE_ADDRESS", reserve_address);
-        postParams.put("RESRERVE_YEAR", start_year);
+        postParams.put("RESERVE_YEAR", start_year);
         postParams.put("RESERVE_DATE", start_date_volley);
         postParams.put("RESERVE_TIME", start_time);
         postParams.put("RETURN_YEAR", return_year);
@@ -217,12 +223,12 @@ public class Rental_list_detail extends FragmentActivity implements
         postParams.put("REQUEST_RENTCAR", rentcar_name);
         postParams.put("REQUEST_SEQ", rentcar_seq);
 
-//        Util.showDialog(this);
-//
-//        //발리네트워크 연결
-//        VolleyNetwork.getInstance(this).serverDataRequest(RENTCAR_LIST_DETAIL_REQUEST, postParams, onRentalListInteractionListener);
+        Util.showDialog(this);
 
-        detailNetworkTest();
+        //발리네트워크 연결
+        VolleyNetwork.getInstance(this).serverDataRequest(RENTCAR_LIST_DETAIL_REQUEST, postParams, onRentalListInteractionListener);
+
+//        detailNetworkTest();
 
         ///sy
 
@@ -303,34 +309,34 @@ public class Rental_list_detail extends FragmentActivity implements
                 intent.putExtra("rental_pay", String.valueOf(rentPrice));    // 차량대여료
                 intent.putExtra("delivery_pay", String.valueOf(deliPrice));       // 딜리버리금액
                 intent.putExtra("insurance_pay", String.valueOf(insuPrice));  // 보험 금액
-                intent.putExtra("CURRENT_INSU_SEQ", rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSU_SEQ);
-                intent.putExtra("CURRENT_INSU_NAME", rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSU_NAME);
-                intent.putExtra("select_delivery", select_delivery);
+                intent.putExtra("CURRENT_INSU_SEQ", rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE.get(0).CURRENT_INSU_SEQ);
+                intent.putExtra("CURRENT_INSU_NAME", rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE.get(0).CURRENT_INSU_NAME);
+                intent.putExtra("select_delivery", select_delivery);    //딜리버리 선택 방식
 
                 switch (select_delivery) {
                     //딜리버리 선택에 따른 확인 버튼 활성화
                     // case 0은 지점 방문이기에 default 값으로 대체
                     case 1:
-                        if(rental_allocate_text.getText() == "배차 위치를 정해주세요" && rental_return_text.getText() == "반납 위치를 정해주세요") {
-                            Toast.makeText(getApplicationContext(), "먼저 배차 및 위치를 정해주세요",Toast.LENGTH_LONG).show();
-                        } else if(rental_allocate_text.getText() == "배차 위치를 정해주세요") {
-                            Toast.makeText(getApplicationContext(), "먼저 배차 위치를 정해주세요",Toast.LENGTH_LONG).show();
+                        if (rental_allocate_text.getText() == "배차 위치를 정해주세요" && rental_return_text.getText() == "반납 위치를 정해주세요") {
+                            Toast.makeText(getApplicationContext(), "먼저 배차 및 위치를 정해주세요", Toast.LENGTH_LONG).show();
+                        } else if (rental_allocate_text.getText() == "배차 위치를 정해주세요") {
+                            Toast.makeText(getApplicationContext(), "먼저 배차 위치를 정해주세요", Toast.LENGTH_LONG).show();
                         } else if (rental_return_text.getText() == "반납 위치를 정해주세요") {
-                            Toast.makeText(getApplicationContext(), "먼저 반납 위치를 정해주세요",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "먼저 반납 위치를 정해주세요", Toast.LENGTH_LONG).show();
                         } else {
                             startActivity(intent);
                         }
                         break;
                     case 2:
-                        if(rental_allocate_text.getText() == "배차 위치를 정해주세요") {
-                            Toast.makeText(getApplicationContext(), "먼저 배차 위치를 정해주세요",Toast.LENGTH_LONG).show();
+                        if (rental_allocate_text.getText() == "배차 위치를 정해주세요") {
+                            Toast.makeText(getApplicationContext(), "먼저 배차 위치를 정해주세요", Toast.LENGTH_LONG).show();
                         } else {
                             startActivity(intent);
                         }
                         break;
                     case 3:
                         if (rental_return_text.getText() == "반납 위치를 정해주세요") {
-                            Toast.makeText(getApplicationContext(), "먼저 배차 위치를 정해주세요",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "먼저 배차 위치를 정해주세요", Toast.LENGTH_LONG).show();
                         } else {
                             startActivity(intent);
                         }
@@ -350,7 +356,7 @@ public class Rental_list_detail extends FragmentActivity implements
                 intent = new Intent(this, Rental_car_delivery_map.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
                 intent.putExtra("delivery_type", select_delivery);
-                startActivityForResult(intent,CAR_START_REQ_CODE);
+                startActivityForResult(intent, CAR_START_REQ_CODE);
                 //Toast.makeText(getApplicationContext(),"배차위치 변경하러 가기",Toast.LENGTH_SHORT).show();
                 break;
 
@@ -359,7 +365,7 @@ public class Rental_list_detail extends FragmentActivity implements
                 intent = new Intent(this, Rental_car_delivery_map.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
                 intent.putExtra("delivery_type", select_delivery);
-                startActivityForResult(intent,CAR_END_REQ_CODE);
+                startActivityForResult(intent, CAR_END_REQ_CODE);
                 //Toast.makeText(getApplicationContext(),"반납위치 변경하러 가기",Toast.LENGTH_SHORT).show();
                 ///sy
                 break;
@@ -387,10 +393,10 @@ public class Rental_list_detail extends FragmentActivity implements
                 //spinner_select = true;
             }
         } else if (requestCode == CAR_END_REQ_CODE) {
-            if(resultCode == RESULT_OK) {
+            if (resultCode == RESULT_OK) {
                 end_address = data.getStringExtra("address");
                 select_delivery = data.getIntExtra("delivery_type", 0);
-               // spinner_select = true;
+                // spinner_select = true;
             }
         }
     }
@@ -412,7 +418,7 @@ public class Rental_list_detail extends FragmentActivity implements
     //딜리버리 선택에 따라 배차 및 반납 버튼 활성화여부 설정
     private void spinner_Selected(int spinner_type) {
         int total;
-        switch(spinner_type) {
+        switch (spinner_type) {
             case 0:
                 btn_rental_allocate.setVisibility(View.INVISIBLE);
                 btn_rental_return.setVisibility(View.INVISIBLE);
@@ -460,14 +466,14 @@ public class Rental_list_detail extends FragmentActivity implements
 
     //선택된 딜리버리 시스템에 따라 딜리버리 관련 텍스트뷰 설정
     void text_Selected(String start, String end) {
-        if(start == null) {
+        if (start == null) {
             rental_allocate_text.setText("배차 위치를 정해주세요");
-        } else if(start == "사용하지 않음") {
+        } else if (start == "사용하지 않음") {
             rental_allocate_text.setText("사용하지 않음");
         } else {
             rental_allocate_text.setText(start_address);
         }
-        if(end == null) {
+        if (end == null) {
             rental_return_text.setText("반납 위치를 정해주세요");
         } else if (end == "사용하지 않음") {
             rental_return_text.setText("사용하지 않음");
@@ -477,7 +483,7 @@ public class Rental_list_detail extends FragmentActivity implements
     }
 
     //발리 네트워크 적용후 리퀘스트 받은 데이터 적용
-    private void setDetailText() {
+    private void setDetailText() throws Exception {
 
         rentcar_num = rentCarDetailResult.rentcar_detail.get(0).CURRENT_CAR_NUM;
         tvCarNum.setText(rentcar_num);
@@ -487,7 +493,7 @@ public class Rental_list_detail extends FragmentActivity implements
         tvCarMade.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_CAR_MADE);
         tvCarMan.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_CAR_MAN + "인승");
         int age = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_CAR_AGE);
-        switch(age) {
+        switch (age) {
             case 0:
                 tvCarAge.setText("전체");
                 break;
@@ -501,16 +507,37 @@ public class Rental_list_detail extends FragmentActivity implements
                 break;
         }
 
-        tvAgentAddress.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_ADDRESS);
-        tvAgentTime.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_TIME);
+        String cAddress = rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_ADDRESS;
+        if (cAddress.length() > 14) {
+            String[] strArray = cAddress.split(" ");
+            cAddress = "";
+            for (int i = 0; i < strArray.length; i++) {
+                if (strArray.length / 2 == i)
+                    cAddress += "\n";
+                cAddress += strArray[i] + " ";
+            }
+        }
+        tvAgentAddress.setText(cAddress);
+        tvAgentTime.setText("(주중) : " + rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_TIME + "\n" +
+                "(주말) : " + rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_TIME_WKD);
         tvAgentDel.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DELI);
 
         tvDelPri.setText("0원");
         tvDelTime.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_TIM);
         tvDelArea.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_POS);
 
-        tvInsurance1.setText("1일 " + Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE) + "원");
-        insuCheck();
+        if (!"".equals(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE.get(0).CURRENT_INSU_SEQ)) {
+            tvInsurance1.setText("1일 " + Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE.get(0).CURRENT_INSU_PRI) + "원");
+            tvInsuName.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE.get(0).CURRENT_INSU_NAME);
+            insuCheck();
+        } else {
+            deleteCheck.setClickable(false);
+            tvInsuName.setText("보험이 없습니다.");
+            ivInsuInfo.setVisibility(View.GONE);
+            tvInsurance1.setText("");
+            tvInsurance2.setText("");
+        }
+
         // 딜리버리 체크는 spinner_Selected 메소드로 이미 함
         tvCarPrice.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_PRICE) + "원");
 
@@ -523,7 +550,7 @@ public class Rental_list_detail extends FragmentActivity implements
 
         rentPrice = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_PRICE);
         tvTotalPrice.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_PRICE) + "원");
-        if("1".equals(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DELI)) {
+        if ("1".equals(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DELI)) {
             tvDelipossible.setText("불가능");
         } else {
             tvDelipossible.setText("가능");
@@ -531,12 +558,12 @@ public class Rental_list_detail extends FragmentActivity implements
     }
 
     //보험 체크박스 체크 여부 확인후 텍스트뷰 설정
-    private void insuCheck () {
+    private void insuCheck() {
         int total;
-        if(deleteCheck.isChecked()){
-            insuPrice = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE);
+        if (deleteCheck.isChecked()) {
+            insuPrice = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE.get(0).CURRENT_INSU_PRI);
             total = insuPrice + deliPrice + rentPrice;
-            tvInsurance2.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE) + "원");
+            tvInsurance2.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE.get(0).CURRENT_INSU_PRI) + "원");
             tvTotalPrice.setText(Util.setAddMoneyDot(String.valueOf(total)) + "원");
         } else {
             insuPrice = 0;
@@ -546,16 +573,23 @@ public class Rental_list_detail extends FragmentActivity implements
         }
     }
 
+    //발리네트워크
     VolleyNetwork.OnResponseListener onRentalListInteractionListener = new VolleyNetwork.OnResponseListener() {
         @Override
         public void onResponseSuccessListener(String it) {
             Gson gson = new Gson();
+            Log.i("Volley", it);
             rentCarDetailResult = gson.fromJson(it, RentCarDetailResult.class);
             //받아온 데이터 텍스트뷰에 정리
-            setDetailText();
+            try {
+                setDetailText();
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), "서버가 정상적이지 않습니다.잠시후에 시도해주세요", Toast.LENGTH_LONG).show();
+                finish();
+            }
             //프로그래스바 종료
             Util.dismiss();
-            Log.i("Volley", it);
+
         }
 
         @Override
@@ -574,48 +608,93 @@ public class Rental_list_detail extends FragmentActivity implements
 
     private void detailNetworkTest() {
         String it = null;
-        switch(rentcar_seq) {
-            case "1":
-            case "6": case "11": case "16": case "21": case "26": case "31": case "36": case "41": case "46":
-                it =  "{\"rentcar_detail\": [{\"CURRENT_CAR_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271113552281.jpg\"," +
+        switch (rentcar_seq) {
+            case "3":
+                it = "{\"rentcar_detail\":[{\"CURRENT_CAR_URL\":\"\",\"CURRENT_CAR_NUM\":\"\",\"CURRENT_CAR_FUEL\":\"\",\"CURRENT_CAR_FPY\":\"\"," +
+                        "\"CURRENT_CAR_COLOR\":\"\",\"CURRENT_CAR_MADE\":\"\",\"CURRENT_CAR_AGE\":\"\",\"CURRENT_CAR_MAN\":\"\",\"CURRENT_AGENT_ADDRESS\":\"\"," +
+                        "\"CURRENT_AGENT_ADD_LAT\":\"\",\"CURRENT_AGENT_ADD_LON\":\"\",\"CURRENT_AGENT_TIME\":\"\",\"CURRENT_AGENT_TIME_WKD\":\"\",\"CURRENT_AGENT_DELI\":\"\"," +
+                        "\"CURRENT_AGENT_DEL_PRI\":{ \"ROUND_TRIP\" : \"\" , \"DISPATCH\" : \"\" , \"RETURN\" : \"\"},\"CURRENT_AGENT_DEL_TIM\":\"\",\"CURRENT_AGENT_DEL_POS\":\"\",\"CURRENT_PRICE\":\"\"}]}";
+                break;
+            case "6":
+            case "11":
+            case "16":
+            case "21":
+            case "26":
+            case "31":
+            case "36":
+            case "41":
+            case "46":
+                it = "{\"rentcar_detail\": [{\"CURRENT_CAR_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271113552281.jpg\"," +
                         "\"CURRENT_CAR_NUM\":\"20하9182\",\"CURRENT_CAR_FUEL\":\"가솔린(G),디젤(D)\",\"CURRENT_CAR_FPY\":\"10.6-18.4 KM/L\",\"CURRENT_CAR_COLOR\":\"와인레드\"," +
                         "\"CURRENT_CAR_MADE\":\"2018\",\"CURRENT_CAR_AGE\":\"0\",\"CURRENT_CAR_MAN\":\"4\",\"CURRENT_AGENT_ADDRESS\":\"제주 지점\",\"CURRENT_AGENT_ADD_LAT\":\"33.49997329711914\"," +
-                        "\"CURRENT_AGENT_ADD_LON\":\"126.53034973144531\",\"CURRENT_AGENT_TIME\":\"09:00-19:00\", \"CURRENT_AGENT_DELI\" : \"1\", " +
+                        "\"CURRENT_AGENT_ADD_LON\":\"126.53034973144531\",\"CURRENT_AGENT_TIME\":\"09:00-19:00\",\"CURRENT_AGENT_TIME_WKD\":\"09:00-13:00\", \"CURRENT_AGENT_DELI\" : \"1\", " +
                         "\"CURRENT_PRICE\":\"60000\", \"CURRENT_INSURANCE\": \"10000\", \"CURRENT_INSU_SEQ\" : \"0\", \"CURRENT_INSU_NAME\" : \"일일 손해 보험\"}]}";
                 break;
             case "2":
-            case "7": case "12": case "17": case "22": case "27": case "32": case "37": case "42": case "47":
-                it =  "{\"rentcar_detail\": [{\"CURRENT_CAR_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201805281053589087.jpg\"," +
+            case "7":
+            case "12":
+            case "17":
+            case "22":
+            case "27":
+            case "32":
+            case "37":
+            case "42":
+            case "47":
+                it = "{\"rentcar_detail\": [{\"CURRENT_CAR_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201805281053589087.jpg\"," +
                         "\"CURRENT_CAR_NUM\":\"19하1234\",\"CURRENT_CAR_FUEL\":\"가솔린(G)\",\"CURRENT_CAR_FPY\":\"8.0-13.8 KM/L\",\"CURRENT_CAR_COLOR\":\"브라운\"," +
                         "\"CURRENT_CAR_MADE\":\"2019\",\"CURRENT_CAR_AGE\":\"2\",\"CURRENT_CAR_MAN\":\"4\",\"CURRENT_AGENT_ADDRESS\":\"제주 지점\",\"CURRENT_AGENT_ADD_LAT\":\"33.49997329711914\"," +
-                        "\"CURRENT_AGENT_ADD_LON\":\"126.53034973144531\",\"CURRENT_AGENT_TIME\":\"08:00-19:00\",\"CURRENT_AGENT_DELI\":\"0\"," +
+                        "\"CURRENT_AGENT_ADD_LON\":\"126.53034973144531\",\"CURRENT_AGENT_TIME\":\"08:00-19:00\",\"CURRENT_AGENT_TIME_WKD\":\"09:00-13:00\",\"CURRENT_AGENT_DELI\":\"0\"," +
                         "\"CURRENT_AGENT_DEL_PRI\": {\"ROUND_TRIP\" : \"20000\",\"DISPATCH\" : \"10000\", \"RETURN\" : \"10000\" },\"CURRENT_AGENT_DEL_TIM\":\"09:00-18:00\"," +
                         "\"CURRENT_AGENT_DEL_POS\":\"제주시, 서귀포시\",\"CURRENT_PRICE\":\"200000\", \"CURRENT_INSURANCE\": \"20000\", \"CURRENT_INSU_SEQ\" : \"0\", \"CURRENT_INSU_NAME\" : \"손해 보험\"}]}";
                 break;
-            case "3":
-            case "8": case "13": case "18": case "23": case "28": case "33": case "38": case "43": case "48":
-                it =  "{\"rentcar_detail\": [{\"CURRENT_CAR_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271111488598.jpg\"," +
+            case "1":
+            case "8":
+            case "13":
+            case "18":
+            case "23":
+            case "28":
+            case "33":
+            case "38":
+            case "43":
+            case "48":
+                it = "{\"rentcar_detail\": [{\"CURRENT_CAR_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271111488598.jpg\"," +
                         "\"CURRENT_CAR_NUM\":\"18하5678\",\"CURRENT_CAR_FUEL\":\"가솔린(G),디젤(D)\",\"CURRENT_CAR_FPY\":\"8.7-13.8 KM/L\",\"CURRENT_CAR_COLOR\":\"화이트그레이\"," +
                         "\"CURRENT_CAR_MADE\":\"2018\",\"CURRENT_CAR_AGE\":\"2\",\"CURRENT_CAR_MAN\":\"6\",\"CURRENT_AGENT_ADDRESS\":\"제주 지점\",\"CURRENT_AGENT_ADD_LAT\":\"33.49997329711914\"," +
-                        "\"CURRENT_AGENT_ADD_LON\":\"126.53034973144531\",\"CURRENT_AGENT_TIME\":\"09:00-19:00\",\"CURRENT_AGENT_DELI\":\"0\"," +
+                        "\"CURRENT_AGENT_ADD_LON\":\"126.53034973144531\",\"CURRENT_AGENT_TIME\":\"09:00-19:00\",\"CURRENT_AGENT_TIME_WKD\":\"09:00-13:00\",\"CURRENT_AGENT_DELI\":\"0\"," +
                         "\"CURRENT_AGENT_DEL_PRI\": {\"ROUND_TRIP\" : \"30000\",\"DISPATCH\" : \"15000\", \"RETURN\" : \"15000\" },\"CURRENT_AGENT_DEL_TIM\":\"10:00-19:00\"," +
                         "\"CURRENT_AGENT_DEL_POS\":\"제주시, 서귀포시\",\"CURRENT_PRICE\":\"120000\", \"CURRENT_INSURANCE\": \"30000\", \"CURRENT_INSU_SEQ\" : \"0\", \"CURRENT_INSU_NAME\" : \"일일보험\"}]}";
                 break;
             case "4":
-            case "9": case "14": case "19": case "24": case "29": case "34": case "39": case "44": case "49":
-                it =  "{\"rentcar_detail\": [{\"CURRENT_CAR_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/202001091104489284.jpg\"," +
+            case "9":
+            case "14":
+            case "19":
+            case "24":
+            case "29":
+            case "34":
+            case "39":
+            case "44":
+            case "49":
+                it = "{\"rentcar_detail\": [{\"CURRENT_CAR_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/202001091104489284.jpg\"," +
                         "\"CURRENT_CAR_NUM\":\"17하9012\",\"CURRENT_CAR_FUEL\":\"가솔린(G),디젤(D),LPG(L)\",\"CURRENT_CAR_FPY\":\"7.4-14.8 KM/L\",\"CURRENT_CAR_COLOR\":\"라이트블랙\"," +
                         "\"CURRENT_CAR_MADE\":\"2017\",\"CURRENT_CAR_AGE\":\"2\",\"CURRENT_CAR_MAN\":\"4\",\"CURRENT_AGENT_ADDRESS\":\"제주 지점\",\"CURRENT_AGENT_ADD_LAT\":\"33.49997329711914\"," +
-                        "\"CURRENT_AGENT_ADD_LON\":\"126.53034973144531\",\"CURRENT_AGENT_TIME\":\"09:00-19:00\",\"CURRENT_AGENT_DELI\":\"0\"," +
+                        "\"CURRENT_AGENT_ADD_LON\":\"126.53034973144531\",\"CURRENT_AGENT_TIME\":\"09:00-19:00\",\"CURRENT_AGENT_TIME_WKD\":\"09:00-13:00\",\"CURRENT_AGENT_DELI\":\"0\"," +
                         "\"CURRENT_AGENT_DEL_PRI\": {\"ROUND_TRIP\" : \"10000\",\"DISPATCH\" : \"5000\", \"RETURN\" : \"5000\" },\"CURRENT_AGENT_DEL_TIM\":\"10:00-19:00\"," +
                         "\"CURRENT_AGENT_DEL_POS\":\"제주시, 서귀포시\",\"CURRENT_PRICE\":\"115000\", \"CURRENT_INSURANCE\": \"15000\", \"CURRENT_INSU_SEQ\" : \"0\", \"CURRENT_INSU_NAME\" : \"일일손해 보험\"}]}";
                 break;
             case "5":
-            case "10": case "15": case "20": case "25": case "30": case "35": case "40": case "45": case "50":
-                it =  "{\"rentcar_detail\": [{\"CURRENT_CAR_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201908131116037666.jpg\"," +
+            case "10":
+            case "15":
+            case "20":
+            case "25":
+            case "30":
+            case "35":
+            case "40":
+            case "45":
+            case "50":
+                it = "{\"rentcar_detail\": [{\"CURRENT_CAR_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201908131116037666.jpg\"," +
                         "\"CURRENT_CAR_NUM\":\"16하3456\",\"CURRENT_CAR_FUEL\":\"가솔린(G),디젤(D)\",\"CURRENT_CAR_FPY\":\"10.7-16.1 KM/L\",\"CURRENT_CAR_COLOR\":\"골드\"," +
                         "\"CURRENT_CAR_MADE\":\"2016\",\"CURRENT_CAR_AGE\":\"2\",\"CURRENT_CAR_MAN\":\"4\",\"CURRENT_AGENT_ADDRESS\":\"제주 지점\",\"CURRENT_AGENT_ADD_LAT\":\"33.49997329711914\"," +
-                        "\"CURRENT_AGENT_ADD_LON\":\"126.53034973144531\",\"CURRENT_AGENT_TIME\":\"09:00-19:00\",\"CURRENT_AGENT_DELI\":\"0\"," +
+                        "\"CURRENT_AGENT_ADD_LON\":\"126.53034973144531\",\"CURRENT_AGENT_TIME\":\"09:00-19:00\",\"CURRENT_AGENT_TIME_WKD\":\"09:00-13:00\",\"CURRENT_AGENT_DELI\":\"0\"," +
                         "\"CURRENT_AGENT_DEL_PRI\": {\"ROUND_TRIP\" : \"150000\",\"DISPATCH\" : \"10000\", \"RETURN\" : \"10000\" },\"CURRENT_AGENT_DEL_TIM\":\"10:00-19:00\"," +
                         "\"CURRENT_AGENT_DEL_POS\":\"제주시, 서귀포시\",\"CURRENT_PRICE\":\"65000\", \"CURRENT_INSURANCE\": \"5000\", \"CURRENT_INSU_SEQ\" : \"0\", \"CURRENT_INSU_NAME\" : \"일일손해보험\"}]}";
                 break;
@@ -626,7 +705,7 @@ public class Rental_list_detail extends FragmentActivity implements
         Gson gson = new Gson();
         rentCarDetailResult = gson.fromJson(it, RentCarDetailResult.class);
 
-        setDetailText();
+//        setDetailText();
     }
 }
 

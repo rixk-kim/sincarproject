@@ -406,7 +406,6 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
                         android:orientation="horizontal"
                         android:weightSum="1"
                         tools:ignore="MissingConstraints">
@@ -527,7 +526,6 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
-                        android:layout_marginTop="24dp"
                         android:background="#f2f2f2"/>
 
                     <!-- 지점정보 -->
@@ -597,10 +595,10 @@
 
                                 <TextView
                                     android:fontFamily="@font/nanumsquareregular"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="50dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="24dp"
-                                    android:layout_gravity="left|center_horizontal|center_vertical"
+                                    android:layout_gravity="left|center_horizontal|top"
                                     android:letterSpacing="0.01"
                                     android:textColor="#B33E3E3E"
                                     android:textSize="15sp"
@@ -634,7 +632,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="24dp"
-                                    android:layout_gravity="left|center_horizontal|center_vertical"
+                                    android:layout_gravity="left|center_horizontal"
                                     android:letterSpacing="0.01"
                                     android:textColor="#B33E3E3E"
                                     android:textSize="15sp"
@@ -652,7 +650,7 @@
                                     android:letterSpacing="0.01"
                                     android:textColor="@color/textColorPrimary"
                                     android:textSize="15sp"
-                                    android:text="09:00 - 19:00"
+                                    android:text="(주중) : 09:00 - 19:00 \n(주말) : 09:00 - 13:00"
                                     android:layout_weight="1"/>
                             </LinearLayout>
 
@@ -1063,7 +1061,8 @@
                                     android:paddingLeft="20px" />
                                 <TextView
                                     android:fontFamily="@font/nanumsquareregular"
-                                    android:layout_width="58dp"
+                                    android:id="@+id/rental_insu_name"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="8dp"
                                     android:gravity="center"
@@ -1073,6 +1072,7 @@
                                     android:letterSpacing="0.05"/>
 
                                 <ImageView
+                                    android:id="@+id/rental_insu_info"
                                     android:layout_width="18dp"
                                     android:layout_height="18dp"
                                     android:layout_marginLeft="20dp"

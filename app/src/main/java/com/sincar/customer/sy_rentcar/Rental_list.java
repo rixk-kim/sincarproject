@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.VolleyError;
 import com.google.android.gms.maps.model.LatLng;
@@ -64,6 +65,7 @@ public class Rental_list extends AppCompatActivity {
     Context rental_list_context;
     RecyclerView recyclerview; //리사이클러뷰
     NestedScrollView nestedScrollView;
+    SwipeRefreshLayout mSwipeRefreshLayout;
     //위경도 확인후 계산시 필요
     private Geocoder gCoder;
     LatLng reserve_LatLng; //예약주소 위경도
@@ -354,12 +356,27 @@ public class Rental_list extends AppCompatActivity {
 
             recyclerview = findViewById(R.id.rental_list_recyclerview);
             nestedScrollView = findViewById(R.id.scr_rent_List);
+            mSwipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipe_layout);
             LinearLayout view1 = findViewById(R.id.rental_list_empty);
             if (view1.getVisibility() == View.VISIBLE)
                 view1.setVisibility(View.GONE);
             if (nestedScrollView.getVisibility() == View.GONE)
                 nestedScrollView.setVisibility(View.VISIBLE);
+            mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    Rental_list_adapterItem.clearItem(); //아이템 초기화(비워줌)
+                    rentcarPage_chk = 0;
+                    rentcarPage_max = 1;
+                    rentcarItem_chk = 0;
+                    list1id = 0;
+                    list2id = 0;
 
+                    Util.showDialog(rental_list_context);
+                    VolleyNetwork.getInstance(rental_list_context).serverDataRequest(RENTCAR_LIST_REQUEST, postParams, onRentalListInteractionListener);
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
+            });
 
             final LinearLayoutManager mLayoutManager;
             mLayoutManager = new LinearLayoutManager(this);
@@ -374,9 +391,8 @@ public class Rental_list extends AppCompatActivity {
                     if (!nestedScrollView.canScrollVertically(1) && rentcarPage_chk <= rentcarPage_max) {
                         nestedScrollView.smoothScrollBy(0, 0); // 스크롤 멈춤
                         requestSetting();
-                        Util.showDialogRentList(rental_list_context);
+                        Util.showDialog(rental_list_context);
                         VolleyNetwork.getInstance(rental_list_context).serverDataRequest(RENTCAR_LIST_REQUEST, postParams, onRentalListInteractionListener);
-                        putItemToList();
                         adapter.notifyDataSetChanged();
                     }
                 }
@@ -420,6 +436,8 @@ public class Rental_list extends AppCompatActivity {
         }
     }
 
+
+
     //클래스에 아이템을 순차적으로 넣음
     //리싸이클러뷰 아이템 하나에 두개의 속성 아이템을 넣을수 있으므로
     //짝수번째는 왼쪽 홀수번째는 오른쪽에 추가하는 방식으로 함
@@ -433,41 +451,43 @@ public class Rental_list extends AppCompatActivity {
                 if (i % 2 == 0) {
                     Rental_list_adapterItem.addItem1(new Rental_list_adapterItem.Rental_List_Item(
                             list1id,
-                            voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_SEQ,
-                            voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_NAME,
-                            voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_IMG_URL,
-                            voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_AGENT,
-                            voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_AGENT_ADD,
-                            voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_DISCOUNT,
-                            voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_PRICE,
-                            voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_FIL_AGE,
-                            voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_FIL_TYPE,
-                            voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_FIL_BRAND,
-                            voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_SORT_DIST,
-                            voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_SORT_POPU
+                            voRentCarAgentDataItem.get(i).RENTCAR_SEQ,
+                            voRentCarAgentDataItem.get(i).RENTCAR_NAME,
+                            voRentCarAgentDataItem.get(i).RENTCAR_IMG_URL,
+                            voRentCarAgentDataItem.get(i).RENTCAR_AGENT,
+                            voRentCarAgentDataItem.get(i).RENTCAR_AGENT_ADD,
+                            voRentCarAgentDataItem.get(i).RENTCAR_DISCOUNT,
+                            voRentCarAgentDataItem.get(i).RENTCAR_PRICE,
+                            voRentCarAgentDataItem.get(i).RENTCAR_FIL_AGE,
+                            voRentCarAgentDataItem.get(i).RENTCAR_FIL_TYPE,
+                            voRentCarAgentDataItem.get(i).RENTCAR_FIL_BRAND,
+                            voRentCarAgentDataItem.get(i).RENTCAR_SORT_DIST,
+                            voRentCarAgentDataItem.get(i).RENTCAR_SORT_POPU
                     ));
                     list1id++;
                 } else {
                     Rental_list_adapterItem.addItem2(new Rental_list_adapterItem.Rental_List_Item(
                             list2id,
-                            voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_SEQ,
-                            voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_NAME,
-                            voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_IMG_URL,
-                            voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_AGENT,
-                            voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_AGENT_ADD,
-                            voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_DISCOUNT,
-                            voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_PRICE,
-                            voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_FIL_AGE,
-                            voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_FIL_TYPE,
-                            voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_FIL_BRAND,
-                            voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_SORT_DIST,
-                            voRentCarAgentDataItem.get(rentcarItem_chk).RENTCAR_SORT_POPU
+                            voRentCarAgentDataItem.get(i).RENTCAR_SEQ,
+                            voRentCarAgentDataItem.get(i).RENTCAR_NAME,
+                            voRentCarAgentDataItem.get(i).RENTCAR_IMG_URL,
+                            voRentCarAgentDataItem.get(i).RENTCAR_AGENT,
+                            voRentCarAgentDataItem.get(i).RENTCAR_AGENT_ADD,
+                            voRentCarAgentDataItem.get(i).RENTCAR_DISCOUNT,
+                            voRentCarAgentDataItem.get(i).RENTCAR_PRICE,
+                            voRentCarAgentDataItem.get(i).RENTCAR_FIL_AGE,
+                            voRentCarAgentDataItem.get(i).RENTCAR_FIL_TYPE,
+                            voRentCarAgentDataItem.get(i).RENTCAR_FIL_BRAND,
+                            voRentCarAgentDataItem.get(i).RENTCAR_SORT_DIST,
+                            voRentCarAgentDataItem.get(i).RENTCAR_SORT_POPU
                     ));
                     list2id++;
                 }
                 rentcarItem_chk++;
             }
         }
+        if(rentcarItem_chk == Integer.parseInt(voRentCarAgentItem.TOTAL))
+            Toast.makeText(getApplicationContext(), "리스트의 끝입니다.", Toast.LENGTH_LONG).show();
         rentcarPage_chk++;
     }
 
