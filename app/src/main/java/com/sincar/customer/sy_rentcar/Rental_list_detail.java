@@ -494,20 +494,23 @@ public class Rental_list_detail extends FragmentActivity implements
         tvCarCol.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_CAR_COLOR);
         tvCarMade.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_CAR_MADE);
         tvCarMan.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_CAR_MAN + "인승");
-        int age = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_CAR_AGE);
-        switch (age) {
-            case 0:
-                tvCarAge.setText("전체");
-                break;
-            case 1:
-                tvCarAge.setText("만 21세 이상");
-                break;
-            case 2:
-                tvCarAge.setText("만 26세 이상");
-                break;
-            default:
-                break;
-        }
+        if(!"".equals(rentCarDetailResult.rentcar_detail.get(0).CURRENT_CAR_AGE)){
+            int age = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_CAR_AGE);
+            switch (age) {
+                case 0:
+                    tvCarAge.setText("전체");
+                    break;
+                case 1:
+                    tvCarAge.setText("만 21세 이상");
+                    break;
+                case 2:
+                    tvCarAge.setText("만 26세 이상");
+                    break;
+                default:
+                    break;
+            }
+        } else
+            tvCarAge.setText("");
 
         String cAddress = rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_ADDRESS;
         if (cAddress.length() > 14) {
@@ -538,6 +541,9 @@ public class Rental_list_detail extends FragmentActivity implements
             ivInsuInfo.setVisibility(View.GONE);
             tvInsurance1.setText("");
             tvInsurance2.setText("");
+        }
+        if(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE.size() > 1) {
+
         }
 
         // 딜리버리 체크는 spinner_Selected 메소드로 이미 함
