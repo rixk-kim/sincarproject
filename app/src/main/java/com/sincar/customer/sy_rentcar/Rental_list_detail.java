@@ -372,8 +372,10 @@ public class Rental_list_detail extends FragmentActivity implements
 
             case R.id.rental_car_insu_check:
                 // TODO : 보험 체크
-                deleteCheck.setChecked(!deleteCheck.isChecked());
-                insuCheck();
+                if(deleteCheck.isClickable()) {
+                    deleteCheck.setChecked(!deleteCheck.isChecked());
+                    insuCheck();
+                }
                 break;
         }
     }

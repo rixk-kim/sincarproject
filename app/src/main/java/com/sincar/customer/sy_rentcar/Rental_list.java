@@ -374,6 +374,7 @@ public class Rental_list extends AppCompatActivity {
                     mSwipeRefreshLayout.setRefreshing(false);
                 }
             });
+            mSwipeRefreshLayout.setProgressViewEndTarget(true, 200);
 
             final LinearLayoutManager mLayoutManager;
             mLayoutManager = new LinearLayoutManager(this);
@@ -423,8 +424,8 @@ public class Rental_list extends AppCompatActivity {
                 }
             });
         } else {
-            View view = findViewById(R.id.scr_rent_List);
-            view.setVisibility(View.GONE);
+            nestedScrollView = findViewById(R.id.scr_rent_List);
+            nestedScrollView.setVisibility(View.GONE);
 
             LinearLayout view1 = findViewById(R.id.rental_list_empty);
             view1.setVisibility(View.VISIBLE);

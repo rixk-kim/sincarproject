@@ -1055,7 +1055,7 @@
                                     android:layout_height="24dp"
                                     android:layout_width="24dp"
                                     android:layout_span="2"
-                                    android:clickable="false"
+                                    android:clickable="true"
                                     android:button="@drawable/checkbox_selector_1"
                                     android:layout_gravity="center|center_horizontal|center_vertical"
                                     android:paddingLeft="20px" />
