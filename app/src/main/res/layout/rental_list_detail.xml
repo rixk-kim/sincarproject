@@ -1042,55 +1042,62 @@
                                 android:textColor="@color/textColorPrimary"
                                 android:textSize="18sp"
                                 android:text="보험" />
-                            <LinearLayout
+
+                            <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/rental_car_insu_check"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="20dp"
+                                android:layout_height="match_parent"
                                 android:layout_marginStart="24dp"
-                                android:layout_marginEnd="24dp"
-                                android:orientation="horizontal">
-                                <CheckBox
-                                    android:id="@+id/delete2_checkbox"
-                                    android:layout_height="24dp"
-                                    android:layout_width="24dp"
-                                    android:layout_span="2"
-                                    android:clickable="true"
-                                    android:button="@drawable/checkbox_selector_1"
-                                    android:layout_gravity="center|center_horizontal|center_vertical"
-                                    android:paddingLeft="20px" />
-                                <TextView
-                                    android:fontFamily="@font/nanumsquareregular"
-                                    android:id="@+id/rental_insu_name"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="8dp"
-                                    android:gravity="center"
-                                    android:text="일반자차"
-                                    android:textSize="14sp"
-                                    android:layout_gravity="center_horizontal|center_vertical"
-                                    android:letterSpacing="0.05"/>
+                                android:layout_marginEnd="24dp" />
+<!--                            <LinearLayout-->
+<!--                                android:id="@+id/rental_car_insu_check"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginTop="20dp"-->
+<!--                                android:layout_marginStart="24dp"-->
+<!--                                android:layout_marginEnd="24dp"-->
+<!--                                android:orientation="horizontal">-->
+<!--                                <CheckBox-->
+<!--                                    android:id="@+id/delete2_checkbox"-->
+<!--                                    android:layout_height="24dp"-->
+<!--                                    android:layout_width="24dp"-->
+<!--                                    android:layout_span="2"-->
+<!--                                    android:clickable="true"-->
+<!--                                    android:button="@drawable/checkbox_selector_1"-->
+<!--                                    android:layout_gravity="center|center_horizontal|center_vertical"-->
+<!--                                    android:paddingLeft="20px" />-->
+<!--                                <TextView-->
+<!--                                    android:fontFamily="@font/nanumsquareregular"-->
+<!--                                    android:id="@+id/rental_insu_name"-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:layout_marginLeft="8dp"-->
+<!--                                    android:gravity="center"-->
+<!--                                    android:text="일반자차"-->
+<!--                                    android:textSize="14sp"-->
+<!--                                    android:layout_gravity="center_horizontal|center_vertical"-->
+<!--                                    android:letterSpacing="0.05"/>-->
 
-                                <ImageView
-                                    android:id="@+id/rental_insu_info"
-                                    android:layout_width="18dp"
-                                    android:layout_height="18dp"
-                                    android:layout_marginLeft="20dp"
-                                    android:layout_gravity="center_horizontal|center_vertical"
-                                    android:src="@drawable/info" />
+<!--                                <ImageView-->
+<!--                                    android:id="@+id/rental_insu_info"-->
+<!--                                    android:layout_width="18dp"-->
+<!--                                    android:layout_height="18dp"-->
+<!--                                    android:layout_marginLeft="20dp"-->
+<!--                                    android:layout_gravity="center_horizontal|center_vertical"-->
+<!--                                    android:src="@drawable/info" />-->
 
-                                <TextView
-                                    android:id="@+id/rental_car_insurance"
-                                    android:fontFamily="@font/nanumsquareregular"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="10dp"
-                                    android:gravity="right"
-                                    android:text="1일 10,000원"
-                                    android:textSize="15sp"
-                                    android:layout_gravity="center_horizontal|center_vertical"
-                                    android:letterSpacing="0.05"/>
-                            </LinearLayout>
+<!--                                <TextView-->
+<!--                                    android:id="@+id/rental_car_insurance"-->
+<!--                                    android:fontFamily="@font/nanumsquareregular"-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:layout_marginLeft="10dp"-->
+<!--                                    android:gravity="right"-->
+<!--                                    android:text="1일 10,000원"-->
+<!--                                    android:textSize="15sp"-->
+<!--                                    android:layout_gravity="center_horizontal|center_vertical"-->
+<!--                                    android:letterSpacing="0.05"/>-->
+<!--                            </LinearLayout>-->
                         </LinearLayout>
                     </LinearLayout>
 

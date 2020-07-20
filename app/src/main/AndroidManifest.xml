@@ -38,7 +38,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".sy_rentcar.Rental_car_delivery_map"></activity>
+        <activity android:name=".sy_rentcar.Rental_list_detail_insu_recycle_item"></activity>
+        <activity android:name=".sy_rentcar.Rental_car_delivery_map" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -388,15 +389,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" /> <!-- 약관동의 시작 -->
-
-
         <activity
             android:name=".sharing.ShareActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" /> <!-- 셰어링 메인 시작 -->
-
-
         <activity android:name=".TemplateActivity" /> <!-- template activity -->
         <provider
             android:name="androidx.core.content.FileProvider"

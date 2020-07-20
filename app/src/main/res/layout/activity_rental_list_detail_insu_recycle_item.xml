@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".sy_rentcar.Rental_list_detail_insu_recycle_item">
+
+    <LinearLayout
+        android:id="@+id/linear_rental_insu"
+        android:layout_marginTop="23dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+    <CheckBox
+        android:id="@+id/delete2_checkbox"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="center|center_horizontal|center_vertical"
+        android:layout_span="2"
+        android:button="@drawable/checkbox_selector_1"
+        android:clickable="true"
+        android:paddingLeft="20px" />
+
+    <TextView
+        android:id="@+id/rental_insu_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginLeft="8dp"
+        android:fontFamily="@font/nanumsquareregular"
+        android:gravity="center"
+        android:letterSpacing="0.05"
+        android:text="일반자차"
+        android:textColor="@color/agent_color_1NoOpp"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/rental_insu_info"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/info" />
+
+    <TextView
+        android:id="@+id/rental_car_insurance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginLeft="10dp"
+        android:fontFamily="@font/nanumsquareregular"
+        android:gravity="right"
+        android:letterSpacing="0.05"
+        android:text="1일 10,000원"
+        android:textColor="@color/agent_color_1NoOpp"
+        android:textSize="15sp" />
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginBottom="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tvInsu_Info"
+            android:text="본인부담금 최대 5만원"
+            android:fontFamily="@font/nanumsquareregular"
+            android:textColor="@color/agent_color_1Opp"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    </LinearLayout>

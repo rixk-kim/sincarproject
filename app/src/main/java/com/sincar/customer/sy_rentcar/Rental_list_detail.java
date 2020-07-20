@@ -1,10 +1,13 @@
 package com.sincar.customer.sy_rentcar;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.sincar.customer.R;
+import com.sincar.customer.item.RentCarDetailItem;
 import com.sincar.customer.item.RentCarDetailResult;
 import com.sincar.customer.network.VolleyNetwork;
 import com.sincar.customer.util.Util;
@@ -35,7 +39,6 @@ import static com.sincar.customer.HWApplication.voLoginItem;
 import static com.sincar.customer.MapsActivity._mMapsActivity;
 import static com.sincar.customer.MapsActivity.homeKeyPressed;
 import static com.sincar.customer.common.Constants.RENTCAR_LIST_DETAIL_REQUEST;
-import static com.sincar.customer.common.Constants.RENTCAR_LIST_REQUEST;
 
 public class Rental_list_detail extends FragmentActivity implements
         View.OnClickListener {
@@ -60,8 +63,9 @@ public class Rental_list_detail extends FragmentActivity implements
     private TextView tvAgent_name, tvAgent_name_small, tvRental_car_name;
     private TextView btn_rental_allocate, btn_rental_return;
     private View view_touchless;
-    private LinearLayout insuranceCheck;
-    private CheckBox deleteCheck;
+    private RecyclerView insuranceCheck;
+    private Context rental_detail_context;
+//    private CheckBox deleteCheck;
 
     //렌탈 리스트 디테일용 커스텀 다이얼로그
     CustomDialogInListDetail customSpinnerDialog;
@@ -72,10 +76,10 @@ public class Rental_list_detail extends FragmentActivity implements
     TextView tvAgentAddress, tvAgentTime, tvAgentDel;
     double lat, lng;
     TextView tvDelPri, tvDelTime, tvDelArea;
-    TextView tvInsurance1, tvInsurance2, tvDelPrice, tvCarPrice, tvTotalPrice;
+    TextView /*tvInsurance1,*/ tvInsurance2, tvDelPrice, tvCarPrice, tvTotalPrice;
     TextView tvDelipossible;
-    TextView tvInsuName;
-    ImageView ivInsuInfo;
+    //    TextView tvInsuName;
+//    ImageView ivInsuInfo;
     int insuPrice, deliPrice, rentPrice; // 보험금액, 딜리버리 금액, 총 금액
     ///sy
 
@@ -144,8 +148,8 @@ public class Rental_list_detail extends FragmentActivity implements
         tvAgent_name = (TextView) findViewById(R.id.rental_agent);
         tvAgent_name_small = (TextView) findViewById(R.id.rental_agent_name);
         tvRental_car_name = (TextView) findViewById(R.id.rental_car_name);
-        insuranceCheck = (LinearLayout) findViewById(R.id.rental_car_insu_check);
-        deleteCheck = (CheckBox) findViewById(R.id.delete2_checkbox);
+        insuranceCheck = (RecyclerView) findViewById(R.id.rental_car_insu_check);
+//        deleteCheck = (CheckBox) findViewById(R.id.delete2_checkbox);
         tvDelipossible = (TextView) findViewById(R.id.rental_car_delivery);
 
         Intent intent = getIntent(); //Rental_list에서 넘어온 데이터 수신
@@ -164,13 +168,6 @@ public class Rental_list_detail extends FragmentActivity implements
         agent_name = intent.getStringExtra("REQUEST_AGENT");
         rentcar_name = intent.getStringExtra("REQUEST_RENTCAR");
         rentcar_seq = intent.getStringExtra("REQUEST_SEQ");
-        //20-06-23 잠시 보류
-        //대리점 위치정보를 맵븁에 보여줌
-//        LatLng shop_latlng = new LatLng(
-//                intent.getDoubleExtra("shop_lng", 0),
-//                intent.getDoubleExtra("shop_lon", 0));
-//        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(shop_latlng.latitude, shop_latlng.longitude), true);
-
 
         //넘어온 시간 데이터를 시간 텍스트뷰에 적용
         rental_car_start_date.setText(start_date);
@@ -200,10 +197,10 @@ public class Rental_list_detail extends FragmentActivity implements
         tvDelTime = (TextView) findViewById(R.id.rental_use_time);
         tvDelArea = (TextView) findViewById(R.id.rental_car_sales_area);
 
-        tvInsuName = (TextView) findViewById(R.id.rental_insu_name);
-        ivInsuInfo = (ImageView)findViewById(R.id.rental_insu_info);
+//        tvInsuName = (TextView) findViewById(R.id.rental_insu_name);
+//        ivInsuInfo = (ImageView)findViewById(R.id.rental_insu_info);
         //가격 관련
-        tvInsurance1 = (TextView) findViewById(R.id.rental_car_insurance);
+//        tvInsurance1 = (TextView) findViewById(R.id.rental_car_insurance);
         tvInsurance2 = (TextView) findViewById(R.id.rental_use_insurance);
         tvDelPrice = (TextView) findViewById(R.id.rental_use_delivery);
         tvCarPrice = (TextView) findViewById(R.id.rental_use_amount);
@@ -372,11 +369,11 @@ public class Rental_list_detail extends FragmentActivity implements
 
             case R.id.rental_car_insu_check:
                 // TODO : 보험 체크
-                if(deleteCheck.isClickable()) {
-                    deleteCheck.setChecked(!deleteCheck.isChecked());
-                    insuCheck();
-                }
-                break;
+//                if(deleteCheck.isClickable()) {
+//                    deleteCheck.setChecked(!deleteCheck.isChecked());
+//                    insuCheck();
+//                }
+//                break;
         }
     }
 
@@ -494,7 +491,7 @@ public class Rental_list_detail extends FragmentActivity implements
         tvCarCol.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_CAR_COLOR);
         tvCarMade.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_CAR_MADE);
         tvCarMan.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_CAR_MAN + "인승");
-        if(!"".equals(rentCarDetailResult.rentcar_detail.get(0).CURRENT_CAR_AGE)){
+        if (!"".equals(rentCarDetailResult.rentcar_detail.get(0).CURRENT_CAR_AGE)) {
             int age = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_CAR_AGE);
             switch (age) {
                 case 0:
@@ -531,20 +528,42 @@ public class Rental_list_detail extends FragmentActivity implements
         tvDelTime.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_TIM);
         tvDelArea.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_DEL_POS);
 
-        if (!"".equals(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE.get(0).CURRENT_INSU_SEQ)) {
-            tvInsurance1.setText("1일 " + Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE.get(0).CURRENT_INSU_PRI) + "원");
-            tvInsuName.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE.get(0).CURRENT_INSU_NAME);
-            insuCheck();
-        } else {
-            deleteCheck.setClickable(false);
-            tvInsuName.setText("보험이 없습니다.");
-            ivInsuInfo.setVisibility(View.GONE);
-            tvInsurance1.setText("");
-            tvInsurance2.setText("");
-        }
-        if(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE.size() > 1) {
+//        if (!"".equals(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE.get(0).CURRENT_INSU_SEQ) &&
+//                rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE.size() > 0) {
+        final LinearLayoutManager mLayoutManager;
+        mLayoutManager = new LinearLayoutManager(this);
+        insuranceCheck.setLayoutManager(mLayoutManager);
 
-        }
+        final Rental_list_detail_insu_recycle_item adapter = new Rental_list_detail_insu_recycle_item(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE, rental_detail_context);
+        insuranceCheck.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new Rental_list_detail_insu_recycle_item.OnRentalInsuInteractionListener() {
+            @Override
+            public void onRentalInsuInteractionListener(RentCarDetailItem.Rentcar_Insurance rentcar_insurance) {
+
+                if (!"".equals(rentcar_insurance.CURRENT_INSU_SEQ)) {
+                    int itemPos = adapter.getItemPosition();
+
+                    adapter.notifyDataSetChanged();
+                    if (itemPos != 99)
+                        Toast.makeText(getApplicationContext(), rentcar_insurance.CURRENT_INSU_NAME + " 보험을 선택하였습니다.", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(getApplicationContext(), "보험을 선택해제 하였습니다.", Toast.LENGTH_SHORT).show();
+                    insuCheck(adapter.getItemPosition());
+                } else
+                    insuCheck(99);
+            }
+        });
+//            tvInsurance1.setText("1일 " + Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE.get(0).CURRENT_INSU_PRI) + "원");
+//            tvInsuName.setText(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE.get(0).CURRENT_INSU_NAME);
+
+//        } else {
+//            deleteCheck.setClickable(false);
+//            tvInsuName.setText("보험이 없습니다.");
+//            ivInsuInfo.setVisibility(View.GONE);
+//            tvInsurance1.setText("");
+//            tvInsurance2.setText("");
+//        }
 
         // 딜리버리 체크는 spinner_Selected 메소드로 이미 함
         tvCarPrice.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_PRICE) + "원");
@@ -566,12 +585,12 @@ public class Rental_list_detail extends FragmentActivity implements
     }
 
     //보험 체크박스 체크 여부 확인후 텍스트뷰 설정
-    private void insuCheck() {
+    private void insuCheck(int position) {
         int total;
-        if (deleteCheck.isChecked()) {
-            insuPrice = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE.get(0).CURRENT_INSU_PRI);
+        if (position != 99) {
+            insuPrice = Integer.parseInt(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE.get(position).CURRENT_INSU_PRI);
             total = insuPrice + deliPrice + rentPrice;
-            tvInsurance2.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE.get(0).CURRENT_INSU_PRI) + "원");
+            tvInsurance2.setText(Util.setAddMoneyDot(rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE.get(position).CURRENT_INSU_PRI) + "원");
             tvTotalPrice.setText(Util.setAddMoneyDot(String.valueOf(total)) + "원");
         } else {
             insuPrice = 0;
