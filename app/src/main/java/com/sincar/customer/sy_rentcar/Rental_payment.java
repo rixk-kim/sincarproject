@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -23,7 +24,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.NetworkResponse;
+import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.Gson;
 import com.sincar.customer.CouponeActivity;
 import com.sincar.customer.PayApproveActivity;
@@ -39,6 +43,7 @@ import com.sincar.customer.item.ReserveResult;
 import com.sincar.customer.network.VolleyNetwork;
 import com.sincar.customer.util.Util;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
 import static com.sincar.customer.HWApplication.rentcarReserveResult;
@@ -571,6 +576,18 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
 
         @Override
         public void onResponseFailListener(VolleyError it) {
+
+            NetworkResponse response = it.networkResponse;
+            if(it instanceof ServerError && response != null) {
+                try {
+                    String res = new String(response.data, HttpHeaderParser.parseCharset(response.headers, "utf-8"));
+                    Log.e("VolleyError", res);
+                } catch (UnsupportedEncodingException e1) {
+                    e1.printStackTrace();
+                }
+            }
+            Log.e("VolleyError", "onResponseFailListener : " + it);
+
             //프로그래스바 종료
             Util.dismiss();
         }

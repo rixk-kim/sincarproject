@@ -20,7 +20,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.NetworkResponse;
+import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.sincar.customer.R;
@@ -32,6 +35,7 @@ import com.sincar.customer.util.Util;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
 import static com.sincar.customer.HWApplication.rentCarDetailResult;
@@ -621,6 +625,18 @@ public class Rental_list_detail extends FragmentActivity implements
 
         @Override
         public void onResponseFailListener(VolleyError it) {
+
+            NetworkResponse response = it.networkResponse;
+            if(it instanceof ServerError && response != null) {
+                try {
+                    String res = new String(response.data, HttpHeaderParser.parseCharset(response.headers, "utf-8"));
+                    Log.e("VolleyError", res);
+                } catch (UnsupportedEncodingException e1) {
+                    e1.printStackTrace();
+                }
+            }
+            Log.e("VolleyError", "onResponseFailListener : " + it);
+
             //프로그래스바 종료
             Util.dismiss();
         }

@@ -20,7 +20,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.NetworkResponse;
+import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.Gson;
 import com.sincar.customer.item.LoginResult;
 import com.sincar.customer.network.VolleyNetwork;
@@ -28,6 +31,7 @@ import com.sincar.customer.preference.PreferenceManager;
 import com.sincar.customer.util.LoadingProgress;
 import com.sincar.customer.util.Util;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
 import static com.sincar.customer.HWApplication.voAdvertiseItem;
@@ -240,6 +244,16 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         public void onResponseFailListener(VolleyError it) {
             System.out.println("[spirit]  실패");
 
+            NetworkResponse response = it.networkResponse;
+            if(it instanceof ServerError && response != null) {
+                try {
+                    String res = new String(response.data, HttpHeaderParser.parseCharset(response.headers, "utf-8"));
+                    Log.e("VolleyError", res);
+                } catch (UnsupportedEncodingException e1) {
+                    e1.printStackTrace();
+                }
+            }
+            Log.e("VolleyError", "onResponseFailListener : " + it);
             //프로그래스바 종료
             Util.dismiss();
         }

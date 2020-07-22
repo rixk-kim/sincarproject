@@ -22,7 +22,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.android.volley.NetworkResponse;
+import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.sincar.customer.R;
@@ -30,6 +33,7 @@ import com.sincar.customer.item.RentCarAgentResult;
 import com.sincar.customer.network.VolleyNetwork;
 import com.sincar.customer.util.Util;
 
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -339,9 +343,20 @@ public class Rental_list extends AppCompatActivity {
 
         @Override
         public void onResponseFailListener(VolleyError it) {
+
+            NetworkResponse response = it.networkResponse;
+            if(it instanceof ServerError && response != null) {
+                try {
+                    String res = new String(response.data, HttpHeaderParser.parseCharset(response.headers, "utf-8"));
+                    Log.e("VolleyError", res);
+                } catch (UnsupportedEncodingException e1) {
+                    e1.printStackTrace();
+                }
+            }
+            Log.e("VolleyError", "onResponseFailListener : " + it);
+
             //프로그래스바 종료
             Util.dismiss();
-            Log.i("Volley", "Response Fail");
         }
     };
 
