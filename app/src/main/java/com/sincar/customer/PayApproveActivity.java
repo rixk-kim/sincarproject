@@ -671,21 +671,7 @@ public class PayApproveActivity extends Activity {
                 Intent intent = new Intent(pContext, PayApproveResult.class);
                 startActivity(intent);
                 finish();
-//
-//
-//
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        runOnUiThread(new Runnable(){
-//                            @Override
-//                            public void run() {
-//                                // 해당 작업을 처리함
-//                                //requestReserveInfo();
-//                            }
-//                        });
-//                    }
-//                }).start();
+
             }else{
                 Toast.makeText(pContext, message, Toast.LENGTH_SHORT).show();
                 //finish();

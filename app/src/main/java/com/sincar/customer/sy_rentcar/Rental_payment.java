@@ -340,10 +340,33 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
 //                    startActivity(intent);
 
                     //인터페이스 적용후 활성화 예정
-                   // rentCarRequestReserveInfo(); //결제정보를 DB에 저장하는 메소드
-
+                    //intent = new Intent(pContext, Rental_pay_web.class);
+                    //임시 : 결제 웹페이지로 가지 않고 완료페이지 이동
                     intent = new Intent(pContext, Rental_approve.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+
+                    intent.putExtra("MEMBER_NO", voLoginItem.MEMBER_NO);
+                    intent.putExtra("AMOUNT", rent_amount);
+                    intent.putExtra("APPROVE_NUMBER", rent_approve_number);
+                    intent.putExtra("RENTCAR_DEL_TYPE", String.valueOf(select_delivery));
+                    intent.putExtra("DELIVERY_AMOUNT", rent_delivery_amount);
+                    intent.putExtra("INSURANCE_SEQ", insu_seq);
+                    intent.putExtra("INSURANCE_NAME", insu_name);
+                    intent.putExtra("INSURANCE_AMOUNT", rent_insurance_amount);
+                    intent.putExtra("COUPON_AMOUNT", coupone_seq);
+                    intent.putExtra("POINT_AMOUNT", String.valueOf(use_my_point));
+                    intent.putExtra("RESERVE_YEAR", rent_reserve_year);
+                    intent.putExtra("RESERVE_DATE", rent_reserve_date);
+                    intent.putExtra("RESERVE_TIME", rent_reserve_time);
+                    intent.putExtra("RETURN_YEAR", rent_return_year);
+                    intent.putExtra("RETURN_DATE", rent_return_date);
+                    intent.putExtra("RETURN_TIME", rent_return_time);
+                    intent.putExtra("RENTCAR_CAR", rent_rentcar_car);
+                    intent.putExtra("RENTCAR_NUM", rent_rentcar_num);
+                    intent.putExtra("RENTCAR_AGENT", rent_rentcar_agent);
+                    intent.putExtra("RENTCAR_RES_ADD", rent_rentcar_res_add);
+                    intent.putExtra("RENTCAR_RET_ADD", rent_rentcar_ret_add);
+
                     startActivity(intent);
                 }else {
                     Toast.makeText(com.sincar.customer.sy_rentcar.Rental_payment.this, "약관 동의를 체크해 주세요.", Toast.LENGTH_LONG).show();
@@ -464,134 +487,111 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
 
         }
     }
-
-    //결재 정보 DB입력
-    private void rentCarRequestReserveInfo() {
-        HashMap<String, String> postParams = new HashMap<String, String>();
-
-        rent_approve_number =  voLoginItem.MEMBER_NO + "R" + Util.getYearMonthDay1();
-
-        postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);         // 회원번호
-        postParams.put("AMOUNT", rent_amount);                      // 결재 금액
-        postParams.put("APPROVE_NUMBER", rent_approve_number);      // 예약번호
-        postParams.put("RENTCAR_DEL_TYPE", String.valueOf(select_delivery)); //딜리버리 선택방식
-        postParams.put("DELIVERY_AMOUNT", rent_delivery_amount);    // 딜리버리 금액
-        postParams.put("INSURANCE_SEQ", insu_seq);                  //보험 seq
-        postParams.put("INSURANCE_NAME", insu_name);                //보험 명
-        postParams.put("INSURANCE_AMOUNT", rent_insurance_amount);  // 보험 금액
-        postParams.put("COUPON_AMOUNT", coupone_seq);        // 쿠폰 사용
-        postParams.put("POINT_AMOUNT", String.valueOf(use_my_point));          // 포인트 사용양
-        postParams.put("RESERVE_YEAR", rent_reserve_year);          // 예약 연도
-        postParams.put("RESERVE_DATE", rent_reserve_date);          // 예약 날짜
-        postParams.put("RESERVE_TIME", rent_reserve_time);          // 예약 시간
-        postParams.put("RETURN_YEAR", rent_return_year);            // 반납 연도
-        postParams.put("RETURN_DATE", rent_return_date);            // 반납 날짜
-        postParams.put("RETURN_TIME", rent_return_time);            // 반납 시간
-        postParams.put("RENTCAR_CAR", rent_rentcar_car);            // 대여 차량
-        postParams.put("RENTCAR_NUM", rent_rentcar_num);            // 대여 차량 번호
-        postParams.put("RENTCAR_AGENT", rent_rentcar_agent);        // 대여 지점 이름
-        postParams.put("RENTCAR_RES_ADD", rent_rentcar_res_add);    // 딜리버리 배차 위치
-        postParams.put("RENTCAR_RET_ADD", rent_rentcar_ret_add);    // 딜리버리 반납 위치
-
-
-
-        //프로그래스바 시작
-        Util.showDialog(this);
-        //사용내역 요청
-        VolleyNetwork.getInstance(this).serverDataRequest(RENTCAR_PAY_REQUEST, postParams, onReserveResponseListener);
-
-        //test
-        //VolleyNetwork.getInstance(this).serverDataRequest(TEST_REQUEST, postParams, onReserveResponseListener);
-
-    }
-
-    VolleyNetwork.OnResponseListener onReserveResponseListener = new VolleyNetwork.OnResponseListener() {
-        @Override
-        public void onResponseSuccessListener(String serverData) {
-            /*
-                  {"reserve": [{"RESERVE_RESULT":"0","CAUSE":"","MY_POINT":"24000"}]}
-                  {"reserve": [{"RESERVE_RESULT":"1","CAUSE":"형식에 맞지 않습니다.","MY_POINT":""}]}
-             */
-
-            //서버 저장하고 다음 이동
-            Gson gSon = new Gson();
-            try {
-                rentcarReserveResult = gSon.fromJson(serverData, RentcarReserveResult.class);
-
-                voRentcarReserveItem.RENTCAR_response = rentcarReserveResult.rentcarReserve.get(0).RENTCAR_response;
-                voRentcarReserveItem.RENTCAR_message = rentcarReserveResult.rentcarReserve.get(0).RENTCAR_message;
-                voRentcarReserveItem.RENTCAR_MYPOINT = rentcarReserveResult.rentcarReserve.get(0).RENTCAR_MYPOINT;
-
-                //프로그래스바 종료
-                Util.dismiss();
-
-                System.out.println("[spirit]RENTCAR_RESERVE_RESULT ====>" + voRentcarReserveItem.RENTCAR_response);
-                if ("success".equals(voRentcarReserveItem.RENTCAR_response)) {
-                    voLoginItem.MY_POINT = voRentcarReserveItem.RENTCAR_MYPOINT;  //포인트 갱신
-
-                    //성공화면 이동
-                    Intent intent = new Intent(pContext, Rental_approve.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    Toast.makeText(pContext, voRentcarReserveItem.RENTCAR_message + "\n다시 예약 부탁 드립니다.", Toast.LENGTH_SHORT).show();
-
-                    finish();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-
-                //프로그래스바 종료
-                Util.dismiss();
-
-                Toast.makeText(pContext, "오류 발생하였습니다. 다시 예약 부탁 드립니다.", Toast.LENGTH_SHORT).show();
-
-                //기존 activity 종료
-//                MapsActivity mapActivity = (MapsActivity)MapsActivity._mMapsActivity;
-//                mapActivity.finish();
 //
-//                if(ReservationCalendarActivity._reservationCalendarActivity != null) {
-//                    ReservationCalendarActivity reservationCalendarActivity = (ReservationCalendarActivity) ReservationCalendarActivity._reservationCalendarActivity;
-//                    reservationCalendarActivity.finish();
+//    //결재 정보 DB입력
+//    private void rentCarRequestReserveInfo() {
+//        HashMap<String, String> postParams = new HashMap<String, String>();
+//
+//        rent_approve_number =  voLoginItem.MEMBER_NO + "R" + Util.getYearMonthDay1();
+//
+//        postParams.put("MEMBER_NO", voLoginItem.MEMBER_NO);         // 회원번호
+//        postParams.put("AMOUNT", rent_amount);                      // 결재 금액
+//        postParams.put("APPROVE_NUMBER", rent_approve_number);      // 예약번호
+//        postParams.put("RENTCAR_DEL_TYPE", String.valueOf(select_delivery)); //딜리버리 선택방식
+//        postParams.put("DELIVERY_AMOUNT", rent_delivery_amount);    // 딜리버리 금액
+//        postParams.put("INSURANCE_SEQ", insu_seq);                  //보험 seq
+//        postParams.put("INSURANCE_NAME", insu_name);                //보험 명
+//        postParams.put("INSURANCE_AMOUNT", rent_insurance_amount);  // 보험 금액
+//        postParams.put("COUPON_AMOUNT", coupone_seq);        // 쿠폰 사용
+//        postParams.put("POINT_AMOUNT", String.valueOf(use_my_point));          // 포인트 사용양
+//        postParams.put("RESERVE_YEAR", rent_reserve_year);          // 예약 연도
+//        postParams.put("RESERVE_DATE", rent_reserve_date);          // 예약 날짜
+//        postParams.put("RESERVE_TIME", rent_reserve_time);          // 예약 시간
+//        postParams.put("RETURN_YEAR", rent_return_year);            // 반납 연도
+//        postParams.put("RETURN_DATE", rent_return_date);            // 반납 날짜
+//        postParams.put("RETURN_TIME", rent_return_time);            // 반납 시간
+//        postParams.put("RENTCAR_CAR", rent_rentcar_car);            // 대여 차량
+//        postParams.put("RENTCAR_NUM", rent_rentcar_num);            // 대여 차량 번호
+//        postParams.put("RENTCAR_AGENT", rent_rentcar_agent);        // 대여 지점 이름
+//        postParams.put("RENTCAR_RES_ADD", rent_rentcar_res_add);    // 딜리버리 배차 위치
+//        postParams.put("RENTCAR_RET_ADD", rent_rentcar_ret_add);    // 딜리버리 반납 위치
+//
+//
+//
+//        //프로그래스바 시작
+//        Util.showDialog(this);
+//        //사용내역 요청
+//        VolleyNetwork.getInstance(this).serverDataRequest(RENTCAR_PAY_REQUEST, postParams, onReserveResponseListener);
+//
+//        //test
+//        //VolleyNetwork.getInstance(this).serverDataRequest(TEST_REQUEST, postParams, onReserveResponseListener);
+//
+//    }
+//
+//    VolleyNetwork.OnResponseListener onReserveResponseListener = new VolleyNetwork.OnResponseListener() {
+//        @Override
+//        public void onResponseSuccessListener(String serverData) {
+//            /*
+//                  {"reserve": [{"RESERVE_RESULT":"0","CAUSE":"","MY_POINT":"24000"}]}
+//                  {"reserve": [{"RESERVE_RESULT":"1","CAUSE":"형식에 맞지 않습니다.","MY_POINT":""}]}
+//             */
+//
+//            //서버 저장하고 다음 이동
+//            Gson gSon = new Gson();
+//            try {
+//                rentcarReserveResult = gSon.fromJson(serverData, RentcarReserveResult.class);
+//
+//                voRentcarReserveItem.RENTCAR_response = rentcarReserveResult.rentcarReserve.get(0).RENTCAR_response;
+//                voRentcarReserveItem.RENTCAR_message = rentcarReserveResult.rentcarReserve.get(0).RENTCAR_message;
+//                voRentcarReserveItem.RENTCAR_MYPOINT = rentcarReserveResult.rentcarReserve.get(0).RENTCAR_MYPOINT;
+//
+//                //프로그래스바 종료
+//                Util.dismiss();
+//
+//                System.out.println("[spirit]RENTCAR_RESERVE_RESULT ====>" + voRentcarReserveItem.RENTCAR_response);
+//                if ("success".equals(voRentcarReserveItem.RENTCAR_response)) {
+//                    voLoginItem.MY_POINT = voRentcarReserveItem.RENTCAR_MYPOINT;  //포인트 갱신
+//
+//                    //성공화면 이동
+//                    Intent intent = new Intent(pContext, Rental_approve.class);
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+//                    startActivity(intent);
+//                    finish();
+//                } else {
+//                    Toast.makeText(pContext, voRentcarReserveItem.RENTCAR_message + "\n다시 예약 부탁 드립니다.", Toast.LENGTH_SHORT).show();
+//
+//                    finish();
 //                }
-//                ReservationTimeActivity reservationTimeActivity = (ReservationTimeActivity)ReservationTimeActivity._reservationTimeActivity;
-//                reservationTimeActivity.finish();
+//            } catch (Exception e) {
+//                e.printStackTrace();
 //
-//                ReservationMainActivity reservationMainActivity = (ReservationMainActivity)ReservationMainActivity._reservationMainActivity;
-//                reservationMainActivity.finish();
+//                //프로그래스바 종료
+//                Util.dismiss();
 //
-//                PaymentActivity paymentActivity = (PaymentActivity)PaymentActivity._paymentActivity;
-//                paymentActivity.finish();
-
-//                Toast.makeText(pContext, "예약 정보가 초기화 됩니다. 다시 진행 부탁 드립니다.", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(pContext, "오류 발생하였습니다. 다시 예약 부탁 드립니다.", Toast.LENGTH_SHORT).show();
 //
-//                Intent intent = new Intent(pContext, MainActivity.class);
-//                startActivity(intent);
 //                finish();
+//            }
+//        }
 //
-                finish();
-            }
-        }
-
-        @Override
-        public void onResponseFailListener(VolleyError it) {
-
-            NetworkResponse response = it.networkResponse;
-            if(it instanceof ServerError && response != null) {
-                try {
-                    String res = new String(response.data, HttpHeaderParser.parseCharset(response.headers, "utf-8"));
-                    Log.e("VolleyError", res);
-                } catch (UnsupportedEncodingException e1) {
-                    e1.printStackTrace();
-                }
-            }
-            Log.e("VolleyError", "onResponseFailListener : " + it);
-
-            //프로그래스바 종료
-            Util.dismiss();
-        }
-    };
+//        @Override
+//        public void onResponseFailListener(VolleyError it) {
+//
+//            NetworkResponse response = it.networkResponse;
+//            if(it instanceof ServerError && response != null) {
+//                try {
+//                    String res = new String(response.data, HttpHeaderParser.parseCharset(response.headers, "utf-8"));
+//                    Log.e("VolleyError", res);
+//                } catch (UnsupportedEncodingException e1) {
+//                    e1.printStackTrace();
+//                }
+//            }
+//            Log.e("VolleyError", "onResponseFailListener : " + it);
+//
+//            //프로그래스바 종료
+//            Util.dismiss();
+//        }
+//    };
 
     @Override
     protected void onUserLeaveHint() {
