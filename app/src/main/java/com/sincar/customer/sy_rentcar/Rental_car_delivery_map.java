@@ -72,6 +72,7 @@ public class Rental_car_delivery_map extends AppCompatActivity implements View.O
         latitude = gps.getLatitude();
         longitude = gps.getLongitude();
 
+
 //        my_latitude = latitude;
 //        my_longitude = longitude;
 
@@ -91,8 +92,14 @@ public class Rental_car_delivery_map extends AppCompatActivity implements View.O
         findViewById(R.id.con_car_del_address).setOnClickListener(this);
         findViewById(R.id.btn_car_del_accept).setOnClickListener(this);
 
+        if (gps.isGetLocation()) {
+            //주소 갱신
+            mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
+            getAddress();
+        }
+
         //위경도의 정보로 주소 정보를 확인
-        getAddress();
+//        getAddress();
     }
 
     @Override

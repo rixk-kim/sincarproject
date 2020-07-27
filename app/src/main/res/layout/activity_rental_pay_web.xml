@@ -36,7 +36,7 @@
         android:layout_below="@id/rental_item" />
 
     <ProgressBar
-        android:id="@+id/pb_item01"
+        android:id="@+id/rental_pb"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="fill_parent"
         android:layout_height="5dp"

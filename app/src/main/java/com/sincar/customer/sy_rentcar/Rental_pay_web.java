@@ -33,33 +33,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.NetworkResponse;
-import com.android.volley.ServerError;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
-import com.google.gson.Gson;
 import com.sincar.customer.MainActivity;
-import com.sincar.customer.PayApproveActivity;
-import com.sincar.customer.PayApproveResult;
 import com.sincar.customer.R;
-import com.sincar.customer.item.RentcarReserveResult;
-import com.sincar.customer.network.VolleyNetwork;
 import com.sincar.customer.util.Util;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.HashMap;
 
-import static com.sincar.customer.HWApplication.rentcarReserveResult;
 import static com.sincar.customer.HWApplication.voLoginItem;
-import static com.sincar.customer.HWApplication.voRentcarReserveItem;
 import static com.sincar.customer.HWApplication.voReserveItem;
 import static com.sincar.customer.MapsActivity._mMapsActivity;
 import static com.sincar.customer.MapsActivity.homeKeyPressed;
@@ -94,7 +81,7 @@ public class Rental_pay_web extends AppCompatActivity {
     private String insu_seq = "";   //보험 seq
     private String insu_name = "";  //보험 명
     private String select_delivery; // 딜리버리 선택
-    private String coupone_seq = "";
+    private String coupone_seq = "";    //쿠폰 seq
     private String use_my_point = "";       //사용 포인트
 
     @Override
@@ -196,15 +183,15 @@ public class Rental_pay_web extends AppCompatActivity {
     }
 
     class MyWebChromeClient extends WebChromeClient {
-        ProgressBar pb_item01 = (ProgressBar) findViewById(R.id.pb_item01);
+        ProgressBar rentalpb = (ProgressBar) findViewById(R.id.rental_pb);
 
         public void onProgressChanged(WebView view, int progress) {
-            pb_item01.setProgress(progress); // ProgressBar값 설정
+            rentalpb.setProgress(progress); // ProgressBar값 설정
 
             if (progress == 100) { // 모두 로딩시 Progressbar를 숨김
-                pb_item01.setVisibility(View.GONE);
+                rentalpb.setVisibility(View.GONE);
             } else {
-                pb_item01.setVisibility(View.VISIBLE);
+                rentalpb.setVisibility(View.VISIBLE);
             }
         }
 
@@ -290,7 +277,7 @@ public class Rental_pay_web extends AppCompatActivity {
                             startActivity(intent);
                             overridePendingTransition(0, 0);
                         }
-                    }, "���", new DialogInterface.OnClickListener() {
+                    }, "취소", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.cancel();
                         }
@@ -522,6 +509,7 @@ public class Rental_pay_web extends AppCompatActivity {
 
     @Override
     protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
         Log.e("===============", "onNewIntent!!");
         if (intent != null) {
             if (Intent.ACTION_VIEW.equals(intent.getAction())) {
