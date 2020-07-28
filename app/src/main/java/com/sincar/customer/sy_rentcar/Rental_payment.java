@@ -145,7 +145,7 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
         rent_return_date = intent.getStringExtra("RETURN_DATE");                //반납 날짜
         rent_return_time = intent.getStringExtra("RETURN_TIME");                //반납 시간
         rent_rentcar_car = intent.getStringExtra("RENTCAR_CAR");                //대여 차종
-        rent_rentcar_num = intent.getStringExtra("RENCAR_NUM");                 //대여 차량 번호
+        rent_rentcar_num = intent.getStringExtra("RENTCAR_NUM");                 //대여 차량 번호
         rent_rentcar_agent = intent.getStringExtra("RENTCAR_AGENT");            //지점 이름
         rent_rentcar_res_add = intent.getStringExtra("RENTCAR_RES_ADD");        //딜리버리 배차 위치(없으면 Null)
         rent_rentcar_ret_add = intent.getStringExtra("RENTCAR_RET_ADD");        //딜리버리 반납 위치(없으면 Null)
@@ -340,9 +340,9 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
 //                    startActivity(intent);
 
                     //인터페이스 적용후 활성화 예정
-                    //intent = new Intent(pContext, Rental_pay_web.class);
+                    intent = new Intent(pContext, Rental_pay_web.class);
                     //임시 : 결제 웹페이지로 가지 않고 완료페이지 이동
-                    intent = new Intent(pContext, Rental_approve.class);
+//                    intent = new Intent(pContext, Rental_approve.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
 
                     intent.putExtra("MEMBER_NO", voLoginItem.MEMBER_NO);

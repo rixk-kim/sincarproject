@@ -23,7 +23,7 @@ public class Rental_list_filter_price extends AppCompatActivity {
     RadioGroup rgPri, rgPri2; //버튼 위치 배치 디스플레이를 위해 라디오 그룹 2개 설정
     RadioButton rb1, rb2, rb3, rb4, rb5, rb6, rb7; // 7개의 라디오버튼 변수 선언
 
-    price_filter rbPriceChange; // 설정된 가격 조건을 구분 짓기 위한 변수 0: 전체 1: 10만원이하 2: 20만원 이하 ~~
+    price_filter rbPriceChange = price_filter.all; // 설정된 가격 조건을 구분 짓기 위한 변수 0: 전체 1: 10만원이하 2: 20만원 이하 ~~
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

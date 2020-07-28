@@ -91,7 +91,7 @@ public class MapsActivity extends FragmentActivity implements
     Maps_rent_time_java maps_rent_time_reserve, maps_rent_time_return; //렌트카 메뉴 선택중 예약 시간 설정 디스플레이를 위한 클래스(예약,반납)
     Maps_rent_mainfrag maps_rent_mainfrag; //렌트카 메뉴 선택시 하단 메인메뉴 디스플레이를 위한 클래스
     static String start_date, start_time, return_date, return_time; //예약 날짜,시간 과 반납 날짜 시간
-    int now_timeInt, start_timeInt, return_timeInt, start_yearInt, return_yearInt; //현재시간,예약시간,반납시간 인트화
+    int now_timeInt, start_timeInt, return_timeInt, start_yearInt, return_yearInt, now_yearInt; //현재시간,예약시간,반납시간,연도 인트화
     ImageView btnCurrent;
     Bundle bundle = new Bundle(); //메인프래그먼트에 데이터 전달을 위한 번들
     int rCode = 0;  //렌터카 프래그먼트 활성화중 메인화면,예약시간화면,반납시간화면을 구분 짓기 위한 변수
@@ -103,7 +103,7 @@ public class MapsActivity extends FragmentActivity implements
     Point pt;
     RelativeLayout reMap;
     boolean mapCheck = false;
-    MapPOIItem marker;
+//    MapPOIItem marker;
 
     public static boolean homeKeyPressed;
     ///sy
@@ -150,6 +150,7 @@ public class MapsActivity extends FragmentActivity implements
         // TODO - 지도의 파란동그라미 작업(layout에 추가, 이벤트 작업)
         //현재 날짜 요일 구하기
 
+        // TODO - 스팀세차
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat weekdayFormat = new SimpleDateFormat("EE", Locale.getDefault());
         SimpleDateFormat dayFormat = new SimpleDateFormat("dd", Locale.getDefault());
@@ -163,6 +164,7 @@ public class MapsActivity extends FragmentActivity implements
 
         //sy
 
+        // TODO - 렌터카
         //렌터카 디스플레이를 위한 심플데이터포맷
         btnCurrent = (ImageView) findViewById(R.id.btnCurrent);
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d일 (E)");
@@ -176,8 +178,9 @@ public class MapsActivity extends FragmentActivity implements
         }
 
         now_timeInt = Integer.parseInt(timeIntFormat.format(currentTime));
+        now_yearInt = Integer.parseInt(yearFormat.format(currentTime));
         start_timeInt = return_timeInt = now_timeInt; //초기화 중엔 초기화면 설정을 위해서 현재시간 예약시간 반납시간 동일화
-        start_yearInt = return_yearInt = 2020;
+        start_yearInt = return_yearInt = now_yearInt;
 
         ///sy
         findViewById(R.id.btnMapHome).setOnClickListener(this);
@@ -199,6 +202,7 @@ public class MapsActivity extends FragmentActivity implements
 //        marker.setMapPoint(mapView.getMapCenterPoint());
 //        mapView.addPOIItem(marker);
 
+        // TODO - 스팀세차
         if ("steam".equals(main_path)) {
             mbtnReserveAddress.setOnClickListener(this);
             mConstraintLayout.setOnClickListener(this);
@@ -211,6 +215,7 @@ public class MapsActivity extends FragmentActivity implements
             constraintSet.connect(btnCurrent.getId(), constraintSet.BOTTOM, mbtnReserveAddress.getId(), ConstraintSet.TOP);
             constraintSet.applyTo(constraintLayout);
 
+            // TODO - 렌터카
         } else if ("driver".equals(main_path)){ //sy //현재는 렌터카만 작동하지만 추후 렌터카 외 부문의 추가 구분 필요
             //현재위치 설정 버튼의 위치 설정 (렌트카 프레임레이아웃의 기준으로 위치)
             constraintSet.connect(btnCurrent.getId(), constraintSet.BOTTOM, framelayout_maps_rentCar.getId(), ConstraintSet.TOP);
@@ -270,6 +275,7 @@ public class MapsActivity extends FragmentActivity implements
             }
         });
 
+        // TODO - 렌터카
         //초기 화면 디스플레이시 가끔 주소 정보가 안나오는 버그가 발생하여 초기화 함수 마지막에 주소 정보가 나오도록 추가함
         //mapView의 맵 움직임이 끝나면 호출되는 메소드에 주소 정보 표시하는 메소드를 추가하였으나
         //map_rent_mainfrag의 framelayout보다 mapView의 움직임이 먼저 끝나면 안나오는듯
@@ -279,9 +285,304 @@ public class MapsActivity extends FragmentActivity implements
             }
         }
 
+        //안드로이드 홈키 눌림 체크 변수 초기화
         homeKeyPressed = false;
     }
     ///sy
+
+    //화면의 뷰가 그려질때 불러오는 메소드
+    //(화면이 그려지기 전에 getHeight가 0이 리턴 되기 때문에 mapview의 정확한 크기를 정할수 없었음)
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if ("steam".equals(main_path)) {
+            constraintSet.constrainHeight(R.id.kMap, pt.y - mbtnReserveAddress.getHeight()
+                    - mConstraintLayout.getHeight() - next_Layout.getHeight() + 20);
+            constraintSet.applyTo(constraintLayout);    //맵뷰의 크기를 스팀세차에 맞춰 설정
+            framelayout_maps_rentCar.setVisibility(View.GONE);  //렌터카 프래그먼트 디스플레이 화면에서 삭제
+        } else if ("driver".equals(main_path)) {
+            constraintSet.constrainHeight(R.id.kMap, pt.y - framelayout_maps_rentCar.getHeight()+ 20);
+            constraintSet.applyTo(constraintLayout);    //맵뷰의 크기를 렌터카에 맞춰 설정
+        } else {
+            framelayout_maps_rentCar.setVisibility(View.GONE);
+//            constraintSet.constrainHeight(R.id.kMap, pt.y - framelayout_maps_rentCar.getHeight()+ 20);
+//            constraintSet.applyTo(constraintLayout);
+        }
+    }
+
+    ///sy
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!gps.isGetLocation()) {//액티비티 활성 또는 재활성화 중 gps설정 확인
+            gps.showSettingsAlert();
+        }
+        init();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapViewContainer.removeView(mapView); //액티비티가 넘어갈때 맵뷰를 컨테이너에서 삭제(오류 방지)
+        if(homeKeyPressed) {
+            start_date = null; start_time = null; return_date = null; return_time = null; //홈버튼 누른후 다시 시작시 초기화
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        start_date = null; start_time = null; return_date = null; return_time = null; //메뉴로 돌아가면 예약,반납 시간 초기화
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        homeKeyPressed = true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent;
+
+        switch (v.getId()) {
+            case R.id.btnMapHome:
+                // 지도 home button -> 메인이동
+                intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+                //메뉴로 돌아가면 예약,반납 시간 초기화
+                start_date = null; start_time = null; return_date = null; return_time = null;
+                startActivity(intent);
+                break;
+
+            case R.id.btnCurrent:
+                // 지도 current button => 하단 버튼과 기능 중복됨
+                mapView.clearFocus();
+
+                // GPS 정보
+                gps = new GPSInfo(gContext);
+                latitude = gps.getLatitude();
+                longitude = gps.getLongitude();
+
+                my_latitude = latitude;
+                my_longitude = longitude;
+
+                if (gps.isGetLocation()) {
+
+                    //주소 갱신
+                    getAddress();
+                    if ("steam".equals(main_path)) {
+                        currentTextView.setText(cAddress);
+                        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
+                        //sy
+                    } else if("driver".equals(main_path)) {
+                        bundle.putString("reserve_address", cAddress);
+                        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true); //맵뷰의 시점을 gps기준으로 현재위치로 이동
+                    } else {
+                        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
+                    }
+                    ///sy
+
+                } else {
+                    // GPS 를 사용할수 없으므로
+                    gps.showSettingsAlert();
+                }
+                break;
+
+                // TODO - 스팀세차
+            case R.id.btnReserveAddress:
+                // "주소 검색" 설정
+                //startActivity(new Intent(this, ReservationAddressActivity.class));
+                intent = new Intent(this, ReservationAddressActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+                startActivityForResult(intent, MAP_REQ_CODE);
+                break;
+
+            case R.id.btnReserveDate:
+                // "예약일자" 설정
+                intent = new Intent(this, ReservationCalendarActivity.class);
+                intent.putExtra("reserve_address", cAddress);
+                intent.putExtra("search_keyword", search_keyword);
+//                startActivity(intent);
+
+                // "예약일자" 설정
+                intent = new Intent(this, ReservationCalendarActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+                startActivityForResult(intent, CALENDA_REQ_CODE);
+                break;
+            case R.id.btnNext:
+                // "이 위치로 부름" 작업(시나리오 확인) => 현 위치로 이동
+                if (gps.isGetLocation()) {
+
+                    if ("steam".equals(main_path)) {
+                        //시간선택으로 바로가기
+                        intent = new Intent(this, ReservationTimeActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+                        intent.putExtra("reserve_address", cAddress);
+                        if (TextUtils.isEmpty(search_keyword)) search_keyword = cAddress;
+                        intent.putExtra("search_keyword", search_keyword);
+                        intent.putExtra("reserve_year", reserve_year);
+                        intent.putExtra("reserve_month", reserve_month);
+                        intent.putExtra("reserve_day", reserve_day);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(this, "서비스 준비중입니다.", Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    gps.showSettingsAlert();
+                }
+                //ConvertGPS("서울 송파구 석촌호수로 274");
+                //Toast.makeText(this, cAddress + "로 부르셨습니다. 정보 갱신중..", Toast.LENGTH_LONG).show();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + v.getId());
+        }
+    }
+
+    /**
+     * 현 위치 호출시 주소 갱신
+     */
+    private void getAddress() {
+        if (gps.isGetLocation()) {
+            //Geocoder
+            gCoder = new Geocoder(this, Locale.getDefault());
+            List<Address> addr = null;
+            try {
+                addr = gCoder.getFromLocation(latitude, longitude, 10);   //위도, 경도, 얻어올 값의 개수
+                Address a = addr.get(0);
+
+                String address = a.getAddressLine(0).substring(a.getAddressLine(0).indexOf("\"") + 1, a.getAddressLine(0).length()); // 주소
+                address = address.replace("대한민국 ", "");
+                if (address != null && address.length() > 0) {
+                    String[] splitStr = address.split(" ");
+                    cAddress = address;
+
+                    //해당 지역을 넣어준다.
+                    //return_address = "위치 : " + splitStr[1] + " " + splitStr[2];
+
+                } else {
+                    //주소를 가져오지 못했을 때 처리 추가.
+                    //Toast.makeText(this,"주소 정보가 없습니다.", Toast.LENGTH_LONG).show();
+                }
+
+                if ("steam".equals(main_path))
+                    currentTextView.setText(cAddress);
+                    //sy
+                else
+                    bundle.putString("reserve_address", cAddress);
+                ///sy
+                Log.d("MapActivity", "address ==>" + address);
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(this, "주소 정보가 없습니다.", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    /**
+     * 주소 -> 위경도로 변환
+     */
+    private void ConvertGPS(String cAddress) {
+        List<Address> list = null;
+
+//        String str = et3.getText().toString();
+        try {
+            list = gCoder.getFromLocationName
+                    (cAddress, // 지역 이름
+                            10); // 읽을 개수
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("test", "입출력 오류 - 서버에서 주소변환시 에러발생");
+        }
+
+        if (list != null) {
+            if (list.size() == 0) {
+                Log.e("test", "해당되는 주소 정보는 없습니다");
+            } else {
+                // 해당되는 주소로 인텐트 날리기
+                Address addr = list.get(0);
+                double lat = addr.getLatitude();
+                double lon = addr.getLongitude();
+
+                //Toast.makeText(this, "위도 : " + lat + ", 경도 : " + lon, Toast.LENGTH_LONG).show();
+
+                //sy
+                latitude = lat;
+                longitude = lon;
+                mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(lat, lon), true);
+
+
+                if ("steam".equals(main_path))
+                    currentTextView.setText(cAddress);
+                    //sy
+                else if("driver".equals(main_path))
+                    bundle.putString("reserve_address", cAddress);
+                else {}
+
+//                String sss = String.format("geo:%f,%f", lat, lon);
+//
+//                Intent intent = new Intent(
+//                        Intent.ACTION_VIEW,
+//                        Uri.parse(sss));
+//                startActivity(intent);
+            }
+        }
+    }
+
+    // TODO - 스팀세차
+    //액티비티 재활성화시 실행되는 메소드(스팀세차의 날짜,주소 설정후)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == MAP_REQ_CODE) {
+            if (resultCode == RESULT_OK) {
+                if (!TextUtils.isEmpty(data.getStringExtra("search_result"))) {
+                    cAddress = data.getStringExtra("search_result");
+                    search_keyword = data.getStringExtra("search_keyword");
+//                    if ("steam".equals(main_path))
+//                        currentTextView.setText(cAddress);
+//                        //sy
+//                    else
+//                        bundle.putString("current_address", cAddress);
+//                    ///sy
+                    ConvertGPS(cAddress);
+                } else {
+                    Toast.makeText(MapsActivity.this, "주소 검색을 다시 해주세요", Toast.LENGTH_SHORT).show();
+                }
+//                Toast.makeText(MapsActivity.this, "Result: " + data.getStringExtra("search_result"), Toast.LENGTH_SHORT).show();
+            } else {   // RESULT_CANCEL
+//                Toast.makeText(MapsActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+            }
+
+        } else if (requestCode == CALENDA_REQ_CODE) {
+            if (resultCode == RESULT_OK) {
+                if (!TextUtils.isEmpty(data.getStringExtra("reserve_year"))) {
+                    String dayofday = "";
+                    reserve_year = data.getStringExtra("reserve_year");
+                    reserve_month = data.getStringExtra("reserve_month");
+                    reserve_day = data.getStringExtra("reserve_day");
+                    try {
+                        dayofday = Util.getDateDay(reserve_year + reserve_month + reserve_day);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    reserve_date.setText(reserve_month + "/ " + reserve_day + " (" + dayofday + ")"); //9/15 (화)
+                } else {
+                    Toast.makeText(MapsActivity.this, "날짜를 다시 해주세요", Toast.LENGTH_SHORT).show();
+                }
+//                Toast.makeText(MapsActivity.this, "Result: " + data.getStringExtra("search_result"), Toast.LENGTH_SHORT).show();
+            } else {   // RESULT_CANCEL
+//                Toast.makeText(MapsActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    // TODO - 렌터카
     //sy 렌터카 메인 화면 및 예약시간 프래그먼트를 표현하기 위한 메소드
     public void replaceFragment(int i) {
 
@@ -342,305 +643,8 @@ public class MapsActivity extends FragmentActivity implements
         }
     }
 
-    //화면의 뷰가 그려질때 불러오는 메소드
-    //(화면이 그려지기 전에 getHeight가 0이 리턴 되기 때문에 mapview의 정확한 크기를 정할수 없었음)
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if ("steam".equals(main_path)) {
-            constraintSet.constrainHeight(R.id.kMap, pt.y - mbtnReserveAddress.getHeight()
-                    - mConstraintLayout.getHeight() - next_Layout.getHeight() + 20);
-            constraintSet.applyTo(constraintLayout);    //맵뷰의 크기를 스팀세차에 맞춰 설정
-            framelayout_maps_rentCar.setVisibility(View.GONE);  //렌터카 프래그먼트 디스플레이 화면에서 삭제
-        } else if ("driver".equals(main_path)) {
-            constraintSet.constrainHeight(R.id.kMap, pt.y - framelayout_maps_rentCar.getHeight()+ 20);
-            constraintSet.applyTo(constraintLayout);    //맵뷰의 크기를 렌터카에 맞춰 설정
-        } else {
-            framelayout_maps_rentCar.setVisibility(View.GONE);
-//            constraintSet.constrainHeight(R.id.kMap, pt.y - framelayout_maps_rentCar.getHeight()+ 20);
-//            constraintSet.applyTo(constraintLayout);
-        }
-    }
-
-    ///sy
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (!gps.isGetLocation()) {//액티비티 활성 또는 재활성화 중 gps설정 확인
-            gps.showSettingsAlert();
-        }
-        init();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mapViewContainer.removeView(mapView); //액티비티가 넘어갈때 맵뷰를 컨테이너에서 삭제(오류 방지)
-        if(homeKeyPressed) {
-            start_date = null; start_time = null; return_date = null; return_time = null; //홈버튼 누른후 다시 시작시 초기화
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        start_date = null; start_time = null; return_date = null; return_time = null; //메뉴로 돌아가면 예약,반납 시간 초기화
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    @Override
-    protected void onUserLeaveHint() {
-        super.onUserLeaveHint();
-        homeKeyPressed = true;
-    }
-
-
-    /**
-     * 현 위치 호출시 주소 갱신
-     */
-    private void getAddress() {
-        if (gps.isGetLocation()) {
-            //Geocoder
-            gCoder = new Geocoder(this, Locale.getDefault());
-            List<Address> addr = null;
-            try {
-                addr = gCoder.getFromLocation(latitude, longitude, 10);   //위도, 경도, 얻어올 값의 개수
-                Address a = addr.get(0);
-
-                String address = a.getAddressLine(0).substring(a.getAddressLine(0).indexOf("\"") + 1, a.getAddressLine(0).length()); // 주소
-                address = address.replace("대한민국 ", "");
-                if (address != null && address.length() > 0) {
-                    String[] splitStr = address.split(" ");
-                    cAddress = address;
-
-                    //해당 지역을 넣어준다.
-                    //return_address = "위치 : " + splitStr[1] + " " + splitStr[2];
-
-                } else {
-                    //주소를 가져오지 못했을 때 처리 추가.
-                    //Toast.makeText(this,"주소 정보가 없습니다.", Toast.LENGTH_LONG).show();
-                }
-
-                if ("steam".equals(main_path))
-                    currentTextView.setText(cAddress);
-                    //sy
-                else
-                    bundle.putString("reserve_address", cAddress);
-                ///sy
-                Log.d("MapActivity", "address ==>" + address);
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                Toast.makeText(this, "주소 정보가 없습니다.", Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        Intent intent;
-
-        switch (v.getId()) {
-            case R.id.btnMapHome:
-                // 지도 home button -> 메인이동
-                intent = new Intent(this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
-                //메뉴로 돌아가면 예약,반납 시간 초기화
-                start_date = null; start_time = null; return_date = null; return_time = null;
-                startActivity(intent);
-                break;
-
-            case R.id.btnCurrent:
-                // 지도 current button => 하단 버튼과 기능 중복됨
-                mapView.clearFocus();
-
-                // GPS 정보
-                gps = new GPSInfo(gContext);
-                latitude = gps.getLatitude();
-                longitude = gps.getLongitude();
-
-                my_latitude = latitude;
-                my_longitude = longitude;
-
-                if (gps.isGetLocation()) {
-
-                    //주소 갱신
-                    getAddress();
-                    if ("steam".equals(main_path)) {
-                        currentTextView.setText(cAddress);
-                        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
-                        //sy
-                    } else if("driver".equals(main_path)) {
-                        bundle.putString("reserve_address", cAddress);
-                        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true); //맵뷰의 시점을 gps기준으로 현재위치로 이동
-                        //현재화면이 렌터카 메인프래그먼트 일때만 현재위치 정보 표시 메소드 실행
-//                        if(rCode == 0) {
-//                            if (((Maps_rent_mainfrag) getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar)) != null)
-//                                ((Maps_rent_mainfrag) getSupportFragmentManager().findFragmentById(R.id.framelayout_maps_rentcar)).AddressChange();
-//                        }
-                    } else {
-                        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
-                    }
-                    ///sy
-
-                } else {
-                    // GPS 를 사용할수 없으므로
-                    gps.showSettingsAlert();
-                }
-                break;
-
-            case R.id.btnReserveAddress:
-                // "주소 검색" 설정
-                //startActivity(new Intent(this, ReservationAddressActivity.class));
-                intent = new Intent(this, ReservationAddressActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
-                startActivityForResult(intent, MAP_REQ_CODE);
-                break;
-
-            case R.id.btnReserveDate:
-                // "예약일자" 설정
-                intent = new Intent(this, ReservationCalendarActivity.class);
-                intent.putExtra("reserve_address", cAddress);
-                intent.putExtra("search_keyword", search_keyword);
-//                startActivity(intent);
-
-                // "예약일자" 설정
-                intent = new Intent(this, ReservationCalendarActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
-                startActivityForResult(intent, CALENDA_REQ_CODE);
-                break;
-            case R.id.btnNext:
-                // "이 위치로 부름" 작업(시나리오 확인) => 현 위치로 이동
-                if (gps.isGetLocation()) {
-
-                    if ("steam".equals(main_path) || "driver".equals(main_path)) {
-                        //시간선택으로 바로가기
-                        intent = new Intent(this, ReservationTimeActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
-                        intent.putExtra("reserve_address", cAddress);
-                        if (TextUtils.isEmpty(search_keyword)) search_keyword = cAddress;
-                        intent.putExtra("search_keyword", search_keyword);
-                        intent.putExtra("reserve_year", reserve_year);
-                        intent.putExtra("reserve_month", reserve_month);
-                        intent.putExtra("reserve_day", reserve_day);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(this, "서비스 준비중입니다.", Toast.LENGTH_LONG).show();
-                    }
-                } else {
-                    gps.showSettingsAlert();
-                }
-                //ConvertGPS("서울 송파구 석촌호수로 274");
-                //Toast.makeText(this, cAddress + "로 부르셨습니다. 정보 갱신중..", Toast.LENGTH_LONG).show();
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + v.getId());
-        }
-    }
-
-    //액티비티 재활성화시 실행되는 메소드(스팀세차의 날짜,주소 설정후)
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == MAP_REQ_CODE) {
-            if (resultCode == RESULT_OK) {
-                if (!TextUtils.isEmpty(data.getStringExtra("search_result"))) {
-                    cAddress = data.getStringExtra("search_result");
-                    search_keyword = data.getStringExtra("search_keyword");
-//                    if ("steam".equals(main_path))
-//                        currentTextView.setText(cAddress);
-//                        //sy
-//                    else
-//                        bundle.putString("current_address", cAddress);
-//                    ///sy
-                    ConvertGPS(cAddress);
-                } else {
-                    Toast.makeText(MapsActivity.this, "주소 검색을 다시 해주세요", Toast.LENGTH_SHORT).show();
-                }
-//                Toast.makeText(MapsActivity.this, "Result: " + data.getStringExtra("search_result"), Toast.LENGTH_SHORT).show();
-            } else {   // RESULT_CANCEL
-//                Toast.makeText(MapsActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-            }
-
-        } else if (requestCode == CALENDA_REQ_CODE) {
-            if (resultCode == RESULT_OK) {
-                if (!TextUtils.isEmpty(data.getStringExtra("reserve_year"))) {
-                    String dayofday = "";
-                    reserve_year = data.getStringExtra("reserve_year");
-                    reserve_month = data.getStringExtra("reserve_month");
-                    reserve_day = data.getStringExtra("reserve_day");
-                    try {
-                        dayofday = Util.getDateDay(reserve_year + reserve_month + reserve_day);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    reserve_date.setText(reserve_month + "/ " + reserve_day + " (" + dayofday + ")"); //9/15 (화)
-                } else {
-                    Toast.makeText(MapsActivity.this, "날짜를 다시 해주세요", Toast.LENGTH_SHORT).show();
-                }
-//                Toast.makeText(MapsActivity.this, "Result: " + data.getStringExtra("search_result"), Toast.LENGTH_SHORT).show();
-            } else {   // RESULT_CANCEL
-//                Toast.makeText(MapsActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    /**
-     * 주소 -> 위경도로 변환
-     */
-    private void ConvertGPS(String cAddress) {
-        List<Address> list = null;
-
-//        String str = et3.getText().toString();
-        try {
-            list = gCoder.getFromLocationName
-                    (cAddress, // 지역 이름
-                            10); // 읽을 개수
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("test", "입출력 오류 - 서버에서 주소변환시 에러발생");
-        }
-
-        if (list != null) {
-            if (list.size() == 0) {
-                Log.e("test", "해당되는 주소 정보는 없습니다");
-            } else {
-                // 해당되는 주소로 인텐트 날리기
-                Address addr = list.get(0);
-                double lat = addr.getLatitude();
-                double lon = addr.getLongitude();
-
-                //Toast.makeText(this, "위도 : " + lat + ", 경도 : " + lon, Toast.LENGTH_LONG).show();
-
-                //sy
-                latitude = lat;
-                longitude = lon;
-                mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(lat, lon), true);
-
-
-                if ("steam".equals(main_path))
-                    currentTextView.setText(cAddress);
-                    //sy
-                else if("driver".equals(main_path))
-                    bundle.putString("reserve_address", cAddress);
-                else {}
-                ///sy
-                ///sy
-
-//                String sss = String.format("geo:%f,%f", lat, lon);
-//
-//                Intent intent = new Intent(
-//                        Intent.ACTION_VIEW,
-//                        Uri.parse(sss));
-//                startActivity(intent);
-            }
-        }
-    }
-
     //sy
+    // TODO - 렌터카
     /**
     예약시간과 반납시간 프레임레이아웃 호출 메소드
      */
@@ -652,6 +656,7 @@ public class MapsActivity extends FragmentActivity implements
         replaceFragment(3);
     }
 
+    // TODO - 렌터카
     /**
      렌터카 메인 프래그먼트로부터 데이터를 받기 위한 인터페이스 메소드
      날짜,시간,r코드에 따라 예약시간이나 반납시간 구분
@@ -671,6 +676,7 @@ public class MapsActivity extends FragmentActivity implements
         }
     }
 
+    // TODO - 렌터카
     /**
      *
      * @param rCodecheck 렌터카 프래그먼트에서 액티비티로 현재화면표시 정보를 보내기 위한 인터페이스 메소드
@@ -710,11 +716,6 @@ public class MapsActivity extends FragmentActivity implements
     //안드로이드 앱 배포시 Google Play App Signing 기능을 이용할 시에 해시키값
     byte[] sha1 = {0x0F, 0x71, 0x23, 0x55, 0x6C, (byte)0x8E, (byte)0xE7, (byte)0xD6, (byte)0xD4, (byte)0xCC, 0x4D, (byte)0x9E, (byte)0x9D,
             (byte)0xA9, (byte)0xEC, 0x05, 0x47, 0x39, (byte)0xD6, (byte)0xA1};
-
-
-
-    //카카오맵 맵뷰이벤트리스너 오버라이드
-
 
     //카카오맵의 맵뷰가 초기 표현됐을때 호출
     @Override

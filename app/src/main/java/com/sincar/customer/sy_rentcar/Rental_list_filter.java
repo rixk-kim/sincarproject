@@ -224,40 +224,33 @@ public class Rental_list_filter extends AppCompatActivity {
 
         //나이 조건
         if(requestCode == filter.age.ordinal() && resultCode == RESULT_OK) {
-            String age_data = data.getStringExtra("age_data");
-            rent_car_list_age = age_data;
-            tvAge.setText(age_data);
+            rent_car_list_age = data.getStringExtra("age_data");
+            tvAge.setText(rent_car_list_age);
             age = (age_filter)data.getSerializableExtra("age");
-            //rental_list_filter_ageSelect(i);
         }
         //가격 조건
         else if(requestCode == filter.price.ordinal() && resultCode == RESULT_OK) {
-            String price_data = data.getStringExtra("price_data");
-            rent_car_list_price = price_data;
-            tvPrice.setText(price_data);
+            rent_car_list_price = data.getStringExtra("price_data");
+            tvPrice.setText(rent_car_list_price);
             price = (price_filter) data.getSerializableExtra("price");
-            //rental_list_filter_priceSelect(i);
         }
         //외형 조건
         else if(requestCode == filter.type.ordinal() && resultCode == RESULT_OK) {
-            String type_data = data.getStringExtra("type_data");
-            rent_car_list_type = type_data;
-            tvType.setText(type_data);
+            rent_car_list_type = data.getStringExtra("type_data");
+            tvType.setText(rent_car_list_type);
             type = (type_filter[]) data.getSerializableExtra("type");
         }
         //브랜드 조건
         else if(requestCode == filter.brand.ordinal() && resultCode == RESULT_OK) {
-            String brand_data = data.getStringExtra("brand_data");
-            rent_car_list_brand= brand_data;
-            if(brand_data.length() > 25){
-                brand_data = brand_data.substring(0, 25);
-                brand_data += "...";    //25자 이상 넘어가면 "..."으로 변환
+            rent_car_list_brand = data.getStringExtra("brand_data");
+            if(rent_car_list_brand.length() > 25){
+                rent_car_list_brand = rent_car_list_brand.substring(0, 25);
+                rent_car_list_brand += "...";    //25자 이상 넘어가면 "..."으로 변환
             }
-            tvBrand.setText(brand_data);
+            tvBrand.setText(rent_car_list_brand);
             kukBrand = (kuk_brand_filter[]) data.getSerializableExtra("kukBrand");
             suBrand = (su_brand_filter[]) data.getSerializableExtra("suBrand");
         }
-
     }
 
     @Override

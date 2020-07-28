@@ -27,7 +27,7 @@ public class Maps_rent_mainfrag extends Fragment {
     TextView tvReserveDate, tvReserveTime, tvReturnDate, tvReturnTime, currentAddress; //예약날짜,시간, 반납날짜,시간, 맵표시 주소텍스트
     Button btnCheck;    //최종 확인 버튼
     Date reserverDateNTime, returnDateNTime; //예약날짜,반납날짜의 Date
-    String start_date, start_time, return_date, return_time, reserve_address, start_year, return_year; // 예약날짜,시간, 반납날짜,시간, 맵표시 주소 String
+    String start_date, start_time, return_date, return_time, reserve_address, start_year, return_year; // 예약날짜,시간, 반납날짜,시간,연도, 맵표시 주소 String
     double latitude, longitude; // 맵표시 주소 위경도
 
     @Nullable

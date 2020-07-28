@@ -79,14 +79,20 @@ public class Rental_list_filter_type extends AppCompatActivity {
                     }
                 }
                 //변환된 String을 번들에 적용후 액티비티 종료
-                typeStrData = typeStrData.substring(0, typeStrData.length()-1);
+
+                type_filter[] type;
+                if(!"".equals(typeStrData)){
+                    type = typeArrayList.toArray(new type_filter[typeArrayList.size()]);
+                    typeStrData = typeStrData.substring(0, typeStrData.length()-1);
+                } else {
+                    typeStrData = "전체";
+                    type = typeArr;
+                }
                 Intent intent = new Intent();
                 intent.putExtra("type_data", typeStrData);
-                type_filter[] type = typeArrayList.toArray(new type_filter[typeArrayList.size()]);
                 intent.putExtra("type", type);
                 setResult(RESULT_OK, intent);
                 finish();
-
             }
         });
     }

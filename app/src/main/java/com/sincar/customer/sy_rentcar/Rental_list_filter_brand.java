@@ -112,11 +112,20 @@ public class Rental_list_filter_brand extends AppCompatActivity {
                     }
                 }
                 //변환된 String을 번들에 적용후 액티비티 종료
-                brandStrData = brandStrData.substring(0, brandStrData.length()-1);
+                kuk_brand_filter[] kukBrand;
+                su_brand_filter[] suBrand;
+                if(!"".equals(brandStrData)) {
+                    brandStrData = brandStrData.substring(0, brandStrData.length()-1);
+                    kukBrand = kukBrandArrayList.toArray(new kuk_brand_filter[kukBrandArrayList.size()]);
+                    suBrand = suBrandArrayList.toArray(new su_brand_filter[suBrandArrayList.size()]);
+                } else {
+                    brandStrData = "전체";
+                    kukBrand = kuk_brand_filterArr;
+                    suBrand = su_brand_filtersArr;
+                }
+
                 Intent intent = new Intent();
                 intent.putExtra("brand_data", brandStrData);
-                kuk_brand_filter[] kukBrand = kukBrandArrayList.toArray(new kuk_brand_filter[kukBrandArrayList.size()]);
-                su_brand_filter[] suBrand = suBrandArrayList.toArray(new su_brand_filter[suBrandArrayList.size()]);
                 intent.putExtra("kukBrand", kukBrand);
                 intent.putExtra("suBrand", suBrand);
                 setResult(RESULT_OK, intent);
