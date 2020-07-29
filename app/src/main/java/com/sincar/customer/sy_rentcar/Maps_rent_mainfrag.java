@@ -66,11 +66,11 @@ public class Maps_rent_mainfrag extends Fragment {
             currentAddress.setText(reserve_address);
 
             //예약 날짜,시간 과 반납 날짜,시간의 String을 파싱
-            SimpleDateFormat dateNtimeFormat = new SimpleDateFormat("MMM d일 (E)HH:00");
+            SimpleDateFormat dateNtimeFormat = new SimpleDateFormat("yyyyMMM d일 (E)HH:00");
 
             try {
-                reserverDateNTime = dateNtimeFormat.parse(start_date + start_time);
-                returnDateNTime = dateNtimeFormat.parse(return_date + return_time);
+                reserverDateNTime = dateNtimeFormat.parse(start_year + start_date + start_time);
+                returnDateNTime = dateNtimeFormat.parse(return_year + return_date + return_time);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -81,6 +81,7 @@ public class Maps_rent_mainfrag extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), ReservationAddressActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION); // intent가 호출될때 onUserLeaveHint()가 실행되는것을 차단
                 getActivity().startActivityForResult(intent, ((MapsActivity)getActivity()).MAP_REQ_CODE);
             }
         });
@@ -123,7 +124,7 @@ public class Maps_rent_mainfrag extends Fragment {
                     intent.putExtra("reserve_lon", longitude);
                     intent.putExtra("start_year", start_year);
                     intent.putExtra("return_year", return_year);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION); //MapsActivity의 onUserleaveHint 메소드를 부르지 않기 위해
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION); // intent가 호출될때 onUserLeaveHint()가 실행되는것을 차단
                     getActivity().startActivity(intent);
 //                Toast.makeText(getContext(), "서비스 준비중입니다.", Toast.LENGTH_SHORT).show();
                 }

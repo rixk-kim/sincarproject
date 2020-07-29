@@ -167,7 +167,7 @@ public class Rental_list extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Rental_list_filter.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION); // intent가 호출될때 onUserLeaveHint()가 실행되는것을 차단
                 startActivityForResult(intent, RENTAL_CAR_LIST_FILTER);
             }
         });
@@ -434,7 +434,7 @@ public class Rental_list extends AppCompatActivity {
                     intent.putExtra("REQUEST_AGENT", rental_Item.rentcar_agent);
                     intent.putExtra("REQUEST_RENTCAR", rental_Item.rentcar_name);
                     intent.putExtra("REQUEST_SEQ", rental_Item.rentcar_seq);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION); // intent가 호출될때 onUserLeaveHint()가 실행되는것을 차단
 
                     startActivity(intent);
                 }

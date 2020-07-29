@@ -131,7 +131,7 @@ public class Rental_car_delivery_map extends AppCompatActivity implements View.O
                 //주소 검색 액티비티 호출 메소드
             case R.id.con_car_del_address:
                 intent = new Intent(this, ReservationAddressActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION); // intent가 호출될때 onUserLeaveHint()가 실행되는것을 차단
                 startActivityForResult(intent, MAP_REQ_CODE);
                 break;
                 //현재 화면의 중심으로 딜리버리 적용 최종 결정 버튼

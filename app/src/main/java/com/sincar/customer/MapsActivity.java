@@ -351,7 +351,7 @@ public class MapsActivity extends FragmentActivity implements
             case R.id.btnMapHome:
                 // 지도 home button -> 메인이동
                 intent = new Intent(this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION); // intent가 호출될때 onUserLeaveHint()가 실행되는것을 차단
                 //메뉴로 돌아가면 예약,반납 시간 초기화
                 start_date = null; start_time = null; return_date = null; return_time = null;
                 startActivity(intent);
@@ -396,7 +396,7 @@ public class MapsActivity extends FragmentActivity implements
                 // "주소 검색" 설정
                 //startActivity(new Intent(this, ReservationAddressActivity.class));
                 intent = new Intent(this, ReservationAddressActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION); // intent가 호출될때 onUserLeaveHint()가 실행되는것을 차단
                 startActivityForResult(intent, MAP_REQ_CODE);
                 break;
 
@@ -409,7 +409,7 @@ public class MapsActivity extends FragmentActivity implements
 
                 // "예약일자" 설정
                 intent = new Intent(this, ReservationCalendarActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION); // intent가 호출될때 onUserLeaveHint()가 실행되는것을 차단
                 startActivityForResult(intent, CALENDA_REQ_CODE);
                 break;
             case R.id.btnNext:
@@ -419,7 +419,7 @@ public class MapsActivity extends FragmentActivity implements
                     if ("steam".equals(main_path)) {
                         //시간선택으로 바로가기
                         intent = new Intent(this, ReservationTimeActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION); // intent가 호출될때 onUserLeaveHint()가 실행되는것을 차단
                         intent.putExtra("reserve_address", cAddress);
                         if (TextUtils.isEmpty(search_keyword)) search_keyword = cAddress;
                         intent.putExtra("search_keyword", search_keyword);
@@ -666,12 +666,12 @@ public class MapsActivity extends FragmentActivity implements
         if (rCode == 1) {
             start_date = date;
             start_time = time;
-            start_timeInt = timeCheck + now_timeInt;
+            start_timeInt = timeCheck;
             start_yearInt = yearCheck;
         } else if (rCode == 2){
             return_date = date;
             return_time = time;
-            return_timeInt = timeCheck + now_timeInt;
+            return_timeInt = timeCheck;
             return_yearInt = yearCheck;
         }
     }

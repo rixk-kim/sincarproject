@@ -157,19 +157,17 @@ public class Rental_list_detail extends FragmentActivity implements
 //        deleteCheck = (CheckBox) findViewById(R.id.delete2_checkbox);
         tvDelipossible = (TextView) findViewById(R.id.rental_car_delivery);
 
-        Intent intent = getIntent(); //Rental_list에서 넘어온 데이터 수신
-
-        start_date = intent.getStringExtra("start_date");
-        start_time = intent.getStringExtra("start_time");
-        return_date = intent.getStringExtra("return_date");
-        return_time = intent.getStringExtra("return_time");
-        start_year = intent.getStringExtra("start_year");
-        return_year = intent.getStringExtra("return_year");
-        start_date_volley = intent.getStringExtra("start_date_volley");
-        return_date_volley = intent.getStringExtra("return_date_volley");
-
-        reserve_address = intent.getStringExtra("reserve_address");
-
+        //Rental_list에서 넘어온 데이터 수신
+        Intent intent = getIntent();
+        start_date = intent.getStringExtra("start_date");                   //예약 날짜
+        start_time = intent.getStringExtra("start_time");                   //예약 시간
+        return_date = intent.getStringExtra("return_date");                 //반납 날짜
+        return_time = intent.getStringExtra("return_time");                 //반납 시간
+        start_year = intent.getStringExtra("start_year");                   //예약 연도
+        return_year = intent.getStringExtra("return_year");                 //반납 연도
+        start_date_volley = intent.getStringExtra("start_date_volley");     //네트워크 리퀘스트용 예약 날짜
+        return_date_volley = intent.getStringExtra("return_date_volley");   //네트워크 리퀘스트용 반납 날짜
+        reserve_address = intent.getStringExtra("reserve_address");         //
         agent_name = intent.getStringExtra("REQUEST_AGENT");
         rentcar_name = intent.getStringExtra("REQUEST_RENTCAR");
         rentcar_seq = intent.getStringExtra("REQUEST_SEQ");
@@ -296,7 +294,7 @@ public class Rental_list_detail extends FragmentActivity implements
                 //TODO - 파라메터 추가
                 //rental_payment액티비티에 전달할 데이터 입력
                 intent = new Intent(this, Rental_payment.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION); // intent가 호출될때 onUserLeaveHint()가 실행되는것을 차단
                 intent.putExtra("RESERVE_YEAR", start_year);
                 intent.putExtra("RESERVE_DATE", start_date_volley);
                 intent.putExtra("RESERVE_TIME", start_time);
@@ -356,7 +354,7 @@ public class Rental_list_detail extends FragmentActivity implements
                 // TODO : 배차위치 변경하러 가기
                 //sy
                 intent = new Intent(this, Rental_car_delivery_map.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION); // intent가 호출될때 onUserLeaveHint()가 실행되는것을 차단
                 intent.putExtra("delivery_type", select_delivery);
                 startActivityForResult(intent, CAR_START_REQ_CODE);
                 //Toast.makeText(getApplicationContext(),"배차위치 변경하러 가기",Toast.LENGTH_SHORT).show();
@@ -365,7 +363,7 @@ public class Rental_list_detail extends FragmentActivity implements
             case R.id.rental_return_position:
                 // TODO : 반납위치 변경하러 가기
                 intent = new Intent(this, Rental_car_delivery_map.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION); // intent가 호출될때 onUserLeaveHint()가 실행되는것을 차단
                 intent.putExtra("delivery_type", select_delivery);
                 startActivityForResult(intent, CAR_END_REQ_CODE);
                 //Toast.makeText(getApplicationContext(),"반납위치 변경하러 가기",Toast.LENGTH_SHORT).show();

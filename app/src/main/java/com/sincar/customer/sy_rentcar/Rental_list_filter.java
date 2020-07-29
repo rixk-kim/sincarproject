@@ -131,7 +131,7 @@ public class Rental_list_filter extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getApplicationContext(), Rental_list_filter_age.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION); // intent가 호출될때 onUserLeaveHint()가 실행되는것을 차단
                 startActivityForResult(intent, filter.age.ordinal());
             }
         });
@@ -140,7 +140,7 @@ public class Rental_list_filter extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getApplicationContext(), Rental_list_filter_price.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION); // intent가 호출될때 onUserLeaveHint()가 실행되는것을 차단
                 startActivityForResult(intent, filter.price.ordinal());
             }
         });
@@ -149,7 +149,7 @@ public class Rental_list_filter extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getApplicationContext(), Rental_list_filter_type.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION); // intent가 호출될때 onUserLeaveHint()가 실행되는것을 차단
                 startActivityForResult(intent, filter.type.ordinal());
             }
         });
@@ -158,7 +158,7 @@ public class Rental_list_filter extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getApplicationContext(), Rental_list_filter_brand.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION); // intent가 호출될때 onUserLeaveHint()가 실행되는것을 차단
                 startActivityForResult(intent, filter.brand.ordinal());
             }
         });
@@ -201,7 +201,7 @@ public class Rental_list_filter extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                backToList.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+                backToList.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION); // intent가 호출될때 onUserLeaveHint()가 실행되는것을 차단
                 backToList.putExtra("age_data", rent_car_list_age);
                 backToList.putExtra("price_data", rent_car_list_price);
                 backToList.putExtra("type_data", rent_car_list_type);

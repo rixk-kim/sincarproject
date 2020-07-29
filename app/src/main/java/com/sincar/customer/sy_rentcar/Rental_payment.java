@@ -293,7 +293,7 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
                 }
 
                 intent = new Intent(this, CouponeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION); // intent가 호출될때 onUserLeaveHint()가 실행되는것을 차단
                 intent.putExtra("path", "rental_payment");
                 startActivityForResult(intent, RENTAL_PAYMENT_REQ_CODE);
                 break;
@@ -343,7 +343,7 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
                     intent = new Intent(pContext, Rental_pay_web.class);
                     //임시 : 결제 웹페이지로 가지 않고 완료페이지 이동
 //                    intent = new Intent(pContext, Rental_approve.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION); // intent가 호출될때 onUserLeaveHint()가 실행되는것을 차단
 
                     intent.putExtra("MEMBER_NO", voLoginItem.MEMBER_NO);
                     intent.putExtra("AMOUNT", rent_amount);
@@ -394,7 +394,7 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
             case R.id.rental_btnCancelDesc:
                 //취소 정책 자세히
                 intent = new Intent(this, UseTerms2Activity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION); // intent가 호출될때 onUserLeaveHint()가 실행되는것을 차단
                 startActivity(intent);
                 break;
         }
