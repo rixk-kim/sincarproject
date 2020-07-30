@@ -86,6 +86,8 @@ public class Rental_pay_web extends AppCompatActivity {
     private String select_delivery; // 딜리버리 선택
     private String coupone_seq = "";    //쿠폰 seq
     private String use_my_point = "";       //사용 포인트
+    private String current_agent_seq;   //지점 SEQ
+    private String current_car_seq;     //차량 SEQ
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,61 +141,65 @@ public class Rental_pay_web extends AppCompatActivity {
         insu_seq = intent.getStringExtra("INSURANCE_SEQ");
         insu_name = intent.getStringExtra("INSURANCE_NAME");
         select_delivery = intent.getStringExtra("RENTCAR_DEL_TYPE");
-        coupone_seq = intent.getStringExtra("COUPON_AMOUNT");
+        coupone_seq = intent.getStringExtra("COUPON_SEQ");
         use_my_point = intent.getStringExtra("POINT_AMOUNT");
+        current_agent_seq = intent.getStringExtra("CURRENT_AGENT_SEQ");
+        current_car_seq = intent.getStringExtra("CURRENT_CAR_SEQ");
 
-        rent_approve_number =  voLoginItem.MEMBER_NO /*+ "R"*/ + Util.getYearMonthDay1();
+        rent_approve_number =  voLoginItem.MEMBER_NO + "R" + Util.getYearMonthDay1();
 
-//        String postParams = "MEMBER_NO = " + voLoginItem.MEMBER_NO;
-//        postParams += "&AMOUNT = " + rent_amount;
-//        postParams += "&APPROVE_NUMBER = " + rent_approve_number;
-//        postParams += "&RENTCAR_DEL_TYPE = " + select_delivery;
-//        postParams += "&DELIVERY_AMOUNT = " + rent_delivery_amount;
-//        postParams += "&INSURANCE_SEQ = " + insu_seq;
-//        postParams += "&INSURANCE_NAME = " + insu_name;
-//        postParams += "&INSURANCE_AMOUNT = " + rent_insurance_amount;
-//        postParams += "&COUPON_AMOUNT = " + coupone_seq;
-//        postParams += "&POINT_AMOUNT = " + use_my_point;
-//        postParams += "&RESERVE_YEAR = " + rent_reserve_year;
-//        postParams += "&RESERVE_DATE = " + rent_reserve_date;
-//        postParams += "&RESERVE_TIME = " + rent_reserve_time;
-//        postParams += "&RETURN_YEAR = " + rent_return_year;
-//        postParams += "&RETURN_DATE = " + rent_return_date;
-//        postParams += "&RETURN_TIME = " + rent_return_time;
-//        postParams += "&RENTCAR_CAR = " + rent_rentcar_car;
-//        postParams += "&RENTCAR_NUM = " + rent_rentcar_num;
-//        postParams += "&RENTCAR_AGENT = " + rent_rentcar_agent;
-//        postParams += "&RENTCAR_RES_ADD = " + rent_rentcar_res_add;
-//        postParams += "&RENTCAR_RET_ADD = " + rent_rentcar_ret_add;
+        String postParams = "MEMBER_NO = " + voLoginItem.MEMBER_NO;
+        postParams += "&AMOUNT = " + rent_amount;
+        postParams += "&APPROVE_NUMBER = " + rent_approve_number;
+        postParams += "&RENTCAR_DEL_TYPE = " + select_delivery;
+        postParams += "&DELIVERY_AMOUNT = " + rent_delivery_amount;
+        postParams += "&INSURANCE_SEQ = " + insu_seq;
+        postParams += "&INSURANCE_NAME = " + insu_name;
+        postParams += "&INSURANCE_AMOUNT = " + rent_insurance_amount;
+        postParams += "&COUPON_SEQ = " + coupone_seq;
+        postParams += "&POINT_AMOUNT = " + use_my_point;
+        postParams += "&RESERVE_YEAR = " + rent_reserve_year;
+        postParams += "&RESERVE_DATE = " + rent_reserve_date;
+        postParams += "&RESERVE_TIME = " + rent_reserve_time;
+        postParams += "&RETURN_YEAR = " + rent_return_year;
+        postParams += "&RETURN_DATE = " + rent_return_date;
+        postParams += "&RETURN_TIME = " + rent_return_time;
+        postParams += "&RENTCAR_CAR = " + rent_rentcar_car;
+        postParams += "&RENTCAR_NUM = " + rent_rentcar_num;
+        postParams += "&RENTCAR_AGENT = " + rent_rentcar_agent;
+        postParams += "&RENTCAR_RES_ADD = " + rent_rentcar_res_add;
+        postParams += "&RENTCAR_RET_ADD = " + rent_rentcar_ret_add;
+        postParams += "&CURRENT_AGENT_SEQ = "  + current_agent_seq;
+        postParams += "&CURRENT_CAR_SEQ = " + current_car_seq;
 
-        SimpleDateFormat monthtype = new SimpleDateFormat("MM");
-        SimpleDateFormat datetype = new SimpleDateFormat("dd");
-        String reserve_month = "", reserve_date = "";
-        try {
-            reserve_month = monthtype.format(monthtype.parse(rent_reserve_date));
-            reserve_date = datetype.format(datetype.parse(rent_reserve_date));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+//        SimpleDateFormat monthtype = new SimpleDateFormat("MM");
+//        SimpleDateFormat datetype = new SimpleDateFormat("dd");
+//        String reserve_month = "", reserve_date = "";
+//        try {
+//            reserve_month = monthtype.format(monthtype.parse(rent_reserve_date));
+//            reserve_date = datetype.format(datetype.parse(rent_reserve_date));
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
 
-        String postParams = "APPROVE_NUMBER=" + rent_approve_number;
-        postParams += "&MEMBER_NO=" + voLoginItem.MEMBER_NO;
-        postParams += "&RESERVE_ADDRESS=" + rent_rentcar_res_add;
-        postParams += "&RESERVE_YEAR=" + rent_reserve_year;
-        postParams += "&RESERVE_MONTH=" + reserve_month;
-        postParams += "&RESERVE_DAY=" + reserve_date;
-        postParams += "&AGENT_SEQ=" + '0';
-        postParams += "&AGENT_COMPANY=" + rent_rentcar_agent;
-        postParams += "&AGENT_TIME=" + rent_reserve_time;
-        postParams += "&WASH_PLACE=" + '0';
-        postParams += "&ADD_SERVICE=" + "";
-        postParams += "&CAR_COMPANY=" + "현대";
-        postParams += "&CAR_MODEL=" + rent_rentcar_car;
-        postParams += "&CAR_NUMBER=" + rent_rentcar_num;
-        postParams += "&POINT_USE=" + use_my_point;
-        postParams += "&COUPONE_SEQ=" + coupone_seq;
-        postParams += "&CHARGE_PAY=" + rent_amount;
-        postParams += "&SEQ=" + '0';
+//        String postParams = "APPROVE_NUMBER=" + rent_approve_number;
+//        postParams += "&MEMBER_NO=" + voLoginItem.MEMBER_NO;
+//        postParams += "&RESERVE_ADDRESS=" + rent_rentcar_res_add;
+//        postParams += "&RESERVE_YEAR=" + rent_reserve_year;
+//        postParams += "&RESERVE_MONTH=" + reserve_month;
+//        postParams += "&RESERVE_DAY=" + reserve_date;
+//        postParams += "&AGENT_SEQ=" + '0';
+//        postParams += "&AGENT_COMPANY=" + rent_rentcar_agent;
+//        postParams += "&AGENT_TIME=" + rent_reserve_time;
+//        postParams += "&WASH_PLACE=" + '0';
+//        postParams += "&ADD_SERVICE=" + "";
+//        postParams += "&CAR_COMPANY=" + "현대";
+//        postParams += "&CAR_MODEL=" + rent_rentcar_car;
+//        postParams += "&CAR_NUMBER=" + rent_rentcar_num;
+//        postParams += "&POINT_USE=" + use_my_point;
+//        postParams += "&COUPONE_SEQ=" + coupone_seq;
+//        postParams += "&CHARGE_PAY=" + rent_amount;
+//        postParams += "&SEQ=" + '0';
 
         rental_mWeb.addJavascriptInterface(new Rental_pay_web.AndroidBridge(), "BRIDGE");
 
@@ -210,7 +216,7 @@ public class Rental_pay_web extends AppCompatActivity {
         if(Integer.parseInt(rent_amount) <= 0) {
             //실 결제 금액이 없을때 들어가야할 코드 결제 페이지로 가지 말아야함
         } else {
-            rental_mWeb.loadUrl(PAYMEMNT_REQUEST1 + "?" + postParams);
+            rental_mWeb.loadUrl(RENTCAR_PAY_REQUEST + "?" + postParams);
         }
     }
 

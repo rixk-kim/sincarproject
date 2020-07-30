@@ -38,8 +38,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".sy_rentcar.Rental_pay_web"></activity>
-        <activity android:name=".sy_rentcar.Rental_list_detail_insu_recycle_item" />
+        <activity android:name=".sy_rentcar.Rental_list_detail_insu_recycle_item"
+            tools:ignore="Instantiatable" />
         <activity android:name=".sy_rentcar.Rental_car_delivery_map" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -215,6 +215,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" /> <!-- 결제하기 -->
+        <activity android:name=".sy_rentcar.Rental_pay_web"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".sy_rentcar.Rental_approve"
             android:screenOrientation="portrait"

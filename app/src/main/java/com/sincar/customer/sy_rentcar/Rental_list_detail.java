@@ -61,9 +61,11 @@ public class Rental_list_detail extends FragmentActivity implements
     public final static int CAR_END_REQ_CODE = 1031;
 
     //디테일 정보 변수
-    String start_date, start_time, return_date, return_time, start_year, return_year, start_address, end_address, reserve_address;
+    String start_date, start_time, return_date, return_time, start_year, return_year, start_address = "", end_address = "", reserve_address;
     String agent_name, rentcar_name, rentcar_num, rentcar_seq;
     String start_date_volley, return_date_volley;
+    String insu_seq = "", insu_name = "";
+    String current_agent_seq, current_car_seq;
     private TextView rental_car_start_date, rental_car_start_time, rental_car_end_date, rental_car_end_time;
     private TextView tvAgent_name, tvAgent_name_small, tvRental_car_name;
     private TextView btn_rental_allocate, btn_rental_return;
@@ -84,7 +86,7 @@ public class Rental_list_detail extends FragmentActivity implements
     TextView /*tvInsurance1,*/ tvInsurance2, tvDelPrice, tvCarPrice, tvTotalPrice;
     TextView tvDelipossible;
     //    TextView tvInsuName;
-//    ImageView ivInsuInfo;
+    //    ImageView ivInsuInfo;
     int insuPrice, deliPrice, rentPrice; // 보험금액, 딜리버리 금액, 총 금액
     ///sy
 
@@ -309,9 +311,11 @@ public class Rental_list_detail extends FragmentActivity implements
                 intent.putExtra("rental_pay", String.valueOf(rentPrice));    // 차량대여료
                 intent.putExtra("delivery_pay", String.valueOf(deliPrice));       // 딜리버리금액
                 intent.putExtra("insurance_pay", String.valueOf(insuPrice));  // 보험 금액
-                intent.putExtra("CURRENT_INSU_SEQ", rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE.get(0).CURRENT_INSU_SEQ);
-                intent.putExtra("CURRENT_INSU_NAME", rentCarDetailResult.rentcar_detail.get(0).CURRENT_INSURANCE.get(0).CURRENT_INSU_NAME);
+                intent.putExtra("CURRENT_INSU_SEQ", insu_seq);
+                intent.putExtra("CURRENT_INSU_NAME", insu_name);
                 intent.putExtra("select_delivery", select_delivery);    //딜리버리 선택 방식
+                intent.putExtra("CURRENT_AGENT_SEQ", current_agent_seq);
+                intent.putExtra("CURRENT_CAR_SEQ", current_car_seq);
 
                 switch (select_delivery) {
                     //딜리버리 선택에 따른 확인 버튼 활성화
@@ -468,14 +472,14 @@ public class Rental_list_detail extends FragmentActivity implements
 
     //선택된 딜리버리 시스템에 따라 딜리버리 관련 텍스트뷰 설정
     void text_Selected(String start, String end) {
-        if (start == null) {
+        if (start == null || "".equals(start)) {
             rental_allocate_text.setText("배차 위치를 정해주세요");
         } else if (start == "사용하지 않음") {
             rental_allocate_text.setText("사용하지 않음");
         } else {
             rental_allocate_text.setText(start_address);
         }
-        if (end == null) {
+        if (end == null || "".equals(end)) {
             rental_return_text.setText("반납 위치를 정해주세요");
         } else if (end == "사용하지 않음") {
             rental_return_text.setText("사용하지 않음");
@@ -547,10 +551,16 @@ public class Rental_list_detail extends FragmentActivity implements
                 if (!"".equals(rentcar_insurance.CURRENT_INSU_SEQ)) {
                     int itemPos = adapter.getItemPosition();
                     adapter.notifyDataSetChanged();
-                    if (itemPos != 99)
+                    if (itemPos != 99) {
                         Toast.makeText(getApplicationContext(), rentcar_insurance.CURRENT_INSU_NAME + " 보험을 선택하였습니다.", Toast.LENGTH_SHORT).show();
-                    else
+                        insu_seq = rentcar_insurance.CURRENT_INSU_SEQ;
+                        insu_name = rentcar_insurance.CURRENT_INSU_NAME;
+                    }
+                    else {
                         Toast.makeText(getApplicationContext(), "보험을 선택해제 하였습니다.", Toast.LENGTH_SHORT).show();
+                        insu_seq = "";
+                        insu_name = "";
+                    }
                     insuCheck(adapter.getItemPosition());
                 } else
                     insuCheck(99);
@@ -584,6 +594,9 @@ public class Rental_list_detail extends FragmentActivity implements
         } else {
             tvDelipossible.setText("가능");
         }
+
+        current_agent_seq = rentCarDetailResult.rentcar_detail.get(0).CURRENT_AGENT_SEQ;
+        current_car_seq = rentCarDetailResult.rentcar_detail.get(0).CURRENT_CAR_SEQ;
     }
 
     //보험 체크박스 체크 여부 확인후 텍스트뷰 설정
@@ -647,107 +660,107 @@ public class Rental_list_detail extends FragmentActivity implements
         _mMapsActivity.onPause();
     }
 
-    private void detailNetworkTest() {
-        String it = null;
-        switch (rentcar_seq) {
-            case "3":
-                it = "{\"rentcar_detail\":[{\"CURRENT_CAR_URL\":\"\",\"CURRENT_CAR_NUM\":\"\",\"CURRENT_CAR_FUEL\":\"\",\"CURRENT_CAR_FPY\":\"\"," +
-                        "\"CURRENT_CAR_COLOR\":\"\",\"CURRENT_CAR_MADE\":\"\",\"CURRENT_CAR_AGE\":\"\",\"CURRENT_CAR_MAN\":\"\",\"CURRENT_AGENT_ADDRESS\":\"\"," +
-                        "\"CURRENT_AGENT_ADD_LAT\":\"\",\"CURRENT_AGENT_ADD_LON\":\"\",\"CURRENT_AGENT_TIME\":\"\",\"CURRENT_AGENT_TIME_WKD\":\"\",\"CURRENT_AGENT_DELI\":\"\"," +
-                        "\"CURRENT_AGENT_DEL_PRI\":{ \"ROUND_TRIP\" : \"\" , \"DISPATCH\" : \"\" , \"RETURN\" : \"\"},\"CURRENT_AGENT_DEL_TIM\":\"\",\"CURRENT_AGENT_DEL_POS\":\"\",\"CURRENT_PRICE\":\"\"}]}";
-                break;
-            case "6":
-            case "11":
-            case "16":
-            case "21":
-            case "26":
-            case "31":
-            case "36":
-            case "41":
-            case "46":
-                it = "{\"rentcar_detail\": [{\"CURRENT_CAR_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271113552281.jpg\"," +
-                        "\"CURRENT_CAR_NUM\":\"20하9182\",\"CURRENT_CAR_FUEL\":\"가솔린(G),디젤(D)\",\"CURRENT_CAR_FPY\":\"10.6-18.4 KM/L\",\"CURRENT_CAR_COLOR\":\"와인레드\"," +
-                        "\"CURRENT_CAR_MADE\":\"2018\",\"CURRENT_CAR_AGE\":\"0\",\"CURRENT_CAR_MAN\":\"4\",\"CURRENT_AGENT_ADDRESS\":\"제주 지점\",\"CURRENT_AGENT_ADD_LAT\":\"33.49997329711914\"," +
-                        "\"CURRENT_AGENT_ADD_LON\":\"126.53034973144531\",\"CURRENT_AGENT_TIME\":\"09:00-19:00\",\"CURRENT_AGENT_TIME_WKD\":\"09:00-13:00\", \"CURRENT_AGENT_DELI\" : \"1\", " +
-                        "\"CURRENT_PRICE\":\"60000\", \"CURRENT_INSURANCE\": \"10000\", \"CURRENT_INSU_SEQ\" : \"0\", \"CURRENT_INSU_NAME\" : \"일일 손해 보험\"}]}";
-                break;
-            case "2":
-            case "7":
-            case "12":
-            case "17":
-            case "22":
-            case "27":
-            case "32":
-            case "37":
-            case "42":
-            case "47":
-                it = "{\"rentcar_detail\": [{\"CURRENT_CAR_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201805281053589087.jpg\"," +
-                        "\"CURRENT_CAR_NUM\":\"19하1234\",\"CURRENT_CAR_FUEL\":\"가솔린(G)\",\"CURRENT_CAR_FPY\":\"8.0-13.8 KM/L\",\"CURRENT_CAR_COLOR\":\"브라운\"," +
-                        "\"CURRENT_CAR_MADE\":\"2019\",\"CURRENT_CAR_AGE\":\"2\",\"CURRENT_CAR_MAN\":\"4\",\"CURRENT_AGENT_ADDRESS\":\"제주 지점\",\"CURRENT_AGENT_ADD_LAT\":\"33.49997329711914\"," +
-                        "\"CURRENT_AGENT_ADD_LON\":\"126.53034973144531\",\"CURRENT_AGENT_TIME\":\"08:00-19:00\",\"CURRENT_AGENT_TIME_WKD\":\"09:00-13:00\",\"CURRENT_AGENT_DELI\":\"0\"," +
-                        "\"CURRENT_AGENT_DEL_PRI\": {\"ROUND_TRIP\" : \"20000\",\"DISPATCH\" : \"10000\", \"RETURN\" : \"10000\" },\"CURRENT_AGENT_DEL_TIM\":\"09:00-18:00\"," +
-                        "\"CURRENT_AGENT_DEL_POS\":\"제주시, 서귀포시\",\"CURRENT_PRICE\":\"200000\", \"CURRENT_INSURANCE\": \"20000\", \"CURRENT_INSU_SEQ\" : \"0\", \"CURRENT_INSU_NAME\" : \"손해 보험\"}]}";
-                break;
-            case "1":
-            case "8":
-            case "13":
-            case "18":
-            case "23":
-            case "28":
-            case "33":
-            case "38":
-            case "43":
-            case "48":
-                it = "{\"rentcar_detail\": [{\"CURRENT_CAR_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271111488598.jpg\"," +
-                        "\"CURRENT_CAR_NUM\":\"18하5678\",\"CURRENT_CAR_FUEL\":\"가솔린(G),디젤(D)\",\"CURRENT_CAR_FPY\":\"8.7-13.8 KM/L\",\"CURRENT_CAR_COLOR\":\"화이트그레이\"," +
-                        "\"CURRENT_CAR_MADE\":\"2018\",\"CURRENT_CAR_AGE\":\"2\",\"CURRENT_CAR_MAN\":\"6\",\"CURRENT_AGENT_ADDRESS\":\"제주 지점\",\"CURRENT_AGENT_ADD_LAT\":\"33.49997329711914\"," +
-                        "\"CURRENT_AGENT_ADD_LON\":\"126.53034973144531\",\"CURRENT_AGENT_TIME\":\"09:00-19:00\",\"CURRENT_AGENT_TIME_WKD\":\"09:00-13:00\",\"CURRENT_AGENT_DELI\":\"0\"," +
-                        "\"CURRENT_AGENT_DEL_PRI\": {\"ROUND_TRIP\" : \"30000\",\"DISPATCH\" : \"15000\", \"RETURN\" : \"15000\" },\"CURRENT_AGENT_DEL_TIM\":\"10:00-19:00\"," +
-                        "\"CURRENT_AGENT_DEL_POS\":\"제주시, 서귀포시\",\"CURRENT_PRICE\":\"120000\", \"CURRENT_INSURANCE\": \"30000\", \"CURRENT_INSU_SEQ\" : \"0\", \"CURRENT_INSU_NAME\" : \"일일보험\"}]}";
-                break;
-            case "4":
-            case "9":
-            case "14":
-            case "19":
-            case "24":
-            case "29":
-            case "34":
-            case "39":
-            case "44":
-            case "49":
-                it = "{\"rentcar_detail\": [{\"CURRENT_CAR_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/202001091104489284.jpg\"," +
-                        "\"CURRENT_CAR_NUM\":\"17하9012\",\"CURRENT_CAR_FUEL\":\"가솔린(G),디젤(D),LPG(L)\",\"CURRENT_CAR_FPY\":\"7.4-14.8 KM/L\",\"CURRENT_CAR_COLOR\":\"라이트블랙\"," +
-                        "\"CURRENT_CAR_MADE\":\"2017\",\"CURRENT_CAR_AGE\":\"2\",\"CURRENT_CAR_MAN\":\"4\",\"CURRENT_AGENT_ADDRESS\":\"제주 지점\",\"CURRENT_AGENT_ADD_LAT\":\"33.49997329711914\"," +
-                        "\"CURRENT_AGENT_ADD_LON\":\"126.53034973144531\",\"CURRENT_AGENT_TIME\":\"09:00-19:00\",\"CURRENT_AGENT_TIME_WKD\":\"09:00-13:00\",\"CURRENT_AGENT_DELI\":\"0\"," +
-                        "\"CURRENT_AGENT_DEL_PRI\": {\"ROUND_TRIP\" : \"10000\",\"DISPATCH\" : \"5000\", \"RETURN\" : \"5000\" },\"CURRENT_AGENT_DEL_TIM\":\"10:00-19:00\"," +
-                        "\"CURRENT_AGENT_DEL_POS\":\"제주시, 서귀포시\",\"CURRENT_PRICE\":\"115000\", \"CURRENT_INSURANCE\": \"15000\", \"CURRENT_INSU_SEQ\" : \"0\", \"CURRENT_INSU_NAME\" : \"일일손해 보험\"}]}";
-                break;
-            case "5":
-            case "10":
-            case "15":
-            case "20":
-            case "25":
-            case "30":
-            case "35":
-            case "40":
-            case "45":
-            case "50":
-                it = "{\"rentcar_detail\": [{\"CURRENT_CAR_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201908131116037666.jpg\"," +
-                        "\"CURRENT_CAR_NUM\":\"16하3456\",\"CURRENT_CAR_FUEL\":\"가솔린(G),디젤(D)\",\"CURRENT_CAR_FPY\":\"10.7-16.1 KM/L\",\"CURRENT_CAR_COLOR\":\"골드\"," +
-                        "\"CURRENT_CAR_MADE\":\"2016\",\"CURRENT_CAR_AGE\":\"2\",\"CURRENT_CAR_MAN\":\"4\",\"CURRENT_AGENT_ADDRESS\":\"제주 지점\",\"CURRENT_AGENT_ADD_LAT\":\"33.49997329711914\"," +
-                        "\"CURRENT_AGENT_ADD_LON\":\"126.53034973144531\",\"CURRENT_AGENT_TIME\":\"09:00-19:00\",\"CURRENT_AGENT_TIME_WKD\":\"09:00-13:00\",\"CURRENT_AGENT_DELI\":\"0\"," +
-                        "\"CURRENT_AGENT_DEL_PRI\": {\"ROUND_TRIP\" : \"150000\",\"DISPATCH\" : \"10000\", \"RETURN\" : \"10000\" },\"CURRENT_AGENT_DEL_TIM\":\"10:00-19:00\"," +
-                        "\"CURRENT_AGENT_DEL_POS\":\"제주시, 서귀포시\",\"CURRENT_PRICE\":\"65000\", \"CURRENT_INSURANCE\": \"5000\", \"CURRENT_INSU_SEQ\" : \"0\", \"CURRENT_INSU_NAME\" : \"일일손해보험\"}]}";
-                break;
-            default:
-                break;
-        }
-
-        Gson gson = new Gson();
-        rentCarDetailResult = gson.fromJson(it, RentCarDetailResult.class);
-
-//        setDetailText();
-    }
+//    private void detailNetworkTest() {
+//        String it = null;
+//        switch (rentcar_seq) {
+//            case "3":
+//                it = "{\"rentcar_detail\":[{\"CURRENT_CAR_URL\":\"\",\"CURRENT_CAR_NUM\":\"\",\"CURRENT_CAR_FUEL\":\"\",\"CURRENT_CAR_FPY\":\"\"," +
+//                        "\"CURRENT_CAR_COLOR\":\"\",\"CURRENT_CAR_MADE\":\"\",\"CURRENT_CAR_AGE\":\"\",\"CURRENT_CAR_MAN\":\"\",\"CURRENT_AGENT_ADDRESS\":\"\"," +
+//                        "\"CURRENT_AGENT_ADD_LAT\":\"\",\"CURRENT_AGENT_ADD_LON\":\"\",\"CURRENT_AGENT_TIME\":\"\",\"CURRENT_AGENT_TIME_WKD\":\"\",\"CURRENT_AGENT_DELI\":\"\"," +
+//                        "\"CURRENT_AGENT_DEL_PRI\":{ \"ROUND_TRIP\" : \"\" , \"DISPATCH\" : \"\" , \"RETURN\" : \"\"},\"CURRENT_AGENT_DEL_TIM\":\"\",\"CURRENT_AGENT_DEL_POS\":\"\",\"CURRENT_PRICE\":\"\"}]}";
+//                break;
+//            case "6":
+//            case "11":
+//            case "16":
+//            case "21":
+//            case "26":
+//            case "31":
+//            case "36":
+//            case "41":
+//            case "46":
+//                it = "{\"rentcar_detail\": [{\"CURRENT_CAR_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271113552281.jpg\"," +
+//                        "\"CURRENT_CAR_NUM\":\"20하9182\",\"CURRENT_CAR_FUEL\":\"가솔린(G),디젤(D)\",\"CURRENT_CAR_FPY\":\"10.6-18.4 KM/L\",\"CURRENT_CAR_COLOR\":\"와인레드\"," +
+//                        "\"CURRENT_CAR_MADE\":\"2018\",\"CURRENT_CAR_AGE\":\"0\",\"CURRENT_CAR_MAN\":\"4\",\"CURRENT_AGENT_ADDRESS\":\"제주 지점\",\"CURRENT_AGENT_ADD_LAT\":\"33.49997329711914\"," +
+//                        "\"CURRENT_AGENT_ADD_LON\":\"126.53034973144531\",\"CURRENT_AGENT_TIME\":\"09:00-19:00\",\"CURRENT_AGENT_TIME_WKD\":\"09:00-13:00\", \"CURRENT_AGENT_DELI\" : \"1\", " +
+//                        "\"CURRENT_PRICE\":\"60000\", \"CURRENT_INSURANCE\": \"10000\", \"CURRENT_INSU_SEQ\" : \"0\", \"CURRENT_INSU_NAME\" : \"일일 손해 보험\"}]}";
+//                break;
+//            case "2":
+//            case "7":
+//            case "12":
+//            case "17":
+//            case "22":
+//            case "27":
+//            case "32":
+//            case "37":
+//            case "42":
+//            case "47":
+//                it = "{\"rentcar_detail\": [{\"CURRENT_CAR_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201805281053589087.jpg\"," +
+//                        "\"CURRENT_CAR_NUM\":\"19하1234\",\"CURRENT_CAR_FUEL\":\"가솔린(G)\",\"CURRENT_CAR_FPY\":\"8.0-13.8 KM/L\",\"CURRENT_CAR_COLOR\":\"브라운\"," +
+//                        "\"CURRENT_CAR_MADE\":\"2019\",\"CURRENT_CAR_AGE\":\"2\",\"CURRENT_CAR_MAN\":\"4\",\"CURRENT_AGENT_ADDRESS\":\"제주 지점\",\"CURRENT_AGENT_ADD_LAT\":\"33.49997329711914\"," +
+//                        "\"CURRENT_AGENT_ADD_LON\":\"126.53034973144531\",\"CURRENT_AGENT_TIME\":\"08:00-19:00\",\"CURRENT_AGENT_TIME_WKD\":\"09:00-13:00\",\"CURRENT_AGENT_DELI\":\"0\"," +
+//                        "\"CURRENT_AGENT_DEL_PRI\": {\"ROUND_TRIP\" : \"20000\",\"DISPATCH\" : \"10000\", \"RETURN\" : \"10000\" },\"CURRENT_AGENT_DEL_TIM\":\"09:00-18:00\"," +
+//                        "\"CURRENT_AGENT_DEL_POS\":\"제주시, 서귀포시\",\"CURRENT_PRICE\":\"200000\", \"CURRENT_INSURANCE\": \"20000\", \"CURRENT_INSU_SEQ\" : \"0\", \"CURRENT_INSU_NAME\" : \"손해 보험\"}]}";
+//                break;
+//            case "1":
+//            case "8":
+//            case "13":
+//            case "18":
+//            case "23":
+//            case "28":
+//            case "33":
+//            case "38":
+//            case "43":
+//            case "48":
+//                it = "{\"rentcar_detail\": [{\"CURRENT_CAR_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201902271111488598.jpg\"," +
+//                        "\"CURRENT_CAR_NUM\":\"18하5678\",\"CURRENT_CAR_FUEL\":\"가솔린(G),디젤(D)\",\"CURRENT_CAR_FPY\":\"8.7-13.8 KM/L\",\"CURRENT_CAR_COLOR\":\"화이트그레이\"," +
+//                        "\"CURRENT_CAR_MADE\":\"2018\",\"CURRENT_CAR_AGE\":\"2\",\"CURRENT_CAR_MAN\":\"6\",\"CURRENT_AGENT_ADDRESS\":\"제주 지점\",\"CURRENT_AGENT_ADD_LAT\":\"33.49997329711914\"," +
+//                        "\"CURRENT_AGENT_ADD_LON\":\"126.53034973144531\",\"CURRENT_AGENT_TIME\":\"09:00-19:00\",\"CURRENT_AGENT_TIME_WKD\":\"09:00-13:00\",\"CURRENT_AGENT_DELI\":\"0\"," +
+//                        "\"CURRENT_AGENT_DEL_PRI\": {\"ROUND_TRIP\" : \"30000\",\"DISPATCH\" : \"15000\", \"RETURN\" : \"15000\" },\"CURRENT_AGENT_DEL_TIM\":\"10:00-19:00\"," +
+//                        "\"CURRENT_AGENT_DEL_POS\":\"제주시, 서귀포시\",\"CURRENT_PRICE\":\"120000\", \"CURRENT_INSURANCE\": \"30000\", \"CURRENT_INSU_SEQ\" : \"0\", \"CURRENT_INSU_NAME\" : \"일일보험\"}]}";
+//                break;
+//            case "4":
+//            case "9":
+//            case "14":
+//            case "19":
+//            case "24":
+//            case "29":
+//            case "34":
+//            case "39":
+//            case "44":
+//            case "49":
+//                it = "{\"rentcar_detail\": [{\"CURRENT_CAR_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/202001091104489284.jpg\"," +
+//                        "\"CURRENT_CAR_NUM\":\"17하9012\",\"CURRENT_CAR_FUEL\":\"가솔린(G),디젤(D),LPG(L)\",\"CURRENT_CAR_FPY\":\"7.4-14.8 KM/L\",\"CURRENT_CAR_COLOR\":\"라이트블랙\"," +
+//                        "\"CURRENT_CAR_MADE\":\"2017\",\"CURRENT_CAR_AGE\":\"2\",\"CURRENT_CAR_MAN\":\"4\",\"CURRENT_AGENT_ADDRESS\":\"제주 지점\",\"CURRENT_AGENT_ADD_LAT\":\"33.49997329711914\"," +
+//                        "\"CURRENT_AGENT_ADD_LON\":\"126.53034973144531\",\"CURRENT_AGENT_TIME\":\"09:00-19:00\",\"CURRENT_AGENT_TIME_WKD\":\"09:00-13:00\",\"CURRENT_AGENT_DELI\":\"0\"," +
+//                        "\"CURRENT_AGENT_DEL_PRI\": {\"ROUND_TRIP\" : \"10000\",\"DISPATCH\" : \"5000\", \"RETURN\" : \"5000\" },\"CURRENT_AGENT_DEL_TIM\":\"10:00-19:00\"," +
+//                        "\"CURRENT_AGENT_DEL_POS\":\"제주시, 서귀포시\",\"CURRENT_PRICE\":\"115000\", \"CURRENT_INSURANCE\": \"15000\", \"CURRENT_INSU_SEQ\" : \"0\", \"CURRENT_INSU_NAME\" : \"일일손해 보험\"}]}";
+//                break;
+//            case "5":
+//            case "10":
+//            case "15":
+//            case "20":
+//            case "25":
+//            case "30":
+//            case "35":
+//            case "40":
+//            case "45":
+//            case "50":
+//                it = "{\"rentcar_detail\": [{\"CURRENT_CAR_URL\":\"https://www.sincar.co.kr/upload/program/goods/list/201908131116037666.jpg\"," +
+//                        "\"CURRENT_CAR_NUM\":\"16하3456\",\"CURRENT_CAR_FUEL\":\"가솔린(G),디젤(D)\",\"CURRENT_CAR_FPY\":\"10.7-16.1 KM/L\",\"CURRENT_CAR_COLOR\":\"골드\"," +
+//                        "\"CURRENT_CAR_MADE\":\"2016\",\"CURRENT_CAR_AGE\":\"2\",\"CURRENT_CAR_MAN\":\"4\",\"CURRENT_AGENT_ADDRESS\":\"제주 지점\",\"CURRENT_AGENT_ADD_LAT\":\"33.49997329711914\"," +
+//                        "\"CURRENT_AGENT_ADD_LON\":\"126.53034973144531\",\"CURRENT_AGENT_TIME\":\"09:00-19:00\",\"CURRENT_AGENT_TIME_WKD\":\"09:00-13:00\",\"CURRENT_AGENT_DELI\":\"0\"," +
+//                        "\"CURRENT_AGENT_DEL_PRI\": {\"ROUND_TRIP\" : \"150000\",\"DISPATCH\" : \"10000\", \"RETURN\" : \"10000\" },\"CURRENT_AGENT_DEL_TIM\":\"10:00-19:00\"," +
+//                        "\"CURRENT_AGENT_DEL_POS\":\"제주시, 서귀포시\",\"CURRENT_PRICE\":\"65000\", \"CURRENT_INSURANCE\": \"5000\", \"CURRENT_INSU_SEQ\" : \"0\", \"CURRENT_INSU_NAME\" : \"일일손해보험\"}]}";
+//                break;
+//            default:
+//                break;
+//        }
+//
+//        Gson gson = new Gson();
+//        rentCarDetailResult = gson.fromJson(it, RentCarDetailResult.class);
+//
+////        setDetailText();
+//    }
 }
 
 

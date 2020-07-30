@@ -25,6 +25,8 @@ public class RentCarDetailItem {
     public String CURRENT_AGENT_DEL_POS;
     public String CURRENT_PRICE;
     public ArrayList<Rentcar_Insurance> CURRENT_INSURANCE = new ArrayList<>();
+    public String CURRENT_AGENT_SEQ;
+    public String CURRENT_CAR_SEQ;
 
     public class Current_agent_del_pri {
         public String ROUND_TRIP;
@@ -54,7 +56,9 @@ public class RentCarDetailItem {
                 ", CURRENT_AGENT_DEL_TIM='" + CURRENT_AGENT_DEL_TIM + '\'' +
                 ", CURRENT_AGENT_DEL_POS='" + CURRENT_AGENT_DEL_POS + '\'' +
                 ", CURRENT_PRICE='" + CURRENT_PRICE + '\'' +
-                ", CURRENT_INSURANCE='" + CURRENT_INSURANCE + '\'' + '}';
+                ", CURRENT_INSURANCE='" + CURRENT_INSURANCE + '\'' +
+                ", CURRENT_AGENT_SEQ='" + CURRENT_AGENT_SEQ + '\'' +
+                ", CURRENT_CAR_SEQ='" + CURRENT_CAR_SEQ + '\'' + '}';
     }
 
     public class Rentcar_Insurance {

@@ -107,6 +107,8 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
     private String insu_seq = "";   //보험 seq
     private String insu_name = "";  //보험 명
     private int select_delivery; // 딜리버리 선택
+    private String current_agent_seq = ""; //지점 seq
+    private String current_car_seq = "";    //차량 seq
 
     //20200630
     private TextView rental_use_amount, rental_use_delivery, rental_use_insurance;
@@ -134,7 +136,7 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
         product_pay = rental_pay + delivery_pay + insurance_pay;
                                                                                        //Rental_list_detail에서 넘어오느 데이터
         rent_amount = intent.getStringExtra("rental_pay");                      //결제 금액(보험,딜리버리 금액 제외)
-        rent_delivery_amount = intent.getStringExtra("deliverY_pay");           //딜리버리 금액
+        rent_delivery_amount = intent.getStringExtra("delivery_pay");           //딜리버리 금액
         rent_insurance_amount = intent.getStringExtra("insurance_pay");         //보험 금액
 //        rent_coupon_amount = intent.getStringExtra("");
 //        rent_point_amount = intent.getStringExtra("");
@@ -152,6 +154,8 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
         insu_seq = intent.getStringExtra("CURRENT_INSU_SEQ");
         insu_name = intent.getStringExtra("CURRENT_INSU_NAME");
         select_delivery = intent.getIntExtra("select_delivery",0);
+        current_agent_seq = intent.getStringExtra("CURRENT_AGENT_SEQ");
+        current_car_seq = intent.getStringExtra("CURRENT_CAR_SEQ");
 
 //        reserve_address     = intent.getExtras().getString("reserve_address");  /*String형*/
 //        reserve_year        = intent.getExtras().getString("reserve_year");     /*String형*/
@@ -353,7 +357,7 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
                     intent.putExtra("INSURANCE_SEQ", insu_seq);
                     intent.putExtra("INSURANCE_NAME", insu_name);
                     intent.putExtra("INSURANCE_AMOUNT", rent_insurance_amount);
-                    intent.putExtra("COUPON_AMOUNT", coupone_seq);
+                    intent.putExtra("COUPON_SEQ", coupone_seq);
                     intent.putExtra("POINT_AMOUNT", String.valueOf(use_my_point));
                     intent.putExtra("RESERVE_YEAR", rent_reserve_year);
                     intent.putExtra("RESERVE_DATE", rent_reserve_date);
@@ -366,6 +370,8 @@ public class Rental_payment extends AppCompatActivity implements View.OnClickLis
                     intent.putExtra("RENTCAR_AGENT", rent_rentcar_agent);
                     intent.putExtra("RENTCAR_RES_ADD", rent_rentcar_res_add);
                     intent.putExtra("RENTCAR_RET_ADD", rent_rentcar_ret_add);
+                    intent.putExtra("CURRENT_AGENT_SEQ", current_agent_seq);
+                    intent.putExtra("CURRENT_CAR_SEQ", current_car_seq);
 
                     startActivity(intent);
                 }else {
