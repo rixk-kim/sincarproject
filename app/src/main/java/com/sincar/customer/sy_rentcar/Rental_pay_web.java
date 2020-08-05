@@ -94,6 +94,7 @@ public class Rental_pay_web extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rental_pay_web);
 
+        pContext = this;
         Intent intent = getIntent();
 
         rental_mWeb = (WebView) findViewById(R.id.rental_web);
@@ -148,29 +149,29 @@ public class Rental_pay_web extends AppCompatActivity {
 
         rent_approve_number =  voLoginItem.MEMBER_NO + "R" + Util.getYearMonthDay1();
 
-        String postParams = "MEMBER_NO = " + voLoginItem.MEMBER_NO;
-        postParams += "&AMOUNT = " + rent_amount;
-        postParams += "&APPROVE_NUMBER = " + rent_approve_number;
-        postParams += "&RENTCAR_DEL_TYPE = " + select_delivery;
-        postParams += "&DELIVERY_AMOUNT = " + rent_delivery_amount;
-        postParams += "&INSURANCE_SEQ = " + insu_seq;
-        postParams += "&INSURANCE_NAME = " + insu_name;
-        postParams += "&INSURANCE_AMOUNT = " + rent_insurance_amount;
-        postParams += "&COUPON_SEQ = " + coupone_seq;
-        postParams += "&POINT_AMOUNT = " + use_my_point;
-        postParams += "&RESERVE_YEAR = " + rent_reserve_year;
-        postParams += "&RESERVE_DATE = " + rent_reserve_date;
-        postParams += "&RESERVE_TIME = " + rent_reserve_time;
-        postParams += "&RETURN_YEAR = " + rent_return_year;
-        postParams += "&RETURN_DATE = " + rent_return_date;
-        postParams += "&RETURN_TIME = " + rent_return_time;
-        postParams += "&RENTCAR_CAR = " + rent_rentcar_car;
-        postParams += "&RENTCAR_NUM = " + rent_rentcar_num;
-        postParams += "&RENTCAR_AGENT = " + rent_rentcar_agent;
-        postParams += "&RENTCAR_RES_ADD = " + rent_rentcar_res_add;
-        postParams += "&RENTCAR_RET_ADD = " + rent_rentcar_ret_add;
-        postParams += "&CURRENT_AGENT_SEQ = "  + current_agent_seq;
-        postParams += "&CURRENT_CAR_SEQ = " + current_car_seq;
+        String postParams = "MEMBER_NO=" + voLoginItem.MEMBER_NO;
+        postParams += "&AMOUNT=" + rent_amount;
+        postParams += "&APPROVE_NUMBER=" + rent_approve_number;
+        postParams += "&RENTCAR_DEL_TYPE=" + select_delivery;
+        postParams += "&DELIVERY_AMOUNT=" + rent_delivery_amount;
+        postParams += "&INSURANCE_SEQ=" + insu_seq;
+        postParams += "&INSURANCE_NAME=" + insu_name;
+        postParams += "&INSURANCE_AMOUNT=" + rent_insurance_amount;
+        postParams += "&COUPON_SEQ=" + coupone_seq;
+        postParams += "&POINT_AMOUNT=" + use_my_point;
+        postParams += "&RESERVE_YEAR=" + rent_reserve_year;
+        postParams += "&RESERVE_DATE=" + rent_reserve_date;
+        postParams += "&RESERVE_TIME=" + rent_reserve_time;
+        postParams += "&RETURN_YEAR=" + rent_return_year;
+        postParams += "&RETURN_DATE=" + rent_return_date;
+        postParams += "&RETURN_TIME=" + rent_return_time;
+        postParams += "&RENTCAR_CAR=" + rent_rentcar_car;
+        postParams += "&RENTCAR_NUM=" + rent_rentcar_num;
+        postParams += "&RENTCAR_AGENT=" + rent_rentcar_agent;
+        postParams += "&RENTCAR_RES_ADD=" + rent_rentcar_res_add;
+        postParams += "&RENTCAR_RET_ADD=" + rent_rentcar_ret_add;
+        postParams += "&CURRENT_AGENT_SEQ="  + current_agent_seq;
+        postParams += "&CURRENT_CAR_SEQ=" + current_car_seq;
 
 //        SimpleDateFormat monthtype = new SimpleDateFormat("MM");
 //        SimpleDateFormat datetype = new SimpleDateFormat("dd");
@@ -610,7 +611,7 @@ public class Rental_pay_web extends AppCompatActivity {
 
     final class AndroidBridge {
         @JavascriptInterface //이게 있어야 웹에서 실행이 가능합니다.
-        public void payAndroid(String reponseData, String message, String MY_POINT) {
+        public void rentcar_payAndroid(String reponseData, String message, String MY_POINT) {
 
             System.out.println("[spirit] 웹에서 호출 reponseData =>" + reponseData);
 
@@ -622,6 +623,7 @@ public class Rental_pay_web extends AppCompatActivity {
 
                 //완료 페이지 이동
                 Intent intent = new Intent(pContext, Rental_approve.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
 

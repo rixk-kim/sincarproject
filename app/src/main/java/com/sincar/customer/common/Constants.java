@@ -19,7 +19,7 @@ public class Constants {
 //    public static final String BASE_URL = "http://14.63.214.44:7060";
 
     public static final String BASE_URL = "http://sincar.co.kr/api";
-    public static final String PAY_BASE_URL = "http://sincar.co.kr/api";
+    public static final String PAY_BASE_URL = "https://sincar.co.kr/api";
 
 
     // 연결 서버 변경
