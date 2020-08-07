@@ -79,15 +79,15 @@ public class Rental_pay_web extends AppCompatActivity {
     private String rent_rentcar_car = ""; //대여차량
     private String rent_rentcar_num = ""; //대여 차량 번호
     private String rent_rentcar_agent = ""; //지점 정보
-    private String rent_rentcar_res_add = null; //배차위치 (없을때 null)
-    private String rent_rentcar_ret_add = null; // 반납위치 (없을때 null)
+    private String rent_rentcar_res_add = ""; //배차위치 (없을때 "")
+    private String rent_rentcar_ret_add = ""; // 반납위치 (없을때 "")
     private String insu_seq = "";   //보험 seq
     private String insu_name = "";  //보험 명
     private String select_delivery; // 딜리버리 선택
     private String coupone_seq = "";    //쿠폰 seq
     private String use_my_point = "";       //사용 포인트
-    private String current_agent_seq;   //지점 SEQ
-    private String current_car_seq;     //차량 SEQ
+    private String current_agent_seq = "";   //지점 SEQ
+    private String current_car_seq = "";     //차량 SEQ
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,15 +119,16 @@ public class Rental_pay_web extends AppCompatActivity {
             }
         });
 
+        //웹뷰 셋팅
         rental_mWeb.setWebViewClient(new Rental_pay_web.MyWebClient());
         rental_mWeb.setWebChromeClient(new Rental_pay_web.MyWebChromeClient());
         WebSettings set = rental_mWeb.getSettings();
         set.setJavaScriptEnabled(true);
         set.setBuiltInZoomControls(true);
 
-        rent_amount = intent.getStringExtra("AMOUNT");                      //결제 금액(보험,딜리버리 금액 제외)
-        rent_delivery_amount = intent.getStringExtra("DELIVERY_AMOUNT");           //딜리버리 금액
-        rent_insurance_amount = intent.getStringExtra("INSURANCE_AMOUNT");         //보험 금액
+        rent_amount = intent.getStringExtra("AMOUNT");                          //결제 금액(보험,딜리버리 금액 제외)
+        rent_delivery_amount = intent.getStringExtra("DELIVERY_AMOUNT");        //딜리버리 금액
+        rent_insurance_amount = intent.getStringExtra("INSURANCE_AMOUNT");      //보험 금액
         rent_reserve_year = intent.getStringExtra("RESERVE_YEAR");              //예약 연도
         rent_reserve_date = intent.getStringExtra("RESERVE_DATE");              //예약 날짜
         rent_reserve_time = intent.getStringExtra("RESERVE_TIME");              //예약 시간
@@ -135,20 +136,21 @@ public class Rental_pay_web extends AppCompatActivity {
         rent_return_date = intent.getStringExtra("RETURN_DATE");                //반납 날짜
         rent_return_time = intent.getStringExtra("RETURN_TIME");                //반납 시간
         rent_rentcar_car = intent.getStringExtra("RENTCAR_CAR");                //대여 차종
-        rent_rentcar_num = intent.getStringExtra("RENTCAR_NUM");                 //대여 차량 번호
+        rent_rentcar_num = intent.getStringExtra("RENTCAR_NUM");                //대여 차량 번호
         rent_rentcar_agent = intent.getStringExtra("RENTCAR_AGENT");            //지점 이름
-        rent_rentcar_res_add = intent.getStringExtra("RENTCAR_RES_ADD");        //딜리버리 배차 위치(없으면 Null)
-        rent_rentcar_ret_add = intent.getStringExtra("RENTCAR_RET_ADD");        //딜리버리 반납 위치(없으면 Null)
-        insu_seq = intent.getStringExtra("INSURANCE_SEQ");
-        insu_name = intent.getStringExtra("INSURANCE_NAME");
-        select_delivery = intent.getStringExtra("RENTCAR_DEL_TYPE");
-        coupone_seq = intent.getStringExtra("COUPON_SEQ");
-        use_my_point = intent.getStringExtra("POINT_AMOUNT");
-        current_agent_seq = intent.getStringExtra("CURRENT_AGENT_SEQ");
-        current_car_seq = intent.getStringExtra("CURRENT_CAR_SEQ");
+        rent_rentcar_res_add = intent.getStringExtra("RENTCAR_RES_ADD");        //딜리버리 배차 위치(없으면 "")
+        rent_rentcar_ret_add = intent.getStringExtra("RENTCAR_RET_ADD");        //딜리버리 반납 위치(없으면 "")
+        insu_seq = intent.getStringExtra("INSURANCE_SEQ");                      //보험 seq
+        insu_name = intent.getStringExtra("INSURANCE_NAME");                    //보험 이름
+        select_delivery = intent.getStringExtra("RENTCAR_DEL_TYPE");            //딜리버리 선택방식 (0:방문, 1:왕복, 2:배차, 3:반납)
+        coupone_seq = intent.getStringExtra("COUPON_SEQ");                      //쿠폰 seq
+        use_my_point = intent.getStringExtra("POINT_AMOUNT");                   //포인트
+        current_agent_seq = intent.getStringExtra("CURRENT_AGENT_SEQ");         //지점 seq
+        current_car_seq = intent.getStringExtra("CURRENT_CAR_SEQ");             //차량 seq
 
-        rent_approve_number =  voLoginItem.MEMBER_NO + "R" + Util.getYearMonthDay1();
+        rent_approve_number = voLoginItem.MEMBER_NO + "R" + Util.getYearMonthDay1();   //예약번호 (회원번호 + R(스팀세차와 구분짓기위해 R자 추가) + 현재시간
 
+        //Url로 전송하기 위한 파라미터 스트링
         String postParams = "MEMBER_NO=" + voLoginItem.MEMBER_NO;
         postParams += "&AMOUNT=" + rent_amount;
         postParams += "&APPROVE_NUMBER=" + rent_approve_number;
@@ -170,38 +172,10 @@ public class Rental_pay_web extends AppCompatActivity {
         postParams += "&RENTCAR_AGENT=" + rent_rentcar_agent;
         postParams += "&RENTCAR_RES_ADD=" + rent_rentcar_res_add;
         postParams += "&RENTCAR_RET_ADD=" + rent_rentcar_ret_add;
-        postParams += "&CURRENT_AGENT_SEQ="  + current_agent_seq;
+        postParams += "&CURRENT_AGENT_SEQ=" + current_agent_seq;
         postParams += "&CURRENT_CAR_SEQ=" + current_car_seq;
 
-//        SimpleDateFormat monthtype = new SimpleDateFormat("MM");
-//        SimpleDateFormat datetype = new SimpleDateFormat("dd");
-//        String reserve_month = "", reserve_date = "";
-//        try {
-//            reserve_month = monthtype.format(monthtype.parse(rent_reserve_date));
-//            reserve_date = datetype.format(datetype.parse(rent_reserve_date));
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-
-//        String postParams = "APPROVE_NUMBER=" + rent_approve_number;
-//        postParams += "&MEMBER_NO=" + voLoginItem.MEMBER_NO;
-//        postParams += "&RESERVE_ADDRESS=" + rent_rentcar_res_add;
-//        postParams += "&RESERVE_YEAR=" + rent_reserve_year;
-//        postParams += "&RESERVE_MONTH=" + reserve_month;
-//        postParams += "&RESERVE_DAY=" + reserve_date;
-//        postParams += "&AGENT_SEQ=" + '0';
-//        postParams += "&AGENT_COMPANY=" + rent_rentcar_agent;
-//        postParams += "&AGENT_TIME=" + rent_reserve_time;
-//        postParams += "&WASH_PLACE=" + '0';
-//        postParams += "&ADD_SERVICE=" + "";
-//        postParams += "&CAR_COMPANY=" + "현대";
-//        postParams += "&CAR_MODEL=" + rent_rentcar_car;
-//        postParams += "&CAR_NUMBER=" + rent_rentcar_num;
-//        postParams += "&POINT_USE=" + use_my_point;
-//        postParams += "&COUPONE_SEQ=" + coupone_seq;
-//        postParams += "&CHARGE_PAY=" + rent_amount;
-//        postParams += "&SEQ=" + '0';
-
+        //자바스크립트 인터페이스 (안드로이드 브릿지)
         rental_mWeb.addJavascriptInterface(new Rental_pay_web.AndroidBridge(), "BRIDGE");
 
         /**************************************************************
@@ -214,13 +188,14 @@ public class Rental_pay_web extends AppCompatActivity {
             cookieManager.setAcceptThirdPartyCookies(rental_mWeb, true);
         }
 
-        if(Integer.parseInt(rent_amount) <= 0) {
+        if (Integer.parseInt(rent_amount) <= 0) {
             //실 결제 금액이 없을때 들어가야할 코드 결제 페이지로 가지 말아야함
         } else {
             rental_mWeb.loadUrl(RENTCAR_PAY_REQUEST + "?" + postParams);
         }
     }
 
+    //웹크롬클라이언트 설정
     class MyWebChromeClient extends WebChromeClient {
         ProgressBar rentalpb = (ProgressBar) findViewById(R.id.rental_pb);
 
@@ -269,6 +244,7 @@ public class Rental_pay_web extends AppCompatActivity {
         alert.show();
     }
 
+    //웹클라이언트 설정
     class MyWebClient extends WebViewClient {
         public boolean shouldOverrideUrlLoading(final WebView view, String url) {
             Log.d("================url::", url);
@@ -305,6 +281,7 @@ public class Rental_pay_web extends AppCompatActivity {
                         startActivity(intent);
                         override = true;
                     } catch (ActivityNotFoundException ex) {
+                        ex.printStackTrace();
                     }
                     return override;
                 } else {
@@ -399,10 +376,8 @@ public class Rental_pay_web extends AppCompatActivity {
             }
         }
 
-        // �ܺ� �� ȣ��
         public boolean callApp(String url) {
             Intent intent = null;
-            // ����Ʈ ���ռ� üũ : 2014 .01�߰�
             try {
                 intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
 //                Log.e("intent getScheme     +++===>", intent.getScheme());
